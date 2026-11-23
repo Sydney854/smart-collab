@@ -539,7 +539,7 @@ Antigravity écrit le code ; ce cahier des charges et les fichiers du dossier de
 3. Une branche Git par lot, fusionnée seulement après la démo et la liste de contrôle validées par la cheffe de projet.
 4. Les tests automatiques du lot passent avant la fusion.
 5. Toute décision qui change ce cahier des charges est notée dans le journal des décisions du dépôt, puis reportée ici.
-6. Le prototype et l'archive DreamsERP restent dans `03_SOURCES_REFERENCE` comme référence visuelle ; leur code n'est jamais copié dans `src/`.
+6. Le prototype reste dans `03_SOURCES_REFERENCE` comme référence visuelle ; son code n'est jamais copié dans `src/`. Le code DreamsERP (version React / Next.js) peut l'être sous licence Extended, selon `00_GOUVERNANCE/LICENCES.md` (décision du 23/11/2026).
 
 ## 15. Points ouverts
 
