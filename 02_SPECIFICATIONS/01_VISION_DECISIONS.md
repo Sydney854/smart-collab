@@ -11,7 +11,7 @@ Le prototype RUTHY'S ERP (v105 à v107) sert uniquement de référence pour les 
 | D1 | Le produit s'appelle Smart Collab | Documents, dépôt, interface et site commercial portent ce nom |
 | D2 | Produit multi-entreprises et multi-métiers | Données de chaque entreprise cliente strictement séparées (§10, §11) |
 | D3 | Aucune donnée ni règle de RUTHY'S | Base vide à l'installation ; données de démonstration fictives (§12) |
-| D4 | Écrans : ceux du prototype ; les écrans absents sont maquettés en s'inspirant de DreamsERP, sans réutiliser ses fichiers | Inventaire des écrans (§5) |
+| D4 | Écrans : ceux du prototype ; les écrans absents partent des écrans DreamsERP, dont le code est réutilisable sous licence Extended (décision du 23/11/2026) | Inventaire des écrans (§5) |
 | D5 | Règles de calcul configurables par entreprise | Moteur de configuration (§7) |
 | D6 | Rôles : un préréglage par métier, modifiable par l'administrateur | Rôles et droits (§4) |
 | D7 | Hors ligne pour la caisse, l'inventaire, les réceptions, le terrain chantier et la saisie des temps | Mode hors ligne (§9) |

@@ -7,7 +7,7 @@ Les neuf décisions ont été prises le 22 novembre 2026 ; deux demandent encore
 | Sujet | Décision | Reporté en |
 | --- | --- | --- |
 | Mode de vente | Les deux : abonnement en ligne hébergé par l'éditeur et installation chez le client | §12, §10, lot 12 |
-| Licence DreamsERP | Inspiration seulement : aucun fichier de l'archive n'est réutilisé | §5, §10, §14 |
+| Licence DreamsERP | Achetée sous licence Extended (23/11/2026) : code et composants réutilisables dans Smart Collab ; données, textes et images de démonstration non repris | §5, §10, §14, `00_GOUVERNANCE/LICENCES.md` |
 | Pays de lancement | Côte d'Ivoire et zone UEMOA | §6 (paie, taxes, comptabilité), §12 |
 | Premier métier commercialisé | Commerce de détail et Multi-sites | §13 (lots 1 à 7) |
 | Hébergement | Proposition faite, à valider | §10 |

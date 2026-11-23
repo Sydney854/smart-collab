@@ -41,7 +41,7 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | Qualité | Vitest (tests unitaires), Playwright (tests d'écrans), GitHub Actions (contrôle à chaque modification), Sentry (erreurs en production) | Chaque lot testé avant livraison |
 | Organisation du code | Dépôt unique pnpm + Turborepo : `apps/web`, `apps/site`, `apps/console`, `packages/ui`, `packages/rules`, `packages/schemas`, `supabase/` | Code partagé entre application, site et console |
 
-DreamsERP n'est pas copié : ses écrans servent de référence visuelle et sa version Next.js / React de **référence technique** (mêmes bibliothèques open source, même organisation de l'écran). Aucun de ses fichiers n'est réutilisé (décision du 22 novembre 2026). Détail des six versions de DreamsERP : `03_SOURCES_REFERENCE/DREAMSERP/SITE_DOCUMENTATION/STACKS_TECHNIQUES.md`.
+DreamsERP est acheté sous **licence Extended** (décision du 23 novembre 2026, `00_GOUVERNANCE/LICENCES.md`) : sa version Next.js / React est le **point de départ du code de l'écran** (composants, dispositions, écrans), adapté à nos jetons, à Supabase et aux exigences. Ses données de démonstration, textes et images ne sont pas repris. Détail des six versions de DreamsERP : `03_SOURCES_REFERENCE/DREAMSERP/SITE_DOCUMENTATION/STACKS_TECHNIQUES.md`.
 
 #### Points de vigilance liés à ces choix
 

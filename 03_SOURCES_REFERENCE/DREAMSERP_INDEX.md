@@ -1,6 +1,6 @@
-# Index des pages DreamsERP (inspiration seulement)
+# Index des pages DreamsERP
 
-> Liste transmise par la cheffe de projet le 22/11/2026. Ces pages servent à maquetter les écrans absents du prototype ; aucun fichier n'est réutilisé.
+> Liste transmise par la cheffe de projet le 22/11/2026. Ces pages servent à maquetter les écrans absents du prototype ; leur code est réutilisable sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`).
 > Corrections faites ici : quelques liens de la liste d'origine pointaient vers une mauvaise page (signalé par « lien corrigé »).
 
 | Libellé | Page |

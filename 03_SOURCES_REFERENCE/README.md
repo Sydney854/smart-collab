@@ -1,6 +1,6 @@
 # Sources de référence — Smart Collab
 
-Ces sources servent à **voir** à quoi doivent ressembler les écrans. Aucun fichier n'est copié dans `src/`.
+Ces sources servent à **voir** à quoi doivent ressembler les écrans. Le prototype n'est jamais copié dans `src/` ; le code DreamsERP peut l'être sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`).
 
 ## 1. Prototype (écrans à reproduire)
 
@@ -11,7 +11,7 @@ Ces sources servent à **voir** à quoi doivent ressembler les écrans. Aucun fi
 
 ## 2. DreamsERP (inspiration pour les écrans absents du prototype)
 
-- Décision du 22/11/2026 : **inspiration seulement**, aucun fichier de l'archive n'est réutilisé.
+- Décision du 23/11/2026 : DreamsERP acheté sous **licence Extended** ; ses composants et son code (version React / Next.js) sont réutilisables dans Smart Collab (voir `00_GOUVERNANCE/LICENCES.md`).
 - Index des pages de démonstration par module : `DREAMSERP_INDEX.md`.
 - Captures de toutes les pages (menu + pages liées, 231 pages en thème sombre et clair) et de leurs fonctionnalités (en-tête, menus, onglets, fenêtres), vue ordinateur 1440 px : `DREAMSERP/CAPTURES.md` et `DREAMSERP/captures/`.
 - Site commercial et documentation des six versions (Tailwind, Angular, React, Next.js, Vue, Laravel) : dossier `DREAMSERP/SITE_DOCUMENTATION/` (`CAPTURES.md`, `captures/`, `STACKS_TECHNIQUES.md`).

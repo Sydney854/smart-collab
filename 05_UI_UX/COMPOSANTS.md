@@ -1,6 +1,6 @@
 # Composants à coder une fois (package `packages/ui`)
 
-Base technique (décision du 22/11/2026) : Ant Design v6 + Preline v4, comme la version React de DreamsERP, habillés avec les jetons de `DESIGN_TOKENS.md`. Les composants ci-dessous sont construits par-dessus.
+Base technique (décisions des 22 et 23/11/2026) : Ant Design v6 + Preline v4 et les composants de la version React / Next.js de DreamsERP (licence Extended, `00_GOUVERNANCE/LICENCES.md`), habillés avec les jetons de `DESIGN_TOKENS.md`. Les composants ci-dessous partent de leurs équivalents DreamsERP (section « UI Interface » : `03_SOURCES_REFERENCE/DREAMSERP/captures/mode-*/18_Interface-utilisateur/`).
 
 | Composant | Où on le voit dans le prototype | Exigences |
 |-----------|--------------------------------|-----------|

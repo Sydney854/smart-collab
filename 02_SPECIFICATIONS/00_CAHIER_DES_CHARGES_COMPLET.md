@@ -13,7 +13,7 @@ Le prototype RUTHY'S ERP (v105 à v107) sert uniquement de référence pour les 
 | D1 | Le produit s'appelle Smart Collab | Documents, dépôt, interface et site commercial portent ce nom |
 | D2 | Produit multi-entreprises et multi-métiers | Données de chaque entreprise cliente strictement séparées (§10, §11) |
 | D3 | Aucune donnée ni règle de RUTHY'S | Base vide à l'installation ; données de démonstration fictives (§12) |
-| D4 | Écrans : ceux du prototype ; les écrans absents sont maquettés en s'inspirant de DreamsERP, sans réutiliser ses fichiers | Inventaire des écrans (§5) |
+| D4 | Écrans : ceux du prototype ; les écrans absents partent des écrans DreamsERP, dont le code est réutilisable sous licence Extended (décision du 23/11/2026) | Inventaire des écrans (§5) |
 | D5 | Règles de calcul configurables par entreprise | Moteur de configuration (§7) |
 | D6 | Rôles : un préréglage par métier, modifiable par l'administrateur | Rôles et droits (§4) |
 | D7 | Hors ligne pour la caisse, l'inventaire, les réceptions, le terrain chantier et la saisie des temps | Mode hors ligne (§9) |
@@ -387,7 +387,7 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | Qualité | Vitest (tests unitaires), Playwright (tests d'écrans), GitHub Actions (contrôle à chaque modification), Sentry (erreurs en production) | Chaque lot testé avant livraison |
 | Organisation du code | Dépôt unique pnpm + Turborepo : `apps/web`, `apps/site`, `apps/console`, `packages/ui`, `packages/rules`, `packages/schemas`, `supabase/` | Code partagé entre application, site et console |
 
-DreamsERP n'est pas copié : ses écrans servent de référence visuelle et sa version Next.js / React de **référence technique** (mêmes bibliothèques open source, même organisation de l'écran). Aucun de ses fichiers n'est réutilisé (décision du 22 novembre 2026). Détail des six versions de DreamsERP : `03_SOURCES_REFERENCE/DREAMSERP/SITE_DOCUMENTATION/STACKS_TECHNIQUES.md`.
+DreamsERP est acheté sous **licence Extended** (décision du 23 novembre 2026, `00_GOUVERNANCE/LICENCES.md`) : sa version Next.js / React est le **point de départ du code de l'écran** (composants, dispositions, écrans), adapté à nos jetons, à Supabase et aux exigences. Ses données de démonstration, textes et images ne sont pas repris. Détail des six versions de DreamsERP : `03_SOURCES_REFERENCE/DREAMSERP/SITE_DOCUMENTATION/STACKS_TECHNIQUES.md`.
 
 #### Points de vigilance liés à ces choix
 
@@ -548,7 +548,7 @@ Les neuf décisions ont été prises le 22 novembre 2026 ; deux demandent encore
 | Sujet | Décision | Reporté en |
 | --- | --- | --- |
 | Mode de vente | Les deux : abonnement en ligne hébergé par l'éditeur et installation chez le client | §12, §10, lot 12 |
-| Licence DreamsERP | Inspiration seulement : aucun fichier de l'archive n'est réutilisé | §5, §10, §14 |
+| Licence DreamsERP | Achetée sous licence Extended (23/11/2026) : code et composants réutilisables dans Smart Collab ; données, textes et images de démonstration non repris | §5, §10, §14, `00_GOUVERNANCE/LICENCES.md` |
 | Pays de lancement | Côte d'Ivoire et zone UEMOA | §6 (paie, taxes, comptabilité), §12 |
 | Premier métier commercialisé | Commerce de détail et Multi-sites | §13 (lots 1 à 7) |
 | Hébergement | Proposition faite, à valider | §10 |

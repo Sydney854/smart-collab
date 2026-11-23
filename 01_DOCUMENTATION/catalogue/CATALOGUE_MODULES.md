@@ -5,7 +5,7 @@ Domaines métier : Retail · Multi-sites · Audit/Conseil/Projet · Génie élec
 
 ---
 
-> **Lecture des colonnes « Origine »** : R = écran ou fonction présent dans le prototype ; D = fonction repérée dans DreamsERP (inspiration seulement) ; R+D = les deux.  
+> **Lecture des colonnes « Origine »** : R = écran ou fonction présent dans le prototype ; D = fonction repérée dans DreamsERP (code réutilisable sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`)) ; R+D = les deux.  
 > **Fonctionnement des applications (installation, dépendances, interconnexion)** : voir `02_SPECIFICATIONS/03_CATALOGUE_APPLICATIONS.md` et `16_CONTRAT_APPLICATION.md`.
 
 # 1. Principes de modularité
@@ -173,7 +173,7 @@ Domaines métier : Retail · Multi-sites · Audit/Conseil/Projet · Génie élec
 
 ## I. Design System / UX Layer *(fondation — non cochable)*
 
-Couche technique **toujours présente**, construite à partir des écrans du prototype ; DreamsERP sert d'inspiration, aucun de ses fichiers n'est réutilisé.
+Couche technique **toujours présente**, construite à partir des écrans du prototype ; les composants et le code de DreamsERP (version React / Next.js) sont réutilisés sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`).
 
 ### Base UI
 Alerts · Accordion · Avatar · Badges · Buttons · Breadcrumb · Cards · Dropdown · Grid · Images · Modals · Offcanvas · Pagination · Popovers · Progress · Tabs · Typography

@@ -1,6 +1,6 @@
 # Captures DreamsERP — site commercial et documentation
 
-Pages publiques de l'éditeur, séparées des captures de l'application (`../CAPTURES.md`). Capturées le 22/11/2026. **Inspiration seulement** : rien n'est repris dans Smart Collab.
+Pages publiques de l'éditeur, séparées des captures de l'application (`../CAPTURES.md`). Capturées le 22/11/2026. **Référence** : le code de l'application DreamsERP est réutilisable sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`) ; les textes et visuels commerciaux ne sont pas repris dans Smart Collab.
 
 - `captures/site.*.png` : page d'accueil commerciale.
 - `captures/doc.*.png` : documentation des six versions (Tailwind, Angular, React, Next.js, Vue, Laravel).

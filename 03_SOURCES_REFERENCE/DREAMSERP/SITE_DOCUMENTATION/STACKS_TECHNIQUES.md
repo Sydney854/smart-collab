@@ -4,7 +4,7 @@
 
 DreamsERP est vendu en six versions qui affichent les mêmes écrans : **Tailwind (HTML)**, **Angular**, **React**, **Next.js**, **Vue** et **Laravel**. Cette fiche résume ce que la documentation de chacune dit de sa technique, pour comparer avec le socle choisi par Smart Collab (`02_SPECIFICATIONS/10_ARCHITECTURE_STACK.md`).
 
-Rappel : DreamsERP sert d'**inspiration seulement**. Aucun fichier n'est réutilisé (décision du 22/11/2026), et la licence Envato (Regular / Extended) ne couvre qu'un seul produit final. Les idées notées en fin de fiche sont à réécrire, pas à copier.
+Licence : DreamsERP a été acheté sous **licence Extended** (décision du 23/11/2026, `00_GOUVERNANCE/LICENCES.md`). Son code et ses composants (version React / Next.js) sont réutilisables dans Smart Collab, un seul produit final dont les clients paient l'usage. Ses données de démonstration, ses textes et ses images ne sont pas repris.
 
 Sources : [documentation](https://dreamserp.dreamstechnologies.com/documentation/) ·
 [Tailwind](https://dreamserp.dreamstechnologies.com/documentation/tailwind.html) ·
@@ -111,7 +111,7 @@ Sources : [documentation](https://dreamserp.dreamstechnologies.com/documentation
 
 Décision du 22/11/2026 : la version Next.js / React de DreamsERP devient la **référence technique** de l'écran (voir §6). Les autres versions n'apportent rien de plus au projet ; Next.js est retenu pour le **site commercial**.
 
-Idées de conception à reprendre **en les réécrivant** (aucun code copié) — à confronter aux exigences avant adoption :
+Mécanismes à reprendre depuis le code DreamsERP (licence Extended), en les adaptant aux exigences avant adoption :
 
 | Idée vue dans DreamsERP React / Next.js | Équivalent Smart Collab |
 |---|---|

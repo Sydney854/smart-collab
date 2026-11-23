@@ -7,7 +7,8 @@
 | 2026-11 | Le prototype HTML reste une référence d'écrans, pas du code de production | Fichier unique sans base de données ni serveur |
 | 2026-11-22 | Le produit s'appelle Smart Collab ; produit multi-entreprises et multi-métiers | Vendre à d'autres entreprises que RUTHY'S |
 | 2026-11-22 | Aucune donnée ni règle de RUTHY'S ; règles de calcul configurables par entreprise | Produit générique |
-| 2026-11-22 | Écrans du prototype ; écrans absents maquettés en s'inspirant de DreamsERP, sans réutiliser ses fichiers | Cohérence visuelle, respect de la licence |
+| 2026-11-22 | Écrans du prototype ; écrans absents maquettés en s'inspirant de DreamsERP, sans réutiliser ses fichiers *(remplacée le 23/11/2026, ligne suivante)* | Cohérence visuelle, respect de la licence |
+| 2026-11-23 | DreamsERP acheté sous **licence Extended** : son code et ses composants (version React / Next.js) sont réutilisables dans Smart Collab ; données, textes et images de démonstration non repris | Gagner du temps de développement ; licence adaptée à un produit payant |
 | 2026-11-22 | Chaque module est une application installable et reliée aux autres (modèle Odoo) | Modularité réelle |
 | 2026-11-22 | Hors ligne : caisse, inventaire, réceptions, terrain chantier, saisie des temps | Coupures internet fréquentes |
 | 2026-11-22 | Agent de code : Antigravity | Choix de la cheffe de projet |

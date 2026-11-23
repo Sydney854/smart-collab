@@ -24,7 +24,7 @@ Ne lis **pas** `07_ARCHIVES/` : c'est un ancien cadrage, remplacé.
 - **Montants :** `numeric`, jamais `float`.
 - **Droits :** vérifiés côté serveur à chaque action, rôle lu dans la session.
 - **Langues :** toute chaîne affichée passe par les fichiers de traduction `fr` et `en`.
-- **Interface :** reproduire les écrans de `05_UI_UX/` (prototype ou maquette validée). DreamsERP est une **inspiration** : ne copie aucun de ses fichiers.
+- **Interface :** reproduire les écrans de `05_UI_UX/` (prototype ou maquette validée). Le code DreamsERP (version React / Next.js, licence Extended, `00_GOUVERNANCE/LICENCES.md`) peut servir de point de départ : garde l'avis de licence en tête des fichiers repris, remplace ses couleurs par nos jetons, ses données de démonstration par nos données fictives, et ses données locales par Supabase. Ne publie jamais le code DreamsERP seul (dépôt public, paquet ou modèle revendu).
 - **Données de RUTHY'S :** aucune. Les données de démonstration sont fictives.
 - Code applicatif dans `src/` (monorepo décrit en `10_ARCHITECTURE_STACK.md`).
 - Après chaque livrable : commandes exactes pour **installer, lancer et tester**, comptes de démo, et résultat des tests.

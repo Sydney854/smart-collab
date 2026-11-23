@@ -15,7 +15,7 @@ Objectif :
 3. Initialiser `packages/ui` : jetons de `05_UI_UX/DESIGN_TOKENS.md` (thème clair et sombre), composants de `05_UI_UX/COMPOSANTS.md`, page de démonstration des composants.
 
 Interdit dans ce lot :
-- Aucune logique métier, aucun serveur, aucune base de données. Aucun fichier de DreamsERP ou du prototype copié.
+- Aucune logique métier, aucun serveur, aucune base de données. Aucun fichier du prototype copié ; composants DreamsERP réutilisables sous licence Extended (voir `00_GOUVERNANCE/LICENCES.md`).
 - Tout ce qui appartient à un autre lot (02_SPECIFICATIONS/13_PLAN_LOTS.md).
 
 Livrable obligatoire :

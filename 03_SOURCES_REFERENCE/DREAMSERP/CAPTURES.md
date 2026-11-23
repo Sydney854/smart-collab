@@ -1,6 +1,6 @@
 # Captures DreamsERP (version Tailwind)
 
-Référence visuelle et fonctionnelle pour maquetter les écrans absents du prototype RUTHY'S (voir `../README.md`, section 2, et `../DREAMSERP_INDEX.md`). **Inspiration seulement** : aucun fichier, texte, image ni donnée de démonstration n'est repris dans Smart Collab.
+Référence visuelle et fonctionnelle pour maquetter les écrans absents du prototype RUTHY'S (voir `../README.md`, section 2, et `../DREAMSERP_INDEX.md`). **Référence visuelle et code réutilisable sous licence Extended** (voir `00_GOUVERNANCE/LICENCES.md`) : composants et code réutilisables dans Smart Collab ; les textes, images et données de démonstration ne sont pas repris.
 
 ## Méthode
 
