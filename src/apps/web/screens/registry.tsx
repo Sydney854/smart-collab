@@ -9,7 +9,7 @@ import { DashboardScreen } from "./DashboardScreen";
 import { PlannedScreen } from "./PlannedScreen";
 
 /** Lot prévu pour chaque module de démonstration (02_SPECIFICATIONS/13_PLAN_LOTS.md). */
-const PLANNED = { sales: 2, stock: 2, purchases: 3, pos: 4, finance: 7, apps: 1 } as const;
+const PLANNED = { sales: 5, stock: 2, purchases: 4, pos: 3, finance: 7, apps: 1 } as const;
 
 /**
  * Écrans de l'application de démonstration. Chaque écran est écrit une fois et

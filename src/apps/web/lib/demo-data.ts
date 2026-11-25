@@ -15,6 +15,8 @@ export type DemoProduct = {
 };
 
 export const DEMO_COMPANY = "Boutique Démo Cocody (fictive)";
+/** Devise d'affichage de l'entreprise fictive (réglage de l'entreprise à partir du lot 1) */
+export const DEMO_CURRENCY = "F";
 
 export const demoProducts: DemoProduct[] = [
   { id: "1", reference: "PRD-0001", name: "Riz parfumé 5 kg", category: "Épicerie", price: "4500", stock: 120, status: "inStock" },

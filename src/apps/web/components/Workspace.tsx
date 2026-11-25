@@ -4,6 +4,7 @@ import { AppShell, type LayoutMode, OfflineBanner } from "@smart-collab/ui";
 import { PackageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import { LAYOUT_COOKIE, writeCookie } from "@/lib/preferences";
 import { useScreens } from "@/screens/registry";
 import { HeaderControls } from "./HeaderControls";
@@ -12,7 +13,11 @@ import { HeaderControls } from "./HeaderControls";
 export function Workspace({ initialMode, initialScreen, sidebarOpen }: { initialMode: LayoutMode; initialScreen?: string; sidebarOpen: boolean }) {
   const t = useTranslations("dashboard");
   const tHeader = useTranslations("header");
+  const tScreens = useTranslations("screens");
   const screens = useScreens();
+  // Connexion, profil, paramètres et recherche globale arrivent au lot 1 (13_PLAN_LOTS.md)
+  const notYet = (name: string) => () => toast.info(tScreens("plannedShort", { name, lot: 1 }));
+  const tShell = useTranslations("ui.shell");
 
   // L'adresse suit l'écran courant (/?ecran=…), sans recharger la page
   const syncUrl = useCallback((key: string | null) => {
@@ -35,6 +40,8 @@ export function Workspace({ initialMode, initialScreen, sidebarOpen }: { initial
       banner={<OfflineBanner />}
       onModeChange={(mode) => writeCookie(LAYOUT_COOKIE, mode)}
       onScreenChange={syncUrl}
+      userActions={{ onProfile: notYet(tShell("profile")), onSettings: notYet(tShell("settings")), onSignOut: notYet(tShell("signOut")) }}
+      onSearch={() => notYet(tShell("searchName"))()}
     />
   );
 }

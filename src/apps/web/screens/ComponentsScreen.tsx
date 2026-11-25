@@ -27,7 +27,7 @@ import { Switch } from "@smart-collab/ui/components/ui/switch";
 import { BanknoteIcon, FileWarningIcon, ReceiptIcon, ShoppingCartIcon, StoreIcon, WalletIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { type ReactNode, useMemo, useState } from "react";
-import { DEMO_COMPANY, type DemoProduct, demoProducts, demoReportLines, demoSales } from "@/lib/demo-data";
+import { DEMO_COMPANY, DEMO_CURRENCY, type DemoProduct, demoProducts, demoReportLines, demoSales } from "@/lib/demo-data";
 
 /** Bloc de la page : titre, explication courte, puis le composant. */
 function Section({ id, title, hint, children }: { id: string; title: string; hint?: string; children: ReactNode }) {
@@ -70,7 +70,10 @@ export function ComponentsScreen() {
   );
 
   const months = t.raw("chart.months") as string[];
-  const millions = useMemo(() => (v: number) => `${format.number(v, { maximumFractionDigits: 1 })} M F`, [format]);
+  const millions = useMemo(
+    () => (v: number) => t("chart.millions", { value: format.number(v, { maximumFractionDigits: 1 }), currency: DEMO_CURRENCY }),
+    [format, t],
+  );
   const series = useMemo(
     () => [
       { name: t("chart.thisYear"), data: demoSales.thisYear, color: "accent" as const },
@@ -135,7 +138,7 @@ export function ComponentsScreen() {
             columns={columns}
             data={demoProducts}
             getRowId={(r) => r.id}
-            exportName="produits"
+            exportName={t("list.exportName")}
             detailTitle={(r) => r.name}
             renderDetail={(r) => (
               <div className="flex flex-col gap-3 text-ink-2">
@@ -145,8 +148,8 @@ export function ComponentsScreen() {
                 <StatusBadge status={r.status} />
               </div>
             )}
-            bulkActions={() => (
-              <Button size="sm" variant="outline">
+            bulkActions={(selected) => (
+              <Button size="sm" variant="outline" onClick={() => toast.info(t("list.archived", { count: selected.length }))}>
                 {t("list.archive")}
               </Button>
             )}
@@ -278,7 +281,7 @@ export function ComponentsScreen() {
         <Section id="feedback" title={t("sections.feedback")}>
           <div className="grid gap-4 @4xl:grid-cols-2">
             <div className="rounded-xl border bg-card shadow-card">
-              <EmptyState action={<Button>{t("list.title")}</Button>} />
+              <EmptyState action={<Button onClick={() => toast.info(t("feedback.emptyAction"))}>{t("list.title")}</Button>} />
             </div>
             <div className="flex flex-col items-start gap-3 rounded-xl border bg-card p-4 shadow-card">
               <Button variant="destructive" onClick={() => setConfirmOpen(true)}>

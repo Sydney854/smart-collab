@@ -69,7 +69,8 @@
         "Apr",
         "May",
         "Jun"
-      ]
+      ],
+      "millions": "{value}M {currency}"
     },
     "list": {
       "title": "Products",
@@ -80,7 +81,9 @@
       "stock": "Stock",
       "status": "Status",
       "detailStock": "Quantity in stock: {count}",
-      "archive": "Archive"
+      "archive": "Archive",
+      "exportName": "products",
+      "archived": "{count, plural, one {# product archived} other {# products archived}} (demo)"
     },
     "form": {
       "general": "General",
@@ -132,7 +135,8 @@
       "toastUndo": "Message with “Undo”",
       "draftDeleted": "Draft deleted",
       "restored": "Draft restored",
-      "confirmAction": "Cancel invoice"
+      "confirmAction": "Cancel invoice",
+      "emptyAction": "Opening the product list (demo)"
     }
   },
   "ui": {
@@ -148,7 +152,8 @@
       "userMenu": "User menu",
       "profile": "My profile",
       "settings": "Settings",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "searchName": "Global search"
     },
     "period": {
       "today": "Today",
@@ -159,7 +164,8 @@
       "custom": "Custom",
       "label": "Period",
       "from": "From",
-      "to": "To"
+      "to": "To",
+      "dateLabel": "{label}: {date}"
     },
     "kpi": {
       "customize": "Customise indicator",
@@ -304,7 +310,8 @@
     "date": "Date",
     "amount": "Amount",
     "status": "Status",
-    "openSale": "Sale {name}"
+    "openSale": "Sale {name}",
+    "exportName": "sales"
   },
   "screens": {
     "planned": "This screen will be built in lot {lot}. It is used here to try the List and Mosaic modes.",
@@ -317,6 +324,7 @@
       "finance": "Cash and accounting",
       "apps": "Install or remove modules",
       "components": "Component catalogue (demo)"
-    }
+    },
+    "plannedShort": "“{name}” comes in lot {lot}"
   }
 }

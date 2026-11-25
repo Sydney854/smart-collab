@@ -15,7 +15,7 @@ import { BanknoteIcon, FileWarningIcon, ShoppingCartIcon, WalletIcon } from "luc
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { type DemoSale, demoRecentSales, demoRevenue } from "@/lib/demo-data";
+import { DEMO_CURRENCY, type DemoSale, demoRecentSales, demoRevenue } from "@/lib/demo-data";
 
 const RANGES = ["3", "6", "12"] as const;
 type Range = (typeof RANGES)[number];
@@ -38,7 +38,10 @@ export function DashboardScreen() {
     ],
     [n, tDemo],
   );
-  const millions = useMemo(() => (v: number) => `${format.number(v, { maximumFractionDigits: 1 })} M F`, [format]);
+  const millions = useMemo(
+    () => (v: number) => tDemo("chart.millions", { value: format.number(v, { maximumFractionDigits: 1 }), currency: DEMO_CURRENCY }),
+    [format, tDemo],
+  );
 
   const columns = useMemo<DataListColumn<DemoSale>[]>(
     () => [
@@ -95,7 +98,7 @@ export function DashboardScreen() {
           columns={columns}
           data={demoRecentSales}
           getRowId={(r) => r.id}
-          exportName="ventes"
+          exportName={t("exportName")}
           detailTitle={(r) => t("openSale", { name: r.invoice })}
           renderDetail={(r) => (
             <div className="flex flex-col gap-3">

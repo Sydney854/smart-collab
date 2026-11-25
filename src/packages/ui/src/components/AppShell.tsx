@@ -54,9 +54,11 @@ import { TabsBar } from "./workspace/TabsBar";
 import type { ScreenDef } from "./workspace/types";
 
 export type ShellUser = { name: string; role: string; initials: string };
+/** Actions du menu utilisateur (profil, paramètres, déconnexion) */
+export type UserActions = { onProfile?: () => void; onSettings?: () => void; onSignOut?: () => void };
 export type ShellCompany = { name: string; detail: string; logo: ReactNode };
 
-function UserMenu({ user, onSignOut }: { user: ShellUser; onSignOut?: () => void }) {
+function UserMenu({ user, actions }: { user: ShellUser; actions: UserActions }) {
   const t = useTranslations("ui.shell");
   const { isMobile } = useSidebar();
   return (
@@ -79,14 +81,14 @@ function UserMenu({ user, onSignOut }: { user: ShellUser; onSignOut?: () => void
               <ChevronsUpDownIcon className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <UserMenuContent user={user} side={isMobile ? "bottom" : "right"} onSignOut={onSignOut} />
+          <UserMenuContent user={user} side={isMobile ? "bottom" : "right"} actions={actions} />
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
   );
 }
 
-function UserMenuContent({ user, side, onSignOut }: { user: ShellUser; side: "bottom" | "right"; onSignOut?: () => void }) {
+function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bottom" | "right"; actions: UserActions }) {
   const t = useTranslations("ui.shell");
   return (
     <DropdownMenuContent className="min-w-56" side={side} align="end" sideOffset={4}>
@@ -96,15 +98,15 @@ function UserMenuContent({ user, side, onSignOut }: { user: ShellUser; side: "bo
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={actions.onProfile}>
           <UserIcon /> {t("profile")}
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={actions.onSettings}>
           <SettingsIcon /> {t("settings")}
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem variant="destructive" onSelect={onSignOut}>
+      <DropdownMenuItem variant="destructive" onSelect={actions.onSignOut}>
         <LogOutIcon /> {t("signOut")}
       </DropdownMenuItem>
     </DropdownMenuContent>
@@ -112,7 +114,7 @@ function UserMenuContent({ user, side, onSignOut }: { user: ShellUser; side: "bo
 }
 
 /** Menu utilisateur compact de l'en-tête (mode Mosaïque, sans menu latéral). */
-function HeaderUserMenu({ user, onSignOut }: { user: ShellUser; onSignOut?: () => void }) {
+function HeaderUserMenu({ user, actions }: { user: ShellUser; actions: UserActions }) {
   const t = useTranslations("ui.shell");
   return (
     <DropdownMenu>
@@ -123,7 +125,7 @@ function HeaderUserMenu({ user, onSignOut }: { user: ShellUser; onSignOut?: () =
           </Avatar>
         </button>
       </DropdownMenuTrigger>
-      <UserMenuContent user={user} side="bottom" onSignOut={onSignOut} />
+      <UserMenuContent user={user} side="bottom" actions={actions} />
     </DropdownMenu>
   );
 }
@@ -182,7 +184,8 @@ export function AppShell({
   defaultSidebarOpen = true,
   onModeChange,
   onScreenChange,
-  onSignOut,
+  userActions = {},
+  onSearch,
 }: {
   /** Écrans des applications installées (EF-APP-04) */
   screens: ScreenDef[];
@@ -201,7 +204,9 @@ export function AppShell({
   onModeChange?: (mode: LayoutMode) => void;
   /** Appelé quand l'écran courant change (ex. pour mettre à jour l'adresse) */
   onScreenChange?: (key: string | null) => void;
-  onSignOut?: () => void;
+  userActions?: UserActions;
+  /** Recherche globale (EF-APP-04) : appelée à la validation du champ */
+  onSearch?: (query: string) => void;
 }) {
   const t = useTranslations("ui.shell");
   const tw = useTranslations("ui.workspace");
@@ -241,17 +246,25 @@ export function AppShell({
   }));
 
   const searchBox = (
-    <div className="relative ml-2 hidden max-w-72 flex-1 lg:block">
+    <form
+      role="search"
+      className="relative ml-2 hidden max-w-72 flex-1 lg:block"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
+        if (q) onSearch?.(q);
+      }}
+    >
       <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-      <Input type="search" placeholder={t("search")} aria-label={t("search")} className="pl-8" />
-    </div>
+      <Input type="search" name="q" placeholder={t("search")} aria-label={t("search")} className="pl-8" />
+    </form>
   );
 
   const right = (
     <div className="ml-auto flex min-w-0 items-center gap-1">
       <ModeSwitch mode={state.mode} onChange={setMode} />
       {headerRight}
-      {state.mode === "mosaic" && <HeaderUserMenu user={user} onSignOut={onSignOut} />}
+      {state.mode === "mosaic" && <HeaderUserMenu user={user} actions={userActions} />}
     </div>
   );
 
@@ -324,7 +337,7 @@ export function AppShell({
           <AppNav screens={screens} current={state.current} onOpen={open} />
         </SidebarContent>
         <SidebarFooter>
-          <UserMenu user={user} onSignOut={onSignOut} />
+          <UserMenu user={user} actions={userActions} />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>

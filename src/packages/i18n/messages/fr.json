@@ -69,7 +69,8 @@
         "Avr.",
         "Mai",
         "Juin"
-      ]
+      ],
+      "millions": "{value} M {currency}"
     },
     "list": {
       "title": "Produits",
@@ -80,7 +81,9 @@
       "stock": "Stock",
       "status": "Statut",
       "detailStock": "Quantité en stock : {count}",
-      "archive": "Archiver"
+      "archive": "Archiver",
+      "exportName": "produits",
+      "archived": "{count, plural, one {# produit archivé} other {# produits archivés}} (démonstration)"
     },
     "form": {
       "general": "Général",
@@ -132,7 +135,8 @@
       "toastUndo": "Message avec « Annuler »",
       "draftDeleted": "Brouillon supprimé",
       "restored": "Brouillon restauré",
-      "confirmAction": "Annuler la facture"
+      "confirmAction": "Annuler la facture",
+      "emptyAction": "Ouverture de la liste des produits (démonstration)"
     }
   },
   "ui": {
@@ -148,7 +152,8 @@
       "userMenu": "Menu utilisateur",
       "profile": "Mon profil",
       "settings": "Paramètres",
-      "signOut": "Se déconnecter"
+      "signOut": "Se déconnecter",
+      "searchName": "Recherche globale"
     },
     "period": {
       "today": "Aujourd'hui",
@@ -159,7 +164,8 @@
       "custom": "Personnalisée",
       "label": "Période",
       "from": "Du",
-      "to": "Au"
+      "to": "Au",
+      "dateLabel": "{label} : {date}"
     },
     "kpi": {
       "customize": "Personnaliser l'indicateur",
@@ -304,7 +310,8 @@
     "date": "Date",
     "amount": "Montant",
     "status": "Statut",
-    "openSale": "Vente {name}"
+    "openSale": "Vente {name}",
+    "exportName": "ventes"
   },
   "screens": {
     "planned": "Cet écran sera construit au lot {lot}. Il sert ici à essayer les modes Liste et Mosaïque.",
@@ -317,6 +324,7 @@
       "finance": "Trésorerie et comptabilité",
       "apps": "Installer ou retirer des modules",
       "components": "Catalogue des composants (démo)"
-    }
+    },
+    "plannedShort": "« {name} » arrive au lot {lot}"
   }
 }

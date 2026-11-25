@@ -43,13 +43,14 @@ function DateButton({
   onSelect: (date: Date) => void;
   disabled?: (date: Date) => boolean;
 }) {
+  const t = useTranslations("ui.period");
   const locale = useDateLocale();
   const formatDate = useFormatDate();
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" aria-label={`${label} : ${formatDate(value, "dd/MM/yyyy")}`} className="font-normal tabular-nums">
+        <Button variant="outline" size="sm" aria-label={t("dateLabel", { label, date: formatDate(value, "dd/MM/yyyy") })} className="font-normal tabular-nums">
           <CalendarDaysIcon />
           <span className="text-muted-foreground">{label}</span>
           {formatDate(value, "dd/MM/yyyy")}
