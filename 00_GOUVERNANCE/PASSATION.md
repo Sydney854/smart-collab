@@ -40,6 +40,8 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 
 ## Façon de travailler avec la cheffe de projet
 
+- **Maquettes livrées aussi en artefact** (page claude.ai à commenter), en plus de l'adresse de l'aperçu Vercel : une maquette numérotée (M-01, M-02…) par écran ou état, avec ce qu'elle montre, les points à regarder et les ajustements en attente. Page actuelle du lot 0 : https://claude.ai/artifact/GT62apmrcXFuQqiXYwpRuE (à mettre à jour au même lien à chaque étape).
+
 Avant chaque étape : expliquer ce qui va être construit. À la fin : résumer, lister les ajustements possibles (faciles maintenant ou coûteux plus tard), attendre sa décision (règle dans `AGENTS.md`).
 
 Elle n'est pas développeuse : expliquer en français simple, avancer par étapes courtes, tester avant de livrer, dire clairement ce qui est fait et ce qui ne l'est pas, ne jamais demander ni afficher de clé secrète.
