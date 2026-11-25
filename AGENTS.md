@@ -42,3 +42,21 @@ Poursuivre le **lot en cours** indiqué dans `00_GOUVERNANCE/JOURNAL_DECISIONS.m
 
 - **Avant chaque étape** (lot, sous-étape ou écran) : expliquer en français simple ce qui va être construit, à quoi cela servira pour l'utilisateur, ce qui sera visible à la fin, et ce qui ne sera pas encore fait.
 - **À la fin de chaque étape** : résumer ce qui a été construit et testé, puis lister les **ajustements possibles** à ce stade (présentation, textes, couleurs, ordre des champs, règles, options écartées…), en indiquant pour chacun s'il est facile maintenant ou coûteux plus tard. Attendre la décision de la cheffe de projet avant de passer à l'étape suivante.
+
+## Agents de contrôle (Claude Code, décision du 25/11/2026)
+
+La **session principale** explique l'étape, construit (données puis écrans), corrige et présente la synthèse à la cheffe de projet. Trois agents de contrôle, définis dans `.claude/agents/`, travaillent **en lecture seule** : ils rendent un rapport, ils ne corrigent rien.
+
+| Ordre | Agent | Rôle | Quand |
+| --- | --- | --- | --- |
+| 1 | `coherence-ecran` | Compare chaque écran construit à sa fiche (`05_UI_UX/maquettes/`), aux captures du prototype et, à défaut, aux captures DreamsERP | Fin de toute étape qui crée ou modifie un écran |
+| 2 | `securite` | Isolation entre entreprises (RLS), clés secrètes, droits côté serveur, absence de données RUTHY'S et d'outils interdits | Fin de chaque étape ; obligatoire dès qu'une étape touche la base, la connexion, les droits, les paiements ou les variables |
+| 3 | `qa` | Construction, types, tous les tests, puis liste de contrôle `06_LOTS/lot_NN/CHECKLIST.md` point par point | Fin de chaque étape, en dernier |
+
+Déroulé en fin d'étape :
+1. Lancer les agents dans cet ordre (`coherence-ecran` et `securite` peuvent tourner en parallèle, `qa` après les corrections).
+2. Corriger tout point **bloquant**, puis relancer l'agent concerné jusqu'à un verdict sans point bloquant.
+3. Cocher la liste de contrôle seulement après le rapport de `qa`.
+4. Dans la synthèse à la cheffe de projet : verdict de chaque agent en une ligne, points corrigés, points restants. Pas de rapport technique brut.
+
+Ces agents n'existent que dans Claude Code. Si une partie du travail passe par Antigravity, appliquer les mêmes contrôles à la main à partir de ces fichiers.
