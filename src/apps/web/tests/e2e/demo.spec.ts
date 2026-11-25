@@ -32,12 +32,27 @@ test("la page tient dans la largeur de l'écran", async ({ page }) => {
   expect(scroll).toBeLessThanOrEqual(width);
 });
 
-test("barre de période : boutons prédéfinis et dates", async ({ page }) => {
+test("barre de période : boutons prédéfinis, puis date de début et date de fin", async ({ page }) => {
   await open(page);
-  await page.getByTestId("section-period").getByRole("radio", { name: "Année" }).click();
-  await expect(page.getByTestId("period-label")).toContainText(`du 01/01/${new Date().getFullYear()}`);
-  await page.getByRole("button", { name: "Dates de la période" }).click();
-  await expect(page.getByRole("grid").first()).toBeVisible();
+  const bar = page.getByTestId("section-period");
+  const label = page.getByTestId("period-label");
+  await bar.getByRole("radio", { name: "Année" }).click();
+  await expect(label).toContainText(`du 01/01/${new Date().getFullYear()}`);
+
+  // Date de début : un seul mois s'ouvre, puis se referme après le choix
+  await bar.getByRole("button", { name: /^Du :/ }).click();
+  await expect(page.getByRole("grid")).toHaveCount(1);
+  await page.getByRole("grid").locator("button", { hasText: /^10$/ }).first().click();
+  await expect(page.getByRole("grid")).toHaveCount(0);
+  await expect(label).toContainText("du 10/01/");
+
+  // Date de fin : idem ; les jours avant la date de début ne sont pas proposés
+  await bar.getByRole("button", { name: /^Au :/ }).click();
+  await expect(page.getByRole("grid")).toHaveCount(1);
+  await page.getByRole("grid").locator("button", { hasText: /^20$/ }).first().click();
+  await expect(page.getByRole("grid")).toHaveCount(0);
+  await expect(label).toContainText(/au 20\/\d{2}\//);
+  await expect(bar.getByRole("radio", { name: "Personnalisée" })).toHaveAttribute("data-state", "on");
 });
 
 test("fiche : un champ obligatoire vide et un montant invalide sont refusés", async ({ page }) => {

@@ -157,8 +157,9 @@
       "quarter": "Quarter",
       "year": "Year",
       "custom": "Custom",
-      "range": "Period dates",
-      "label": "Period"
+      "label": "Period",
+      "from": "From",
+      "to": "To"
     },
     "kpi": {
       "customize": "Customise indicator",

@@ -50,7 +50,7 @@ shadcn/ui utilise ses propres noms ; ils pointent vers nos jetons :
 | `sidebar-accent` / `sidebar-border` | `--nav-hover` / `--nav-line` | Survol et séparateurs du menu |
 | `chart-1` … `chart-5` | or, bleu, vert, violet, sarcelle | Graphiques |
 
-### Jetons ajoutés au lot 0 (proposés, à valider)
+### Jetons ajoutés au lot 0 (validés le 25/11/2026)
 
 | Jeton | Clair | Sombre | Usage |
 |-------|-------|--------|-------|
@@ -61,7 +61,7 @@ shadcn/ui utilise ses propres noms ; ils pointent vers nos jetons :
 | `--on-strong` | `#ffffff` | `#ffffff` | Texte sur une couleur franche (rouge, bleu…) |
 | `--nav-hover` / `--nav-line` | blanc 8 % / blanc 10 % | blanc 8 % / blanc 8 % | Survol et séparateurs du menu latéral |
 
-### Thème sombre (proposé au lot 0, à valider)
+### Thème sombre (validé le 25/11/2026)
 
 | Jeton | Valeur sombre |
 |-------|---------------|
@@ -77,7 +77,7 @@ shadcn/ui utilise ses propres noms ; ils pointent vers nos jetons :
 | `--purple` / `--purple-l` | `#a78bfa` / `#241a3d` |
 | `--teal` / `--teal-l` | `#2dd4bf` / `#0e2b2a` |
 
-### Couleurs principales du sélecteur (proposées)
+### Couleurs principales du sélecteur (validées le 25/11/2026)
 
 Or (défaut) `#d9a441`, Bleu `#2563eb`, Vert `#0d9488`, Violet `#7c3aed`, Rouge `#dc2626`.
 

@@ -157,8 +157,9 @@
       "quarter": "Trimestre",
       "year": "Année",
       "custom": "Personnalisée",
-      "range": "Dates de la période",
-      "label": "Période"
+      "label": "Période",
+      "from": "Du",
+      "to": "Au"
     },
     "kpi": {
       "customize": "Personnaliser l'indicateur",

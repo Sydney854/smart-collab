@@ -31,12 +31,55 @@ export function periodRange(key: Exclude<PeriodKey, "custom">, today: Date = new
   }
 }
 
-/** Barre de période en tête de module (même composant partout). */
-export function PeriodBar({ value, onChange }: { value: PeriodValue; onChange: (value: PeriodValue) => void }) {
-  const t = useTranslations("ui.period");
+/** Bouton de date : un seul mois de calendrier, qui se referme dès qu'une date est choisie. */
+function DateButton({
+  label,
+  value,
+  onSelect,
+  disabled,
+}: {
+  label: string;
+  value: Date;
+  onSelect: (date: Date) => void;
+  disabled?: (date: Date) => boolean;
+}) {
   const locale = useDateLocale();
   const formatDate = useFormatDate();
   const [open, setOpen] = useState(false);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm" aria-label={`${label} : ${formatDate(value, "dd/MM/yyyy")}`} className="font-normal tabular-nums">
+          <CalendarDaysIcon />
+          <span className="text-muted-foreground">{label}</span>
+          {formatDate(value, "dd/MM/yyyy")}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          required
+          locale={locale}
+          selected={value}
+          defaultMonth={value}
+          disabled={disabled}
+          onSelect={(date) => {
+            if (!date) return;
+            onSelect(date);
+            setOpen(false);
+          }}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+/**
+ * Barre de période en tête de module (même composant partout) :
+ * périodes prédéfinies, ou date de début puis date de fin (décision du 25/11/2026).
+ */
+export function PeriodBar({ value, onChange }: { value: PeriodValue; onChange: (value: PeriodValue) => void }) {
+  const t = useTranslations("ui.period");
 
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-2 rounded-xl border bg-card p-2 shadow-card">
@@ -49,10 +92,8 @@ export function PeriodBar({ value, onChange }: { value: PeriodValue; onChange: (
           value={value.key}
           onValueChange={(key) => {
             if (!key) return;
-            if (key === "custom") {
-              onChange({ ...value, key: "custom" });
-              setOpen(true);
-            } else onChange({ key: key as PeriodKey, ...periodRange(key as Exclude<PeriodKey, "custom">) });
+            if (key === "custom") onChange({ ...value, key: "custom" });
+            else onChange({ key: key as PeriodKey, ...periodRange(key as Exclude<PeriodKey, "custom">) });
           }}
         >
           {PERIODS.map((k) => (
@@ -62,26 +103,23 @@ export function PeriodBar({ value, onChange }: { value: PeriodValue; onChange: (
           ))}
         </ToggleGroup>
       </div>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" aria-label={t("range")} className="font-normal tabular-nums">
-            <CalendarDaysIcon />
-            {formatDate(value.from, "dd/MM/yyyy")} → {formatDate(value.to, "dd/MM/yyyy")}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            locale={locale}
-            numberOfMonths={2}
-            defaultMonth={value.from}
-            selected={{ from: value.from, to: value.to }}
-            onSelect={(range) => {
-              if (range?.from) onChange({ key: "custom", from: startOfDay(range.from), to: endOfDay(range.to ?? range.from) });
-            }}
-          />
-        </PopoverContent>
-      </Popover>
+      <div className="flex flex-wrap items-center gap-2">
+        <DateButton
+          label={t("from")}
+          value={value.from}
+          onSelect={(date) => {
+            const from = startOfDay(date);
+            // Si la date de début dépasse la date de fin, la fin suit
+            onChange({ key: "custom", from, to: from > value.to ? endOfDay(date) : value.to });
+          }}
+        />
+        <DateButton
+          label={t("to")}
+          value={value.to}
+          disabled={(date) => date < startOfDay(value.from)}
+          onSelect={(date) => onChange({ key: "custom", from: value.from, to: endOfDay(date) })}
+        />
+      </div>
     </div>
   );
 }
