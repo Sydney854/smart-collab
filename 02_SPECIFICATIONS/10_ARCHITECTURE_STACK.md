@@ -50,6 +50,8 @@ DreamsERP est acheté sous **licence Extended** (décision du 23 novembre 2026, 
 | Développement | `smart-collab-dev` (réf. `ajkginvsjljqufvdppgc`, PostgreSQL 17), créé le 25/11/2026 | Paris (eu-west-3) | Fonctions en Paris (cdg1), aperçus protégés |
 | Production | `smart-collab-prod`, à créer avant la mise en vente (offre Pro, sauvegardes à un instant donné) | Paris (eu-west-3) | Paris (cdg1) |
 
+Connexion de `smart-collab-dev` réglée le 25/11/2026 : e-mail avec confirmation, double authentification TOTP, mot de passe de 10 caractères minimum (minuscules, majuscules, chiffres), adresse du site `http://localhost:3000` (SEC-MO-04).
+
 Les clés ne sont jamais écrites dans le dépôt : variables secrètes de Vercel, de l'environnement Claude Code et fichier local `.env.local` (exclu de Git).
 
 #### Points de vigilance liés à ces choix
