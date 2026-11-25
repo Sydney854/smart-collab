@@ -37,3 +37,8 @@ Ne lis **pas** `07_ARCHIVES/` : c'est un ancien cadrage, remplacé.
 ## Quand la cheffe de projet dit « continue »
 
 Poursuivre le **lot en cours** indiqué dans `00_GOUVERNANCE/JOURNAL_DECISIONS.md`, jamais un nouveau lot ni un nouveau métier.
+
+## Explication avant et après chaque étape (demande de la cheffe de projet, 25/11/2026)
+
+- **Avant chaque étape** (lot, sous-étape ou écran) : expliquer en français simple ce qui va être construit, à quoi cela servira pour l'utilisateur, ce qui sera visible à la fin, et ce qui ne sera pas encore fait.
+- **À la fin de chaque étape** : résumer ce qui a été construit et testé, puis lister les **ajustements possibles** à ce stade (présentation, textes, couleurs, ordre des champs, règles, options écartées…), en indiquant pour chacun s'il est facile maintenant ou coûteux plus tard. Attendre la décision de la cheffe de projet avant de passer à l'étape suivante.

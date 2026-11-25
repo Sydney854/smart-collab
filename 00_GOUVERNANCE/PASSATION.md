@@ -40,4 +40,6 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 
 ## Façon de travailler avec la cheffe de projet
 
+Avant chaque étape : expliquer ce qui va être construit. À la fin : résumer, lister les ajustements possibles (faciles maintenant ou coûteux plus tard), attendre sa décision (règle dans `AGENTS.md`).
+
 Elle n'est pas développeuse : expliquer en français simple, avancer par étapes courtes, tester avant de livrer, dire clairement ce qui est fait et ce qui ne l'est pas, ne jamais demander ni afficher de clé secrète.

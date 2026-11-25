@@ -11,3 +11,8 @@ Rappels propres aux sessions Claude Code :
 - Stack validée : `02_SPECIFICATIONS/10_ARCHITECTURE_STACK.md` (Next.js + React, Tailwind, shadcn/ui, Lucide, ApexCharts, TanStack Table, react-hook-form + zod, sonner, date-fns, nos jetons Inter / or / bleu marine, Supabase, Stripe, Vercel). Ne propose pas d'autre stack.
 - Sécurité : `02_SPECIFICATIONS/11_SECURITE_NFR.md` (SEC-MO-01 à 12). Aucune clé secrète dans le code ni dans le navigateur.
 - La cheffe de projet n'est pas développeuse : explique en français simple, livre des résultats testés, dis clairement ce qui est fait et ce qui ne l'est pas.
+
+## Explication avant et après chaque étape (demande de la cheffe de projet, 25/11/2026)
+
+- **Avant chaque étape** (lot, sous-étape ou écran) : expliquer en français simple ce qui va être construit, à quoi cela servira pour l'utilisateur, ce qui sera visible à la fin, et ce qui ne sera pas encore fait.
+- **À la fin de chaque étape** : résumer ce qui a été construit et testé, puis lister les **ajustements possibles** à ce stade (présentation, textes, couleurs, ordre des champs, règles, options écartées…), en indiquant pour chacun s'il est facile maintenant ou coûteux plus tard. Attendre la décision de la cheffe de projet avant de passer à l'étape suivante.
