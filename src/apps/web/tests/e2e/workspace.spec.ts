@@ -62,7 +62,9 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   await tile(page, "sales").click();
   const w = win(page, "sales");
   await expect(w).toBeVisible();
-  await expect(w).toContainText("Cet écran sera construit au lot 2");
+  // Numéro de lot tiré de 13_PLAN_LOTS.md (Ventes : devis, factures, avoirs = lot 5)
+  await expect(w).toContainText(/Cet écran sera construit au lot \d+/);
+  await expect(w).toContainText("lot 5");
 
   // Réduire : la fenêtre disparaît et reste dans la barre d'onglets
   await w.getByRole("button", { name: "Réduire Ventes" }).click();
@@ -155,4 +157,28 @@ test("Mosaïque : la page tient dans la largeur de l'écran", async ({ page }) =
   await open(page);
   const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
   expect(scroll).toBeLessThanOrEqual(width);
+});
+
+test("Mosaïque à 390 px, en anglais et en sombre : fenêtre plein écran, sans erreur ni débordement", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => (m.type() === "error" || m.type() === "warning") && errors.push(m.text()));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.context().addCookies(
+    [
+      ["sc-layout", "mosaic"],
+      ["sc-theme", "dark"],
+      ["NEXT_LOCALE", "en"],
+    ].map(([name, value]) => ({ name, value, url: "http://localhost:3100" })),
+  );
+  await open(page);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await tile(page, "components").click();
+  const w = win(page, "components");
+  await expect(w.getByRole("heading", { level: 1, name: "Smart Collab components" })).toBeVisible();
+  const box = (await w.boundingBox())!;
+  expect(box.width).toBeGreaterThanOrEqual(389);
+  const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
+  expect(scroll).toBeLessThanOrEqual(width);
+  expect(errors).toEqual([]);
 });

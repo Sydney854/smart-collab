@@ -7,7 +7,7 @@ import { describe, expect, it } from "vitest";
  * Seul packages/ui/src/tokens.ts a le droit de contenir des couleurs.
  */
 const SRC = join(import.meta.dirname, "../../../..");
-const ROOTS = ["apps/web/app", "apps/web/components", "apps/web/lib", "packages/ui/src"];
+const ROOTS = ["apps/web/app", "apps/web/components", "apps/web/lib", "apps/web/screens", "packages/ui/src"];
 const ALLOWED = new Set(["packages/ui/src/tokens.ts"]);
 const COLOR = /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|hwb)\(/;
 // Couleurs Tailwind par défaut (bg-red-500, text-white…) : interdites aussi
