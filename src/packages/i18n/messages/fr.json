@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "title": "Smart Collab",
+    "description": "ERP modulaire pour les entreprises de Côte d'Ivoire et de l'UEMOA"
+  },
+  "header": {
+    "language": "Langue",
+    "french": "Français",
+    "english": "English",
+    "switchToDark": "Passer en thème sombre",
+    "switchToLight": "Passer en thème clair",
+    "userMenu": "Menu utilisateur",
+    "profile": "Mon profil",
+    "settings": "Paramètres",
+    "signOut": "Se déconnecter",
+    "demoUser": "Awa Koné",
+    "demoRole": "Administratrice (démo)"
+  },
+  "apps": {
+    "dashboard": "Tableau de bord",
+    "sales": "Ventes",
+    "stock": "Stock",
+    "purchases": "Achats",
+    "pos": "Caisse",
+    "finance": "Finance",
+    "apps": "Applications"
+  },
+  "demo": {
+    "title": "Composants Smart Collab",
+    "intro": "Page de démonstration du lot 0 : chaque composant de base, avec des données fictives. Changez le thème, la couleur et la langue en haut à droite.",
+    "navigated": "Écran ouvert : {name}",
+    "sections": {
+      "kpi": "Chiffres clés (KpiCard)",
+      "kpiHint": "Cliquez sur une carte, ou faites un clic droit pour la personnaliser.",
+      "period": "Barre de période (PeriodBar)",
+      "periodSelected": "Période choisie : du {from} au {to}",
+      "chart": "Graphique (ChartCard)",
+      "list": "Liste (DataList)",
+      "form": "Fiche à onglets (EntityForm)",
+      "print": "Aperçu avant impression (PrintPreview)",
+      "status": "Badges de statut (StatusBadge)",
+      "offline": "Bandeau hors ligne (OfflineBanner)",
+      "appCard": "Cartes d'application (AppCard)",
+      "feedback": "Messages (EmptyState, ConfirmDialog, Toast)",
+      "theme": "Sélecteur de thème (ThemePicker)",
+      "themeHint": "Ouvrez la palette en haut à droite pour changer la couleur principale et le thème clair / sombre.",
+      "shell": "Cadre de l'application (AppShell)",
+      "shellHint": "Le menu latéral, la barre du haut et les onglets ouverts qui entourent cette page."
+    },
+    "kpi": {
+      "revenue": "Chiffre d'affaires",
+      "orders": "Ventes du jour",
+      "stockAlerts": "Produits sous le seuil",
+      "receivables": "Créances clients",
+      "vsPrevious": "vs période précédente",
+      "clicked": "Ouverture du détail : {name}",
+      "customize": "Personnalisation : {action}"
+    },
+    "chart": {
+      "title": "Ventes par mois",
+      "thisYear": "Cette année",
+      "lastYear": "Année précédente",
+      "months": [
+        "Janv.",
+        "Févr.",
+        "Mars",
+        "Avr.",
+        "Mai",
+        "Juin"
+      ]
+    },
+    "list": {
+      "title": "Produits",
+      "reference": "Référence",
+      "name": "Désignation",
+      "category": "Catégorie",
+      "price": "Prix de vente",
+      "stock": "Stock",
+      "status": "Statut",
+      "detailStock": "Quantité en stock : {count}",
+      "archive": "Archiver"
+    },
+    "form": {
+      "general": "Général",
+      "pricing": "Prix",
+      "stock": "Stock",
+      "name": "Désignation",
+      "reference": "Référence",
+      "category": "Catégorie",
+      "description": "Description",
+      "salePrice": "Prix de vente",
+      "costPrice": "Prix d'achat",
+      "taxable": "Soumis à la TVA",
+      "minStock": "Seuil d'alerte",
+      "lastInventory": "Dernier inventaire",
+      "origin": "Origine (champ personnalisé)",
+      "saved": "Fiche enregistrée (démonstration, rien n'est envoyé)",
+      "categories": {
+        "grocery": "Épicerie",
+        "drinks": "Boissons",
+        "household": "Entretien"
+      }
+    },
+    "print": {
+      "open": "Ouvrir l'aperçu",
+      "reportTitle": "État des ventes",
+      "period": "Période : novembre 2026",
+      "total": "Total"
+    },
+    "offline": {
+      "simulate": "Simuler une coupure",
+      "pending": "Opérations en attente"
+    },
+    "appCard": {
+      "installedToast": "Application installée (démonstration)",
+      "commerce": "Commerce",
+      "management": "Gestion",
+      "salesDesc": "Devis, commandes, factures, avoirs et suivi des paiements clients.",
+      "posDesc": "Encaissement en boutique, hors ligne, avec imprimante de tickets et tiroir-caisse.",
+      "financeDesc": "Trésorerie, rapprochements bancaires et comptabilité SYSCOHADA."
+    },
+    "feedback": {
+      "openConfirm": "Annuler une facture",
+      "confirmTitle": "Annuler la facture FAC-2026-0042 ?",
+      "confirmText": "Une facture validée n'est jamais supprimée : elle est annulée par un avoir, avec un motif.",
+      "cancelled": "Facture annulée. Motif : {reason}",
+      "toastSuccess": "Message de succès",
+      "toastError": "Message d'erreur"
+    }
+  },
+  "ui": {
+    "shell": {
+      "navigation": "Navigation principale",
+      "search": "Rechercher dans Smart Collab…",
+      "collapse": "Réduire le menu",
+      "expand": "Agrandir le menu",
+      "openTabs": "Écrans ouverts"
+    },
+    "period": {
+      "today": "Aujourd'hui",
+      "week": "Semaine",
+      "month": "Mois",
+      "quarter": "Trimestre",
+      "year": "Année",
+      "custom": "Personnalisée",
+      "range": "Dates de la période"
+    },
+    "kpi": {
+      "customize": "Personnaliser l'indicateur",
+      "moveFirst": "Placer en premier",
+      "hide": "Masquer"
+    },
+    "chart": {
+      "menu": "Options du graphique",
+      "bar": "Barres",
+      "line": "Courbe",
+      "area": "Aire",
+      "exportPng": "Exporter en image (PNG)"
+    },
+    "list": {
+      "search": "Rechercher…",
+      "export": "Exporter",
+      "exportCsv": "CSV",
+      "exportExcel": "Excel (bientôt)",
+      "exportPdf": "PDF (bientôt)",
+      "print": "Imprimer",
+      "selected": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+      "total": "{count, plural, one {# élément} other {# éléments}}",
+      "detail": "Détail",
+      "emptyTitle": "Aucun résultat",
+      "emptyDescription": "Modifiez la recherche ou les filtres."
+    },
+    "form": {
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "required": "Ce champ est obligatoire",
+      "customField": "Personnalisé"
+    },
+    "print": {
+      "title": "Aperçu avant impression",
+      "print": "Imprimer",
+      "close": "Fermer",
+      "generatedBy": "Édité avec Smart Collab"
+    },
+    "theme": {
+      "open": "Thème et couleurs",
+      "mode": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "color": "Couleur principale",
+      "accents": {
+        "gold": "Or",
+        "blue": "Bleu",
+        "green": "Vert",
+        "purple": "Violet",
+        "red": "Rouge"
+      }
+    },
+    "status": {
+      "draft": "Brouillon",
+      "validated": "Validé",
+      "paid": "Payée",
+      "partial": "Paiement partiel",
+      "late": "En retard",
+      "cancelled": "Annulé",
+      "inStock": "En stock",
+      "lowStock": "Stock faible",
+      "outOfStock": "Rupture",
+      "info": "Information"
+    },
+    "offline": {
+      "online": "En ligne — tout est synchronisé",
+      "offline": "Hors ligne",
+      "syncing": "Synchronisation en cours",
+      "pending": "{count, plural, one {# opération en attente} other {# opérations en attente}}"
+    },
+    "appCard": {
+      "installed": "Installée",
+      "install": "Installer",
+      "open": "Ouvrir",
+      "requires": "Nécessite :"
+    },
+    "empty": {
+      "title": "Rien à afficher pour le moment",
+      "description": "Les éléments apparaîtront ici dès qu'ils seront créés."
+    },
+    "confirm": {
+      "confirm": "Confirmer",
+      "cancel": "Retour",
+      "reasonLabel": "Motif (obligatoire)",
+      "reasonPlaceholder": "Ex. : erreur de quantité"
+    },
+    "toast": {
+      "saved": "Enregistré",
+      "error": "Une erreur est survenue. Réessayez."
+    }
+  }
+}

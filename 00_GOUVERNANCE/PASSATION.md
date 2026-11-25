@@ -4,7 +4,7 @@
 
 ## Où en est le projet
 
-- **Lot en cours : lot 0 — Maquettes et design** (pas encore commencé dans le code ; `src/` ne contient que `README.md`).
+- **Lot en cours : lot 0 — Maquettes et design.** Branche `lot-00` : application de base `src/apps/web` et page de démonstration `/demo` faites et testées (voir `src/README.md`). Reste : fiches écran des lots 1 à 7, validation des maquettes, aperçu Vercel.
 - Dossier de cadrage complet : cahier des charges (`02_SPECIFICATIONS/`), catalogue des 46 modules (`01_DOCUMENTATION/catalogue/CATALOGUE_MODULES.md`), plan en 12 lots avec prompts (`04_PROMPTS_AGENTS/`) et listes de contrôle (`06_LOTS/`).
 - UI/UX : 76 fiches écran au statut « proposée » (`05_UI_UX/maquettes/`, index `INDEX.md`), dossier PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx`, jetons `05_UI_UX/DESIGN_TOKENS.md`, composants `05_UI_UX/COMPOSANTS.md`.
 - Références : captures du prototype (`03_SOURCES_REFERENCE/prototype/captures/`, par module) et de DreamsERP (`03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair|mode-sombre/`, par module).
@@ -26,9 +26,10 @@
 ## Prochaine tâche : lot 0
 
 Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et `06_LOTS/lot_00/CHECKLIST.md`) :
-1. Créer l'application de base dans `src/apps/web` (dépôt unique pnpm + Turborepo) : Next.js, Tailwind v4, Ant Design + Preline aux jetons de `DESIGN_TOKENS.md`, thème clair / sombre, français / anglais.
-2. Créer la page de démonstration des composants de `COMPOSANTS.md`, déployée en aperçu Vercel.
-3. Ensuite : maquettes manquantes et validation des fiches écran, module par module (lots 1 à 3 d'abord).
+1. ~~Créer l'application de base dans `src/apps/web`~~ — fait le 25/11/2026 (Next.js 16, Tailwind v4, Ant Design v6 + Preline v4, jetons, clair / sombre, fr / en).
+2. ~~Créer la page de démonstration des composants de `COMPOSANTS.md`~~ — fait (`/demo`, 14 composants) ; **reste à déployer en aperçu Vercel** (envoyer la branche `lot-00` sur GitHub).
+3. Faire valider par la cheffe de projet les valeurs du thème sombre et les couleurs du sélecteur (`DESIGN_TOKENS.md`).
+4. Ensuite : maquettes manquantes et validation des fiches écran, module par module (lots 1 à 3 d'abord).
 
 ## Points en attente
 

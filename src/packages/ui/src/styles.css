@@ -1,0 +1,82 @@
+/*
+ * Styles partagés Smart Collab (Tailwind v4).
+ * Les couleurs viennent UNIQUEMENT des variables CSS générées depuis tokens.ts.
+ * Les couleurs par défaut de Tailwind sont retirées : seules nos couleurs existent.
+ */
+
+@theme {
+  --color-*: initial;
+}
+
+@theme inline {
+  --font-sans: var(--sc-font);
+  --radius-card: var(--sc-radius-card);
+  --radius-control: var(--sc-radius-control);
+  --shadow-card: var(--sc-shadow-card);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-nav-1: var(--nav-1);
+  --color-nav-2: var(--nav-2);
+  --color-nav-text: var(--nav-text);
+  --color-nav-text-active: var(--nav-text-active);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-on-accent: var(--on-accent);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-blue-l: var(--blue-l);
+  --color-green: var(--green);
+  --color-green-l: var(--green-l);
+  --color-amber: var(--amber);
+  --color-amber-l: var(--amber-l);
+  --color-red: var(--red);
+  --color-red-l: var(--red-l);
+  --color-purple: var(--purple);
+  --color-purple-l: var(--purple-l);
+  --color-teal: var(--teal);
+  --color-teal-l: var(--teal-l);
+  --color-print: var(--print);
+  --color-overlay: var(--overlay);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@layer base {
+  html,
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sc-font);
+  }
+}
+
+/* Menu latéral en dégradé */
+.sc-sider {
+  background: linear-gradient(180deg, var(--nav-1), var(--nav-2)) !important;
+}
+
+.sc-open-tabs .ant-tabs-nav {
+  margin: 8px 0 0 !important;
+}
+
+/* Impression : seule la page d'aperçu est imprimée */
+@media print {
+  body:has(.sc-print-area) * {
+    visibility: hidden;
+  }
+  .sc-print-area,
+  .sc-print-area * {
+    visibility: visible;
+  }
+  .sc-print-area {
+    position: absolute;
+    inset: 0;
+    box-shadow: none;
+  }
+}

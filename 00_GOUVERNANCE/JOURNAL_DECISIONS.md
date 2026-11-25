@@ -24,6 +24,8 @@
 | 2026-11-22 | Déploiement en ligne : Vercel ; chez le client : conteneur Docker + Supabase auto-hébergé | Choix de la cheffe de projet ; garder les deux modes de vente |
 | 2026-11-25 | Projet Supabase de développement `smart-collab-dev` créé : région Paris (eu-west-3), PostgreSQL 17, organisation Supabase « Ruthy's plus » (à transférer vers une organisation Smart Collab), référence `ajkginvsjljqufvdppgc` | Base de développement, données fictives uniquement |
 | 2026-11-25 | Démarrage **sans le code DreamsERP** : écrans construits avec les outils gratuits (Next.js, React, Ant Design, Preline, Tailwind) et nos jetons ; le dossier `nextjs` de DreamsERP (licence Extended) pourra être ajouté plus tard sans changer la stack | Le code source n'est pas disponible ; ne pas bloquer le lot 0 |
+| 2026-11-25 | Lot 0 : la langue et le thème sont mémorisés dans des cookies (pas de /fr ou /en dans l'adresse) ; `packages/ui/src/tokens.ts` est la seule source des couleurs ; les styles Ant Design passent dans une couche CSS sous Tailwind | Pas de « flash » au chargement ; contrôle automatique des couleurs |
+| à valider | Valeurs du thème sombre et couleurs du sélecteur de thème (`05_UI_UX/DESIGN_TOKENS.md`) | Proposées au lot 0 |
 | à valider | Composants techniques restants (état, données, hors ligne, tâches planifiées, documents, e-mails, langues, qualité, organisation du dépôt) | Liste dans `10_ARCHITECTURE_STACK.md`, « Composants à valider » |
 | à valider | Mesures de sécurité Supabase / Vercel | Liste dans `11_SECURITE_NFR.md`, « Mise en œuvre » |
 | à valider | Hébergement : Vercel + Supabase en région Paris au lancement + dossier ARTCI ; centre de données à Abidjan plus tard | Proposition `10_ARCHITECTURE_STACK.md` |

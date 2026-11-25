@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Scripts d'installation non nécessaires (binaires précompilés utilisés)
+ignoredBuiltDependencies:
+  - "@parcel/watcher"
+  - "@swc/core"

@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "title": "Smart Collab",
+    "description": "Modular ERP for businesses in Côte d'Ivoire and WAEMU"
+  },
+  "header": {
+    "language": "Language",
+    "french": "Français",
+    "english": "English",
+    "switchToDark": "Switch to dark theme",
+    "switchToLight": "Switch to light theme",
+    "userMenu": "User menu",
+    "profile": "My profile",
+    "settings": "Settings",
+    "signOut": "Sign out",
+    "demoUser": "Awa Koné",
+    "demoRole": "Administrator (demo)"
+  },
+  "apps": {
+    "dashboard": "Dashboard",
+    "sales": "Sales",
+    "stock": "Inventory",
+    "purchases": "Purchasing",
+    "pos": "Point of sale",
+    "finance": "Finance",
+    "apps": "Apps"
+  },
+  "demo": {
+    "title": "Smart Collab components",
+    "intro": "Lot 0 showcase page: every base component, with fictitious data. Change the theme, colour and language at the top right.",
+    "navigated": "Screen opened: {name}",
+    "sections": {
+      "kpi": "Key figures (KpiCard)",
+      "kpiHint": "Click a card, or right-click it to customise.",
+      "period": "Period bar (PeriodBar)",
+      "periodSelected": "Selected period: {from} to {to}",
+      "chart": "Chart (ChartCard)",
+      "list": "List (DataList)",
+      "form": "Tabbed record (EntityForm)",
+      "print": "Print preview (PrintPreview)",
+      "status": "Status badges (StatusBadge)",
+      "offline": "Offline banner (OfflineBanner)",
+      "appCard": "App cards (AppCard)",
+      "feedback": "Messages (EmptyState, ConfirmDialog, Toast)",
+      "theme": "Theme picker (ThemePicker)",
+      "themeHint": "Open the palette at the top right to change the main colour and the light / dark theme.",
+      "shell": "Application frame (AppShell)",
+      "shellHint": "The side menu, top bar and open tabs around this page."
+    },
+    "kpi": {
+      "revenue": "Revenue",
+      "orders": "Today's sales",
+      "stockAlerts": "Products below threshold",
+      "receivables": "Customer receivables",
+      "vsPrevious": "vs previous period",
+      "clicked": "Opening details: {name}",
+      "customize": "Customisation: {action}"
+    },
+    "chart": {
+      "title": "Sales per month",
+      "thisYear": "This year",
+      "lastYear": "Last year",
+      "months": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ]
+    },
+    "list": {
+      "title": "Products",
+      "reference": "Reference",
+      "name": "Name",
+      "category": "Category",
+      "price": "Sale price",
+      "stock": "Stock",
+      "status": "Status",
+      "detailStock": "Quantity in stock: {count}",
+      "archive": "Archive"
+    },
+    "form": {
+      "general": "General",
+      "pricing": "Pricing",
+      "stock": "Stock",
+      "name": "Name",
+      "reference": "Reference",
+      "category": "Category",
+      "description": "Description",
+      "salePrice": "Sale price",
+      "costPrice": "Purchase price",
+      "taxable": "Subject to VAT",
+      "minStock": "Alert threshold",
+      "lastInventory": "Last stock count",
+      "origin": "Origin (custom field)",
+      "saved": "Record saved (demo, nothing is sent)",
+      "categories": {
+        "grocery": "Groceries",
+        "drinks": "Drinks",
+        "household": "Household"
+      }
+    },
+    "print": {
+      "open": "Open preview",
+      "reportTitle": "Sales report",
+      "period": "Period: November 2026",
+      "total": "Total"
+    },
+    "offline": {
+      "simulate": "Simulate an outage",
+      "pending": "Pending operations"
+    },
+    "appCard": {
+      "installedToast": "App installed (demo)",
+      "commerce": "Retail",
+      "management": "Management",
+      "salesDesc": "Quotes, orders, invoices, credit notes and customer payment tracking.",
+      "posDesc": "In-store checkout, works offline, with receipt printer and cash drawer.",
+      "financeDesc": "Cash management, bank reconciliation and SYSCOHADA accounting."
+    },
+    "feedback": {
+      "openConfirm": "Cancel an invoice",
+      "confirmTitle": "Cancel invoice FAC-2026-0042?",
+      "confirmText": "A validated invoice is never deleted: it is cancelled by a credit note, with a reason.",
+      "cancelled": "Invoice cancelled. Reason: {reason}",
+      "toastSuccess": "Success message",
+      "toastError": "Error message"
+    }
+  },
+  "ui": {
+    "shell": {
+      "navigation": "Main navigation",
+      "search": "Search Smart Collab…",
+      "collapse": "Collapse menu",
+      "expand": "Expand menu",
+      "openTabs": "Open screens"
+    },
+    "period": {
+      "today": "Today",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "year": "Year",
+      "custom": "Custom",
+      "range": "Period dates"
+    },
+    "kpi": {
+      "customize": "Customise indicator",
+      "moveFirst": "Move to first",
+      "hide": "Hide"
+    },
+    "chart": {
+      "menu": "Chart options",
+      "bar": "Bars",
+      "line": "Line",
+      "area": "Area",
+      "exportPng": "Export as image (PNG)"
+    },
+    "list": {
+      "search": "Search…",
+      "export": "Export",
+      "exportCsv": "CSV",
+      "exportExcel": "Excel (coming soon)",
+      "exportPdf": "PDF (coming soon)",
+      "print": "Print",
+      "selected": "{count, plural, one {# selected} other {# selected}}",
+      "total": "{count, plural, one {# item} other {# items}}",
+      "detail": "Details",
+      "emptyTitle": "No results",
+      "emptyDescription": "Change the search or the filters."
+    },
+    "form": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "required": "This field is required",
+      "customField": "Custom"
+    },
+    "print": {
+      "title": "Print preview",
+      "print": "Print",
+      "close": "Close",
+      "generatedBy": "Generated with Smart Collab"
+    },
+    "theme": {
+      "open": "Theme and colours",
+      "mode": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "color": "Main colour",
+      "accents": {
+        "gold": "Gold",
+        "blue": "Blue",
+        "green": "Green",
+        "purple": "Purple",
+        "red": "Red"
+      }
+    },
+    "status": {
+      "draft": "Draft",
+      "validated": "Validated",
+      "paid": "Paid",
+      "partial": "Partly paid",
+      "late": "Overdue",
+      "cancelled": "Cancelled",
+      "inStock": "In stock",
+      "lowStock": "Low stock",
+      "outOfStock": "Out of stock",
+      "info": "Information"
+    },
+    "offline": {
+      "online": "Online — everything is synced",
+      "offline": "Offline",
+      "syncing": "Syncing",
+      "pending": "{count, plural, one {# pending operation} other {# pending operations}}"
+    },
+    "appCard": {
+      "installed": "Installed",
+      "install": "Install",
+      "open": "Open",
+      "requires": "Requires:"
+    },
+    "empty": {
+      "title": "Nothing to show yet",
+      "description": "Items will appear here as soon as they are created."
+    },
+    "confirm": {
+      "confirm": "Confirm",
+      "cancel": "Back",
+      "reasonLabel": "Reason (required)",
+      "reasonPlaceholder": "E.g. wrong quantity"
+    },
+    "toast": {
+      "saved": "Saved",
+      "error": "Something went wrong. Please try again."
+    }
+  }
+}

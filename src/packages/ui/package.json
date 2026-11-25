@@ -1,0 +1,33 @@
+{
+  "name": "@smart-collab/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens": "./src/tokens.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "antd": "6.7.2",
+    "apexcharts": "8.9.1",
+    "dayjs": "^1.11.23",
+    "lucide-react": "1.80.0",
+    "react-apexcharts": "2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.7",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "next": "16.4.6",
+    "next-intl": "4.16.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "5.9.3",
+    "vitest": "5.1.2"
+  }
+}
