@@ -188,7 +188,8 @@ export function isThemeMode(value: unknown): value is ThemeMode {
 }
 
 export function isAccentPreset(value: unknown): value is AccentPreset {
-  return typeof value === "string" && value in ACCENT_PRESETS;
+  // Liste fermée : « in » accepterait aussi des noms internes comme « toString »
+  return typeof value === "string" && Object.hasOwn(ACCENT_PRESETS, value);
 }
 
 /** Palette effective : thème + couleur principale choisie. */

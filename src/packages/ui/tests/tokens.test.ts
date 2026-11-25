@@ -69,3 +69,11 @@ describe("jetons de design", () => {
     expect(cssVariables("blue")).toContain("--primary: var(--sc-accent)");
   });
 });
+
+describe("cookie de couleur principale", () => {
+  it("n'accepte que les couleurs de la liste", async () => {
+    const { isAccentPreset } = await import("../src/tokens");
+    expect(isAccentPreset("gold")).toBe(true);
+    for (const bad of ["toString", "constructor", "__proto__", "violet", ""]) expect(isAccentPreset(bad), bad).toBe(false);
+  });
+});
