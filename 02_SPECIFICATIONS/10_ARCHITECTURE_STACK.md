@@ -43,6 +43,15 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 
 DreamsERP est acheté sous **licence Extended** (décision du 23 novembre 2026, `00_GOUVERNANCE/LICENCES.md`) : sa version Next.js / React est le **point de départ du code de l'écran** (composants, dispositions, écrans), adapté à nos jetons, à Supabase et aux exigences. Ses données de démonstration, textes et images ne sont pas repris. Détail des six versions de DreamsERP : `03_SOURCES_REFERENCE/DREAMSERP/SITE_DOCUMENTATION/STACKS_TECHNIQUES.md`.
 
+#### Environnements
+
+| Environnement | Supabase | Région | Vercel |
+| --- | --- | --- | --- |
+| Développement | `smart-collab-dev` (réf. `ajkginvsjljqufvdppgc`, PostgreSQL 17), créé le 25/11/2026 | Paris (eu-west-3) | Fonctions en Paris (cdg1), aperçus protégés |
+| Production | `smart-collab-prod`, à créer avant la mise en vente (offre Pro, sauvegardes à un instant donné) | Paris (eu-west-3) | Paris (cdg1) |
+
+Les clés ne sont jamais écrites dans le dépôt : variables secrètes de Vercel, de l'environnement Claude Code et fichier local `.env.local` (exclu de Git).
+
 #### Points de vigilance liés à ces choix
 
 1. **Installation chez le client** (mode de vente décidé le 22/11/2026) : Vercel n'existe qu'en ligne. Pour ce mode, l'application Next.js est livrée en conteneur Docker et Supabase est auto-hébergé (version open source). À prévoir dès le lot 1 pour ne pas dépendre de fonctions propres à Vercel.

@@ -22,6 +22,7 @@
 | 2026-11-22 | Serveur, base et connexion : Supabase (PostgreSQL, Supabase Auth, stockage, fonctions serveur) ; remplace la proposition Node.js + NestJS | Choix de la cheffe de projet ; isolation des entreprises par la base, moins de serveur à maintenir |
 | 2026-11-22 | Paiements : Stripe (cartes) + Wave et Orange Money (mobile money) | Choix de la cheffe de projet ; accès de la société à Stripe à vérifier |
 | 2026-11-22 | Déploiement en ligne : Vercel ; chez le client : conteneur Docker + Supabase auto-hébergé | Choix de la cheffe de projet ; garder les deux modes de vente |
+| 2026-11-25 | Projet Supabase de développement `smart-collab-dev` créé : région Paris (eu-west-3), PostgreSQL 17, organisation Supabase « Ruthy's plus » (à transférer vers une organisation Smart Collab), référence `ajkginvsjljqufvdppgc` | Base de développement, données fictives uniquement |
 | à valider | Composants techniques restants (état, données, hors ligne, tâches planifiées, documents, e-mails, langues, qualité, organisation du dépôt) | Liste dans `10_ARCHITECTURE_STACK.md`, « Composants à valider » |
 | à valider | Mesures de sécurité Supabase / Vercel | Liste dans `11_SECURITE_NFR.md`, « Mise en œuvre » |
 | à valider | Hébergement : Vercel + Supabase en région Paris au lancement + dossier ARTCI ; centre de données à Abidjan plus tard | Proposition `10_ARCHITECTURE_STACK.md` |
