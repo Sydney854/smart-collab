@@ -4,14 +4,14 @@
 
 ## Où en est le projet
 
-- **Lot en cours : lot 0 — Maquettes et design** (pas encore commencé dans le code ; `src/` ne contient que `README.md`).
+- **Lot en cours : lot 0 — Maquettes et design.** Une première version a été construite dans une autre session avec Ant Design + Preline ; elle doit être adaptée à la stack du 25/11/2026 (shadcn/ui) puis envoyée sur la branche `lot-00`.
 - Dossier de cadrage complet : cahier des charges (`02_SPECIFICATIONS/`), catalogue des 46 modules (`01_DOCUMENTATION/catalogue/CATALOGUE_MODULES.md`), plan en 12 lots avec prompts (`04_PROMPTS_AGENTS/`) et listes de contrôle (`06_LOTS/`).
 - UI/UX : 76 fiches écran au statut « proposée » (`05_UI_UX/maquettes/`, index `INDEX.md`), dossier PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx`, jetons `05_UI_UX/DESIGN_TOKENS.md`, composants `05_UI_UX/COMPOSANTS.md`.
 - Références : captures du prototype (`03_SOURCES_REFERENCE/prototype/captures/`, par module) et de DreamsERP (`03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair|mode-sombre/`, par module).
 
 ## Décisions clés (détail dans `JOURNAL_DECISIONS.md`)
 
-- Stack : Next.js + React 19 + TypeScript, Tailwind v4, Ant Design v6 + Preline habillés avec nos jetons ; Supabase (base, connexion, stockage, fonctions) ; Stripe + Wave / Orange Money ; Vercel.
+- Stack : Next.js + React 19 + TypeScript, Tailwind v4, **shadcn/ui**, Lucide, ApexCharts, TanStack Table, react-hook-form + zod, sonner, date-fns, habillés avec nos jetons (Inter, or, bleu marine) ; Supabase (base, connexion, stockage, fonctions) ; Stripe + Wave / Orange Money ; Vercel.
 - DreamsERP acheté sous licence Extended, mais **son code n'est pas dans le dépôt** : on construit avec les outils open source en s'aidant des captures.
 - Aucune donnée ni règle de RUTHY'S ; données de démonstration fictives.
 
@@ -26,7 +26,7 @@
 ## Prochaine tâche : lot 0
 
 Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et `06_LOTS/lot_00/CHECKLIST.md`) :
-1. Créer l'application de base dans `src/apps/web` (dépôt unique pnpm + Turborepo) : Next.js, Tailwind v4, Ant Design + Preline aux jetons de `DESIGN_TOKENS.md`, thème clair / sombre, français / anglais.
+1. Créer l'application de base dans `src/apps/web` (dépôt unique pnpm + Turborepo) : Next.js, Tailwind v4, shadcn/ui aux jetons de `DESIGN_TOKENS.md`, thème clair / sombre, français / anglais.
 2. Créer la page de démonstration des composants de `COMPOSANTS.md`, déployée en aperçu Vercel.
 3. Ensuite : maquettes manquantes et validation des fiches écran, module par module (lots 1 à 3 d'abord).
 

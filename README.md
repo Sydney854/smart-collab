@@ -57,7 +57,7 @@ Ce dépôt est le **cerveau du projet**. La cheffe de projet décide ; l'agent c
 
 ## Stack imposée (résumé, détail en `10_ARCHITECTURE_STACK.md`)
 
-- Next.js + React 19 + TypeScript + Tailwind CSS v4 · Ant Design v6 + Preline habillés avec nos jetons · application installable (hors ligne) — référence technique : version Next.js / React de DreamsERP
+- Next.js + React 19 + TypeScript + Tailwind CSS v4 · shadcn/ui + Lucide + ApexCharts habillés avec nos jetons (Inter, or et bleu marine) · application installable (hors ligne) — référence technique : version Next.js / React de DreamsERP
 - Supabase : PostgreSQL (sécurité au niveau des lignes par entreprise), connexion Supabase Auth, stockage, fonctions serveur
 - Paiements Stripe + Wave / Orange Money · déploiement Vercel (en ligne) et Docker + Supabase auto-hébergé (chez le client)
 - Monorepo pnpm + Turborepo (à valider)

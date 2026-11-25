@@ -4,7 +4,7 @@ Rempli par Antigravity à partir du lot 1. Organisation imposée (`02_SPECIFICAT
 
 ```
 src/
-  apps/web          application (Next.js + React 19, Tailwind v4, Ant Design v6 + Preline habillés avec nos jetons, installable hors ligne)
+  apps/web          application (Next.js + React 19, Tailwind v4, shadcn/ui, Lucide, ApexCharts, TanStack Table, react-hook-form + zod, sonner, date-fns, habillés avec nos jetons, installable hors ligne)
   apps/console      console éditeur
   apps/site         site commercial (Next.js, lot 12)
   apps/<id>/        une application ERP = manifest.ts + migrations + seeds + public.ts (16_CONTRAT_APPLICATION.md)

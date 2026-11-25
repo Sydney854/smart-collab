@@ -16,7 +16,7 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | --- | --- | --- | --- |
 | Application (front-end) | Next.js (App Router) + React 19, TypeScript | validé | Version Next.js de DreamsERP comme référence technique ; même base pour l'application et le site commercial |
 | Style | Tailwind CSS v4, nos jetons de couleur (`05_UI_UX/DESIGN_TOKENS.md`), thème clair / sombre | validé | Comme DreamsERP ; couleurs Smart Collab |
-| Composants | Ant Design v6 + Preline v4, habillés avec nos jetons ; composants maison du prototype (`05_UI_UX/COMPOSANTS.md`) construits par-dessus | validé | Tableaux, formulaires, calendriers et sélecteurs prêts tout de suite |
+| Composants | **shadcn/ui** (composants copiés dans le dépôt, sur Radix et Tailwind) et ses blocs « menu latéral repliable » et « tableau de bord », habillés avec nos jetons ; composants maison du prototype (`05_UI_UX/COMPOSANTS.md`) construits par-dessus ; icônes **Lucide** ; police **Inter** ; notifications **sonner** | validé | Rendu proche de DreamsERP avec un seul système de style (Tailwind) ; code des composants modifiable librement (décision du 25/11/2026, remplace Ant Design + Preline) |
 | Serveur et base de données | Supabase : PostgreSQL, sécurité au niveau des lignes par entreprise, fonctions SQL et fonctions serveur (Edge Functions) | validé | Base PostgreSQL déjà prévue (`sql/`), isolation des entreprises, moins de serveur à écrire et à maintenir |
 | Connexion | Supabase Auth (e-mail + mot de passe, double authentification) | validé | Intégré à la base : l'entreprise et le rôle de l'utilisateur sont lus par les règles de sécurité |
 | Paiements | Stripe (cartes, abonnements) ; Wave et Orange Money pour le mobile money | validé, modalités à vérifier (voir ci-dessous) | Abonnements annuels, clients internationaux et clients UEMOA |
@@ -28,8 +28,8 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | --- | --- | --- |
 | Navigation et état | Routes Next.js ; Redux Toolkit (thème, disposition, session) ; TanStack Query (chargement et cache des listes) | Organisation de DreamsERP Next.js |
 | Accès aux données | Client Supabase (`supabase-js`) avec types générés depuis la base ; migrations par la CLI Supabase (fichiers `sql/` versionnés) | Remplace Prisma / Drizzle, qui ne sont plus nécessaires |
-| Formulaires et validation | Formulaires Ant Design + schémas Zod partagés entre écran et fonctions serveur | Une seule définition des règles de saisie |
-| Graphiques et icônes | ApexCharts (ECharts pour les jauges) ; icônes Lucide | Comme DreamsERP, un seul jeu d'icônes |
+| Formulaires et validation | react-hook-form + schémas Zod partagés entre écran et fonctions serveur ; tableaux TanStack Table + data-table de shadcn (tri, filtres, pagination, sélection) ; dates date-fns (fr, en) | Une seule définition des règles de saisie |
+| Graphiques et icônes | ApexCharts seul (pas de Recharts ni d'ECharts) ; icônes Lucide | Comme DreamsERP, un seul jeu d'icônes |
 | Hors ligne | Application installable (service worker), base locale IndexedDB (Dexie), file d'opérations synchronisée vers Supabase | Caisse et écrans terrain sans réseau (§9) |
 | Moteur de règles | Bibliothèque TypeScript partagée navigateur / fonctions serveur | Mêmes résultats en ligne et hors ligne (EF-CFG-02) |
 | Fichiers | Supabase Storage (dossiers privés par entreprise) | Photos produits, justificatifs, pièces jointes |
