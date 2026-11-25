@@ -269,6 +269,21 @@
       "saved": "Enregistré",
       "error": "Une erreur est survenue. Réessayez.",
       "undo": "Annuler"
+    },
+    "workspace": {
+      "mode": "Mode d'affichage",
+      "list": "Mode Liste",
+      "mosaic": "Mode Mosaïque",
+      "tilesTitle": "Modules",
+      "isOpen": "ouvert",
+      "desktop": "Bureau",
+      "tooMany": "{count} écrans ouverts au maximum : fermez-en un pour en ouvrir un autre."
+    },
+    "window": {
+      "minimize": "Réduire {name}",
+      "maximize": "Agrandir {name}",
+      "restore": "Restaurer {name}",
+      "close": "Fermer {name}"
     }
   },
   "dashboard": {
@@ -290,5 +305,18 @@
     "amount": "Montant",
     "status": "Statut",
     "openSale": "Vente {name}"
+  },
+  "screens": {
+    "planned": "Cet écran sera construit au lot {lot}. Il sert ici à essayer les modes Liste et Mosaïque.",
+    "descriptions": {
+      "dashboard": "Chiffres clés, ventes du mois",
+      "sales": "Devis, factures, avoirs",
+      "stock": "Produits, mouvements, inventaires",
+      "purchases": "Commandes et réceptions fournisseurs",
+      "pos": "Encaissement en boutique",
+      "finance": "Trésorerie et comptabilité",
+      "apps": "Installer ou retirer des modules",
+      "components": "Catalogue des composants (démo)"
+    }
   }
 }

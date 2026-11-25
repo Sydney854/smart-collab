@@ -108,5 +108,6 @@ test("le menu mène du tableau de bord à la démonstration", async ({ page, isM
   await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
   if (isMobile) await page.getByRole("button", { name: "Afficher ou réduire le menu" }).click();
   await page.getByRole("button", { name: "Composants (démo)" }).click();
-  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page).toHaveURL(/ecran=components/);
+  await expect(page.getByRole("heading", { level: 1, name: "Composants Smart Collab" })).toBeVisible();
 });

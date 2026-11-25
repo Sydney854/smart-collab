@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { cookies } from "next/headers";
-import { DemoClient } from "./DemoClient";
+import { redirect } from "next/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("demo");
-  return { title: `${t("title")} · Smart Collab` };
-}
-
-export default async function DemoPage() {
-  const sidebarOpen = (await cookies()).get("sidebar_state")?.value !== "false";
-  return <DemoClient sidebarOpen={sidebarOpen} />;
+// Ancienne adresse de la page de démonstration : c'est désormais un écran du cadre.
+export default function DemoPage() {
+  redirect("/?ecran=components");
 }

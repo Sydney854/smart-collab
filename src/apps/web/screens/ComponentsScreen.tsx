@@ -27,7 +27,6 @@ import { Switch } from "@smart-collab/ui/components/ui/switch";
 import { BanknoteIcon, FileWarningIcon, ReceiptIcon, ShoppingCartIcon, StoreIcon, WalletIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { type ReactNode, useMemo, useState } from "react";
-import { DemoShell } from "@/components/DemoShell";
 import { DEMO_COMPANY, type DemoProduct, demoProducts, demoReportLines, demoSales } from "@/lib/demo-data";
 
 /** Bloc de la page : titre, explication courte, puis le composant. */
@@ -43,7 +42,8 @@ function Section({ id, title, hint, children }: { id: string; title: string; hin
   );
 }
 
-export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
+/** Écran « Composants (démo) » : les 14 composants de COMPOSANTS.md, affiché en page ou en fenêtre. */
+export function ComponentsScreen() {
   const t = useTranslations("demo");
   const tApps = useTranslations("apps");
   const tStatus = useTranslations("ui.status");
@@ -81,7 +81,7 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
   const reportTotal = demoReportLines.reduce((sum, l) => sum + BigInt(l.amount), 0n);
 
   return (
-    <DemoShell sidebarOpen={sidebarOpen} activeKey="components" banner={<OfflineBanner forceOffline={offline} pendingCount={offline ? 3 : 0} />}>
+    <>
       <div className="mx-auto flex max-w-7xl flex-col gap-10">
         <header>
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
@@ -103,7 +103,7 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
         </Section>
 
         <Section id="kpi" title={t("sections.kpi")} hint={t("sections.kpiHint")}>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
             {[
               { key: "revenue", value: formatMoney("12450000"), delta: 12.4, icon: <BanknoteIcon />, tone: "gold" as const },
               { key: "orders", value: "186", delta: 4.1, icon: <ShoppingCartIcon />, tone: "blue" as const },
@@ -199,7 +199,7 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
           />
         </Section>
 
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className="grid gap-10 @4xl:grid-cols-2">
           <Section id="status" title={t("sections.status")}>
             <div className="flex flex-wrap gap-2 rounded-xl border bg-card p-4 shadow-card">
               {(Object.keys(STATUS_TONES) as Status[]).map((s) => (
@@ -241,7 +241,7 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
         </Section>
 
         <Section id="app-card" title={t("sections.appCard")}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
             <AppCard
               name={tApps("sales")}
               category={t("appCard.commerce")}
@@ -276,7 +276,7 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
         </Section>
 
         <Section id="feedback" title={t("sections.feedback")}>
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-4 @4xl:grid-cols-2">
             <div className="rounded-xl border bg-card shadow-card">
               <EmptyState action={<Button>{t("list.title")}</Button>} />
             </div>
@@ -312,6 +312,6 @@ export function DemoClient({ sidebarOpen }: { sidebarOpen: boolean }) {
           />
         </Section>
       </div>
-    </DemoShell>
+    </>
   );
 }

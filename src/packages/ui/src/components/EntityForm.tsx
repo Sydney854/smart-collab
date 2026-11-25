@@ -104,7 +104,7 @@ export function EntityForm<V extends FieldValues>({
     <form
       noValidate
       onSubmit={form.handleSubmit((v) => onSubmit(v as V))}
-      className="rounded-xl border bg-card p-4 shadow-card"
+      className="@container rounded-xl border bg-card p-4 shadow-card"
     >
       <Tabs defaultValue={tabs[0]?.key}>
         <TabsList>
@@ -116,7 +116,7 @@ export function EntityForm<V extends FieldValues>({
           ))}
         </TabsList>
         {tabs.map((tab) => (
-          <TabsContent key={tab.key} value={tab.key} forceMount className="mt-4 grid gap-4 data-[state=inactive]:hidden sm:grid-cols-2">
+          <TabsContent key={tab.key} value={tab.key} forceMount className="mt-4 grid gap-4 data-[state=inactive]:hidden @xl:grid-cols-2">
             {tab.fields.map((f) => (
               <Controller
                 key={f.name}
@@ -138,14 +138,14 @@ export function EntityForm<V extends FieldValues>({
                   );
                   if (f.type === "switch") {
                     return (
-                      <Field orientation="horizontal" className={f.wide ? "sm:col-span-2" : undefined}>
+                      <Field orientation="horizontal" className={f.wide ? "@xl:col-span-2" : undefined}>
                         <Switch id={id} checked={Boolean(field.value)} onCheckedChange={field.onChange} />
                         {label}
                       </Field>
                     );
                   }
                   return (
-                    <Field data-invalid={invalid} className={f.wide || f.type === "textarea" ? "sm:col-span-2" : undefined}>
+                    <Field data-invalid={invalid} className={f.wide || f.type === "textarea" ? "@xl:col-span-2" : undefined}>
                       {label}
                       {f.type === "textarea" ? (
                         <Textarea id={id} aria-invalid={invalid} {...field} value={field.value ?? ""} />

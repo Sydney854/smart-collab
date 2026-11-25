@@ -269,6 +269,21 @@
       "saved": "Saved",
       "error": "Something went wrong. Please try again.",
       "undo": "Undo"
+    },
+    "workspace": {
+      "mode": "Display mode",
+      "list": "List mode",
+      "mosaic": "Mosaic mode",
+      "tilesTitle": "Modules",
+      "isOpen": "open",
+      "desktop": "Desktop",
+      "tooMany": "{count} open screens at most: close one to open another."
+    },
+    "window": {
+      "minimize": "Minimise {name}",
+      "maximize": "Maximise {name}",
+      "restore": "Restore {name}",
+      "close": "Close {name}"
     }
   },
   "dashboard": {
@@ -290,5 +305,18 @@
     "amount": "Amount",
     "status": "Status",
     "openSale": "Sale {name}"
+  },
+  "screens": {
+    "planned": "This screen will be built in lot {lot}. It is used here to try the List and Mosaic modes.",
+    "descriptions": {
+      "dashboard": "Key figures, this month's sales",
+      "sales": "Quotes, invoices, credit notes",
+      "stock": "Products, movements, stock counts",
+      "purchases": "Supplier orders and receipts",
+      "pos": "In-store checkout",
+      "finance": "Cash and accounting",
+      "apps": "Install or remove modules",
+      "components": "Component catalogue (demo)"
+    }
   }
 }

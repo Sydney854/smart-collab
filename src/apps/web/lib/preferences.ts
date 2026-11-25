@@ -17,3 +17,6 @@ export function readPreferences(get: (name: string) => string | undefined): { mo
 export function writeCookie(name: string, value: string) {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 }
+
+/** Mode d'affichage du menu principal (Liste ou Mosaïque), retenu par utilisateur dans ce navigateur. */
+export const LAYOUT_COOKIE = "sc-layout";

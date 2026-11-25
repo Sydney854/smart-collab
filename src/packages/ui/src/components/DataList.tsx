@@ -158,7 +158,7 @@ export function DataList<T>({
   }
 
   return (
-    <section className="rounded-xl border bg-card shadow-card" aria-label={title}>
+    <section className="@container rounded-xl border bg-card shadow-card" aria-label={title}>
       <div className="flex flex-wrap items-center gap-2 border-b p-3">
         {title && <h3 className="mr-auto font-semibold">{title}</h3>}
         {selected.length > 0 && (
@@ -167,7 +167,7 @@ export function DataList<T>({
             {bulkActions?.(selected)}
           </span>
         )}
-        <div className="relative w-full sm:w-56">
+        <div className="relative w-full @lg:w-56">
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
           <Input
             type="search"

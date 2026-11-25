@@ -21,3 +21,7 @@ export * from "./components/PrintPreview";
 export * from "./components/AppCard";
 export * from "./components/ConfirmDialog";
 export * from "./components/Toast";
+// Cadre à 2 modes (Liste / Mosaïque)
+export * from "./components/workspace/state";
+export * from "./components/workspace/context";
+export type { ScreenDef } from "./components/workspace/types";

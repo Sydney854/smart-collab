@@ -114,7 +114,7 @@ export function ChartCard({
           </DropdownMenu>
         </CardAction>
       </CardHeader>
-      <CardContent className="px-2 sm:px-6">
+      <CardContent className="px-2 @lg/card:px-6">
         <Chart key={`${type}-${mode}`} type={type} height={height} options={options} series={series.map(({ name, data }) => ({ name, data }))} />
       </CardContent>
     </Card>

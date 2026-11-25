@@ -5,7 +5,6 @@ import {
   DataList,
   type DataListColumn,
   KpiCard,
-  OfflineBanner,
   StatusBadge,
   formatMoney,
   useFormatDate,
@@ -16,13 +15,13 @@ import { BanknoteIcon, FileWarningIcon, ShoppingCartIcon, WalletIcon } from "luc
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { DemoShell } from "@/components/DemoShell";
 import { type DemoSale, demoRecentSales, demoRevenue } from "@/lib/demo-data";
 
 const RANGES = ["3", "6", "12"] as const;
 type Range = (typeof RANGES)[number];
 
-export function DashboardClient({ sidebarOpen }: { sidebarOpen: boolean }) {
+/** Écran « Tableau de bord » (données fictives), affiché en page ou en fenêtre. */
+export function DashboardScreen() {
   const t = useTranslations("dashboard");
   const tDemo = useTranslations("demo");
   const tStatus = useTranslations("ui.status");
@@ -59,14 +58,14 @@ export function DashboardClient({ sidebarOpen }: { sidebarOpen: boolean }) {
   );
 
   return (
-    <DemoShell sidebarOpen={sidebarOpen} activeKey="dashboard" banner={<OfflineBanner />}>
-      <div className="@container/main mx-auto flex max-w-7xl flex-col gap-6">
+    <>
+      <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <header>
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
           <p className="mt-1 text-muted-foreground">{t("subtitle")}</p>
         </header>
 
-        <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4" data-testid="kpis">
+        <div className="grid grid-cols-1 gap-4 @xl:grid-cols-2 @5xl:grid-cols-4" data-testid="kpis">
           <KpiCard label={tDemo("kpi.revenue")} value={formatMoney("12450000")} delta={12.4} hint={tDemo("kpi.vsPrevious")} icon={<BanknoteIcon />} tone="gold"
             onClick={() => toast(tDemo("kpi.clicked", { name: tDemo("kpi.revenue") }))} onCustomize={(a) => toast(tDemo("kpi.customize", { action: a }))} />
           <KpiCard label={tDemo("kpi.orders")} value="186" delta={4.1} hint={tDemo("kpi.vsPrevious")} icon={<ShoppingCartIcon />} tone="blue" />
@@ -107,6 +106,6 @@ export function DashboardClient({ sidebarOpen }: { sidebarOpen: boolean }) {
           )}
         />
       </div>
-    </DemoShell>
+    </>
   );
 }

@@ -46,7 +46,14 @@ export function ThemeToggle() {
   const { mode, setMode } = useScTheme();
   const dark = mode === "dark";
   return (
-    <Button variant="ghost" size="icon" aria-label={dark ? t("switchToLight") : t("switchToDark")} onClick={() => setMode(dark ? "light" : "dark")}>
+    // Masqué sur téléphone, faute de place : la palette propose aussi le choix clair / sombre
+    <Button
+      variant="ghost"
+      size="icon"
+      className="hidden sm:inline-flex"
+      aria-label={dark ? t("switchToLight") : t("switchToDark")}
+      onClick={() => setMode(dark ? "light" : "dark")}
+    >
       {dark ? <SunIcon /> : <MoonIcon />}
     </Button>
   );

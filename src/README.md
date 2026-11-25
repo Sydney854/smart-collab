@@ -30,7 +30,8 @@ Ce qui existe :
 src/
   package.json, pnpm-workspace.yaml, turbo.json   dépôt unique pnpm + Turborepo
   apps/web           application Next.js 16 (React 19, Tailwind v4, shadcn/ui, next-intl)
-    app/page.tsx     tableau de bord de démonstration (« / »), sur les blocs shadcn « sidebar-07 » et « dashboard-01 »
+    app/page.tsx     page unique : le cadre à 2 modes (Liste / Mosaïque) affiche les écrans ; écran courant dans l'adresse (/?ecran=…)
+    screens/         écrans (écrits une fois, affichés en page ou en fenêtre) : tableau de bord, composants (démo), modules à venir
     tests/unit       test « aucune couleur codée en dur hors des jetons »
     tests/e2e        tests d'écran Playwright (ordinateur + téléphone)
   packages/ui        jetons (tokens.ts = seule source des couleurs), composants shadcn/ui (src/components/ui), composants de COMPOSANTS.md
@@ -58,7 +59,7 @@ cd src
 pnpm dev
 ```
 
-Puis ouvrir http://localhost:3000
+Puis ouvrir http://localhost:3000 (tableau de bord) ou http://localhost:3000/?ecran=components (les 14 composants ; l'ancienne adresse /demo y mène)
 
 ### Construire et lancer comme en production
 
@@ -100,6 +101,12 @@ Aucun au lot 0 (pas de connexion). L'utilisatrice affichée « Awa Koné, Admini
 - Thème clair / sombre et couleur principale : bouton lune et palette en haut à droite ; choix mémorisés dans les cookies `sc-theme` et `sc-accent`.
 - Langue : bouton FR / EN ; choix mémorisé dans le cookie `NEXT_LOCALE` (français par défaut). Les adresses ne changent pas selon la langue.
 - Les couleurs ne s'écrivent que dans `packages/ui/src/tokens.ts` ; Tailwind n'a plus ses couleurs par défaut. Classes disponibles : noms shadcn (`bg-primary` = or, `text-muted-foreground`, `border-border`, `bg-sidebar`…) et nos couleurs d'état (`text-green`, `bg-amber-l`…). Correspondance : `05_UI_UX/DESIGN_TOKENS.md`.
+
+### Modes d'affichage (Liste / Mosaïque)
+
+- Bouton dans l'en-tête ; choix retenu dans le cookie `sc-layout` (`list` ou `mosaic`).
+- Mosaïque : fenêtres déplaçables et redimensionnables (`react-rnd`), réduites dans la barre d'onglets, plein écran sur téléphone, 6 écrans ouverts au maximum (onglets compris).
+- Ajouter un écran : un composant dans `apps/web/screens/`, déclaré dans `apps/web/screens/registry.tsx`. Pour la mise en page, utiliser les requêtes de conteneur (`@md:`, `@xl:`…) et non `sm:` / `lg:` : l'écran suit ainsi la largeur de la page ou de la fenêtre.
 
 ### Ajouter un composant shadcn/ui
 
