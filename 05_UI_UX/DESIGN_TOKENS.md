@@ -89,5 +89,6 @@ Or (défaut) `#d9a441`, Bleu `#2563eb`, Vert `#0d9488`, Violet `#7c3aed`, Rouge 
 | Rayon des cartes | 12 px |
 | Rayon des champs et boutons | 8 px |
 | Ombre des cartes | `0 1px 2px rgba(16,35,64,.04), 0 1px 3px rgba(16,35,64,.06)` |
-| Largeur du menu latéral | 222 px (réductible en icônes) |
+| Largeur du menu latéral | 240 px (réductible en icônes ; 222 px dans le prototype, élargi le 25/11/2026 pour le nom de l'entreprise) |
+| Écran actif du menu | Fond or plein (`--accent`), texte `--on-accent` |
 | Montants | Francs entiers à l'affichage (`12 500 F`), séparateur d'espace, devise de l'entreprise |

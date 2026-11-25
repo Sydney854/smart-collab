@@ -179,7 +179,7 @@ export const shape = {
     "'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
   radiusCard: 12,
   radiusControl: 8,
-  sidebarWidth: 222,
+  sidebarWidth: 240,
   shadowCard: "0 1px 2px rgba(16,35,64,.04), 0 1px 3px rgba(16,35,64,.06)",
 } as const;
 
