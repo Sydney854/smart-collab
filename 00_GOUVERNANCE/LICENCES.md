@@ -31,4 +31,4 @@ Termes de référence : licences ThemeForest Regular / Extended, et rubrique « 
 
 ## Bibliothèques open source
 
-Tailwind CSS, Preline, Ant Design, ApexCharts, ECharts, Chart.js, Lucide, Next.js, React, Redux Toolkit, Supabase (client) : licences libres (MIT, Apache 2.0…). Leur liste et leurs avis de licence sont générés à chaque livraison (fichier des licences tierces dans `src/`).
+Tailwind CSS, shadcn/ui, Radix UI, Lucide, ApexCharts, TanStack Table, react-hook-form, zod, sonner, date-fns, Next.js, React, Redux Toolkit, Supabase (client) : licences libres (MIT, Apache 2.0…). Leur liste et leurs avis de licence sont générés à chaque livraison (fichier des licences tierces dans `src/`).
