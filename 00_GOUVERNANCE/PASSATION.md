@@ -32,8 +32,7 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 
 ## Points en attente
 
-- Vérifier au premier déploiement que Vercel est bien relié au dépôt GitHub ; puis ajouter l'adresse Vercel dans Supabase → Authentication → Redirect URLs.
-- Supprimer la variable Vercel en double `SUPABASE_SECRET_KEY1` (à faire par la cheffe de projet).
+- Lien Vercel ↔ GitHub vérifié le 25/11/2026 : chaque envoi sur `main` déclenche un déploiement. Les déploiements échouent tant que `src/apps/web` n'existe pas (attendu). Après le premier déploiement réussi, ajouter l'adresse Vercel dans Supabase → Authentication → Redirect URLs.
 - Code d'achat et certificat de licence DreamsERP à ajouter dans `00_GOUVERNANCE/LICENCES.md` et `00_GOUVERNANCE/licences/`.
 - Répartition du travail entre Claude Code et Antigravity à décider.
 - Composants techniques et mesures de sécurité « à valider » (`10_ARCHITECTURE_STACK.md`, `11_SECURITE_NFR.md`).
