@@ -59,7 +59,7 @@ export function DashboardClient({ sidebarOpen }: { sidebarOpen: boolean }) {
   );
 
   return (
-    <DemoShell sidebarOpen={sidebarOpen} banner={<OfflineBanner />}>
+    <DemoShell sidebarOpen={sidebarOpen} activeKey="dashboard" banner={<OfflineBanner />}>
       <div className="@container/main mx-auto flex max-w-7xl flex-col gap-6">
         <header>
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>

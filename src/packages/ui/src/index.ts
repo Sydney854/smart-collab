@@ -15,3 +15,9 @@ export * from "./components/OfflineBanner";
 export * from "./components/EmptyState";
 // Les composants de base shadcn/ui s'importent un par un :
 //   import { Button } from "@smart-collab/ui/components/ui/button";
+export * from "./components/PeriodBar";
+export * from "./components/EntityForm";
+export * from "./components/PrintPreview";
+export * from "./components/AppCard";
+export * from "./components/ConfirmDialog";
+export * from "./components/Toast";

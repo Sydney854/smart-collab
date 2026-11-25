@@ -23,7 +23,9 @@
     "purchases": "Purchasing",
     "pos": "Point of sale",
     "finance": "Finance",
-    "apps": "Apps"
+    "apps": "Apps",
+    "components": "Components (demo)",
+    "notYet": "“{name}” comes in a later lot"
   },
   "demo": {
     "title": "Smart Collab components",
@@ -117,7 +119,8 @@
       "management": "Management",
       "salesDesc": "Quotes, orders, invoices, credit notes and customer payment tracking.",
       "posDesc": "In-store checkout, works offline, with receipt printer and cash drawer.",
-      "financeDesc": "Cash management, bank reconciliation and SYSCOHADA accounting."
+      "financeDesc": "Cash management, bank reconciliation and SYSCOHADA accounting.",
+      "planToast": "Plan upgrade requested (demo)"
     },
     "feedback": {
       "openConfirm": "Cancel an invoice",
@@ -125,7 +128,11 @@
       "confirmText": "A validated invoice is never deleted: it is cancelled by a credit note, with a reason.",
       "cancelled": "Invoice cancelled. Reason: {reason}",
       "toastSuccess": "Success message",
-      "toastError": "Error message"
+      "toastError": "Error message",
+      "toastUndo": "Message with “Undo”",
+      "draftDeleted": "Draft deleted",
+      "restored": "Draft restored",
+      "confirmAction": "Cancel invoice"
     }
   },
   "ui": {
@@ -150,7 +157,8 @@
       "quarter": "Quarter",
       "year": "Year",
       "custom": "Custom",
-      "range": "Period dates"
+      "range": "Period dates",
+      "label": "Period"
     },
     "kpi": {
       "customize": "Customise indicator",
@@ -192,7 +200,12 @@
       "save": "Save",
       "cancel": "Cancel",
       "required": "This field is required",
-      "customField": "Custom"
+      "customField": "Custom",
+      "invalidNumber": "Enter a number",
+      "invalidAmount": "Enter an amount in francs, without decimals",
+      "pickDate": "Pick a date",
+      "choose": "Choose…",
+      "tabHasError": "This tab contains an error"
     },
     "print": {
       "title": "Print preview",
@@ -236,7 +249,9 @@
       "installed": "Installed",
       "install": "Install",
       "open": "Open",
-      "requires": "Requires:"
+      "requires": "Requires:",
+      "notIncluded": "Not in plan",
+      "addToPlan": "Add to plan"
     },
     "empty": {
       "title": "Nothing to show yet",
@@ -246,11 +261,13 @@
       "confirm": "Confirm",
       "cancel": "Back",
       "reasonLabel": "Reason (required)",
-      "reasonPlaceholder": "E.g. wrong quantity"
+      "reasonPlaceholder": "E.g. wrong quantity",
+      "reasonHint": "At least {count} characters. The reason is kept in the history."
     },
     "toast": {
       "saved": "Saved",
-      "error": "Something went wrong. Please try again."
+      "error": "Something went wrong. Please try again.",
+      "undo": "Undo"
     }
   },
   "dashboard": {

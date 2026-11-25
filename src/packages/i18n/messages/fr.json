@@ -23,7 +23,9 @@
     "purchases": "Achats",
     "pos": "Caisse",
     "finance": "Finance",
-    "apps": "Applications"
+    "apps": "Applications",
+    "components": "Composants (démo)",
+    "notYet": "« {name} » arrive dans un prochain lot"
   },
   "demo": {
     "title": "Composants Smart Collab",
@@ -117,7 +119,8 @@
       "management": "Gestion",
       "salesDesc": "Devis, commandes, factures, avoirs et suivi des paiements clients.",
       "posDesc": "Encaissement en boutique, hors ligne, avec imprimante de tickets et tiroir-caisse.",
-      "financeDesc": "Trésorerie, rapprochements bancaires et comptabilité SYSCOHADA."
+      "financeDesc": "Trésorerie, rapprochements bancaires et comptabilité SYSCOHADA.",
+      "planToast": "Demande d'ajout à l'abonnement (démonstration)"
     },
     "feedback": {
       "openConfirm": "Annuler une facture",
@@ -125,7 +128,11 @@
       "confirmText": "Une facture validée n'est jamais supprimée : elle est annulée par un avoir, avec un motif.",
       "cancelled": "Facture annulée. Motif : {reason}",
       "toastSuccess": "Message de succès",
-      "toastError": "Message d'erreur"
+      "toastError": "Message d'erreur",
+      "toastUndo": "Message avec « Annuler »",
+      "draftDeleted": "Brouillon supprimé",
+      "restored": "Brouillon restauré",
+      "confirmAction": "Annuler la facture"
     }
   },
   "ui": {
@@ -150,7 +157,8 @@
       "quarter": "Trimestre",
       "year": "Année",
       "custom": "Personnalisée",
-      "range": "Dates de la période"
+      "range": "Dates de la période",
+      "label": "Période"
     },
     "kpi": {
       "customize": "Personnaliser l'indicateur",
@@ -192,7 +200,12 @@
       "save": "Enregistrer",
       "cancel": "Annuler",
       "required": "Ce champ est obligatoire",
-      "customField": "Personnalisé"
+      "customField": "Personnalisé",
+      "invalidNumber": "Saisissez un nombre",
+      "invalidAmount": "Saisissez un montant en francs, sans décimales",
+      "pickDate": "Choisir une date",
+      "choose": "Choisir…",
+      "tabHasError": "Cet onglet contient une erreur"
     },
     "print": {
       "title": "Aperçu avant impression",
@@ -236,7 +249,9 @@
       "installed": "Installée",
       "install": "Installer",
       "open": "Ouvrir",
-      "requires": "Nécessite :"
+      "requires": "Nécessite :",
+      "notIncluded": "Hors abonnement",
+      "addToPlan": "Ajouter à l'abonnement"
     },
     "empty": {
       "title": "Rien à afficher pour le moment",
@@ -246,11 +261,13 @@
       "confirm": "Confirmer",
       "cancel": "Retour",
       "reasonLabel": "Motif (obligatoire)",
-      "reasonPlaceholder": "Ex. : erreur de quantité"
+      "reasonPlaceholder": "Ex. : erreur de quantité",
+      "reasonHint": "{count} caractères minimum. Le motif est conservé dans l'historique."
     },
     "toast": {
       "saved": "Enregistré",
-      "error": "Une erreur est survenue. Réessayez."
+      "error": "Une erreur est survenue. Réessayez.",
+      "undo": "Annuler"
     }
   },
   "dashboard": {
