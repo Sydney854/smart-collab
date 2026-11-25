@@ -4,8 +4,13 @@ Ces sources servent à **voir** à quoi doivent ressembler les écrans. Le proto
 
 ## 1. Prototype (écrans à reproduire)
 
-- Fichiers : `RUTHYS_ERP_v107_paie_etats.html` et `RUTHYS_ERP_v99_inventaire_lot_par_lot.html` (dépôt GitHub `Sydney854/Projet-ERP`, branche `integration-v99-v107`, dossier `versions/`).
-- À ajouter ici (dossier `prototype/`) par la cheffe de projet : une copie des deux fichiers et des captures par écran.
+- Le prototype est représenté dans ce dépôt par ses **captures** et ses **fiches écran**, pas par son code (décision du 25/11/2026) :
+  - captures des écrans v105, v107 (Paie, états RH) et v99 (inventaire lot par lot) : `prototype/CAPTURES.md` et `prototype/captures/` ;
+  - une fiche par écran (zones, champs, colonnes, actions, fonction de rendu du prototype) : `05_UI_UX/maquettes/` ;
+  - couleurs, polices et tailles relevées dans sa feuille de style : `05_UI_UX/DESIGN_TOKENS.md` ;
+  - règles métier : `07_ARCHIVES/ancien_cadrage_mvp_retail/RUTHYS_ERP_v105_Documentation_Complete.md`.
+- Les fichiers HTML du prototype ne sont **pas** copiés ici : ils contiennent les données réelles de RUTHY'S. Ils restent dans le dépôt `Sydney854/Projet-ERP`.
+- Si un comportement n'est pas clair sur un écran précis, on extrait **ce morceau seulement**, sans données, à la demande de la cheffe de projet.
 - On reprend : la **disposition**, les **composants**, les **parcours**, les **états imprimables**.
 - On ne reprend pas : les **données** embarquées ni les **calculs** propres à RUTHY'S (objectifs, contribution des sites, 40/40/20…). Ils deviennent des réglages du moteur de configuration.
 
