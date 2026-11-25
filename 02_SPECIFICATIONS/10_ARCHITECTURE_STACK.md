@@ -17,6 +17,10 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | Application (front-end) | Next.js (App Router) + React 19, TypeScript | validé | Version Next.js de DreamsERP comme référence technique ; même base pour l'application et le site commercial |
 | Style | Tailwind CSS v4, nos jetons de couleur (`05_UI_UX/DESIGN_TOKENS.md`), thème clair / sombre | validé | Comme DreamsERP ; couleurs Smart Collab |
 | Composants | **shadcn/ui** (composants copiés dans le dépôt, sur Radix et Tailwind) et ses blocs « menu latéral repliable » et « tableau de bord », habillés avec nos jetons ; composants maison du prototype (`05_UI_UX/COMPOSANTS.md`) construits par-dessus ; icônes **Lucide** ; police **Inter** ; notifications **sonner** | validé | Rendu proche de DreamsERP avec un seul système de style (Tailwind) ; code des composants modifiable librement (décision du 25/11/2026, remplace Ant Design + Preline) |
+| Formulaires et validation | react-hook-form + schémas Zod partagés entre écran et fonctions serveur ; tableaux TanStack Table + data-table de shadcn (tri, filtres, pagination, sélection) ; dates date-fns (fr, en) | validé | Une seule définition des règles de saisie (décision du 25/11/2026) |
+| Graphiques et icônes | ApexCharts seul (pas de Recharts ni d'ECharts) ; icônes Lucide | validé | Comme DreamsERP, un seul outil de graphiques et un seul jeu d'icônes (décision du 25/11/2026) |
+| Thème et préférences | Thème clair / sombre et couleur principale mémorisés dans des cookies, lus par le serveur ; pas de Redux Toolkit | validé | Aucun « flash » au chargement, un outil de moins (décision du 25/11/2026) |
+| Langues | next-intl (français et anglais). **Application** (`apps/web`) : langue mémorisée dans un cookie, adresses identiques en français et en anglais. **Site commercial** (`apps/site`, lot 12) : adresses `/fr/…` et `/en/…` pour le référencement | validé | ENF-USA-02 (décision du 25/11/2026) |
 | Serveur et base de données | Supabase : PostgreSQL, sécurité au niveau des lignes par entreprise, fonctions SQL et fonctions serveur (Edge Functions) | validé | Base PostgreSQL déjà prévue (`sql/`), isolation des entreprises, moins de serveur à écrire et à maintenir |
 | Connexion | Supabase Auth (e-mail + mot de passe, double authentification) | validé | Intégré à la base : l'entreprise et le rôle de l'utilisateur sont lus par les règles de sécurité |
 | Paiements | Stripe (cartes, abonnements) ; Wave et Orange Money pour le mobile money | validé, modalités à vérifier (voir ci-dessous) | Abonnements annuels, clients internationaux et clients UEMOA |
@@ -26,10 +30,8 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 
 | Couche | Proposition | Pourquoi |
 | --- | --- | --- |
-| Navigation et état | Routes Next.js ; Redux Toolkit (thème, disposition, session) ; TanStack Query (chargement et cache des listes) | Organisation de DreamsERP Next.js |
+| Navigation et état | Routes Next.js ; TanStack Query (chargement et cache des listes) | Pas de Redux Toolkit : le thème et la langue sont gardés dans des cookies (décision du 25/11/2026) |
 | Accès aux données | Client Supabase (`supabase-js`) avec types générés depuis la base ; migrations par la CLI Supabase (fichiers `sql/` versionnés) | Remplace Prisma / Drizzle, qui ne sont plus nécessaires |
-| Formulaires et validation | react-hook-form + schémas Zod partagés entre écran et fonctions serveur ; tableaux TanStack Table + data-table de shadcn (tri, filtres, pagination, sélection) ; dates date-fns (fr, en) | Une seule définition des règles de saisie |
-| Graphiques et icônes | ApexCharts seul (pas de Recharts ni d'ECharts) ; icônes Lucide | Comme DreamsERP, un seul jeu d'icônes |
 | Hors ligne | Application installable (service worker), base locale IndexedDB (Dexie), file d'opérations synchronisée vers Supabase | Caisse et écrans terrain sans réseau (§9) |
 | Moteur de règles | Bibliothèque TypeScript partagée navigateur / fonctions serveur | Mêmes résultats en ligne et hors ligne (EF-CFG-02) |
 | Fichiers | Supabase Storage (dossiers privés par entreprise) | Photos produits, justificatifs, pièces jointes |
@@ -37,7 +39,6 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | Temps réel | Supabase Realtime | Chat, notifications, écrans de caisse partagés |
 | Documents | PDF générés côté serveur depuis les modèles (outil à choisir, compatible avec les limites de durée de Vercel) ; Excel avec ExcelJS | Mêmes modèles à l'écran et à l'impression |
 | E-mails et SMS | Service d'envoi transactionnel (ex. Resend ou Brevo) ; SMS par un opérateur local | Factures, relances, codes de connexion |
-| Langues | next-intl (français et anglais) | ENF-USA-02 |
 | Qualité | Vitest (tests unitaires), Playwright (tests d'écrans), GitHub Actions (contrôle à chaque modification), Sentry (erreurs en production) | Chaque lot testé avant livraison |
 | Organisation du code | Dépôt unique pnpm + Turborepo : `apps/web`, `apps/site`, `apps/console`, `packages/ui`, `packages/rules`, `packages/schemas`, `supabase/` | Code partagé entre application, site et console |
 
