@@ -1,10 +1,6 @@
-/* Ordre de priorité : Ant Design passe avant les composants et utilitaires Tailwind */
-@layer theme, base, antd, components, utilities;
-
 @import "tailwindcss";
 @import "@smart-collab/ui/styles.css";
-/* Variantes Preline (hs-dropdown-open:, etc.) — sans ses thèmes de couleur : nos jetons suffisent */
-@import "../node_modules/preline/variants.css";
 
+/* Classes utilisées par l'application et par le paquet de composants */
+@source "../";
 @source "../../../packages/ui/src";
-@source "../node_modules/preline/dist/*.js";

@@ -1,36 +1,56 @@
 "use client";
 
-import { Button, Dropdown } from "antd";
 import type { ApexOptions } from "apexcharts";
-import { EllipsisVertical } from "lucide-react";
+import { EllipsisVerticalIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { useScTheme } from "../context";
 import type { ColorToken } from "../tokens";
+import { Button } from "./ui/button";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
+// ApexCharts a besoin du navigateur : chargé uniquement côté client
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export type ChartType = "bar" | "line" | "area";
+export type ChartType = "area" | "bar" | "line";
 export type ChartSeries = { name: string; data: number[]; color?: ColorToken };
 
-/** Carte de graphique avec menu de personnalisation (type de graphique) et export image. */
+/**
+ * Carte de graphique (ApexCharts) avec menu de personnalisation
+ * (type de graphique) et export en image PNG.
+ */
 export function ChartCard({
   id,
   title,
+  description,
   categories,
   series,
-  defaultType = "bar",
+  defaultType = "area",
   height = 260,
   valueFormatter,
+  toolbar,
 }: {
   id: string;
   title: string;
+  description?: string;
   categories: string[];
   series: ChartSeries[];
   defaultType?: ChartType;
   height?: number;
   valueFormatter?: (value: number) => string;
+  /** Contrôles supplémentaires dans l'en-tête (ex. choix de période) */
+  toolbar?: ReactNode;
 }) {
   const t = useTranslations("ui.chart");
   const { colors, mode } = useScTheme();
@@ -38,17 +58,22 @@ export function ChartCard({
 
   const options = useMemo<ApexOptions>(
     () => ({
-      chart: { id, toolbar: { show: false }, background: "transparent", fontFamily: "inherit", animations: { enabled: false } },
+      chart: { id, toolbar: { show: false }, background: "transparent", fontFamily: "inherit", animations: { enabled: false }, zoom: { enabled: false } },
       theme: { mode },
       colors: series.map((s, i) => colors[s.color ?? (i === 0 ? "accent" : "blue")]),
-      xaxis: { categories, labels: { style: { colors: colors.muted } }, axisBorder: { color: colors.line }, axisTicks: { color: colors.line } },
+      xaxis: {
+        categories,
+        labels: { style: { colors: colors.muted } },
+        axisBorder: { show: false },
+        axisTicks: { show: false },
+      },
       yaxis: { labels: { style: { colors: colors.muted }, formatter: valueFormatter } },
       grid: { borderColor: colors.line, strokeDashArray: 4 },
-      legend: { labels: { colors: colors["ink-2"] } },
+      legend: { position: "top", horizontalAlign: "right", labels: { colors: colors["ink-2"] } },
       dataLabels: { enabled: false },
       stroke: { curve: "smooth", width: type === "bar" ? 0 : 2 },
       plotOptions: { bar: { borderRadius: 4, columnWidth: "45%" } },
-      fill: { opacity: type === "area" ? 0.25 : 1 },
+      fill: type === "area" ? { type: "gradient", gradient: { opacityFrom: 0.35, opacityTo: 0.02 } } : { opacity: 1 },
       tooltip: { theme: mode, y: { formatter: valueFormatter } },
     }),
     [id, mode, colors, categories, series, type, valueFormatter],
@@ -64,28 +89,34 @@ export function ChartCard({
   }
 
   return (
-    <section className="rounded-card border border-line bg-card p-4 shadow-card" aria-label={title}>
-      <header className="mb-2 flex items-center justify-between">
-        <h3 className="font-semibold text-ink">{title}</h3>
-        <Dropdown
-          trigger={["click"]}
-          menu={{
-            selectable: true,
-            selectedKeys: [type],
-            items: [
-              { key: "bar", label: t("bar") },
-              { key: "line", label: t("line") },
-              { key: "area", label: t("area") },
-              { type: "divider" },
-              { key: "export", label: t("exportPng") },
-            ],
-            onClick: ({ key }) => (key === "export" ? void exportPng() : setType(key as ChartType)),
-          }}
-        >
-          <Button type="text" aria-label={t("menu")} icon={<EllipsisVertical className="size-4" />} />
-        </Dropdown>
-      </header>
-      <Chart key={`${type}-${mode}`} type={type} height={height} options={options} series={series.map(({ name, data }) => ({ name, data }))} />
-    </section>
+    <Card className="@container/card shadow-card" aria-label={title}>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+        <CardAction className="flex items-center gap-2">
+          {toolbar}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" aria-label={t("menu")}>
+                <EllipsisVerticalIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>{t("type")}</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={type} onValueChange={(v) => setType(v as ChartType)}>
+                <DropdownMenuRadioItem value="area">{t("area")}</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="bar">{t("bar")}</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="line">{t("line")}</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => void exportPng()}>{t("exportPng")}</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="px-2 sm:px-6">
+        <Chart key={`${type}-${mode}`} type={type} height={height} options={options} series={series.map(({ name, data }) => ({ name, data }))} />
+      </CardContent>
+    </Card>
   );
 }

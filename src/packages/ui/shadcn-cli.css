@@ -1,0 +1,5 @@
+/*
+ * Fichier tampon de l'outil shadcn (`shadcn add` y écrit ses variables par défaut).
+ * Il n'est PAS utilisé par l'application : nos couleurs viennent de src/tokens.ts
+ * et sont branchées sur les noms shadcn dans src/styles.css.
+ */

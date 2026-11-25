@@ -1,6 +1,5 @@
 import "@fontsource-variable/inter";
 import "./globals.css";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Locale } from "@smart-collab/i18n";
 import { cssVariables } from "@smart-collab/ui/tokens";
 import type { Metadata } from "next";
@@ -28,14 +27,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <style id="sc-tokens" dangerouslySetInnerHTML={{ __html: cssVariables(accent) }} />
       </head>
       <body>
-        {/* Styles Ant Design rangés dans la couche CSS « antd » : les classes Tailwind gardent la priorité */}
-        <AntdRegistry layer>
-          <NextIntlClientProvider>
-            <Providers locale={locale} initialMode={mode} initialAccent={accent}>
-              {children}
-            </Providers>
-          </NextIntlClientProvider>
-        </AntdRegistry>
+        <NextIntlClientProvider>
+          <Providers initialMode={mode} initialAccent={accent}>
+            {children}
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

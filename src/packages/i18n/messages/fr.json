@@ -134,7 +134,14 @@
       "search": "Rechercher dans Smart Collab…",
       "collapse": "Réduire le menu",
       "expand": "Agrandir le menu",
-      "openTabs": "Écrans ouverts"
+      "openTabs": "Écrans ouverts",
+      "apps": "Applications",
+      "toggleMenu": "Afficher ou réduire le menu",
+      "closeTab": "Fermer l'onglet {name}",
+      "userMenu": "Menu utilisateur",
+      "profile": "Mon profil",
+      "settings": "Paramètres",
+      "signOut": "Se déconnecter"
     },
     "period": {
       "today": "Aujourd'hui",
@@ -155,7 +162,8 @@
       "bar": "Barres",
       "line": "Courbe",
       "area": "Aire",
-      "exportPng": "Exporter en image (PNG)"
+      "exportPng": "Exporter en image (PNG)",
+      "type": "Type de graphique"
     },
     "list": {
       "search": "Rechercher…",
@@ -168,7 +176,17 @@
       "total": "{count, plural, one {# élément} other {# éléments}}",
       "detail": "Détail",
       "emptyTitle": "Aucun résultat",
-      "emptyDescription": "Modifiez la recherche ou les filtres."
+      "emptyDescription": "Modifiez la recherche ou les filtres.",
+      "selectAll": "Tout sélectionner",
+      "selectRow": "Sélectionner la ligne",
+      "filterBy": "Filtrer par {name}",
+      "allValues": "{name} : tout",
+      "columns": "Colonnes affichées",
+      "sortBy": "Trier par {name}",
+      "rowsPerPage": "Lignes par page",
+      "page": "Page {page} sur {pages}",
+      "previous": "Page précédente",
+      "next": "Page suivante"
     },
     "form": {
       "save": "Enregistrer",
@@ -234,5 +252,25 @@
       "saved": "Enregistré",
       "error": "Une erreur est survenue. Réessayez."
     }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "subtitle": "Vue d'ensemble de l'activité (données fictives)",
+    "company": "Boutique Démo Cocody",
+    "plan": "Commerce · Abonnement annuel",
+    "section": "Boutique Démo Cocody",
+    "range3": "3 derniers mois",
+    "range6": "6 derniers mois",
+    "range12": "12 derniers mois",
+    "rangeLabel": "Période du graphique",
+    "chartTitle": "Chiffre d'affaires",
+    "chartDescription": "En millions de francs, par mois",
+    "recentSales": "Dernières ventes",
+    "customer": "Client",
+    "invoice": "Facture",
+    "date": "Date",
+    "amount": "Montant",
+    "status": "Statut",
+    "openSale": "Vente {name}"
   }
 }

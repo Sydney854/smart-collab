@@ -1,8 +1,21 @@
 /*
- * Styles partagés Smart Collab (Tailwind v4).
- * Les couleurs viennent UNIQUEMENT des variables CSS générées depuis tokens.ts.
- * Les couleurs par défaut de Tailwind sont retirées : seules nos couleurs existent.
+ * Styles partagés Smart Collab (Tailwind v4 + shadcn/ui).
+ *
+ * Les couleurs viennent UNIQUEMENT des variables CSS générées par tokens.ts
+ * (injectées dans le <head> par l'application). Les couleurs par défaut de
+ * Tailwind sont retirées : seules nos couleurs existent comme classes.
+ *
+ * Vocabulaire shadcn : `bg-primary` = l'or, `text-muted-foreground` = texte discret,
+ * `bg-accent` = fond de survol, `bg-sidebar` = bleu marine du menu.
  */
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@source "./";
+
+/* Thème sombre piloté par l'attribut data-theme="dark" sur <html> */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   --color-*: initial;
@@ -10,59 +23,86 @@
 
 @theme inline {
   --font-sans: var(--sc-font);
+  --font-heading: var(--sc-font);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--sc-radius-card);
+  --radius-2xl: calc(var(--sc-radius-card) * 1.3);
   --radius-card: var(--sc-radius-card);
-  --radius-control: var(--sc-radius-control);
   --shadow-card: var(--sc-shadow-card);
+
   --color-transparent: transparent;
   --color-current: currentColor;
-  --color-nav-1: var(--nav-1);
-  --color-nav-2: var(--nav-2);
-  --color-nav-text: var(--nav-text);
-  --color-nav-text-active: var(--nav-text-active);
-  --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
-  --color-on-accent: var(--on-accent);
-  --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
-  --color-muted: var(--muted);
-  --color-faint: var(--faint);
-  --color-bg: var(--bg);
+
+  /* Noms shadcn/ui (branchés sur nos jetons dans tokens.ts → SHADCN_MAPPING) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-card: var(--card);
-  --color-line: var(--line);
-  --color-blue: var(--blue);
-  --color-blue-l: var(--blue-l);
-  --color-green: var(--green);
-  --color-green-l: var(--green-l);
-  --color-amber: var(--amber);
-  --color-amber-l: var(--amber-l);
-  --color-red: var(--red);
-  --color-red-l: var(--red-l);
-  --color-purple: var(--purple);
-  --color-purple-l: var(--purple-l);
-  --color-teal: var(--teal);
-  --color-teal-l: var(--teal-l);
-  --color-print: var(--print);
-  --color-overlay: var(--overlay);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Jetons Smart Collab sans équivalent shadcn */
+  --color-gold-strong: var(--sc-accent-strong);
+  --color-on-strong: var(--sc-on-strong);
+  --color-ink-2: var(--sc-ink-2);
+  --color-faint: var(--sc-faint);
+  --color-nav-2: var(--sc-nav-2);
+  --color-blue: var(--sc-blue);
+  --color-blue-l: var(--sc-blue-l);
+  --color-green: var(--sc-green);
+  --color-green-l: var(--sc-green-l);
+  --color-amber: var(--sc-amber);
+  --color-amber-l: var(--sc-amber-l);
+  --color-red: var(--sc-red);
+  --color-red-l: var(--sc-red-l);
+  --color-purple: var(--sc-purple);
+  --color-purple-l: var(--sc-purple-l);
+  --color-teal: var(--sc-teal);
+  --color-teal-l: var(--sc-teal-l);
+  --color-print: var(--sc-print);
+  --color-overlay: var(--sc-overlay);
 }
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
   html,
   body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sc-font);
+    @apply bg-background text-foreground font-sans;
   }
 }
 
-/* Menu latéral en dégradé */
-.sc-sider {
-  background: linear-gradient(180deg, var(--nav-1), var(--nav-2)) !important;
-}
-
-.sc-open-tabs .ant-tabs-nav {
-  margin: 8px 0 0 !important;
+/* Menu latéral en dégradé bleu marine (prototype) */
+[data-slot="sidebar-inner"] {
+  background: linear-gradient(180deg, var(--sc-nav-1), var(--sc-nav-2));
 }
 
 /* Impression : seule la page d'aperçu est imprimée */

@@ -134,7 +134,14 @@
       "search": "Search Smart Collab…",
       "collapse": "Collapse menu",
       "expand": "Expand menu",
-      "openTabs": "Open screens"
+      "openTabs": "Open screens",
+      "apps": "Apps",
+      "toggleMenu": "Show or collapse the menu",
+      "closeTab": "Close tab {name}",
+      "userMenu": "User menu",
+      "profile": "My profile",
+      "settings": "Settings",
+      "signOut": "Sign out"
     },
     "period": {
       "today": "Today",
@@ -155,7 +162,8 @@
       "bar": "Bars",
       "line": "Line",
       "area": "Area",
-      "exportPng": "Export as image (PNG)"
+      "exportPng": "Export as image (PNG)",
+      "type": "Chart type"
     },
     "list": {
       "search": "Search…",
@@ -168,7 +176,17 @@
       "total": "{count, plural, one {# item} other {# items}}",
       "detail": "Details",
       "emptyTitle": "No results",
-      "emptyDescription": "Change the search or the filters."
+      "emptyDescription": "Change the search or the filters.",
+      "selectAll": "Select all",
+      "selectRow": "Select row",
+      "filterBy": "Filter by {name}",
+      "allValues": "{name}: all",
+      "columns": "Visible columns",
+      "sortBy": "Sort by {name}",
+      "rowsPerPage": "Rows per page",
+      "page": "Page {page} of {pages}",
+      "previous": "Previous page",
+      "next": "Next page"
     },
     "form": {
       "save": "Save",
@@ -234,5 +252,25 @@
       "saved": "Saved",
       "error": "Something went wrong. Please try again."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Business overview (fictitious data)",
+    "company": "Cocody Demo Shop",
+    "plan": "Retail · Annual plan",
+    "section": "Cocody Demo Shop",
+    "range3": "Last 3 months",
+    "range6": "Last 6 months",
+    "range12": "Last 12 months",
+    "rangeLabel": "Chart period",
+    "chartTitle": "Revenue",
+    "chartDescription": "In millions of francs, per month",
+    "recentSales": "Latest sales",
+    "customer": "Customer",
+    "invoice": "Invoice",
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "openSale": "Sale {name}"
   }
 }

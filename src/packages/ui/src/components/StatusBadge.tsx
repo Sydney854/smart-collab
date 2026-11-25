@@ -17,7 +17,7 @@ export const STATUS_TONES = {
 export type Status = keyof typeof STATUS_TONES;
 
 const TONE_CLASSES = {
-  muted: "bg-bg text-ink-2 border-line",
+  muted: "bg-muted text-ink-2 border-border",
   green: "bg-green-l text-green border-transparent",
   amber: "bg-amber-l text-amber border-transparent",
   red: "bg-red-l text-red border-transparent",

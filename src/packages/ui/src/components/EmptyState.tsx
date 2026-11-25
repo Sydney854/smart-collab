@@ -19,12 +19,12 @@ export function EmptyState({
   const t = useTranslations("ui.empty");
   return (
     <div role="status" className="flex flex-col items-center justify-center gap-3 px-6 py-10 text-center">
-      <div className="flex size-12 items-center justify-center rounded-full bg-bg text-muted">
+      <div className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
         {icon ?? <Inbox className="size-6" aria-hidden />}
       </div>
       <div>
-        <p className="font-semibold text-ink">{title ?? t("title")}</p>
-        <p className="mt-1 text-sm text-muted">{description ?? t("description")}</p>
+        <p className="font-semibold text-foreground">{title ?? t("title")}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{description ?? t("description")}</p>
       </div>
       {action}
     </div>

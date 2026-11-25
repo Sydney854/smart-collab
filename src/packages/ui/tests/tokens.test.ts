@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { buildAntdTheme } from "../src/theme";
-import { ACCENT_PRESETS, COLOR_TOKENS, colors, cssVariables, resolveColors } from "../src/tokens";
+import { ACCENT_PRESETS, COLOR_TOKENS, SHADCN_MAPPING, colors, cssVariables, resolveColors } from "../src/tokens";
 
 describe("jetons de design", () => {
   const doc = readFileSync(new URL("../../../../05_UI_UX/DESIGN_TOKENS.md", import.meta.url), "utf8");
@@ -38,24 +37,35 @@ describe("jetons de design", () => {
 
   it("génère une variable CSS par jeton, en clair et en sombre", () => {
     const css = cssVariables();
-    for (const token of COLOR_TOKENS) expect(css.match(new RegExp(`--${token}:`, "g"))?.length, token).toBe(2);
+    for (const token of COLOR_TOKENS) expect(css.match(new RegExp(`--sc-${token}:`, "g"))?.length, token).toBe(2);
     expect(css).toContain(':root[data-theme="dark"]');
   });
 
-  it("chaque jeton Tailwind de styles.css pointe vers un jeton existant", () => {
+  it("chaque nom shadcn/ui pointe vers un de nos jetons", () => {
+    const css = cssVariables();
+    for (const [name, token] of Object.entries(SHADCN_MAPPING)) {
+      expect(COLOR_TOKENS, name).toContain(token);
+      expect(css, name).toContain(`--${name}: var(--sc-${token});`);
+    }
+    // Couleur principale = l'or, texte discret = jeton « muted » du prototype
+    expect(SHADCN_MAPPING.primary).toBe("accent");
+    expect(SHADCN_MAPPING["muted-foreground"]).toBe("muted");
+    expect(SHADCN_MAPPING.sidebar).toBe("nav-1");
+  });
+
+  it("chaque couleur Tailwind de styles.css pointe vers une variable définie", () => {
     const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
-    const refs = [...css.matchAll(/--color-[\w-]+:\s*var\(--([\w-]+)\)/g)].map((m) => m[1]);
-    expect(refs.sort()).toEqual([...COLOR_TOKENS].sort());
+    const defined = new Set(cssVariables().match(/--[\w-]+(?=:)/g));
+    const refs = [...css.matchAll(/--color-[\w-]+:\s*var\((--[\w-]+)\)/g)].map((m) => m[1]);
+    expect(refs.length).toBeGreaterThan(40);
+    for (const ref of refs) expect(defined.has(ref), ref).toBe(true);
+    // Tous les noms shadcn sont exposés à Tailwind
+    for (const name of Object.keys(SHADCN_MAPPING)) expect(refs, name).toContain(`--${name}`);
   });
 
   it("la couleur principale choisie remplace l'or partout", () => {
     expect(resolveColors("light", "blue").accent).toBe(ACCENT_PRESETS.blue.accent);
-    expect(cssVariables("blue")).toContain(`--accent: ${ACCENT_PRESETS.blue.accent}`);
-    expect(buildAntdTheme("dark", "blue").token?.colorPrimary).toBe(ACCENT_PRESETS.blue.accent);
-  });
-
-  it("le thème Ant Design suit le mode clair / sombre", () => {
-    expect(buildAntdTheme("light").token?.colorBgLayout).toBe(colors.light.bg);
-    expect(buildAntdTheme("dark").token?.colorBgLayout).toBe(colors.dark.bg);
+    expect(cssVariables("blue")).toContain(`--sc-accent: ${ACCENT_PRESETS.blue.accent}`);
+    expect(cssVariables("blue")).toContain("--primary: var(--sc-accent)");
   });
 });

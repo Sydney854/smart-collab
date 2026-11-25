@@ -1,12 +1,14 @@
 "use client";
 
-import { Dropdown } from "antd";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { Badge } from "./ui/badge";
+import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from "./ui/context-menu";
 
 const TONES = {
-  accent: "bg-bg text-accent-strong",
+  gold: "bg-primary/15 text-gold-strong",
   blue: "bg-blue-l text-blue",
   green: "bg-green-l text-green",
   amber: "bg-amber-l text-amber",
@@ -15,6 +17,7 @@ const TONES = {
   teal: "bg-teal-l text-teal",
 } as const;
 
+export type KpiAction = "edit" | "moveFirst" | "hide";
 export type KpiCardProps = {
   label: string;
   value: string;
@@ -25,53 +28,62 @@ export type KpiCardProps = {
   tone?: keyof typeof TONES;
   onClick?: () => void;
   /** Actions du clic droit (personnaliser, masquer…) */
-  onCustomize?: (action: "edit" | "hide" | "moveFirst") => void;
+  onCustomize?: (action: KpiAction) => void;
 };
 
-/** Carte de chiffre clé, cliquable, personnalisable au clic droit. */
-export function KpiCard({ label, value, delta, hint, icon, tone = "accent", onClick, onCustomize }: KpiCardProps) {
+/**
+ * Carte de chiffre clé (bloc shadcn « dashboard-01 », section-cards),
+ * cliquable et personnalisable au clic droit.
+ */
+export function KpiCard({ label, value, delta, hint, icon, tone = "gold", onClick, onCustomize }: KpiCardProps) {
   const t = useTranslations("ui.kpi");
   const format = useFormatter();
   const up = (delta ?? 0) >= 0;
   const card = (
-    <button
-      type="button"
+    <Card
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
       onClick={onClick}
-      className="group flex w-full flex-col gap-2 rounded-card border border-line bg-card p-4 text-left shadow-card transition hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick?.()}
+      className="@container/card gap-3 bg-linear-to-t from-primary/5 to-card shadow-card transition-colors outline-none hover:ring-primary/60 focus-visible:ring-2 focus-visible:ring-ring data-[clickable=true]:cursor-pointer dark:bg-card"
+      data-clickable={Boolean(onClick)}
+      data-kpi=""
     >
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-sm text-muted">{label}</span>
-        {icon && <span className={`flex size-9 items-center justify-center rounded-control ${TONES[tone]}`}>{icon}</span>}
-      </div>
-      <span className="text-2xl font-semibold tracking-tight text-ink">{value}</span>
+      <CardHeader>
+        <CardDescription>{label}</CardDescription>
+        <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{value}</CardTitle>
+        {icon && (
+          <CardAction>
+            <span className={`flex size-9 items-center justify-center rounded-lg [&_svg]:size-[18px] ${TONES[tone]}`}>{icon}</span>
+          </CardAction>
+        )}
+      </CardHeader>
       {(delta !== undefined || hint) && (
-        <span className="flex items-center gap-1 text-xs">
+        <CardFooter className="gap-2 text-sm">
           {delta !== undefined && (
-            <span className={`inline-flex items-center gap-0.5 font-medium ${up ? "text-green" : "text-red"}`}>
-              {up ? <ArrowUpRight className="size-3.5" aria-hidden /> : <ArrowDownRight className="size-3.5" aria-hidden />}
+            <Badge variant="outline" className={up ? "text-green" : "text-red"}>
+              {up ? <TrendingUpIcon /> : <TrendingDownIcon />}
+              {up ? "+" : "−"}
               {format.number(Math.abs(delta), { maximumFractionDigits: 1 })} %
-            </span>
+            </Badge>
           )}
-          {hint && <span className="text-muted">{hint}</span>}
-        </span>
+          {hint && <span className="text-muted-foreground">{hint}</span>}
+        </CardFooter>
       )}
-    </button>
+    </Card>
   );
   if (!onCustomize) return card;
   return (
-    <Dropdown
-      trigger={["contextMenu"]}
-      menu={{
-        items: [
-          { key: "edit", label: t("customize") },
-          { key: "moveFirst", label: t("moveFirst") },
-          { type: "divider" },
-          { key: "hide", label: t("hide"), danger: true },
-        ],
-        onClick: ({ key }) => onCustomize(key as "edit" | "hide" | "moveFirst"),
-      }}
-    >
-      <div>{card}</div>
-    </Dropdown>
+    <ContextMenu>
+      <ContextMenuTrigger asChild>{card}</ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuItem onSelect={() => onCustomize("edit")}>{t("customize")}</ContextMenuItem>
+        <ContextMenuItem onSelect={() => onCustomize("moveFirst")}>{t("moveFirst")}</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem variant="destructive" onSelect={() => onCustomize("hide")}>
+          {t("hide")}
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }

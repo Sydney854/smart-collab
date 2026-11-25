@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "radix-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "shadcn-cli.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@smart-collab/ui/components",
+    "utils": "@smart-collab/ui/lib/utils",
+    "hooks": "@smart-collab/ui/hooks",
+    "lib": "@smart-collab/ui/lib",
+    "ui": "@smart-collab/ui/components/ui"
+  },
+  "rtl": false,
+  "menuColor": "default",
+  "menuAccent": "subtle"
+}

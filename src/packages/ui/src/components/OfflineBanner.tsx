@@ -23,7 +23,7 @@ export function OfflineBanner({ pendingCount = 0, forceOffline }: { pendingCount
   const isOnline = forceOffline ? false : online;
   if (isOnline && pendingCount === 0) {
     return (
-      <div role="status" className="flex items-center gap-2 rounded-control bg-green-l px-3 py-2 text-sm text-green">
+      <div role="status" className="flex items-center gap-2 rounded-lg bg-green-l px-3 py-2 text-sm text-green">
         <Wifi className="size-4" aria-hidden /> {t("online")}
       </div>
     );
@@ -32,7 +32,7 @@ export function OfflineBanner({ pendingCount = 0, forceOffline }: { pendingCount
     <div
       role="status"
       aria-live="polite"
-      className={`flex items-center gap-2 rounded-control px-3 py-2 text-sm ${isOnline ? "bg-blue-l text-blue" : "bg-amber-l text-amber"}`}
+      className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${isOnline ? "bg-blue-l text-blue" : "bg-amber-l text-amber"}`}
     >
       {isOnline ? <RefreshCw className="size-4 animate-spin" aria-hidden /> : <CloudOff className="size-4" aria-hidden />}
       <span className="font-medium">{isOnline ? t("syncing") : t("offline")}</span>

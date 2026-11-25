@@ -37,3 +37,29 @@ export const demoReportLines = [
   { label: "Entretien", amount: "412000" },
   { label: "Papeterie", amount: "198750" },
 ];
+
+/** Chiffre d'affaires mensuel fictif (millions de francs), de décembre 2025 à novembre 2026. */
+export const demoRevenue = {
+  start: new Date(2025, 11, 1),
+  thisYear: [7.4, 8.2, 9.1, 10.4, 9.8, 11.6, 12.9, 11.8, 12.2, 13.5, 12.7, 14.1],
+  lastYear: [6.9, 7.1, 7.9, 8.8, 9.0, 9.7, 10.5, 10.1, 10.6, 11.2, 11.0, 11.9],
+};
+
+export type DemoSale = {
+  id: string;
+  invoice: string;
+  customer: string;
+  date: Date;
+  amount: string;
+  status: Status;
+};
+
+export const demoRecentSales: DemoSale[] = [
+  { id: "s1", invoice: "FAC-2026-0412", customer: "Épicerie du Plateau", date: new Date(2026, 10, 24), amount: "245000", status: "paid" },
+  { id: "s2", invoice: "FAC-2026-0411", customer: "Maquis Le Baobab", date: new Date(2026, 10, 24), amount: "87500", status: "partial" },
+  { id: "s3", invoice: "FAC-2026-0410", customer: "Pharmacie des Lagunes", date: new Date(2026, 10, 23), amount: "1320000", status: "paid" },
+  { id: "s4", invoice: "FAC-2026-0409", customer: "Boutique Akwaba", date: new Date(2026, 10, 22), amount: "56000", status: "late" },
+  { id: "s5", invoice: "FAC-2026-0408", customer: "Superette Riviera", date: new Date(2026, 10, 21), amount: "412300", status: "validated" },
+  { id: "s6", invoice: "FAC-2026-0407", customer: "Quincaillerie Adjamé", date: new Date(2026, 10, 20), amount: "198000", status: "cancelled" },
+  { id: "s7", invoice: "FAC-2026-0406", customer: "Épicerie du Plateau", date: new Date(2026, 10, 19), amount: "73250", status: "paid" },
+];

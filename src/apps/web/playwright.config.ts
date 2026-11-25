@@ -14,7 +14,7 @@ export default defineConfig({
   // Lance l'application construite (pnpm build doit avoir été exécuté avant)
   webServer: {
     command: `pnpm start --port ${PORT}`,
-    url: `http://localhost:${PORT}/demo`,
+    url: `http://localhost:${PORT}/`,
     reuseExistingServer: true,
     timeout: 60_000,
   },

@@ -2,12 +2,13 @@
  * Jetons de design Smart Collab — SOURCE UNIQUE des couleurs.
  *
  * Valeurs du thème clair : 05_UI_UX/DESIGN_TOKENS.md (relevées dans le prototype).
- * Valeurs du thème sombre : proposition du lot 0, à valider par la cheffe de projet.
+ * Valeurs du thème sombre et jetons ajoutés : proposition du lot 0, à valider.
  *
  * Ce fichier est le SEUL endroit du code où une couleur est écrite en dur
- * (un test automatique le vérifie). Tout le reste utilise :
- *  - les variables CSS (`var(--accent)`) ou les classes Tailwind (`bg-accent`) ;
- *  - le thème Ant Design construit par `buildAntdTheme` (theme.ts).
+ * (un test automatique le vérifie). Il produit deux familles de variables CSS :
+ *  - nos jetons, préfixés `--sc-` (ex. `--sc-accent` = l'or) ;
+ *  - les noms attendus par shadcn/ui (`--primary`, `--background`, `--sidebar`…),
+ *    qui pointent vers nos jetons (table SHADCN_MAPPING ci-dessous).
  */
 
 export const THEME_MODES = ["light", "dark"] as const;
@@ -18,15 +19,19 @@ export const COLOR_TOKENS = [
   "nav-2",
   "nav-text",
   "nav-text-active",
+  "nav-hover",
+  "nav-line",
   "accent",
   "accent-strong",
   "on-accent",
+  "on-strong",
   "ink",
   "ink-2",
   "muted",
   "faint",
   "bg",
   "card",
+  "hover",
   "line",
   "blue",
   "blue-l",
@@ -51,16 +56,21 @@ export const colors: Record<ThemeMode, Record<ColorToken, string>> = {
     "nav-2": "#132a4b",
     "nav-text": "#a7b6cc",
     "nav-text-active": "#ffffff",
+    "nav-hover": "rgba(255, 255, 255, 0.08)",
+    "nav-line": "rgba(255, 255, 255, 0.1)",
     accent: "#d9a441",
     "accent-strong": "#c08d2e",
     // Texte posé sur l'or : foncé pour rester lisible (contraste AA)
     "on-accent": "#16233a",
+    // Texte posé sur une couleur franche (rouge, bleu…)
+    "on-strong": "#ffffff",
     ink: "#16233a",
     "ink-2": "#3d4d66",
     muted: "#7b8aa1",
     faint: "#a8b4c5",
     bg: "#f4f7fb",
     card: "#ffffff",
+    hover: "#eef2f8",
     line: "#e6ecf4",
     blue: "#2563eb",
     "blue-l": "#e8f0fe",
@@ -82,15 +92,19 @@ export const colors: Record<ThemeMode, Record<ColorToken, string>> = {
     "nav-2": "#0d1d36",
     "nav-text": "#a7b6cc",
     "nav-text-active": "#ffffff",
+    "nav-hover": "rgba(255, 255, 255, 0.08)",
+    "nav-line": "rgba(255, 255, 255, 0.08)",
     accent: "#d9a441",
     "accent-strong": "#e6b65a",
     "on-accent": "#16233a",
+    "on-strong": "#ffffff",
     ink: "#e6edf7",
     "ink-2": "#b8c4d6",
     muted: "#8a99b0",
     faint: "#5f6f87",
     bg: "#0b1220",
     card: "#131c2e",
+    hover: "#1b2639",
     line: "#24324a",
     blue: "#60a5fa",
     "blue-l": "#13233f",
@@ -109,6 +123,46 @@ export const colors: Record<ThemeMode, Record<ColorToken, string>> = {
   },
 };
 
+/**
+ * Correspondance entre les noms shadcn/ui et nos jetons.
+ * Attention au vocabulaire : chez shadcn, `primary` est la couleur principale (notre or)
+ * et `accent` est le fond de survol ; `muted-foreground` est notre texte discret.
+ */
+export const SHADCN_MAPPING = {
+  background: "bg",
+  foreground: "ink",
+  card: "card",
+  "card-foreground": "ink",
+  popover: "card",
+  "popover-foreground": "ink",
+  primary: "accent",
+  "primary-foreground": "on-accent",
+  secondary: "hover",
+  "secondary-foreground": "ink",
+  muted: "bg",
+  "muted-foreground": "muted",
+  accent: "hover",
+  "accent-foreground": "ink",
+  destructive: "red",
+  border: "line",
+  input: "line",
+  ring: "accent",
+  "chart-1": "accent",
+  "chart-2": "blue",
+  "chart-3": "green",
+  "chart-4": "purple",
+  "chart-5": "teal",
+  sidebar: "nav-1",
+  "sidebar-foreground": "nav-text",
+  "sidebar-primary": "accent",
+  "sidebar-primary-foreground": "on-accent",
+  "sidebar-accent": "nav-hover",
+  "sidebar-accent-foreground": "nav-text-active",
+  "sidebar-border": "nav-line",
+  "sidebar-ring": "accent",
+} as const satisfies Record<string, ColorToken>;
+export type ShadcnColor = keyof typeof SHADCN_MAPPING;
+
 /** Couleurs principales proposées par le sélecteur de thème (chaque entreprise peut choisir). */
 export const ACCENT_PRESETS = {
   gold: { accent: "#d9a441", strong: "#c08d2e", on: "#16233a" },
@@ -126,7 +180,6 @@ export const shape = {
   radiusCard: 12,
   radiusControl: 8,
   sidebarWidth: 222,
-  sidebarCollapsedWidth: 64,
   shadowCard: "0 1px 2px rgba(16,35,64,.04), 0 1px 3px rgba(16,35,64,.06)",
 } as const;
 
@@ -154,21 +207,26 @@ function block(selector: string, values: Record<string, string>) {
   return `${selector} {\n${lines.join("\n")}\n}`;
 }
 
+function prefixed(values: Record<string, string>) {
+  return Object.fromEntries(Object.entries(values).map(([k, v]) => [`sc-${k}`, v]));
+}
+
 /**
  * Feuille de style des variables CSS, injectée dans le <head> par l'application.
  * Le thème sombre s'active avec l'attribut `data-theme="dark"` sur <html>.
  */
 export function cssVariables(accent: AccentPreset = DEFAULT_ACCENT): string {
-  // Les noms préfixés « sc- » alimentent les jetons Tailwind (styles.css)
   const common = {
     "sc-font": shape.fontFamily,
-    "sc-radius-card": `${shape.radiusCard}px`,
-    "sc-radius-control": `${shape.radiusControl}px`,
     "sc-shadow-card": shape.shadowCard,
+    radius: `${shape.radiusControl}px`,
+    "sc-radius-card": `${shape.radiusCard}px`,
+    "sidebar-width": `${shape.sidebarWidth}px`,
   };
+  const semantic = Object.fromEntries(Object.entries(SHADCN_MAPPING).map(([name, token]) => [name, `var(--sc-${token})`]));
   return [
-    block(":root", { ...common, ...resolveColors("light", accent) }),
-    block(':root[data-theme="dark"]', resolveColors("dark", accent)),
+    block(":root", { ...common, ...prefixed(resolveColors("light", accent)), ...semantic }),
+    block(':root[data-theme="dark"]', prefixed(resolveColors("dark", accent))),
     ':root { color-scheme: light; }\n:root[data-theme="dark"] { color-scheme: dark; }',
   ].join("\n");
 }

@@ -29,11 +29,11 @@ Ce qui existe :
 ```
 src/
   package.json, pnpm-workspace.yaml, turbo.json   dépôt unique pnpm + Turborepo
-  apps/web           application Next.js 16 (React 19, Tailwind v4, Ant Design v6, Preline v4, next-intl)
-    app/demo         page de démonstration des composants (/demo ; « / » y mène)
+  apps/web           application Next.js 16 (React 19, Tailwind v4, shadcn/ui, next-intl)
+    app/page.tsx     tableau de bord de démonstration (« / »), sur les blocs shadcn « sidebar-07 » et « dashboard-01 »
     tests/unit       test « aucune couleur codée en dur hors des jetons »
     tests/e2e        tests d'écran Playwright (ordinateur + téléphone)
-  packages/ui        jetons (tokens.ts = seule source des couleurs), thème Ant Design, 14 composants de COMPOSANTS.md
+  packages/ui        jetons (tokens.ts = seule source des couleurs), composants shadcn/ui (src/components/ui), composants de COMPOSANTS.md
   packages/i18n      traductions fr / en (messages/fr.json, messages/en.json)
 ```
 
@@ -58,7 +58,7 @@ cd src
 pnpm dev
 ```
 
-Puis ouvrir http://localhost:3000/demo
+Puis ouvrir http://localhost:3000
 
 ### Construire et lancer comme en production
 
@@ -99,7 +99,16 @@ Aucun au lot 0 (pas de connexion). L'utilisatrice affichée « Awa Koné, Admini
 
 - Thème clair / sombre et couleur principale : bouton lune et palette en haut à droite ; choix mémorisés dans les cookies `sc-theme` et `sc-accent`.
 - Langue : bouton FR / EN ; choix mémorisé dans le cookie `NEXT_LOCALE` (français par défaut). Les adresses ne changent pas selon la langue.
-- Les couleurs ne s'écrivent que dans `packages/ui/src/tokens.ts` ; Tailwind n'a plus ses couleurs par défaut (`bg-accent`, `text-ink`, `border-line`… seulement).
+- Les couleurs ne s'écrivent que dans `packages/ui/src/tokens.ts` ; Tailwind n'a plus ses couleurs par défaut. Classes disponibles : noms shadcn (`bg-primary` = or, `text-muted-foreground`, `border-border`, `bg-sidebar`…) et nos couleurs d'état (`text-green`, `bg-amber-l`…). Correspondance : `05_UI_UX/DESIGN_TOKENS.md`.
+
+### Ajouter un composant shadcn/ui
+
+```bash
+cd src/packages/ui
+pnpm dlx shadcn@4.23.0 add <nom-du-composant>
+```
+
+Le composant est copié dans `packages/ui/src/components/ui/`. Vérifier ensuite `pnpm test` (le test des couleurs signale toute couleur écrite en dur, par exemple `bg-black/10` à remplacer par `bg-overlay`). Ne pas ajouter de composant qui installe Recharts, `@dnd-kit` ou `vaul` (hors stack).
 
 ### Vercel
 
