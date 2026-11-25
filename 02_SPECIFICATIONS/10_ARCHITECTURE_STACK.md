@@ -47,10 +47,12 @@ DreamsERP est acheté sous **licence Extended** (décision du 23 novembre 2026, 
 
 | Environnement | Supabase | Région | Vercel |
 | --- | --- | --- | --- |
-| Développement | `smart-collab-dev` (réf. `ajkginvsjljqufvdppgc`, PostgreSQL 17), créé le 25/11/2026 | Paris (eu-west-3) | Fonctions en Paris (cdg1), aperçus protégés |
+| Développement | `smart-collab-dev` (réf. `ajkginvsjljqufvdppgc`, PostgreSQL 17), créé le 25/11/2026 | Paris (eu-west-3) | Projet `smart-collab-web` (équipe « Team ERP »), Next.js, dossier `src/apps/web`, Node 24, fonctions en Paris (cdg1), aperçus protégés par Vercel Authentication |
 | Production | `smart-collab-prod`, à créer avant la mise en vente (offre Pro, sauvegardes à un instant donné) | Paris (eu-west-3) | Paris (cdg1) |
 
 Connexion de `smart-collab-dev` réglée le 25/11/2026 : e-mail avec confirmation, double authentification TOTP, mot de passe de 10 caractères minimum (minuscules, majuscules, chiffres), adresse du site `http://localhost:3000` (SEC-MO-04).
+
+Variables Vercel : `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publiques) ; `SUPABASE_SECRET_KEY` (secrète, à saisir par la cheffe de projet, type « Sensitive », jamais préfixée `NEXT_PUBLIC_`).
 
 Les clés ne sont jamais écrites dans le dépôt : variables secrètes de Vercel, de l'environnement Claude Code et fichier local `.env.local` (exclu de Git).
 
