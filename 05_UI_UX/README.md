@@ -6,6 +6,8 @@
 | `INVENTAIRE_ECRANS.md` | Écrans repris du prototype, à maquetter, à concevoir (copie de la section 5 du cahier) |
 | `COMPOSANTS.md` | Composants à coder une fois et réutiliser partout |
 | `maquettes/` | Une maquette validée par écran (lot 0) |
+| `ICONES_MODULES.md` | Icônes illustrées des modules (6 styles), mosaïque du menu, App Store, assistant de première connexion, réglages d'apparence (validé le 26/11/2026) |
+| `references/` | Maquettes de référence interactives (HTML à ouvrir dans un navigateur) |
 
 ## Règles
 
