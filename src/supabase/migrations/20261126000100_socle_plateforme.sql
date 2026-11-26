@@ -184,9 +184,10 @@ create table public.config_versions (
   version         int not null check (version > 0),
   valid_from      date not null,                     -- un document garde la version en vigueur à sa date
   definition      jsonb not null,                    -- expression, barème, mise en page...
-  created_by      uuid references public.users(id),
+  created_by      uuid,
   created_at      timestamptz not null default now(),
   unique (config_item_id, version),
+  foreign key (tenant_id, created_by) references public.memberships(tenant_id, user_id),
   foreign key (tenant_id, config_item_id) references public.config_items(tenant_id, id)
 );
 
@@ -207,11 +208,23 @@ create table public.number_sequences (
 -- Traçabilité et événements
 -- ─────────────────────────────────────────────
 
+-- Appareils (caisses, tablettes) : déclarés avant le journal d'audit, qui les cite
+create table public.devices (
+  id              uuid primary key default gen_random_uuid(),
+  tenant_id       uuid not null references public.tenants(id),
+  label           text not null,
+  site_id         uuid,
+  number_prefix   text not null,                     -- numéros provisoires propres à l'appareil
+  last_sync_at    timestamptz,
+  is_active       boolean not null default true,
+  unique (tenant_id, id)
+);
+
 create table public.audit_log (
   id              bigint generated always as identity primary key,
   tenant_id       uuid not null references public.tenants(id),
   occurred_at     timestamptz not null default now(),
-  user_id         uuid references public.users(id),
+  user_id         uuid,
   device_id       uuid,
   app_id          text,
   action          text not null,                     -- create | update | validate | cancel | install | ...
@@ -220,11 +233,14 @@ create table public.audit_log (
   old_value       jsonb,
   new_value       jsonb,
   reason          text,
-  severity        text not null default 'info' check (severity in ('info', 'watch', 'important', 'urgent'))
+  severity        text not null default 'info' check (severity in ('info', 'watch', 'important', 'urgent')),
+  foreign key (tenant_id, user_id) references public.memberships(tenant_id, user_id),
+  foreign key (tenant_id, device_id) references public.devices(tenant_id, id)
 );
 create index audit_log_entity_idx on public.audit_log (tenant_id, entity, entity_id);
 
--- Tables en ajout seul : aucune modification ni suppression, même par le propriétaire de la base (SEC-MO-10)
+-- Tables en ajout seul : aucune modification ni suppression par l'application ni par le propriétaire en usage normal (SEC-MO-10).
+-- Limite connue : le propriétaire de la base pourrait retirer ces déclencheurs ; la structure ne change donc que par migration relue.
 create or replace function app.forbid_change() returns trigger
 language plpgsql set search_path = '' as $$
 begin
@@ -258,12 +274,13 @@ create table public.event_outbox (
   tenant_id       uuid not null references public.tenants(id),
   type            text not null,                     -- 'pos.sale.validated'
   version         int not null default 1,
-  actor_id        uuid references public.users(id),
+  actor_id        uuid,
   site_id         uuid,
   payload         jsonb not null,
   occurred_at     timestamptz not null default now(),
   processed_at    timestamptz,
-  attempts        int not null default 0
+  attempts        int not null default 0,
+  foreign key (tenant_id, actor_id) references public.memberships(tenant_id, user_id)
 );
 create index event_outbox_pending_idx on public.event_outbox (occurred_at) where processed_at is null;
 create index event_outbox_tenant_idx on public.event_outbox (tenant_id);
@@ -274,11 +291,13 @@ create table public.delete_requests (
   entity          text not null,
   entity_id       text not null,
   reason          text not null check (length(trim(reason)) >= 3),
-  requested_by    uuid not null references public.users(id),
+  requested_by    uuid not null,
   status          text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
-  decided_by      uuid references public.users(id),
+  decided_by      uuid,
   decided_at      timestamptz,
-  created_at      timestamptz not null default now()
+  created_at      timestamptz not null default now(),
+  foreign key (tenant_id, requested_by) references public.memberships(tenant_id, user_id),
+  foreign key (tenant_id, decided_by) references public.memberships(tenant_id, user_id)
 );
 create index delete_requests_tenant_idx on public.delete_requests (tenant_id);
 
@@ -286,19 +305,9 @@ create index delete_requests_tenant_idx on public.delete_requests (tenant_id);
 -- Synchronisation hors ligne
 -- ─────────────────────────────────────────────
 
-create table public.devices (
-  id              uuid primary key default gen_random_uuid(),
-  tenant_id       uuid not null references public.tenants(id),
-  label           text not null,
-  site_id         uuid,
-  number_prefix   text not null,                     -- numéros provisoires propres à l'appareil
-  last_sync_at    timestamptz,
-  is_active       boolean not null default true,
-  unique (tenant_id, id)
-);
 
 create table public.sync_operations (
-  idempotency_key uuid primary key,                  -- généré par l'appareil : un envoi en double n'est enregistré qu'une fois
+  idempotency_key uuid not null,                     -- généré par l'appareil : un envoi en double n'est enregistré qu'une fois
   tenant_id       uuid not null,
   device_id       uuid not null,
   operation       text not null,                     -- 'pos.sale.create'
@@ -307,7 +316,7 @@ create table public.sync_operations (
   received_at     timestamptz not null default now(),
   status          text not null default 'applied' check (status in ('applied', 'conflict', 'rejected')),
   result          jsonb,
-  unique (tenant_id, idempotency_key),
+  primary key (tenant_id, idempotency_key),
   foreign key (tenant_id, device_id) references public.devices(tenant_id, id)
 );
 
@@ -317,9 +326,10 @@ create table public.sync_conflicts (
   idempotency_key uuid not null,
   kind            text not null,                     -- 'insufficient_stock', 'price_changed'...
   detail          jsonb not null,
-  resolved_by     uuid references public.users(id),
+  resolved_by     uuid,
   resolved_at     timestamptz,
   resolution      text,
+  foreign key (tenant_id, resolved_by) references public.memberships(tenant_id, user_id),
   foreign key (tenant_id, idempotency_key) references public.sync_operations(tenant_id, idempotency_key)
 );
 
@@ -333,6 +343,7 @@ language sql stable security definer set search_path = '' as $$
   select m.tenant_id
   from public.memberships m
   join public.users u on u.id = m.user_id and u.is_active
+  join public.tenants t on t.id = m.tenant_id and t.status in ('trial', 'active')
   where m.user_id = auth.uid()
     and m.is_active
     and m.tenant_id::text = (auth.jwt() ->> 'tenant_id')
@@ -350,9 +361,11 @@ begin
   select m.tenant_id into chosen
   from public.memberships m
   join public.users u on u.id = m.user_id and u.is_active
+  join public.tenants t on t.id = m.tenant_id and t.status in ('trial', 'active')
   where m.user_id = uid and m.is_active
     and (m.tenant_id = u.current_tenant_id
-         or (select count(*) from public.memberships x where x.user_id = uid and x.is_active) = 1)
+         or (select count(*) from public.memberships x join public.tenants y on y.id = x.tenant_id
+             where x.user_id = uid and x.is_active and y.status in ('trial', 'active')) = 1)
   limit 1;
 
   if chosen is null then
@@ -373,6 +386,7 @@ begin
   end if;
   if not exists (
     select 1 from public.memberships m join public.users u on u.id = m.user_id and u.is_active
+    join public.tenants t on t.id = m.tenant_id and t.status in ('trial', 'active')
     where m.user_id = auth.uid() and m.tenant_id = target and m.is_active
   ) then
     raise exception 'Entreprise non autorisée' using errcode = 'insufficient_privilege';
@@ -398,6 +412,10 @@ grant usage on schema public to supabase_auth_admin;
 
 -- Lecture seule pour les personnes connectées ; les écritures passeront par des fonctions serveur (étapes suivantes)
 grant select on all tables in schema public to authenticated;
+-- Fiche d'une personne : les collègues ne lisent que l'identité ; l'entreprise choisie et la dernière connexion
+-- restent privées (elles révéleraient les autres entreprises de la personne)
+revoke select on public.users from authenticated;
+grant select (id, email, full_name, locale, is_active, created_at) on public.users to authenticated;
 
 -- ─────────────────────────────────────────────
 -- Sécurité au niveau des lignes (RLS) : activée et forcée partout, aucune table sans règle (SEC-MO-01)
@@ -431,12 +449,21 @@ end $$;
 create policy tenant_self on public.tenants for select to authenticated
   using (id = (select app.current_tenant()));
 
+-- Personne connectée active ? (fonction propriétaire : évite que les règles de users et memberships s'appellent en boucle)
+create or replace function app.is_active_user() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select coalesce((select u.is_active from public.users u where u.id = auth.uid()), false)
+$$;
+revoke all on function app.is_active_user() from public, anon;
+grant execute on function app.is_active_user() to authenticated;
+
 -- Choix à la connexion : une personne voit ses propres appartenances et le nom de ses entreprises
 create policy memberships_own on public.memberships for select to authenticated
-  using (user_id = (select auth.uid()));
+  using (user_id = (select auth.uid()) and (select app.is_active_user()));
 create policy tenants_member on public.tenants for select to authenticated
-  using (exists (select 1 from public.memberships m
-                 where m.tenant_id = tenants.id and m.user_id = (select auth.uid()) and m.is_active));
+  using ((select app.is_active_user())
+         and exists (select 1 from public.memberships m
+                     where m.tenant_id = tenants.id and m.user_id = (select auth.uid()) and m.is_active));
 
 -- Personnes : soi-même, et les membres de l'entreprise courante
 create policy users_visible on public.users for select to authenticated
@@ -446,10 +473,8 @@ create policy users_visible on public.users for select to authenticated
                where m.user_id = users.id and m.tenant_id = (select app.current_tenant()))
   );
 
--- Le crochet de connexion lit les appartenances sans être une personne connectée
-grant select on public.memberships, public.users to supabase_auth_admin;
-create policy auth_hook_read on public.memberships for select to supabase_auth_admin using (true);
-create policy auth_hook_read on public.users for select to supabase_auth_admin using (true);
+-- Le crochet de connexion s'exécute avec les droits du propriétaire (security definer) :
+-- le compte de connexion Supabase n'a besoin d'aucun droit de lecture sur les tables.
 
 -- Tables créées plus tard : pas de droits par défaut pour l'API (chaque migration les accorde explicitement)
 alter default privileges in schema public revoke all on tables from anon, authenticated;

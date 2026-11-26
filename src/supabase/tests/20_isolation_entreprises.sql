@@ -80,6 +80,54 @@ do $$ begin
 end $$;
 reset role;
 
+-- 5 bis. Alice (A) voit Carla comme collègue, mais ni son entreprise choisie ni sa dernière connexion
+select set_config('request.jwt.claims', '{"sub":"a1000000-0000-0000-0000-000000000001","tenant_id":"aaaaaaaa-0000-0000-0000-000000000001","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  assert exists (select 1 from public.users where id = 'c3000000-0000-0000-0000-000000000003'), 'Alice doit voir sa collègue Carla';
+  begin
+    perform current_tenant_id from public.users where id = 'c3000000-0000-0000-0000-000000000003';
+    assert false, 'Alice lit l''entreprise choisie par Carla';
+  exception when insufficient_privilege then null; end;
+  begin
+    perform last_login_at from public.users;
+    assert false, 'Alice lit la dernière connexion de ses collègues';
+  exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+
+-- 5 ter. Personne désactivée mais encore membre : ne voit plus ni ses entreprises ni ses appartenances
+update public.users set is_active = false where id = 'b2000000-0000-0000-0000-000000000002';
+select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  assert (select count(*) from public.tenants) = 0, 'Personne désactivée : voit encore son entreprise';
+  assert (select count(*) from public.memberships) = 0, 'Personne désactivée : voit encore ses appartenances';
+  assert (select count(*) from public.roles) = 0, 'Personne désactivée : voit encore les rôles';
+end $$;
+reset role;
+update public.users set is_active = true where id = 'b2000000-0000-0000-0000-000000000002';
+
+-- 5 quater. Entreprise suspendue : ses membres ne lisent plus ses données
+update public.tenants set status = 'suspended' where id = 'bbbbbbbb-0000-0000-0000-000000000002';
+select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  assert app.current_tenant() is null, 'Entreprise suspendue acceptée';
+  assert (select count(*) from public.roles) = 0, 'Entreprise suspendue : rôles encore lisibles';
+end $$;
+reset role;
+update public.tenants set status = 'trial' where id = 'bbbbbbbb-0000-0000-0000-000000000002';
+
+-- 5 quinquies. Une personne de A ne peut pas être enregistrée comme auteur dans B (même par le propriétaire)
+do $$ begin
+  begin
+    insert into public.audit_log (tenant_id, user_id, action, entity, entity_id)
+      values ('bbbbbbbb-0000-0000-0000-000000000002', 'a1000000-0000-0000-0000-000000000001', 'update', 'doc', '1');
+    assert false, 'Auteur d''une autre entreprise accepté dans le journal';
+  exception when foreign_key_violation then null; end;
+end $$;
+
 -- 6. Visiteur non connecté : aucun accès
 set local role anon;
 do $$ begin
