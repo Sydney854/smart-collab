@@ -82,3 +82,12 @@ test("assistant, proposition 2 : cartes et récapitulatif « Votre sélection »
   await expect(recap).toContainText("Achats");
   await expect(page.getByTestId("wizard-count")).toHaveText("6 modules choisis");
 });
+
+test("assistant à 390 px : la page tient dans la largeur, dans les deux propositions", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const layout of ["1", "2"]) {
+    await open(page, "/?ecran=setup", { "sc-wizard": layout });
+    const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
+    expect(scroll, `proposition ${layout}`).toBeLessThanOrEqual(width);
+  }
+});

@@ -167,7 +167,7 @@ export function SetupWizardScreen() {
   return (
     <div className="sc-icon-sized mx-auto flex max-w-7xl flex-col gap-5" style={iconSizeVars(iconSize)} data-wizard={wizardLayout}>
       <header className="flex flex-wrap items-start justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-semibold tracking-wide text-gold-strong uppercase">{t("step")}</p>
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
           <p className="mt-1 max-w-2xl text-muted-foreground">{t("intro")}</p>
@@ -179,6 +179,7 @@ export function SetupWizardScreen() {
           aria-label={ts("wizard")}
           value={wizardLayout}
           onValueChange={(v) => v && set("wizardLayout", v as WizardLayout)}
+          className="max-w-full flex-wrap"
         >
           <ToggleGroupItem value="1">{ts("wizards.1")}</ToggleGroupItem>
           <ToggleGroupItem value="2">{ts("wizards.2")}</ToggleGroupItem>

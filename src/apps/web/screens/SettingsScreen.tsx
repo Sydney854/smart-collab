@@ -99,7 +99,7 @@ export function SettingsScreen() {
             {/* Aperçu de la mosaïque à la taille choisie */}
             <div className="sc-icon-sized mt-4 flex flex-wrap gap-4 rounded-xl border bg-muted p-4" style={iconSizeVars(iconSize)} aria-label={t("preview")}>
               {PREVIEW.map((k) => (
-                <span key={k} className="grid size-[calc(var(--sc-icon-box)+24px)] place-items-center rounded-[24%] border bg-card shadow-card">
+                <span key={k} className="grid size-[calc(var(--sc-icon-box)+40px)] place-items-center rounded-[24%] border bg-card shadow-card">
                   <ModuleIcon module={k} iconStyle={iconStyle} className="size-[var(--sc-icon-box)]" />
                 </span>
               ))}

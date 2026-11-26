@@ -59,7 +59,7 @@ export function AppStoreScreen() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="shrink-0 border-primary"
+                    className="shrink-0 border-primary dark:border-primary"
                     onClick={() => {
                       setInstalled((s) => new Set(s).add(m.key));
                       toast.success(t("installedToast", { name: tm(`${m.key}.name`) }));
