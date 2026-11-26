@@ -231,3 +231,40 @@ export function cssVariables(accent: AccentPreset = DEFAULT_ACCENT): string {
     ':root { color-scheme: light; }\n:root[data-theme="dark"] { color-scheme: dark; }',
   ].join("\n");
 }
+
+/* ------------------------------------------------------------------------------------------
+ * Icônes illustrées des modules (05_UI_UX/ICONES_MODULES.md, validé le 26/11/2026).
+ * Ces couleurs ne servent QU'aux tuiles des modules (mosaïque, App Store, assistant).
+ * ---------------------------------------------------------------------------------------- */
+
+/** Palette des modules : chaque module a une couleur propre et un trio pris dans cette liste. */
+export const MODULE_PALETTE = {
+  gold: "#d9a13b",
+  coral: "#e2674a",
+  teal: "#1e9e8f",
+  blue: "#3478c6",
+  orange: "#ee8a2a",
+  green: "#2f9a5c",
+  violet: "#7b5ac8",
+  pink: "#d1508a",
+  plum: "#a24e9a",
+  sky: "#2a9fd6",
+  indigo: "#4a5bd0",
+} as const;
+export type ModuleColor = keyof typeof MODULE_PALETTE;
+
+/** Encres des icônes, en clair et en sombre (bleu marine éclairci en sombre pour rester lisible). */
+export const ICON_INKS: Record<ThemeMode, { navy: string; navyMulti: string; white: string; hole: string }> = {
+  light: { navy: "#1e2a4a", navyMulti: "#2b3a67", white: "#ffffff", hole: "#ffffff" },
+  dark: { navy: "#3b4e7e", navyMulti: "#3b4e7e", white: "#ffffff", hole: "#1f2b42" },
+};
+
+/** Mélange deux couleurs #rrggbb (a = 0 : première, a = 1 : seconde). */
+export function mixHex(from: string, to: string, a: number): string {
+  const rgb = (h: string) => [1, 3, 5].map((i) => Number.parseInt(h.slice(i, i + 2), 16));
+  const p = rgb(from);
+  const q = rgb(to);
+  return `#${p.map((v, i) => Math.round(v + (q[i] - v) * a).toString(16).padStart(2, "0")).join("")}`;
+}
+export const tintHex = (hex: string, a: number) => mixHex(hex, "#ffffff", a);
+export const shadeHex = (hex: string, a: number) => mixHex(hex, "#000000", a);

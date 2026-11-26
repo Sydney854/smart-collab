@@ -81,6 +81,45 @@ shadcn/ui utilise ses propres noms ; ils pointent vers nos jetons :
 
 Or (défaut) `#d9a441`, Bleu `#2563eb`, Vert `#0d9488`, Violet `#7c3aed`, Rouge `#dc2626`.
 
+## Couleurs des modules (icônes illustrées, validées le 26/11/2026)
+
+Utilisées **uniquement** par les icônes illustrées des tuiles de modules (`ICONES_MODULES.md`). En code : `MODULE_PALETTE` et `ICON_INKS` dans `src/packages/ui/src/tokens.ts`.
+
+| Jeton | Valeur | | Jeton | Valeur |
+|-------|--------|-|-------|--------|
+| `module-gold` | `#d9a13b` | | `module-violet` | `#7b5ac8` |
+| `module-coral` | `#e2674a` | | `module-pink` | `#d1508a` |
+| `module-teal` | `#1e9e8f` | | `module-plum` | `#a24e9a` |
+| `module-blue` | `#3478c6` | | `module-sky` | `#2a9fd6` |
+| `module-orange` | `#ee8a2a` | | `module-indigo` | `#4a5bd0` |
+| `module-green` | `#2f9a5c` | | | |
+
+Encres des icônes :
+
+| Jeton | Clair | Sombre | Usage |
+|-------|-------|--------|-------|
+| `icon-navy` | `#1e2a4a` | `#3b4e7e` | Rôles `s` / `n` du style A (bicolore) |
+| `icon-navy-multi` | `#2b3a67` | `#3b4e7e` | Rôle `n` du style B (multicolore) |
+| `icon-white` | `#ffffff` | `#ffffff` | Rôle `w` (trous, fenêtres) ; dessin du style E |
+| `icon-hole-dark` | — | `#1f2b42` | Rôle `w` du style D en sombre |
+
+Le style « trait » utilise l'or de l'interface (`--accent-strong`), il suit donc la couleur principale choisie.
+
+| Module | Couleur (A, D, E) | Trio (B, C) |
+|--------|-------------------|-------------|
+| Tableau de bord | gold | gold, coral, teal |
+| Ventes | coral | coral, gold, violet |
+| Caisse | orange | orange, violet, teal |
+| Stock | teal | teal, blue, gold |
+| Achats | blue | blue, teal, gold |
+| Finance | green | green, gold, coral |
+| Applications | violet | violet, teal, gold |
+| Paramètres | indigo | indigo, gold, teal |
+| Composants (démo) | pink | coral, blue, gold |
+| Employés *(à venir)* | plum | violet, gold, teal |
+| Présence *(à venir)* | sky | blue, coral, gold |
+| Paie *(à venir)* | indigo | gold, teal, violet |
+
 ## Forme et typographie
 
 | Jeton | Valeur |

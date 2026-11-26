@@ -25,7 +25,9 @@
     "finance": "Finance",
     "apps": "Apps",
     "components": "Components (demo)",
-    "notYet": "“{name}” comes in a later lot"
+    "notYet": "“{name}” comes in a later lot",
+    "settings": "Settings",
+    "setup": "Setup wizard (demo)"
   },
   "demo": {
     "title": "Smart Collab components",
@@ -323,8 +325,128 @@
       "pos": "In-store checkout",
       "finance": "Cash and accounting",
       "apps": "Install or remove modules",
-      "components": "Component catalogue (demo)"
+      "components": "Component catalogue (demo)",
+      "settings": "Company, users, appearance",
+      "setup": "Choosing modules at first sign-in"
     },
     "plannedShort": "“{name}” comes in lot {lot}"
+  },
+  "modules": {
+    "dashboard": {
+      "name": "Dashboard",
+      "desc": "Key figures, this month's sales"
+    },
+    "sales": {
+      "name": "Sales",
+      "desc": "Quotes, invoices, credit notes"
+    },
+    "pos": {
+      "name": "Point of sale",
+      "desc": "In-store checkout"
+    },
+    "stock": {
+      "name": "Inventory",
+      "desc": "Products, movements, stock counts"
+    },
+    "purchases": {
+      "name": "Purchasing",
+      "desc": "Supplier orders and receipts"
+    },
+    "finance": {
+      "name": "Finance",
+      "desc": "Cash and accounting"
+    },
+    "apps": {
+      "name": "Apps",
+      "desc": "Install or remove modules"
+    },
+    "settings": {
+      "name": "Settings",
+      "desc": "Company, users, appearance"
+    },
+    "components": {
+      "name": "Components (demo)",
+      "desc": "Component catalogue"
+    },
+    "hr-employees": {
+      "name": "Employees",
+      "desc": "Records, departments, job titles"
+    },
+    "hr-attendance": {
+      "name": "Attendance",
+      "desc": "Clock-in, lateness, hours"
+    },
+    "hr-payroll": {
+      "name": "Payroll",
+      "desc": "Payslips and social charges"
+    }
+  },
+  "families": {
+    "core": "Core / System",
+    "sales": "Sales & CRM",
+    "supply": "Supply chain",
+    "finance": "Finance & Accounting",
+    "hr": "HR & Payroll"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Your workspace settings (demo)",
+    "appearance": "Appearance",
+    "appearanceHint": "These settings are kept in this browser; they will move to your profile with sign-in (lot 1).",
+    "iconStyle": "Module icon style",
+    "iconStyleHint": "Menu mosaic, App Store and setup wizard. The default style is set by the company.",
+    "styles": {
+      "trait": "Current (outline)",
+      "bi": "A · Flat two-tone",
+      "multi": "B · Multicolour",
+      "grad": "C · Soft gradient",
+      "duo": "D · Tinted outline",
+      "pill": "E · Colour badge"
+    },
+    "iconSize": "Module icon size",
+    "iconSizeHint": "On phones, the size is reduced to Medium to keep two tiles per row.",
+    "sizes": {
+      "s": "Small",
+      "m": "Medium",
+      "l": "Large",
+      "xl": "Extra large"
+    },
+    "preview": "Preview",
+    "wizard": "Module selection wizard layout",
+    "wizardHint": "Company setting. At the very first sign-in, layout 1 is used.",
+    "wizards": {
+      "1": "Layout 1 · green tick",
+      "2": "Layout 2 · cards + summary"
+    },
+    "wizardsHint": {
+      "1": "Horizontal tiles, green tick on the icon, greyed icon when not chosen.",
+      "2": "Square cards, gold check, “Your selection” panel."
+    },
+    "otherSettings": "Other settings (company, users, permissions, security) come in lot 1."
+  },
+  "store": {
+    "title": "Apps",
+    "subtitle": "Smart Collab modules: install what your company needs.",
+    "installed": "Installed",
+    "install": "Install",
+    "alwaysOn": "Always on",
+    "comingSoon": "coming soon",
+    "installedToast": "“{name}” installed (demo)",
+    "demoNote": "Mock-up: real installation, with dependencies and menu updates, comes in lot 1."
+  },
+  "wizard": {
+    "step": "First sign-in · step 3 of 5",
+    "title": "Choose your company's modules",
+    "intro": "Select what you need. Core modules are always on.",
+    "later": "You can add or remove modules later from the App Store.",
+    "laterShort": "Can be changed later from the App Store.",
+    "count": "{count, plural, one {# module selected} other {# modules selected}}",
+    "modulesWord": "{count, plural, one {module} other {modules}}",
+    "alwaysOn": "Always on",
+    "core": "Core",
+    "selection": "Your selection",
+    "continue": "Continue",
+    "hrExample": "example, upcoming modules",
+    "continueToast": "Next step: users (mock-up, {count} modules selected)"
   }
 }

@@ -108,6 +108,13 @@ Aucun au lot 0 (pas de connexion). L'utilisatrice affichée « Awa Koné, Admini
 - Mosaïque : fenêtres déplaçables et redimensionnables (`react-rnd`), réduites dans la barre d'onglets, plein écran sur téléphone, 6 écrans ouverts au maximum (onglets compris).
 - Ajouter un écran : un composant dans `apps/web/screens/`, déclaré dans `apps/web/screens/registry.tsx`. Pour la mise en page, utiliser les requêtes de conteneur (`@md:`, `@xl:`…) et non `sm:` / `lg:` : l'écran suit ainsi la largeur de la page ou de la fenêtre.
 
+### Icônes des modules et Paramètres → Apparence
+
+- Icônes illustrées des tuiles de modules (mosaïque, App Store, assistant) : `packages/ui/src/components/ModuleIcon.tsx` (un dessin par module, rôles de couleur `p s t n w`, 6 styles). Couleurs : `MODULE_PALETTE` et `ICON_INKS` dans `tokens.ts`. Le reste de l'interface reste en Lucide.
+- Réglages (écran Paramètres) : style (`sc-icon-style`), taille (`sc-icon-size`), présentation de l'assistant (`sc-wizard`) ; listes fermées dans `packages/ui/src/icon-settings.ts`.
+- Nouveau module : ajouter son dessin dans `MODULE_ICONS` (géométrie 48 × 48 + rôles + couleur + trio), puis `moduleIcon` dans `apps/web/screens/registry.tsx`.
+- App Store (`?ecran=apps`) et assistant (`?ecran=setup`) : maquettes du lot 0, données fictives (`apps/web/lib/modules.ts`) ; la version réelle arrive au lot 1.
+
 ### Ajouter un composant shadcn/ui
 
 ```bash

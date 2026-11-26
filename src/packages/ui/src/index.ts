@@ -25,3 +25,7 @@ export * from "./components/Toast";
 export * from "./components/workspace/state";
 export * from "./components/workspace/context";
 export type { ScreenDef } from "./components/workspace/types";
+// Icônes illustrées des modules et réglages d'apparence
+export * from "./components/ModuleIcon";
+export * from "./icon-settings";
+export * from "./appearance";

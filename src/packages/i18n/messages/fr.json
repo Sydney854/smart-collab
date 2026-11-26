@@ -25,7 +25,9 @@
     "finance": "Finance",
     "apps": "Applications",
     "components": "Composants (démo)",
-    "notYet": "« {name} » arrive dans un prochain lot"
+    "notYet": "« {name} » arrive dans un prochain lot",
+    "settings": "Paramètres",
+    "setup": "Assistant (démo)"
   },
   "demo": {
     "title": "Composants Smart Collab",
@@ -323,8 +325,128 @@
       "pos": "Encaissement en boutique",
       "finance": "Trésorerie et comptabilité",
       "apps": "Installer ou retirer des modules",
-      "components": "Catalogue des composants (démo)"
+      "components": "Catalogue des composants (démo)",
+      "settings": "Société, utilisateurs, apparence",
+      "setup": "Choix des modules à la première connexion"
     },
     "plannedShort": "« {name} » arrive au lot {lot}"
+  },
+  "modules": {
+    "dashboard": {
+      "name": "Tableau de bord",
+      "desc": "Chiffres clés, ventes du mois"
+    },
+    "sales": {
+      "name": "Ventes",
+      "desc": "Devis, factures, avoirs"
+    },
+    "pos": {
+      "name": "Caisse",
+      "desc": "Encaissement en boutique"
+    },
+    "stock": {
+      "name": "Stock",
+      "desc": "Produits, mouvements, inventaires"
+    },
+    "purchases": {
+      "name": "Achats",
+      "desc": "Commandes et réceptions fournisseurs"
+    },
+    "finance": {
+      "name": "Finance",
+      "desc": "Trésorerie et comptabilité"
+    },
+    "apps": {
+      "name": "Applications",
+      "desc": "Installer ou retirer des modules"
+    },
+    "settings": {
+      "name": "Paramètres",
+      "desc": "Société, utilisateurs, apparence"
+    },
+    "components": {
+      "name": "Composants (démo)",
+      "desc": "Catalogue des composants"
+    },
+    "hr-employees": {
+      "name": "Employés",
+      "desc": "Fiches, départements, désignations"
+    },
+    "hr-attendance": {
+      "name": "Présence",
+      "desc": "Pointage, retards, heures"
+    },
+    "hr-payroll": {
+      "name": "Paie",
+      "desc": "Bulletins et charges sociales"
+    }
+  },
+  "families": {
+    "core": "Core / Système",
+    "sales": "Ventes & CRM",
+    "supply": "Chaîne d'approvisionnement",
+    "finance": "Finance & Comptabilité",
+    "hr": "RH & Paie"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Réglages de votre espace (démonstration)",
+    "appearance": "Apparence",
+    "appearanceHint": "Ces réglages sont retenus dans ce navigateur ; ils passeront dans votre profil avec la connexion (lot 1).",
+    "iconStyle": "Style des icônes de modules",
+    "iconStyleHint": "Mosaïque du menu, App Store et assistant. Le style par défaut est fixé par l'entreprise.",
+    "styles": {
+      "trait": "Actuel (trait)",
+      "bi": "A · Plat bicolore",
+      "multi": "B · Multicolore",
+      "grad": "C · Dégradé doux",
+      "duo": "D · Contour teinté",
+      "pill": "E · Pastille couleur"
+    },
+    "iconSize": "Taille des icônes de modules",
+    "iconSizeHint": "Sur téléphone, la taille est ramenée à Moyenne pour garder deux tuiles par ligne.",
+    "sizes": {
+      "s": "Petite",
+      "m": "Moyenne",
+      "l": "Grande",
+      "xl": "Très grande"
+    },
+    "preview": "Aperçu",
+    "wizard": "Présentation de l'assistant de choix des modules",
+    "wizardHint": "Réglage de l'entreprise. À la toute première connexion, la proposition 1 est utilisée.",
+    "wizards": {
+      "1": "Proposition 1 · coche verte",
+      "2": "Proposition 2 · cartes + récapitulatif"
+    },
+    "wizardsHint": {
+      "1": "Tuiles horizontales, coche verte sur l'icône, icône grisée si non choisie.",
+      "2": "Cartes carrées, case dorée, panneau « Votre sélection »."
+    },
+    "otherSettings": "Les autres paramètres (société, utilisateurs, droits, sécurité) arrivent au lot 1."
+  },
+  "store": {
+    "title": "Applications",
+    "subtitle": "Les modules de Smart Collab : installez ce dont votre entreprise a besoin.",
+    "installed": "Installée",
+    "install": "Installer",
+    "alwaysOn": "Toujours actif",
+    "comingSoon": "à venir",
+    "installedToast": "« {name} » installée (démonstration)",
+    "demoNote": "Maquette : l'installation réelle, avec ses dépendances et la mise à jour du menu, arrive au lot 1."
+  },
+  "wizard": {
+    "step": "Première connexion · étape 3 sur 5",
+    "title": "Choisissez les modules de votre entreprise",
+    "intro": "Sélectionnez ce dont vous avez besoin. Les modules du socle sont toujours actifs.",
+    "later": "Vous pourrez en ajouter ou en retirer plus tard depuis l'App Store.",
+    "laterShort": "Modifiable plus tard depuis l'App Store.",
+    "count": "{count, plural, one {# module choisi} other {# modules choisis}}",
+    "modulesWord": "{count, plural, one {module} other {modules}}",
+    "alwaysOn": "Toujours actif",
+    "core": "Socle",
+    "selection": "Votre sélection",
+    "continue": "Continuer",
+    "hrExample": "exemple, modules à venir",
+    "continueToast": "Étape suivante : les utilisateurs (maquette, {count} modules choisis)"
   }
 }

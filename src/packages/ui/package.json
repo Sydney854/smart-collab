@@ -10,7 +10,8 @@
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./components/*": "./src/components/*.tsx",
-    "./workspace": "./src/components/workspace/state.ts"
+    "./workspace": "./src/components/workspace/state.ts",
+    "./appearance": "./src/icon-settings.ts"
   },
   "scripts": {
     "test": "vitest run",

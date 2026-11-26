@@ -120,3 +120,15 @@
     box-shadow: none;
   }
 }
+
+/* Tuiles des modules : taille réglée dans Paramètres → Apparence, Moyenne sur téléphone (< 560 px) */
+.sc-icon-sized {
+  --sc-icon-box: 72px;
+  --sc-icon-draw: 52px;
+}
+@media (max-width: 559px) {
+  .sc-icon-sized {
+    --sc-icon-box: 56px !important;
+    --sc-icon-draw: 40px !important;
+  }
+}
