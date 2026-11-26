@@ -33,7 +33,8 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 ## Points en attente
 
 - **Lot 0 non clos (accord du 26/11 pour avancer quand même)** : validation des 89 fiches ; fiches manquantes du lot 1 (masques de champs, création de compte par invitation), de la caisse (modèle de ticket 80 mm / A4, ouverture / clôture de session, retour depuis un ticket) et des lots 2 à 7 ; **nettoyage du PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx` (noms de sites réels du client fondateur) par la session de pilotage, sans le partager d'ici là** (l'ancienne version reste dans l'historique du dépôt privé).
-- **Avant la base du lot 1** : faire trancher « une personne peut-elle appartenir à plusieurs entreprises ? » (décision Q5c du 26/11).
+- Tranché le 26/11 (L1) : une personne = un compte, plusieurs entreprises possibles ; base de l'étape 1 construite ainsi.
+- **Lot 1, étape 1** : les journaux d'audit et d'accès sont lisibles par tout membre de l'entreprise (aucun écran ne les montre) : à limiter par permission à l'étape 3 (droits), avant toute démonstration avec plusieurs comptes. Le rôle sera ajouté au jeton à l'étape 3.
 - Au lot 1 : prévoir dans l'entreprise de démonstration un module construit **non installé**, pour montrer le bouton « Installer » (décision Q3).
 
 - **Pour le lot 1 (contrôle de sécurité du 26/11/2026)** : la présentation de l'assistant et le style d'icône par défaut sont des réglages **de l'entreprise** ; au lot 1, les enregistrer par une action serveur réservée à l'administrateur (rôle lu dans la session, filtre sur l'entreprise), et non plus seulement dans le navigateur. Ajouter aussi les en-têtes de sécurité (protection contre l'affichage dans une autre page) avec la connexion.
