@@ -105,7 +105,7 @@ Aucun au lot 0 (pas de connexion). L'utilisatrice affichée « Awa Koné, Admini
 ### Modes d'affichage (Liste / Mosaïque)
 
 - Bouton dans l'en-tête ; choix retenu dans le cookie `sc-layout` (`list` ou `mosaic`).
-- Mosaïque : fenêtres déplaçables et redimensionnables (`react-rnd`), réduites dans la barre d'onglets, plein écran sur téléphone, 6 écrans ouverts au maximum (onglets compris).
+- Mosaïque (décisions du 26/11/2026) : pas de barre d'onglets ; ouverture à 70 % × 80 % du bureau en cascade ; déplacement par contour (Échap annule), redimensionnement (`react-rnd`), taille minimale 640 × 440, barre de titre toujours attrapable ; fenêtres réduites dans une barre en bas à gauche, affichée seulement s'il y en a ; plein écran sur téléphone ; 6 écrans ouverts au maximum.
 - Ajouter un écran : un composant dans `apps/web/screens/`, déclaré dans `apps/web/screens/registry.tsx`. Pour la mise en page, utiliser les requêtes de conteneur (`@md:`, `@xl:`…) et non `sm:` / `lg:` : l'écran suit ainsi la largeur de la page ou de la fenêtre.
 
 ### Icônes des modules et Paramètres → Apparence
