@@ -12,11 +12,14 @@
 
 ## Captures de référence
 
-Aucune capture : écran à concevoir selon cette fiche.
+- [DreamsERP mode-clair/11_Point-de-vente/03_lock-screen.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/11_Point-de-vente/03_lock-screen.png) — Verrouillage d'écran (caisse)
+
+Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
 ## Zones de l'écran
 
-- Voile flouté sur l'application en cours (le contenu reste en place mais illisible) ; carte centrée : avatar et nom de l'utilisateur, champ mot de passe, bouton Déverrouiller, lien « Ce n'est pas moi » .
+- **Voile opaque** (pas un simple flou) sur toute l'application ; carte centrée : avatar et nom de l'utilisateur, champ mot de passe, bouton Déverrouiller, lien « Ce n'est pas moi ».
+- Si la session a **expiré** (et non simple inactivité), les données affichées sont retirées de la page ; seules les saisies en cours sont gardées sur l'appareil (chiffrées), puis restituées après le déverrouillage.
 
 ## Champs et filtres
 
@@ -26,7 +29,8 @@ Aucune capture : écran à concevoir selon cette fiche.
 
 ## Actions (ce que fait chaque clic)
 
-- **Déverrouiller** : vérifie le mot de passe et rend l'écran tel qu'il était (fenêtres, onglets, saisies en cours conservés).
+- **Déverrouiller** : c'est une **vraie reconnexion vérifiée par le serveur** (mot de passe, puis second facteur si le compte l'a) ; l'écran revient tel qu'il était (fenêtres, onglets, saisies en cours).
+- **Mot de passe oublié ?** : déconnexion complète puis `core.forgot-password`.
 - **Ce n'est pas moi** : déconnexion complète, retour à `core.login` ; les données locales hors ligne sont effacées sauf la file non envoyée (EF-OFF-03).
 - Déclenchement : après une inactivité réglable par l'entreprise (15 minutes par défaut), ou par le menu utilisateur « Verrouiller ».
 
@@ -34,8 +38,8 @@ Aucune capture : écran à concevoir selon cette fiche.
 
 - **Vide** : champ vide, focus.
 - **Chargement** : bouton désactivé.
-- **Erreur** : mot de passe incorrect : message ; après N échecs, déconnexion complète et inscription au journal des accès.
-- **Hors ligne** : sur un poste de caisse : déverrouillage par mot de passe vérifié localement tant que la durée maximale hors ligne n'est pas atteinte (EF-OFF-02) ; ailleurs : « Déverrouillage impossible sans réseau ».
+- **Erreur** : mot de passe incorrect : message ; après 5 échecs (limite appliquée par le serveur, comptée avec celle de la connexion), déconnexion complète et inscription au journal des accès.
+- **Hors ligne** : sur un poste de caisse : déverrouillage par un **code de caisse distinct du mot de passe** (jamais le mot de passe), conservé haché par une fonction lente ; 5 essais, puis effacement des données locales sauf la file non envoyée ; uniquement tant que la durée maximale hors ligne n'est pas atteinte (EF-OFF-02). Les données locales restent chiffrées (EF-OFF-03, SEC-MO-11). Ailleurs : « Déverrouillage impossible sans réseau ».
 
 ## Droits nécessaires
 
@@ -45,7 +49,7 @@ Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_D
 
 ## Exigences couvertes
 
-ENF-SEC-02 (durée de session), EF-OFF-02, EF-OFF-03, ENF-TRA-02.
+ENF-SEC-02 (durée de session), SEC-MO-04, SEC-MO-11, EF-OFF-02, EF-OFF-03, ENF-TRA-02.
 
 ## Version mobile (390 px)
 
@@ -65,7 +69,8 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À ne pas reproduire
 
-- Pas de capture de référence (absent du prototype et de DreamsERP) : écran à concevoir selon cette fiche.
+- Logo, couleurs (vert), textes et illustrations de DreamsERP : remplacés par l'identité Smart Collab (or, bleu marine, Inter) et des textes propres.
+- Contenu simplement flouté derrière la carte : voile opaque (contrôle de sécurité du 26/11/2026).
 
 ## Propre à RUTHY'S → réglages du moteur de configuration
 

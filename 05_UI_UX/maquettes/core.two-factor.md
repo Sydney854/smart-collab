@@ -12,14 +12,17 @@
 
 ## Captures de référence
 
-- [DreamsERP 17_Pages-authentification-erreurs/15_email-verification.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/15_email-verification.png) — Saisie d'un code à 6 chiffres (même présentation)
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/15_email-verification.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/15_email-verification.png) — Saisie d'un code à 6 chiffres (même présentation)
+- [DreamsERP mode-sombre/16_Systeme/13_security-settings_popup-select-auth.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-sombre/16_Systeme/13_security-settings_popup-select-auth.png) — Choix de la méthode (variante Activer)
+- [DreamsERP mode-sombre/16_Systeme/18_security-settings_popup-email-code.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-sombre/16_Systeme/18_security-settings_popup-email-code.png) — Code par e-mail
+- [DreamsERP mode-sombre/16_Systeme/20_security-settings_popup-sms-code.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-sombre/16_Systeme/20_security-settings_popup-sms-code.png) — Code par SMS
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
 ## Zones de l'écran
 
 - Carte centrée : logo, titre, explication courte, 6 cases de code, bouton Valider.
-- Variante « Activer la double authentification » (depuis le profil, obligatoire pour les administrateurs, SEC-MO-04) : code QR à scanner avec une application d'authentification, clé à saisir à la main, puis 6 cases de confirmation, puis 8 codes de secours à conserver.
+- Variante « Activer la double authentification » : depuis le profil pour tous ; **imposée par le serveur** aux administrateurs et à l'éditeur, qui ne peuvent rien faire d'autre avant de l'avoir activée (SEC-MO-04). Code QR à scanner avec une application d'authentification, clé à saisir à la main, 6 cases de confirmation, puis 8 codes de secours à conserver.
 
 ## Champs et filtres
 
@@ -33,13 +36,15 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 - **Valider** : vérifie le code ; succès → écran demandé.
 - **Utiliser un code de secours** : bascule vers un champ unique ; le code utilisé est invalidé.
 - **Retour à la connexion** : annule et revient à `core.login`.
-- Activation : **Télécharger les codes de secours** (fichier texte) puis **J'ai noté mes codes** (obligatoire pour terminer).
+- Activation : **Télécharger les codes de secours** (fichier texte) puis **J'ai noté mes codes** (obligatoire pour terminer). Les codes de secours sont conservés **hachés**, à usage unique, contrôlés par le serveur.
+- **Désactiver** (profil) : demande le mot de passe ; impossible pour un administrateur. Activation et désactivation inscrites au journal, avec e-mail d'alerte au titulaire.
+- **Téléphone perdu** : un autre administrateur réinitialise le second facteur de l'utilisateur ; opération journalisée et e-mail d'alerte au titulaire ; l'utilisateur doit l'activer à nouveau à la connexion suivante.
 
 ## États
 
 - **Vide** : cases vides, focus sur la première.
 - **Chargement** : bouton désactivé « Vérification… ».
-- **Erreur** : « Code incorrect ou expiré » ; cases vidées ; après 5 essais, retour à la connexion et inscription au journal des accès.
+- **Erreur** : « Code incorrect ou expiré » ; cases vidées ; après 5 essais, la session à moitié ouverte est **fermée par le serveur**, retour à la connexion, échecs comptés dans le verrouillage du compte et inscrits au journal des accès.
 - **Hors ligne** : « Vérification impossible sans réseau. »
 
 ## Droits nécessaires
@@ -54,7 +59,7 @@ ENF-SEC-02, SEC-MO-04, ENF-TRA-02.
 
 ## Version mobile (390 px)
 
-- Cases de 44 px minimum ; clavier numérique ; code QR remplacé par la clé à copier si l'écran est le même appareil que l'application d'authentification.
+- Cases de 44 px minimum ; clavier numérique ; variante Activer : toujours le code QR **et** la clé à copier (on ne peut pas savoir si l'application d'authentification est sur le même appareil).
 
 ## Textes fr / en
 

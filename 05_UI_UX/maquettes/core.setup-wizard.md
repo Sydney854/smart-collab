@@ -19,7 +19,7 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 - Écran plein, sans menu ; en haut : logo, étapes numérotées (1 Entreprise, 2 Métier, 3 Modules, 4 Utilisateurs, 5 Récapitulatif) avec l'étape courante en or ; en bas : Précédent / Continuer.
 - **1 Entreprise** : identité et paramètres régionaux.
 - **2 Métier** : cartes des métiers (Commerce de détail, Multi-sites…) ; le métier pré-coche les modules et les règles par défaut.
-- **3 Modules** : proposition 1 (coche verte sur l'icône, par défaut) ou 2 (cartes + « Votre sélection »), réglée dans Paramètres → Apparence.
+- **3 Modules** : proposition 1 (coche verte sur l'icône, par défaut) ou 2 (cartes + « Votre sélection »), réglée dans Paramètres → Apparence (pas de sélecteur dans l'assistant). Modules regroupés par famille du catalogue avec son titre ; socle (Tableau de bord, Applications) déjà choisi et marqué « Toujours actif » ; compteur « N modules choisis » ; tuiles cochables au clic, à Espace ou Entrée ; seuls les modules **de la formule d'abonnement** sont proposés (EF-APP-06) ; dépendances ajoutées automatiquement et signalées (EF-APP-02).
 - **4 Utilisateurs** : invitations (e-mail, rôle) ; préréglages de rôles par métier.
 - **5 Récapitulatif** : résumé de tout, bouton **Terminer** ; liens « Modifier » vers chaque étape.
 
@@ -31,8 +31,8 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 | Pays | liste | oui | Côte d'Ivoire ou pays de l'UEMOA |
 | Devise | liste | oui | XOF par défaut ; affichage « F » |
 | Langue | liste | oui | français ou anglais |
-| RCCM, NCC | texte | non | identifiants légaux |
-| Logo | fichier | non | image ≤ 2 Mo |
+| Identifiants légaux | texte | non | selon le pays choisi (Côte d'Ivoire : RCCM et NCC ; autres pays de l'UEMOA : leurs identifiants) |
+| Logo | fichier | non | PNG, JPEG ou WebP seulement (pas de SVG), ≤ 2 Mo, contrôlé par le serveur, rangé dans le dossier privé de l'entreprise (SEC-MO-05) |
 | Métier | choix | oui | un métier |
 | Modules | cases | oui | socle toujours actif |
 | Utilisateurs à inviter | e-mail + rôle | non | plusieurs lignes |
@@ -40,7 +40,7 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 ## Actions (ce que fait chaque clic)
 
 - **Continuer** : valide l'étape (zod) et passe à la suivante ; la progression est enregistrée (reprise possible).
-- **Terminer** : crée la configuration en une seule opération (tout ou rien) : entreprise, sites par défaut, applications et dépendances, rôles, invitations ; inscription au journal ; ouverture du tableau de bord.
+- **Terminer** : crée la configuration en une seule opération (tout ou rien) : entreprise, sites par défaut, applications et dépendances, rôles, invitations ; inscription au journal ; ouverture du tableau de bord. Le serveur **refait toute la validation** (zod), fixe lui-même l'entreprise et les rôles (jamais lus dans le formulaire, SEC-MO-03) et **refuse l'assistant si l'entreprise est déjà configurée**. La saisie gardée dans le navigateur est effacée à « Terminer » et à la déconnexion.
 - **Plus tard** (étape 4) : passe sans inviter.
 
 ## États
@@ -58,7 +58,7 @@ Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_D
 
 ## Exigences couvertes
 
-Lot 1 point 7, EF-APP-02, EF-GEN-01 (tout ou rien), EF-GEN-03, ENF-USA-02.
+Lot 1 point 7, EF-APP-02, EF-APP-06, EF-GEN-01 (tout ou rien), EF-GEN-03, ENF-USA-02, ICONES_MODULES.md § 4.
 
 ## Version mobile (390 px)
 
@@ -81,6 +81,10 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Terminer | Finish |
 | Plus tard | Later |
 | Vous pourrez en ajouter ou en retirer plus tard depuis l'App Store. | You can add or remove modules later from the App Store. |
+
+## À trancher par la cheffe de projet
+
+- Tableau de bord ouvert à la fin de l'assistant : les fiches de tableaux de bord sont au lot 6 ; au lot 1, garder un tableau d'accueil simple (chiffres clés vides et raccourcis vers les modules installés) ?
 
 ## À ne pas reproduire
 

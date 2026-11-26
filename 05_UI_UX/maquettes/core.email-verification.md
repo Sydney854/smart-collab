@@ -12,14 +12,14 @@
 
 ## Captures de référence
 
-- [DreamsERP 17_Pages-authentification-erreurs/15_email-verification.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/15_email-verification.png) — Code à 6 chiffres
-- [DreamsERP 17_Pages-authentification-erreurs/14_email-verification-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/14_email-verification-illustration.png) — Avec illustration
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/15_email-verification.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/15_email-verification.png) — Code à 6 chiffres
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/14_email-verification-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/14_email-verification-illustration.png) — Avec illustration
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
 ## Zones de l'écran
 
-- Carte centrée : logo, titre, adresse concernée (masquée en partie : a•••@exemple.ci), 6 cases de code, bouton, lien de renvoi.
+- Carte centrée : logo, titre, adresse concernée (masquée en partie : a•••@example.com), 6 cases de code, bouton, lien de renvoi.
 
 ## Champs et filtres
 
@@ -30,13 +30,14 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 ## Actions (ce que fait chaque clic)
 
 - **Vérifier** : confirme l'adresse ; succès → première connexion (choix du mot de passe si compte créé par l'administrateur, puis assistant si l'entreprise n'est pas configurée).
-- **Renvoyer le code** : disponible après 60 secondes (compte à rebours affiché).
+- **Renvoyer le code** : disponible après 60 secondes (compte à rebours affiché) ; le délai et le nombre de renvois (5 par heure) sont **appliqués par le serveur**, pas seulement par l'écran ; contrôle anti-robot (SEC-MO-04).
+- Invitations envoyées par l'administrateur : lien valable 72 heures, à usage unique. *Valeurs : propositions à valider.*
 
 ## États
 
 - **Vide** : cases vides.
 - **Chargement** : bouton désactivé.
-- **Erreur** : « Code incorrect ou expiré » ; trop d'essais : nouveau code obligatoire.
+- **Erreur** : « Code incorrect ou expiré » ; après 5 essais, le code est annulé et un nouveau code est obligatoire.
 - **Hors ligne** : « Vérification impossible sans réseau. »
 
 ## Droits nécessaires
@@ -60,7 +61,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Français | English |
 |---|---|
 | Vérifiez votre adresse e-mail | Verify your email address |
-| Saisissez le code à 6 chiffres envoyé à {email}. | Enter the 6-digit code sent to {email}. |
+| Saisissez le code à 6 chiffres reçu à l'adresse {email}. | Type the 6-digit code we emailed to {email}. |
 | Vérifier | Verify |
 | Renvoyer le code | Resend code |
 | Renvoi possible dans {s} s | Resend available in {s}s |

@@ -12,8 +12,8 @@
 
 ## Captures de référence
 
-- [DreamsERP 17_Pages-authentification-erreurs/16_error-404.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/16_error-404.png) — Page introuvable
-- [DreamsERP 17_Pages-authentification-erreurs/17_error-500.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/17_error-500.png) — Erreur du serveur
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/16_error-404.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/16_error-404.png) — Page introuvable
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/17_error-500.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/17_error-500.png) — Erreur du serveur
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
@@ -27,8 +27,10 @@ Aucun champ de saisie.
 
 ## Actions (ce que fait chaque clic)
 
-- **403 — Accès refusé** (ex. un caissier ouvre l'adresse de Paramètres, démo du lot 1) : « Vous n'avez pas accès à cet écran » ; bouton **Retour au tableau de bord**. L'écran ne révèle rien de son contenu ; la tentative est inscrite au journal des accès.
-- **404 — Page introuvable** : bouton **Retour au tableau de bord**.
+- **403 — Accès refusé** (ex. un caissier ouvre l'adresse de Paramètres, démo du lot 1) : « Vous n'avez pas accès à cet écran » ; bouton **Retour au tableau de bord**. L'écran ne révèle rien de son contenu.
+- **404 — Page introuvable** : bouton **Retour au tableau de bord**. C'est aussi la réponse pour **toute donnée invisible pour l'utilisateur** (fiche d'une autre entreprise ou hors de son périmètre) : on ne confirme jamais qu'elle existe ailleurs. La 403 est réservée aux écrans non autorisés.
+- En mode Mosaïque, l'erreur s'affiche **dans la fenêtre** de l'écran concerné ; en mode Liste, à la place de l'écran.
+- La tentative d'accès refusée est inscrite au journal d'audit (`audit_log`).
 - **500 — Erreur** : bouton **Réessayer** ; référence de l'erreur copiable (l'erreur est envoyée au suivi, sans données personnelles).
 
 ## États
@@ -59,7 +61,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Français | English |
 |---|---|
 | Vous n'avez pas accès à cet écran. | You don't have access to this screen. |
-| Cette page n'existe pas ou a été déplacée. | This page doesn't exist or has moved. |
+| Nous ne trouvons pas cette page. | We can't find this page. |
 | Un problème est survenu. Réessayez dans un instant. | Something went wrong. Please try again in a moment. |
 | Retour au tableau de bord | Back to the dashboard |
 | Réessayer | Try again |

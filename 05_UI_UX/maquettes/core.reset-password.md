@@ -12,14 +12,15 @@
 
 ## Captures de référence
 
-- [DreamsERP 17_Pages-authentification-erreurs/11_reset-password-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/11_reset-password-illustration.png) — Réinitialisation avec illustration
-- [DreamsERP 17_Pages-authentification-erreurs/12_reset-password.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/12_reset-password.png) — Réinitialisation en carte
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/11_reset-password-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/11_reset-password-illustration.png) — Réinitialisation avec illustration
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/12_reset-password.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/12_reset-password.png) — Réinitialisation en carte
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
 ## Zones de l'écran
 
 - Même mise en page que `core.login`, deux champs, indicateur de force et règles du mot de passe affichées en clair.
+- Variante **« Choisissez votre mot de passe »** : premier mot de passe d'un compte créé par l'administrateur (lien d'invitation), même écran avec un titre et un texte d'accueil différents.
 
 ## Champs et filtres
 
@@ -30,7 +31,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 ## Actions (ce que fait chaque clic)
 
-- **Enregistrer** : change le mot de passe, ferme toutes les autres sessions de l'utilisateur, inscrit l'événement au journal des accès, puis ouvre `core.login` avec le message « Mot de passe modifié ».
+- **Enregistrer** : change le mot de passe, ferme toutes les autres sessions de l'utilisateur, inscrit l'événement au journal d'audit (`audit_log`), envoie l'e-mail « Votre mot de passe a été modifié » (avec le lien « Ce n'était pas moi »), puis ouvre `core.login` avec le message « Mot de passe modifié ». Lien de réinitialisation à usage unique, valable 1 heure.
 
 ## États
 

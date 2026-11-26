@@ -12,8 +12,8 @@
 
 ## Captures de référence
 
-- [DreamsERP 17_Pages-authentification-erreurs/08_forgot-password-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/08_forgot-password-illustration.png) — Mot de passe oublié avec illustration
-- [DreamsERP 17_Pages-authentification-erreurs/09_forgot-password.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/09_forgot-password.png) — Mot de passe oublié en carte
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/08_forgot-password-illustration.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/08_forgot-password-illustration.png) — Mot de passe oublié avec illustration
+- [DreamsERP mode-clair/17_Pages-authentification-erreurs/09_forgot-password.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/17_Pages-authentification-erreurs/09_forgot-password.png) — Mot de passe oublié en carte
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
@@ -31,6 +31,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 - **Recevoir le lien** : envoie un lien de réinitialisation valable 1 heure (Supabase Auth). Le message de confirmation est **le même que l'adresse existe ou non**.
 - **Retour à la connexion** → `core.login`.
+- Protection contre les robots : contrôle anti-robot et limitation des demandes par adresse réseau et par adresse e-mail, appliqués par le serveur (SEC-MO-04, SEC-MO-07).
 
 ## États
 
@@ -47,7 +48,7 @@ Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_D
 
 ## Exigences couvertes
 
-ENF-SEC-02, SEC-MO-07.
+ENF-SEC-02, SEC-MO-04, SEC-MO-07.
 
 ## Version mobile (390 px)
 

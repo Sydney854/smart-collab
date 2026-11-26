@@ -18,7 +18,8 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 
 - En-tête : titre, phrase d'explication, filtre par famille du catalogue, recherche.
 - Grille de cartes regroupées par famille : icône illustrée dans son cadre, nom, description courte, famille, statut.
-- Statuts : **Toujours actif** (socle, gris), **Installée** (vert), **Installer** (contour or), **Non inclus dans l'abonnement** (EF-APP-06) avec lien vers la formule.
+- Statuts : **Toujours actif** (socle, gris), **Installée** (vert), **Installer** (contour or), **Archivée** (désinstallée, données conservées) avec **Réinstaller**, **Non inclus dans l'abonnement** (EF-APP-06) avec lien vers la formule.
+- **Fiche d'une application** (clic sur la carte, panneau latéral) : description, captures, applications dont elle dépend et qui dépendent d'elle, événements publiés et écoutés (manifeste), bouton d'action ; états : chargement en squelette, erreur avec Réessayer.
 
 ## Champs et filtres
 
@@ -31,7 +32,8 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 
 - **Installer** : ouvre une confirmation qui **liste les applications ajoutées avec elle** (dépendances, EF-APP-02 ; ex. Point de vente ajoute Produits & Inventaire et Finance) ; **Confirmer** installe le tout, met à jour le menu et inscrit l'opération au journal.
 - **Désinstaller** (menu de la carte d'une application installée) : refusé avec la liste des applications qui en dépendent (EF-APP-03) ; sinon confirmation qui précise « aucune donnée n'est supprimée » ; l'application disparaît du menu.
-- Clic sur la carte : fiche de l'application (description, captures, événements publiés, applications liées).
+- **Réinstaller** (application archivée) : les données conservées réapparaissent (contrat d'application § 3).
+- Clic sur la carte : fiche de l'application (voir Zones).
 
 ## États
 
@@ -42,13 +44,14 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 
 ## Droits nécessaires
 
-- core.app.view (voir) ; core.app.install (installer / désinstaller, administrateur).
+- core.app.view (voir) ; core.app.configure (installer, désinstaller, réinstaller : administrateur ; action « configurer » de 04_ROLES_DROITS.md).
+- Le **serveur** revérifie à chaque installation le droit et l'abonnement (EF-APP-06), et **refuse tout accès** (écrans et services) à une application non installée ou hors abonnement (EF-APP-04) : cacher le menu ne suffit pas.
 
 Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_DROITS.md). Une action non autorisée est masquée, pas grisée.
 
 ## Exigences couvertes
 
-EF-APP-01, EF-APP-02, EF-APP-03, EF-APP-04, EF-APP-06, EF-GEN-03.
+EF-APP-01, EF-APP-02, EF-APP-03, EF-APP-04, EF-APP-06, EF-GEN-03, 16_CONTRAT_APPLICATION.md § 3 (réinstallation).
 
 ## Version mobile (390 px)
 

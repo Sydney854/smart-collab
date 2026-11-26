@@ -12,14 +12,15 @@
 
 ## Captures de référence
 
-- [DreamsERP 16_Systeme/10_general-settings.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/16_Systeme/10_general-settings.png) — Paramètres généraux (mise en page des réglages)
+- [DreamsERP mode-clair/16_Systeme/10_general-settings.png](../../03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/16_Systeme/10_general-settings.png) — Paramètres généraux (mise en page des réglages)
 
 Référence visuelle seulement : la maquette Smart Collab reprend la disposition, pas le logo, les couleurs ni les textes de DreamsERP.
 
 ## Zones de l'écran
 
 - Carte « Apparence » dans les Paramètres (les autres rubriques : Société `core.company`, Utilisateurs `core.users`, Profils `core.roles`, Sécurité…).
-- Style des icônes de modules : 6 choix avec aperçu de 3 icônes ; taille : 4 choix avec aperçu ; présentation de l'assistant : 2 choix ; thème et couleur principale (repris de la palette de l'en-tête).
+- **Mes réglages** : style des icônes de modules (6 choix avec aperçu de 3 icônes), taille (4 choix avec aperçu), thème et couleur principale (repris de la palette de l'en-tête ; ajout par rapport à `ICONES_MODULES.md` § 5).
+- **Valeurs de l'entreprise** (bloc visible seulement avec core.company.configure) : style d'icône par défaut pour les nouveaux utilisateurs, présentation de l'assistant (proposition 1 ou 2).
 
 ## Champs et filtres
 
@@ -52,7 +53,7 @@ Décision du 26/11/2026 (`ICONES_MODULES.md` § 5), ENF-USA-02.
 
 ## Version mobile (390 px)
 
-- Choix en 2 colonnes.
+- Choix en 2 colonnes ; sous 560 px de large, la taille des icônes est ramenée à Moyenne (l'aperçu l'indique).
 
 ## Textes fr / en
 
