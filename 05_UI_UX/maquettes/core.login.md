@@ -82,6 +82,6 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 - Logo, couleurs (vert), textes et illustrations de DreamsERP : remplacés par l'identité Smart Collab (or, bleu marine, Inter) et des textes propres.
 - Message d'erreur qui indique si l'e-mail existe : fuite d'information.
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Rien : écran générique, données de démonstration fictives.

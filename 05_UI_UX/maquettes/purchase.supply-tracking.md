@@ -15,7 +15,7 @@
 - [06_Achats/11_suivi.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/11_suivi.png) — Par défaut (v105)
 - [06_Achats/12_suivi_fiche-lot.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/12_suivi_fiche-lot.png) — Fiche lot de réception (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -88,9 +88,9 @@ EF-STK-05, EF-BI-03, EF-ACH-01 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md
 - Boutons sans effet dans le prototype : « ＋ Nouveau bon de livraison ». Tout bouton affiché fait quelque chose, sinon il n'est pas affiché.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Jalons J+30 / J+60 / J+90 et seuils de vitesse d'écoulement → seuils configurables.
-- Lots et fournisseurs : données RUTHY'S.
+- Lots et fournisseurs : données du client fondateur.

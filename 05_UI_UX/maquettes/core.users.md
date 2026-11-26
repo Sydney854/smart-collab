@@ -14,7 +14,7 @@
 
 - [16_Parametres/01_comptes.png](../../03_SOURCES_REFERENCE/prototype/captures/16_Parametres/01_comptes.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -30,7 +30,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| 1ÈRE FENÊTRE | liste | non | valeurs du référentiel (12 entrées dans le prototype, données RUTHY'S non reprises) |
+| 1ÈRE FENÊTRE | liste | non | valeurs du référentiel (12 entrées dans le prototype, données du client fondateur non reprises) |
 | PROFIL | liste | non | choix : Caissière, Responsable boutique, Gestionnaire de stock, Responsable logistique, Comptable, Responsable Opérations et Performance … |
 | Multi-session peut ouvrir plusieurs sessions | case à cocher | non |  |
 | Compte consultation lecture seule, aucune écriture | case à cocher | non |  |
@@ -120,9 +120,9 @@ Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_D
 - Pas de bouton Enregistrer : chaque clic modifie immédiatement les droits.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Profils (Caissière, Responsable boutique…) et première fenêtre par profil : rôles RUTHY'S → rôles préréglés par métier (§4).
-- Collaborateurs : données RUTHY'S.
+- Profils (Caissière, Responsable boutique…) et première fenêtre par profil : rôles du client fondateur → rôles préréglés par métier (§4).
+- Collaborateurs : données du client fondateur.

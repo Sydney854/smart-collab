@@ -14,7 +14,7 @@
 
 - [06_Achats/10_listecommandes.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/10_listecommandes.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -66,7 +66,7 @@ EF-ACH-01, EF-GEN-04 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Boutons sans effet dans le prototype : « ＋ Nouveau bon de livraison ». Tout bouton affiché fait quelque chose, sinon il n'est pas affiché.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

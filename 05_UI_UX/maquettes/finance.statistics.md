@@ -14,7 +14,7 @@
 
 - [10_Tresorerie-Comptabilite/07_stats.png](../../03_SOURCES_REFERENCE/prototype/captures/10_Tresorerie-Comptabilite/07_stats.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -68,7 +68,7 @@ EF-FIN-04, EF-BI-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Le bandeau compare avec un logiciel tiers (« ShopSuite ») : pas de nom de produit concurrent dans l'interface.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

@@ -152,7 +152,7 @@ Les écrans existants du prototype sont repris tels quels comme maquette ; les �
 - Indicateur de connexion et file des opérations en attente (§9).
 - Console éditeur : entreprises clientes, abonnements, modules complémentaires, transactions (§12).
 
-Les écrans du prototype contenant des données ou des calculs propres à RUTHY'S (objectifs et rentabilité, contribution des sites) sont repris pour leur forme seulement : leurs calculs deviennent des réglages du moteur de configuration.
+Les écrans du prototype contenant des données ou des calculs propres au client fondateur (objectifs et rentabilité, contribution des sites) sont repris pour leur forme seulement : leurs calculs deviennent des réglages du moteur de configuration.
 
 ## 6. Exigences fonctionnelles par module
 

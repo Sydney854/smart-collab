@@ -47,25 +47,38 @@ test("un réglage hors liste est ignoré", async ({ page }) => {
   await expect(page.locator("[data-tile=sales] svg[data-module=sales]")).toHaveAttribute("data-icon-style", "multi");
 });
 
-test("App Store : statuts Toujours actif, Installée, Installer", async ({ page }) => {
+test("Mosaïque : une tuile par module seulement (pas de tuile pour l'assistant de démonstration)", async ({ page }) => {
+  await open(page, "/", { "sc-layout": "mosaic" });
+  await expect(page.locator("[data-tile=settings]")).toBeVisible();
+  await expect(page.locator("[data-tile=setup]")).toHaveCount(0);
+  await expect(page.locator("[data-tile] svg[data-module]")).toHaveCount(await page.locator("[data-tile]").count());
+});
+
+test("App Store : statuts Toujours actif, Installée, À venir", async ({ page }) => {
   await open(page, "/?ecran=apps");
   await expect(page.locator("[data-app=dashboard]")).toContainText("Toujours actif");
   await expect(page.locator("[data-app=sales]")).toContainText("Installée");
   const payroll = page.locator("[data-app=hr-payroll]");
-  await expect(payroll).toContainText("RH & Paie · à venir");
-  await payroll.getByRole("button", { name: "Installer" }).click();
-  await expect(payroll.locator("[data-status=installed]")).toBeVisible();
+  await expect(page.locator("[data-app=settings]")).toContainText("Toujours actif");
+  // Module pas encore construit : « À venir », sans bouton Installer
+  await expect(payroll.locator("[data-status=upcoming]")).toHaveText("À venir");
+  await expect(payroll.getByRole("button")).toHaveCount(0);
+  // Dans la démonstration, tous les modules déjà construits sont installés : aucun bouton Installer
+  await expect(page.locator("[data-app] button", { hasText: "Installer" })).toHaveCount(0);
 });
 
 test("assistant, proposition 1 : cocher au clic et au clavier, socle non modifiable", async ({ page }) => {
   await open(page, "/?ecran=setup");
   const count = page.getByTestId("wizard-count");
-  await expect(count).toHaveText("5 modules choisis");
+  await expect(count).toHaveText("6 modules choisis");
+  // Pas de sélecteur de présentation dans l'assistant (réglé dans Paramètres → Apparence)
+  await expect(page.getByRole("radio", { name: /Proposition/ })).toHaveCount(0);
+  await expect(page.locator("div[data-module=settings]")).toContainText("Toujours actif");
   const finance = page.locator("[data-module=finance][role=checkbox]");
   await expect(finance).toHaveAttribute("aria-checked", "false");
   await finance.click();
   await expect(finance).toHaveAttribute("aria-checked", "true");
-  await expect(count).toHaveText("6 modules choisis");
+  await expect(count).toHaveText("7 modules choisis");
   await finance.focus();
   await page.keyboard.press("Space");
   await expect(finance).toHaveAttribute("aria-checked", "false");
@@ -77,10 +90,10 @@ test("assistant, proposition 1 : cocher au clic et au clavier, socle non modifia
 test("assistant, proposition 2 : cartes et récapitulatif « Votre sélection »", async ({ page }) => {
   await open(page, "/?ecran=setup", { "sc-wizard": "2" });
   const recap = page.getByRole("complementary", { name: "Votre sélection" });
-  await expect(recap).toContainText("5");
+  await expect(recap).toContainText("6");
   await page.locator("[data-module=purchases][role=checkbox]").click();
   await expect(recap).toContainText("Achats");
-  await expect(page.getByTestId("wizard-count")).toHaveText("6 modules choisis");
+  await expect(page.getByTestId("wizard-count")).toHaveText("7 modules choisis");
 });
 
 test("assistant à 390 px : la page tient dans la largeur, dans les deux propositions", async ({ page }) => {

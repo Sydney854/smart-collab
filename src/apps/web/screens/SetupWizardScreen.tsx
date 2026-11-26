@@ -3,13 +3,13 @@
 /**
  * Assistant de première connexion — étape « choix des modules » (maquette du lot 0).
  * 05_UI_UX/ICONES_MODULES.md § 4 : deux présentations, réglées dans Paramètres → Apparence
+ * (pas de sélecteur dans l'assistant : fiche core.setup-wizard, décision du 26/11/2026)
  * (proposition 1 par défaut ; la proposition 3 est écartée).
  * L'assistant réel (entreprise → métier → modules → utilisateurs → récapitulatif) arrive au lot 1.
  */
 
-import { ModuleIcon, type ModuleIconKey, type WizardLayout, iconSizeVars, useAppearance, useToast } from "@smart-collab/ui";
+import { ModuleIcon, type ModuleIconKey, iconSizeVars, useAppearance, useToast } from "@smart-collab/ui";
 import { Button } from "@smart-collab/ui/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@smart-collab/ui/components/ui/toggle-group";
 import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { type KeyboardEvent, type ReactNode, useState } from "react";
@@ -36,11 +36,10 @@ function IconFrame({ module, children }: { module: ModuleIconKey; children?: Rea
 
 export function SetupWizardScreen() {
   const t = useTranslations("wizard");
-  const ts = useTranslations("settings");
   const tm = useTranslations("modules");
   const tf = useTranslations("families");
   const toast = useToast();
-  const { iconSize, iconStyle, wizardLayout, set } = useAppearance();
+  const { iconSize, iconStyle, wizardLayout } = useAppearance();
   const [selected, setSelected] = useState<ModuleIconKey[]>(WIZARD_INITIAL_SELECTION);
 
   const isOn = (k: ModuleIconKey) => CORE.includes(k) || selected.includes(k);
@@ -172,18 +171,6 @@ export function SetupWizardScreen() {
           <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
           <p className="mt-1 max-w-2xl text-muted-foreground">{t("intro")}</p>
         </div>
-        <ToggleGroup
-          type="single"
-          size="sm"
-          variant="outline"
-          aria-label={ts("wizard")}
-          value={wizardLayout}
-          onValueChange={(v) => v && set("wizardLayout", v as WizardLayout)}
-          className="max-w-full flex-wrap"
-        >
-          <ToggleGroupItem value="1">{ts("wizards.1")}</ToggleGroupItem>
-          <ToggleGroupItem value="2">{ts("wizards.2")}</ToggleGroupItem>
-        </ToggleGroup>
       </header>
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3">
         <p className="text-sm text-muted-foreground">{t("later")}</p>

@@ -432,9 +432,9 @@
     "installed": "Installée",
     "install": "Installer",
     "alwaysOn": "Toujours actif",
-    "comingSoon": "à venir",
     "installedToast": "« {name} » installée (démonstration)",
-    "demoNote": "Maquette : l'installation réelle, avec ses dépendances et la mise à jour du menu, arrive au lot 1."
+    "demoNote": "Maquette : l'installation réelle, avec ses dépendances et la mise à jour du menu, arrive au lot 1.",
+    "upcoming": "À venir"
   },
   "wizard": {
     "step": "Première connexion · étape 3 sur 5",

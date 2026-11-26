@@ -89,8 +89,8 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 ## À ne pas reproduire
 
 - Proposition 3 (liste avec interrupteurs) : écartée le 26/11/2026.
-- Données de RUTHY'S comme exemples (raison sociale, sites) : exemples fictifs uniquement.
+- Données du client fondateur comme exemples (raison sociale, sites) : exemples fictifs uniquement.
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Rien : écran générique, données de démonstration fictives.

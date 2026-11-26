@@ -15,7 +15,7 @@
 - [08_Transferts-de-stock/03_bons.png](../../03_SOURCES_REFERENCE/prototype/captures/08_Transferts-de-stock/03_bons.png) — Par défaut (v105)
 - [08_Transferts-de-stock/04_bons_fiche-bon.png](../../03_SOURCES_REFERENCE/prototype/captures/08_Transferts-de-stock/04_bons_fiche-bon.png) — Fiche bon de transfert (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -31,7 +31,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| (sans libellé) | liste | non | valeurs du référentiel (7 entrées dans le prototype, données RUTHY'S non reprises) |
+| (sans libellé) | liste | non | valeurs du référentiel (7 entrées dans le prototype, données du client fondateur non reprises) |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
 
@@ -84,7 +84,7 @@ EF-TRF-01, EF-GEN-04 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Relevé automatique des éléments sans effet sur les captures : « ＋ Nouveau transfert ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

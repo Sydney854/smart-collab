@@ -14,7 +14,7 @@
 
 - [16_Parametres/03_donnees.png](../../03_SOURCES_REFERENCE/prototype/captures/16_Parametres/03_donnees.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -72,8 +72,8 @@ EF-CFG-03, EF-CFG-04, EF-CFG-05, EF-CFG-06 (02_SPECIFICATIONS/06_EXIGENCES_FONCT
 - Valeurs modifiées sans enregistrement explicite, sans version ni test : EF-CFG-03 (tester avant d'activer), 04 (versionner), 05 (tracer, annuler).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Tous les seuils présents (rotation, écoulement, commission dépôt-vente, double validation, client VIP, objectifs et rentabilité…) sont les réglages de RUTHY'S : ils deviennent les réglages par défaut d'un métier, pas des valeurs du produit.
+- Tous les seuils présents (rotation, écoulement, commission dépôt-vente, double validation, client VIP, objectifs et rentabilité…) sont les réglages du client fondateur : ils deviennent les réglages par défaut d'un métier, pas des valeurs du produit.

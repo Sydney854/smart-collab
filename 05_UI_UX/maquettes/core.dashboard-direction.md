@@ -15,7 +15,7 @@
 - [01_Tableau-de-bord/01_direction.png](../../03_SOURCES_REFERENCE/prototype/captures/01_Tableau-de-bord/01_direction.png) — Par défaut (v105)
 - [01_Tableau-de-bord/02_direction_nouvel-indicateur.png](../../03_SOURCES_REFERENCE/prototype/captures/01_Tableau-de-bord/02_direction_nouvel-indicateur.png) — Formulaire Nouvel indicateur (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -93,16 +93,16 @@ EF-BI-03, EF-APP-04, §7 Indicateurs et Tableaux de bord, EF-CFG-03 (02_SPECIFIC
 
 - Période par défaut figée sur l'exercice des données de démonstration (« Année 2024 », et « Réinitialiser » y revient) : Smart Collab ouvre sur l'exercice en cours.
 - Salutation avec un prénom écrit en dur : afficher le prénom de l'utilisateur connecté.
-- Bandeau « … accumule une perte depuis N mois » calculé sur la règle de contribution RUTHY'S : ne pas reprendre tel quel.
+- Bandeau « … accumule une perte depuis N mois » calculé sur la règle de contribution du client fondateur : ne pas reprendre tel quel.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Résultat par site (marge − charges propres − part des charges de la Centrale) : formule de contribution propre à RUTHY'S → règle de calcul.
+- Résultat par site (marge − charges propres − part des charges de la Centrale) : formule de contribution propre au client fondateur → règle de calcul.
 - Clé de répartition des charges de la Centrale entre les sites → réglage (règle de répartition).
 - Estimation du coût d'achat quand le prix d'achat est inconnu (pourcentage du prix de vente) → réglage.
 - Report d'une perte sur le mois suivant (« dette ») et remise à zéro annuelle → règle de calcul.
 - Date de début (et de fin) d'activité de chaque site, qui conditionne l'affichage des séries → donnée de la fiche site.
-- Noms des sites, exercices et montants affichés : données RUTHY'S, remplacées par des données fictives.
+- Noms des sites, exercices et montants affichés : données du client fondateur, remplacées par des données fictives.

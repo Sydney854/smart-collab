@@ -16,7 +16,7 @@
 - [01_Tableau-de-bord/04_financier_menu-clic-droit-graphique.png](../../03_SOURCES_REFERENCE/prototype/captures/01_Tableau-de-bord/04_financier_menu-clic-droit-graphique.png) — Menu de personnalisation — clic droit sur un graphique (v105)
 - [01_Tableau-de-bord/05_financier_menu-clic-droit-kpi.png](../../03_SOURCES_REFERENCE/prototype/captures/01_Tableau-de-bord/05_financier_menu-clic-droit-kpi.png) — Menu de personnalisation — clic droit sur une carte KPI (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -93,19 +93,19 @@ EF-BI-03, §7 Indicateurs et Tableaux de bord, EF-FIN-04, EF-STK-05 (02_SPECIFIC
 
 - Période par défaut figée sur l'exercice des données de démonstration (« Année 2024 », et « Réinitialiser » y revient) : Smart Collab ouvre sur l'exercice en cours.
 - Salutation avec un prénom écrit en dur : afficher le prénom de l'utilisateur connecté.
-- Carte « Rentabilité vs objectif » et graphique « Valeur immobilisée par vitesse » reposent sur des règles RUTHY'S (voir plus bas).
+- Carte « Rentabilité vs objectif » et graphique « Valeur immobilisée par vitesse » reposent sur des règles du client fondateur (voir plus bas).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Résultat par site (marge − charges propres − part des charges de la Centrale) : formule de contribution propre à RUTHY'S → règle de calcul.
+- Résultat par site (marge − charges propres − part des charges de la Centrale) : formule de contribution propre au client fondateur → règle de calcul.
 - Clé de répartition des charges de la Centrale entre les sites → réglage (règle de répartition).
 - Estimation du coût d'achat quand le prix d'achat est inconnu (pourcentage du prix de vente) → réglage.
 - Report d'une perte sur le mois suivant (« dette ») et remise à zéro annuelle → règle de calcul.
 - Date de début (et de fin) d'activité de chaque site, qui conditionne l'affichage des séries → donnée de la fiche site.
-- Noms des sites, exercices et montants affichés : données RUTHY'S, remplacées par des données fictives.
+- Noms des sites, exercices et montants affichés : données du client fondateur, remplacées par des données fictives.
 - Objectif de rentabilité « remboursement du stock de départ » (phases) → indicateur avec cible configurable.
 - « Réapprovisionnement » défini comme CA − marge → indicateur configurable.
 - Marge qui ne déduit le coût du dépôt-vente que si le déposant est marqué réglé → règle de calcul.

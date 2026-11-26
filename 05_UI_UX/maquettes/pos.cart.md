@@ -15,7 +15,7 @@
 - [02_Caisse/01_caisse.png](../../03_SOURCES_REFERENCE/prototype/captures/02_Caisse/01_caisse.png) — Par défaut (v105)
 - [02_Caisse/02_caisse_panier-rempli.png](../../03_SOURCES_REFERENCE/prototype/captures/02_Caisse/02_caisse_panier-rempli.png) — Caisse — panier rempli (3 lignes, remise, client) (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -34,12 +34,12 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données du client fondateur non reprises) |
 | Type | liste | non | choix : NORMALE, AVOIR, DIFFÉRÉE |
 | Rechercher par nom ou téléphone… | texte | non |  |
 | Nom | texte | non | exemple « nouveau client » |
 | Tél | texte | non | exemple « 07 … » |
-| Vendeur | liste | oui | valeurs du référentiel (5 entrées dans le prototype, données RUTHY'S non reprises) |
+| Vendeur | liste | oui | valeurs du référentiel (5 entrées dans le prototype, données du client fondateur non reprises) |
 | Scanne ou tape un code, un mot-clé… | texte | non |  |
 | (sans libellé) | texte | non |  |
 | (sans libellé) | nombre | non |  |
@@ -108,7 +108,7 @@ EF-POS-01, EF-POS-02, EF-POS-03, EF-POS-06, EF-POS-07, EF-GEN-01, EF-VEN-03, EF-
 - Boutons sans effet dans le prototype : « ⇄ Décaissement ». Tout bouton affiché fait quelque chose, sinon il n'est pas affiché.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
@@ -116,4 +116,4 @@ Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR
 - Taux d'acquisition des points de fidélité → réglage.
 - Liste des modes de règlement (opérateurs mobile money) → registre configurable par pays.
 - Numérotation des ventes (compteur à 10 chiffres) → réglage de numérotation.
-- Noms de sites, vendeurs, articles : données RUTHY'S.
+- Noms de sites, vendeurs, articles : données du client fondateur.

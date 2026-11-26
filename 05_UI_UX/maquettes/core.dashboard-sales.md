@@ -14,7 +14,7 @@
 
 - [01_Tableau-de-bord/06_commercial.png](../../03_SOURCES_REFERENCE/prototype/captures/01_Tableau-de-bord/06_commercial.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -83,9 +83,9 @@ EF-BI-03, §7 Indicateurs, EF-STK-05 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNEL
 - Salutation avec un prénom écrit en dur : afficher le prénom de l'utilisateur connecté.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Noms des sites, exercices et montants affichés : données RUTHY'S, remplacées par des données fictives.
+- Noms des sites, exercices et montants affichés : données du client fondateur, remplacées par des données fictives.
 - Bornes des classes ABC → seuils configurables.

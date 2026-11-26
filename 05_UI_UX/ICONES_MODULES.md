@@ -19,7 +19,7 @@ Les six styles sont **tous disponibles** ; le choix se fait dans **Paramètres �
 
 | Code | Style | Rendu |
 |---|---|---|
-| `trait` | Actuel (trait) | Contour or, sans remplissage (style Lucide) |
+| `trait` | Actuel (trait) | Contour à la couleur principale de l'interface (or par défaut), sans remplissage (style Lucide) — décision du 26/11/2026 |
 | `bi` | A · Plat bicolore | Couleur du module + bleu marine, aplats |
 | `multi` | B · Multicolore | Trois couleurs par icône, formes superposées |
 | `grad` | C · Dégradé doux | Dégradé léger sur chaque forme |
@@ -56,7 +56,7 @@ Sur téléphone (moins de 560 px de large), la taille est ramenée à Moyenne po
 ### App Store (écran Applications)
 
 - Carte : icône dans son cadre, nom, description courte, famille du catalogue, statut.
-- Statuts : **Installée** (vert), **Installer** (bouton contour or), **Toujours actif** (modules du socle, gris, non modifiable).
+- Statuts : **Installée** (vert), **Installer** (bouton contour or), **Toujours actif** (modules du socle, gris, non modifiable), **À venir** (module pas encore construit, gris, non cliquable — décision du 26/11/2026).
 
 ### Assistant de première connexion : choix des modules
 
@@ -65,7 +65,7 @@ Deux propositions validées, **toutes les deux disponibles** ; le choix se fait 
 Dans les deux :
 - modules regroupés par **famille du catalogue** (`01_DOCUMENTATION/catalogue/CATALOGUE_MODULES.md`), avec le titre de la famille ;
 - **cadre net autour de l'icône** + **second cadre plus effacé** (contraste faible) autour de l'icône et du texte ;
-- modules du socle (Tableau de bord, Applications) déjà choisis et marqués **Toujours actif** ;
+- modules du socle (Tableau de bord, Applications, Paramètres) déjà choisis et marqués **Toujours actif** ;
 - compteur « N modules choisis » ; texte : « Vous pourrez en ajouter ou en retirer plus tard depuis l'App Store » ;
 - chaque tuile se coche au clic, à la touche Espace ou Entrée (rôle `checkbox` pour l'accessibilité).
 

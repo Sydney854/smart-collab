@@ -2,7 +2,7 @@
 
 import { ModuleIcon, iconSizeVars, useAppearance, useToast } from "@smart-collab/ui";
 import { Button } from "@smart-collab/ui/components/ui/button";
-import { CheckIcon, LockIcon } from "lucide-react";
+import { CheckIcon, LockIcon, ClockIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CATALOG } from "@/lib/modules";
@@ -45,11 +45,15 @@ export function AppStoreScreen() {
               <div className="mt-auto flex items-center justify-between gap-2 pt-1">
                 <span className="min-w-0 text-xs leading-tight text-muted-foreground">
                   {tf(m.family)}
-                  {m.example && ` · ${t("comingSoon")}`}
                 </span>
                 {m.core ? (
                   <span className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground">
                     <LockIcon className="size-3" aria-hidden /> {t("alwaysOn")}
+                  </span>
+                ) : m.example ? (
+                  // Module pas encore construit : statut inactif, pas de bouton qui ne ferait rien (décision du 26/11/2026)
+                  <span data-status="upcoming" aria-disabled="true" className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                    <ClockIcon className="size-3" aria-hidden /> {t("upcoming")}
                   </span>
                 ) : isInstalled ? (
                   <span data-status="installed" className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-green-l px-2.5 py-1 text-xs font-semibold text-green">

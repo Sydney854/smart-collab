@@ -17,7 +17,7 @@
 - [14_Rapports-Analyses/17_etats_v107-etats-rh-journal.png](../../03_SOURCES_REFERENCE/prototype/captures/14_Rapports-Analyses/17_etats_v107-etats-rh-journal.png) — États RH : Journal de paie (v107)
 - [14_Rapports-Analyses/18_etats_v107-etats-rh-journal-apercu.png](../../03_SOURCES_REFERENCE/prototype/captures/14_Rapports-Analyses/18_etats_v107-etats-rh-journal-apercu.png) — États RH : Journal de paie, aperçu (v107)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -36,7 +36,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 | Rechercher un état… | texte | non |  |
 | (sans libellé) | liste | non | choix : 2022, 2023, 2024, 2025, 2026 |
 | Tous les employés | choix | non |  |
-| Tous les employés | liste | non | valeurs du référentiel (9 entrées dans le prototype, données RUTHY'S non reprises) |
+| Tous les employés | liste | non | valeurs du référentiel (9 entrées dans le prototype, données du client fondateur non reprises) |
 | Tous sauf annulés | choix | non |  |
 | Payés | choix | non |  |
 | En attente | choix | non |  |
@@ -104,7 +104,7 @@ EF-RH-03, EF-BI-01 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Note 6 de CAPTURES.md — après un clic sur un domaine, la barre des domaines revient au début et le domaine actif sort du champ. Smart Collab garde le domaine actif visible (défilement conservé ou liste verticale).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

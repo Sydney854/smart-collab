@@ -33,6 +33,8 @@ Dernière mise à jour : 26/11/2026.
 
 ## 3. Données, sécurité, outils
 
+- **Pages partageables** (maquettes, artefacts) : on ne cite pas le nom d'un client ; on écrit « client fondateur » (26/11).
+
 - **Honnêteté sur les données** : jamais de chiffre inventé ; une limite de donnée est affichée, pas cachée.
 - **Aucune donnée RUTHY'S** dans Smart Collab ; données de démonstration fictives.
 - Ne jamais coller de clé ou de mot de passe dans une conversation ; secrets uniquement dans les variables protégées de Vercel / Supabase.
@@ -51,10 +53,20 @@ Dernière mise à jour : 26/11/2026.
 | 25/11 | Menu principal | 2 modes : Liste et Mosaïque (fenêtres) |
 | 25/11 | Montants | Décimales selon la devise (0 pour le franc CFA), entiers en plus petite unité |
 | 25/11 | Annuler une facture | Rouge pâle pour ouvrir, rouge plein pour confirmer |
-| 25/11 | Calendrier | Début puis fin ; 2 mois sur ordinateur, 1 sur téléphone |
+| 25/11 | Calendrier | Début puis fin ; un seul mois de calendrier pour chacune, qui se referme après le choix (journal du 25/11) |
 | 25/11 | Prototype dans le dépôt | Captures + fiches + jetons, pas le code |
 | 25/11 | Organisation | Session principale + agents de contrôle en lecture seule |
 | 26/11 | Icônes et assistant | `05_UI_UX/ICONES_MODULES.md` |
+| 26/11 | Fenêtres Mosaïque | Comme sa vidéo : grande fenêtre en cascade, contour au déplacement, barre des fenêtres réduites en bas seulement si besoin, pas d'onglets, taille minimale |
+
+## 2 bis. Préférences ajoutées le 26/11/2026
+
+| Préférence | Exemples |
+|---|---|
+| Un élément de démonstration ou une option pas encore prête ne se mélange pas aux vrais écrans : il reste dans la page de maquettes ou s'affiche comme inactif | Tuile « Assistant (démo) » retirée de la mosaïque ; modules « À venir » non cliquables ; pas de sélecteur de présentation dans l'assistant |
+| Les fenêtres s'ouvrent toujours de la même façon, sans mémoire de position | Ouverture en cascade à chaque fois |
+| Les modes d'affichage ont les mêmes limites : changer de mode ne crée jamais de cas particulier | 6 écrans au maximum en Liste comme en Mosaïque |
+| Montrer le comportement voulu par une **vidéo ou une capture** d'un logiciel qu'elle utilise, puis demander de le copier | Vidéo du 26/11 pour les fenêtres |
 
 ## 5. Ce qui la fait revenir en arrière
 

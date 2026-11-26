@@ -76,6 +76,6 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 - Logo, couleurs (vert), textes et illustrations de DreamsERP : remplacés par l'identité Smart Collab (or, bleu marine, Inter) et des textes propres.
 - Contenu simplement flouté derrière la carte : voile opaque (contrôle de sécurité du 26/11/2026).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Rien : écran générique, données de démonstration fictives.

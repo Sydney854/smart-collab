@@ -14,7 +14,7 @@
 
 - [06_Achats/07_recl.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/07_recl.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -30,14 +30,14 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Fournisseur | liste | non | valeurs du référentiel (151 entrées dans le prototype, données RUTHY'S non reprises) |
+| Fournisseur | liste | non | valeurs du référentiel (151 entrées dans le prototype, données du client fondateur non reprises) |
 | Date réclamation | date | non |  |
 | Réf. Réclamation | texte | non |  |
 | R.I. BL | texte | non | exemple « n° du BL » |
 | Code, mot-clé ou description… | texte | non |  |
 | (sans libellé) | texte | non |  |
 | (sans libellé) | nombre | non |  |
-| (sans libellé) | liste | non | valeurs du référentiel (9 entrées dans le prototype, données RUTHY'S non reprises) |
+| (sans libellé) | liste | non | valeurs du référentiel (9 entrées dans le prototype, données du client fondateur non reprises) |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
 
@@ -89,7 +89,7 @@ EF-ACH-02, EF-GEN-01 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Relevé automatique des éléments sans effet sur les captures : « ＋ Nouveau bon de livraison », « ✓ Valider ▾ », « [PDF] ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

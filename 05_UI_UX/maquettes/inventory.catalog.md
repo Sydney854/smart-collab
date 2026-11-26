@@ -16,7 +16,7 @@
 - [05_Produits-Stocks/11_catalogue_nouveau-catalogue.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/11_catalogue_nouveau-catalogue.png) — Nouveau catalogue (bascule) (v105)
 - [05_Produits-Stocks/13_catalogue_liste-vide.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/13_catalogue_liste-vide.png) — Liste vide (recherche sans résultat) (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -30,7 +30,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données RUTHY'S non reprises) |
+| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données du client fondateur non reprises) |
 | Rechercher un code ou une désignation… | texte | non |  |
 | RÉFÉRENCE | texte | non |  |
 | DÉSIGNATION | texte | non |  |
@@ -110,9 +110,9 @@ EF-STK-01, EF-STK-05, EF-GEN-04, EF-GEN-02 (02_SPECIFICATIONS/06_EXIGENCES_FONCT
 - Rafraîchissement complet de la page à chaque frappe dans la recherche (perte de focus corrigée à la main) : recherche sans rechargement.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- 17 vues prédéfinies (dormants, vendus sur un seul site, …) calculées avec des seuils RUTHY'S → vues enregistrées configurables.
-- Familles, fournisseurs, codes produits : données RUTHY'S.
+- 17 vues prédéfinies (dormants, vendus sur un seul site, …) calculées avec des seuils du client fondateur → vues enregistrées configurables.
+- Familles, fournisseurs, codes produits : données du client fondateur.

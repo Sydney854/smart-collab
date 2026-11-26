@@ -12,7 +12,7 @@ Le nom des écrans à contrôler (identifiant de fiche, ex. `sales.overview`) ou
 
 ## Sources de référence
 
-1. **Fiche écran** : `05_UI_UX/maquettes/<application>.<écran>.md` (zones, champs et filtres, colonnes, actions, rubriques « À ne pas reproduire » et « Propre à RUTHY'S »). Index : `05_UI_UX/maquettes/INDEX.md`.
+1. **Fiche écran** : `05_UI_UX/maquettes/<application>.<écran>.md` (zones, champs et filtres, colonnes, actions, rubriques « À ne pas reproduire » et « Propre au client fondateur »). Index : `05_UI_UX/maquettes/INDEX.md`.
 2. **Captures du prototype** : liens donnés dans la fiche, dossier `03_SOURCES_REFERENCE/prototype/captures/` (index `CAPTURES.md`).
 3. **Captures DreamsERP** pour un écran absent du prototype : `03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair/` et `mode-sombre/` (index `03_SOURCES_REFERENCE/DREAMSERP/CAPTURES.md`).
 4. **Composants et jetons** : `05_UI_UX/COMPOSANTS.md`, `05_UI_UX/DESIGN_TOKENS.md`.
@@ -26,7 +26,7 @@ Pour chaque écran :
 - **Colonnes** : toutes présentes, dans l'ordre de la fiche, triables quand la fiche le dit.
 - **Actions** : chaque bouton et menu existe et fait quelque chose (pas de bouton inerte affiché ; un bouton « bientôt » doit être masqué sauf décision contraire du journal).
 - **À ne pas reproduire** : rien de cette rubrique n'a été repris.
-- **Propre à RUTHY'S** : rien n'est codé en dur (noms de sites, répartition 40/40/20, objectifs…) ; ces éléments sont des réglages ou des données fictives.
+- **Propre au client fondateur** : rien n'est codé en dur (noms de sites, répartition 40/40/20, objectifs…) ; ces éléments sont des réglages ou des données fictives.
 - **Jetons** : couleurs, polices, rayons et espacements viennent des jetons (pas de couleur en dur), choix actif en or, thème sombre prévu.
 - **Composants** : ceux de la stack validée (shadcn/ui, Lucide, ApexCharts, TanStack Table, react-hook-form + zod, sonner, date-fns, react-day-picker, react-rnd) ; jamais Ant Design, Preline, Recharts ni une autre famille d'icônes.
 - **Deux modes d'affichage** : l'écran s'affiche en page (mode Liste) et en fenêtre (mode Mosaïque) sans être écrit deux fois ; en fenêtre sur téléphone, il passe en plein écran.

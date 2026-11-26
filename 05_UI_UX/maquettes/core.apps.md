@@ -75,9 +75,9 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À ne pas reproduire
 
-- Modules « à venir » présentés avec un bouton Installer actif (point en attente de décision, page de maquettes).
+- Modules « à venir » présentés avec un bouton Installer actif : ils s'affichent « À venir », gris et non cliquables (décision du 26/11/2026).
 - Désinstallation qui supprime des données.
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Rien : écran générique, données de démonstration fictives.

@@ -432,9 +432,9 @@
     "installed": "Installed",
     "install": "Install",
     "alwaysOn": "Always on",
-    "comingSoon": "coming soon",
     "installedToast": "“{name}” installed (demo)",
-    "demoNote": "Mock-up: real installation, with dependencies and menu updates, comes in lot 1."
+    "demoNote": "Mock-up: real installation, with dependencies and menu updates, comes in lot 1.",
+    "upcoming": "Coming soon"
   },
   "wizard": {
     "step": "First sign-in · step 3 of 5",

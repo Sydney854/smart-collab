@@ -16,7 +16,7 @@
 - [10_Tresorerie-Comptabilite/04_regl_detail-reglement.png](../../03_SOURCES_REFERENCE/prototype/captures/10_Tresorerie-Comptabilite/04_regl_detail-reglement.png) — Détail règlement (panneau divisé) (v105)
 - [10_Tresorerie-Comptabilite/05_regl_selecteur-couleur-ligne-ouvert.png](../../03_SOURCES_REFERENCE/prototype/captures/10_Tresorerie-Comptabilite/05_regl_selecteur-couleur-ligne-ouvert.png) — Sélecteur de couleur de sélection ouvert (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -32,7 +32,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
 | Type | liste | non | choix : TOUS, Dépôt-vente, Achat classique |
-| Fournisseur | liste | non | valeurs du référentiel (199 entrées dans le prototype, données RUTHY'S non reprises) |
+| Fournisseur | liste | non | valeurs du référentiel (199 entrées dans le prototype, données du client fondateur non reprises) |
 | Statut | liste | non | choix : TOUS, Non réglé, Réglé partiellement, Réglé |
 | ⌕ | case à cocher | non |  |
 | STATUT | liste | non | choix : Non réglé, Réglé partiellement (avance), Réglé |
@@ -87,9 +87,9 @@ EF-ACH-04, EF-GEN-04, EF-GEN-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.m
 - Montant partiel saisi sans écriture de trésorerie liée (EF-GEN-01).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Règle « achats classiques réglés d'office, seul le dépôt-vente se suit » → réglage.
-- Fournisseurs et montants : données RUTHY'S.
+- Fournisseurs et montants : données du client fondateur.

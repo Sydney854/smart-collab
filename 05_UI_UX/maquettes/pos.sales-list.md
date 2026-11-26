@@ -17,7 +17,7 @@
 - [02_Caisse/06_ventes_ticket.png](../../03_SOURCES_REFERENCE/prototype/captures/02_Caisse/06_ventes_ticket.png) — Ticket — fenêtre d'aperçu (v105)
 - [02_Caisse/07_ventes_menu-clic-droit-liste.png](../../03_SOURCES_REFERENCE/prototype/captures/02_Caisse/07_ventes_menu-clic-droit-liste.png) — Menu clic droit de la liste (sous-menu Imprimer) (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -36,8 +36,8 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Site | liste | non | valeurs du référentiel (3 entrées dans le prototype, données RUTHY'S non reprises) |
-| Opérateur | liste | non | valeurs du référentiel (5 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (3 entrées dans le prototype, données du client fondateur non reprises) |
+| Opérateur | liste | non | valeurs du référentiel (5 entrées dans le prototype, données du client fondateur non reprises) |
 | Règlement | liste | non | choix : TOUS, Espèce, Carte bancaire, Wave, Orange Money, MTN Money |
 | (sans libellé) | texte | non |  |
 
@@ -117,9 +117,9 @@ EF-GEN-04, EF-POS-04, EF-POS-05, EF-BI-01, EF-GEN-02 (02_SPECIFICATIONS/06_EXIGE
 - Relevé automatique des éléments sans effet sur les captures : « ⇄ Décaissement », « ✎ Modifier », « 🖨 Imprimer », « ↧ Excel », « 🎨 Couleur de fond ▸ ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Récapitulatifs par mode de règlement et par vendeur : modes de règlement RUTHY'S → registre configurable.
-- Données des ventes et des vendeurs : RUTHY'S.
+- Récapitulatifs par mode de règlement et par vendeur : modes de règlement du client fondateur → registre configurable.
+- Données des ventes et des vendeurs : client fondateur.

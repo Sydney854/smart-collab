@@ -14,7 +14,7 @@
 
 - [05_Produits-Stocks/01_apercu.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/01_apercu.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -78,9 +78,9 @@ EF-STK-05, EF-BI-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Période par défaut figée sur l'exercice des données de démonstration (« Année 2024 », et « Réinitialiser » y revient) : Smart Collab ouvre sur l'exercice en cours.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Bornes ABC, seuils de rotation → seuils configurables (EF-STK-05).
-- Familles et sous-familles : nomenclature RUTHY'S, à remplacer par les catégories de l'entreprise.
+- Familles et sous-familles : nomenclature du client fondateur, à remplacer par les catégories de l'entreprise.

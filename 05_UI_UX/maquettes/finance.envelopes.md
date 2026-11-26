@@ -14,7 +14,7 @@
 
 - [10_Tresorerie-Comptabilite/06_comptes.png](../../03_SOURCES_REFERENCE/prototype/captures/10_Tresorerie-Comptabilite/06_comptes.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -60,7 +60,7 @@ EF-FIN-01, EF-FIN-03, EF-FIN-04 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.m
 - L'écran affiche un module désactivé : n'afficher dans le menu que ce qui est actif (EF-APP-04).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

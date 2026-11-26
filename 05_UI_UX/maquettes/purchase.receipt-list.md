@@ -15,7 +15,7 @@
 - [06_Achats/02_listebl.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/02_listebl.png) — Par défaut (v105)
 - [06_Achats/03_listebl_detail-bl.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/03_listebl_detail-bl.png) — Détail d'un BL (panneau divisé) (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -31,9 +31,9 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Site | liste | non | valeurs du référentiel (1 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (1 entrées dans le prototype, données du client fondateur non reprises) |
 | Type doc. | liste | non | choix : TOUS, BON DE LIVRAISON, AVOIR |
-| Fournisseur | liste | non | valeurs du référentiel (133 entrées dans le prototype, données RUTHY'S non reprises) |
+| Fournisseur | liste | non | valeurs du référentiel (133 entrées dans le prototype, données du client fondateur non reprises) |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
 
@@ -92,9 +92,9 @@ EF-GEN-04, EF-GEN-02, EF-BI-01, EF-ACH-01 (02_SPECIFICATIONS/06_EXIGENCES_FONCTI
 - Relevé automatique des éléments sans effet sur les captures : « ＋ Nouveau bon de livraison », « ✎ Modifier », « 🗑 Supprimer ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Indicateur « écoulé » (part vendue du lot) → indicateur configurable.
-- Fournisseurs et montants : données RUTHY'S.
+- Fournisseurs et montants : données du client fondateur.

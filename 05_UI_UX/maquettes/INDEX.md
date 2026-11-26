@@ -120,9 +120,9 @@ Fiches ajoutées le 26/11/2026 (lot 1, écrans absents du prototype ; 13 fiches,
 - Suppressions physiques de documents ou de fiches (catalogue, départements, bulletins) : archivage ou annulation avec motif (EF-GEN-02).
 - Notes 1, 3, 5 et 6 de CAPTURES.md : reprises dans les fiches concernées (`studio.print-centre`, `payroll.reports`, `pos.sales-list`, `payroll.payslip-list`).
 
-## Calculs et données propres à RUTHY'S → moteur de configuration
+## Calculs et données propres au client fondateur → moteur de configuration
 
-Relevés dans les fiches (rubrique « Propre à RUTHY'S »), sans leurs valeurs. Chacun devient un réglage, une règle ou un registre de `02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md`, avec une valeur par défaut par métier :
+Relevés dans les fiches (rubrique « Propre au client fondateur »), sans leurs valeurs. Chacun devient un réglage, une règle ou un registre de `02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md`, avec une valeur par défaut par métier :
 
 | Élément | Devient | Fiches |
 |---|---|---|

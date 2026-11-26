@@ -14,7 +14,7 @@
 
 - [02_Caisse/08_avoirs.png](../../03_SOURCES_REFERENCE/prototype/captures/02_Caisse/08_avoirs.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -29,7 +29,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Site | liste | non | valeurs du référentiel (3 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (3 entrées dans le prototype, données du client fondateur non reprises) |
 | Type d'avoir | liste | non | choix : AVOIRS NON LIVRÉS, AVOIRS LIVRÉS, TOUS |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
@@ -81,7 +81,7 @@ EF-POS-05, EF-GEN-02, EF-GEN-04 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.m
 - Relevé automatique des éléments sans effet sur les captures : « ⇄ Décaissement », « ✎ Modifier », « 🖨 Imprimer », « ↧ Excel ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

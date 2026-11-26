@@ -14,7 +14,7 @@
 
 - [09_Inventaire/06_correction.png](../../03_SOURCES_REFERENCE/prototype/captures/09_Inventaire/06_correction.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -32,11 +32,11 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Vendeur | liste | non | valeurs du référentiel (4 entrées dans le prototype, données RUTHY'S non reprises) |
-| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données RUTHY'S non reprises) |
+| Vendeur | liste | non | valeurs du référentiel (4 entrées dans le prototype, données du client fondateur non reprises) |
+| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données du client fondateur non reprises) |
 | Stock | liste | non | choix : RAYON, RÉSERVE |
 | Date | date | non |  |
-| Motif | liste | oui | valeurs du référentiel (10 entrées dans le prototype, données RUTHY'S non reprises) |
+| Motif | liste | oui | valeurs du référentiel (10 entrées dans le prototype, données du client fondateur non reprises) |
 | Commentaire | texte | non |  |
 | Code, mot-clé ou description… | texte | non |  |
 | (sans libellé) | texte | non |  |
@@ -91,7 +91,7 @@ EF-STK-02, EF-GEN-01, EF-GEN-03, EF-CTL-01 (02_SPECIFICATIONS/06_EXIGENCES_FONCT
 - Listes de sites écrites en dur et différentes d'un écran à l'autre (ici une partie seulement des sites). Smart Collab alimente toutes les listes de sites depuis le référentiel des sites, filtré par le périmètre de l'utilisateur.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

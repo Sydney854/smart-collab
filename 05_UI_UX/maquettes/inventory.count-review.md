@@ -14,7 +14,7 @@
 
 - [09_Inventaire/05_revue.png](../../03_SOURCES_REFERENCE/prototype/captures/09_Inventaire/05_revue.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -62,7 +62,7 @@ EF-STK-04, EF-GEN-01, EF-GEN-05 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.m
 
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

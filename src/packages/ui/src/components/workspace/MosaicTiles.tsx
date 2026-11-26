@@ -21,7 +21,10 @@ export function MosaicTiles({ screens, openKeys, onOpen }: { screens: ScreenDef[
         className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-[repeat(auto-fill,minmax(calc(var(--sc-icon-box)+80px),1fr))]"
         aria-label={t("tilesTitle")}
       >
-        {screens.map((s) => (
+        {/* Seuls les modules ont une tuile (icône illustrée) ; l'assistant de démonstration n'en a pas (décision du 26/11/2026) */}
+        {screens
+          .filter((s) => s.moduleIcon)
+          .map((s) => (
           <li key={s.key} className="min-w-0">
             <button
               type="button"

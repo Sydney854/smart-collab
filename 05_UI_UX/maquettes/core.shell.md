@@ -40,7 +40,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 ## Actions (ce que fait chaque clic)
 
 - Clic sur un module (menu ou tuile) : ouvre l'écran (onglet ou fenêtre) ; l'adresse suit l'écran courant.
-- Fenêtre (Mosaïque) : **Réduire** (→ barre du bas), **Agrandir / Restaurer** (ou double-clic sur la barre de titre), **Fermer** ; glisser la barre de titre déplace la fenêtre par contour, **Échap** annule ; clic sur un bouton de la barre du bas : restaure la fenêtre ; sa croix : ferme la fenêtre réduite.
+- Fenêtre (Mosaïque) : **Réduire** (→ barre du bas), **Agrandir / Restaurer** (ou double-clic sur la barre de titre), **Fermer** ; glisser la barre de titre déplace la fenêtre par contour, **Échap** annule (déplacement et redimensionnement au clavier : avant la fin du lot 1, décision du 26/11/2026) ; clic sur un bouton de la barre du bas : restaure la fenêtre ; sa croix : ferme la fenêtre réduite.
 - Bouton **Liste / Mosaïque** : change de mode ; choix retenu par utilisateur (navigateur, puis profil au lot 1).
 - Menu utilisateur : **Mon profil** (→ `core.profile`), **Paramètres** (si droit), **Verrouiller** (→ `core.lock-screen`), **Se déconnecter** (ferme la session au serveur et **efface les données locales**, sauf la file non encore envoyée : EF-OFF-03, SEC-MO-11).
 - Cloche : ouvre le panneau des notifications.
@@ -84,7 +84,6 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À trancher par la cheffe de projet
 
-- Déplacement d'une fenêtre au clavier : maintenant ou plus tard.
 
 - Changement de société dans l'en-tête (capture DreamsERP 02_societe-menu) : une même personne peut-elle passer d'une entreprise à l'autre, et dès le lot 1 ?
 
@@ -93,6 +92,6 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 - Menu qui montre des modules non installés ou non autorisés.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Rien : écran générique, données de démonstration fictives.

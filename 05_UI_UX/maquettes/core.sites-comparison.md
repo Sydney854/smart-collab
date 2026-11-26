@@ -14,7 +14,7 @@
 
 - [04_Boutiques-Sites/01_sites.png](../../03_SOURCES_REFERENCE/prototype/captures/04_Boutiques-Sites/01_sites.png) — Par défaut (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -67,9 +67,9 @@ EF-BI-03, §7 Indicateurs (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Période par défaut figée sur l'exercice des données de démonstration (« Année 2024 », et « Réinitialiser » y revient) : Smart Collab ouvre sur l'exercice en cours.
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Choix des deux sites comparés et commentaire « Lecture » calculés sur les données RUTHY'S.
-- Noms des sites, exercices et montants affichés : données RUTHY'S, remplacées par des données fictives.
+- Choix des deux sites comparés et commentaire « Lecture » calculés sur les données du client fondateur.
+- Noms des sites, exercices et montants affichés : données du client fondateur, remplacées par des données fictives.

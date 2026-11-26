@@ -12,7 +12,7 @@ Ces sources servent à **voir** à quoi doivent ressembler les écrans. Le proto
 - Les fichiers HTML du prototype ne sont **pas** copiés ici : ils contiennent les données réelles de RUTHY'S. Ils restent dans le dépôt `Sydney854/Projet-ERP`.
 - Si un comportement n'est pas clair sur un écran précis, on extrait **ce morceau seulement**, sans données, à la demande de la cheffe de projet.
 - On reprend : la **disposition**, les **composants**, les **parcours**, les **états imprimables**.
-- On ne reprend pas : les **données** embarquées ni les **calculs** propres à RUTHY'S (objectifs, contribution des sites, 40/40/20…). Ils deviennent des réglages du moteur de configuration.
+- On ne reprend pas : les **données** embarquées ni les **calculs** propres au client fondateur (objectifs, contribution des sites, 40/40/20…). Ils deviennent des réglages du moteur de configuration.
 
 ## 2. DreamsERP (inspiration pour les écrans absents du prototype)
 

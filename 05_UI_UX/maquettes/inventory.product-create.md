@@ -14,7 +14,7 @@
 
 - [05_Produits-Stocks/10_catalogue_creation-produit.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/10_catalogue_creation-produit.png) — Création d'un produit (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -27,7 +27,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données RUTHY'S non reprises) |
+| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données du client fondateur non reprises) |
 | Rechercher un code ou une désignation… | texte | non |  |
 | DÉSIGNATION | texte | non | exemple « Ex. ROBE LONGUE PAGNE BLEU T/L » |
 | RÉFÉRENCE | texte | non | exemple « générée automatiquement » |
@@ -91,9 +91,9 @@ EF-STK-01, EF-GEN-03, §7 Numérotation, Champs personnalisés (02_SPECIFICATION
 - Validation muette : quand un champ obligatoire manque, le bouton ne fait rien et n'affiche aucun message. Smart Collab signale le champ manquant (texte d'erreur sous le champ, bouton désactivé avec infobulle).
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Mode d'approvisionnement « dépôt-vente » et genre (Homme/Femme/Enfant/Mixte) : attributs RUTHY'S → champs personnalisés / attributs configurables.
-- Référence proposée selon un format RUTHY'S → règle de numérotation.
+- Mode d'approvisionnement « dépôt-vente » et genre (Homme/Femme/Enfant/Mixte) : attributs du client fondateur → champs personnalisés / attributs configurables.
+- Référence proposée selon un format du client fondateur → règle de numérotation.

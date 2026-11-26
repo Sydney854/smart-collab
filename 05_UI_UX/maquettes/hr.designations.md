@@ -15,7 +15,7 @@
 - [12_RH-Paie/11_designations.png](../../03_SOURCES_REFERENCE/prototype/captures/12_RH-Paie/11_designations.png) — Par défaut (v105)
 - [12_RH-Paie/12_designations_popup-ajout.png](../../03_SOURCES_REFERENCE/prototype/captures/12_RH-Paie/12_designations_popup-ajout.png) — Popup Ajouter (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -86,9 +86,9 @@ EF-RH-01, EF-GEN-04 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Relevé automatique des éléments sans effet sur les captures : « 🖨 Imprimer », « ⇩ Exporter ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Noms, fonctions, départements et matricules des collaborateurs : données RUTHY'S.
+- Noms, fonctions, départements et matricules des collaborateurs : données du client fondateur.
 - Départements et désignations par défaut → réglages par métier (EF-CFG-06).

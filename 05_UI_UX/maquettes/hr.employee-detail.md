@@ -16,7 +16,7 @@
 - [12_RH-Paie/06_employes_v107-fiche-apropos.png](../../03_SOURCES_REFERENCE/prototype/captures/12_RH-Paie/06_employes_v107-fiche-apropos.png) — Fiche employé, onglet À propos (v107)
 - [12_RH-Paie/07_employes_v107-fiche-paie.png](../../03_SOURCES_REFERENCE/prototype/captures/12_RH-Paie/07_employes_v107-fiche-paie.png) — Fiche employé, onglet Paie (v107)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -37,7 +37,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 | SALAIRE DE BASE (FCFA) | nombre | non |  |
 | SURSALAIRE (FCFA) | nombre | non |  |
 | TRANSPORT NON IMPOSABLE (FCFA) | nombre | non |  |
-| PARTS FISCALES | liste | non | valeurs du référentiel (9 entrées dans le prototype, données RUTHY'S non reprises) |
+| PARTS FISCALES | liste | non | valeurs du référentiel (9 entrées dans le prototype, données du client fondateur non reprises) |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
 
@@ -89,10 +89,10 @@ EF-RH-01, EF-RH-02 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md).
 - Onglets Feuilles et Documents vides « à construire ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Noms, fonctions, départements et matricules des collaborateurs : données RUTHY'S.
+- Noms, fonctions, départements et matricules des collaborateurs : données du client fondateur.
 - Départements et désignations par défaut → réglages par métier (EF-CFG-06).
 - Rubriques de paie et barème appliqués pour l'estimation → barèmes datés configurables (EF-RH-02).

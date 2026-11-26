@@ -21,7 +21,7 @@
 - [05_Produits-Stocks/09_catalogue_fiche-doc.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/09_catalogue_fiche-doc.png) — Fiche produit — onglet Documents (v105)
 - [05_Produits-Stocks/12_catalogue_fenetre-produit.png](../../03_SOURCES_REFERENCE/prototype/captures/05_Produits-Stocks/12_catalogue_fenetre-produit.png) — Fenêtre flottante — fiche produit (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -35,7 +35,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données RUTHY'S non reprises) |
+| (sans libellé) | liste | non | valeurs du référentiel (17 entrées dans le prototype, données du client fondateur non reprises) |
 | Rechercher un code ou une désignation… | texte | non |  |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
@@ -114,9 +114,9 @@ EF-STK-01, EF-STK-02, EF-STK-03, EF-GEN-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCT
 - Relevé automatique des éléments sans effet sur les captures : « Éditer », « ＋ Ajouter une déclinaison ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- Niveaux de classement et badges calculés avec des seuils RUTHY'S → seuils configurables.
-- Produits, prix, fournisseurs : données RUTHY'S.
+- Niveaux de classement et badges calculés avec des seuils du client fondateur → seuils configurables.
+- Produits, prix, fournisseurs : données du client fondateur.

@@ -17,7 +17,7 @@
 - [09_Inventaire/03_saisie_v99-lot-cree.png](../../03_SOURCES_REFERENCE/prototype/captures/09_Inventaire/03_saisie_v99-lot-cree.png) — Un lot créé (non sélectionné) (v99)
 - [09_Inventaire/04_saisie_v99-lot-selectionne.png](../../03_SOURCES_REFERENCE/prototype/captures/09_Inventaire/04_saisie_v99-lot-selectionne.png) — Un lot sélectionné (saisie ouverte) (v99)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -37,7 +37,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
 | (sans libellé) | nombre | non |  |
-| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (2 entrées dans le prototype, données du client fondateur non reprises) |
 | Emplacement | liste | non | choix : RAYON, RÉSERVE |
 | Nom | texte | non |  |
 | Type | liste | non | choix : GÉNÉRAL, TOURNANT, CIBLÉ, PAR FAMILLE |
@@ -110,7 +110,7 @@ EF-STK-04, EF-OFF-01 à 04, EF-GEN-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNE
 - Relevé automatique des éléments sans effet sur les captures : « 🖨 Fiches de comptage ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 

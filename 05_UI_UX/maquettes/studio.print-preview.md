@@ -16,7 +16,7 @@
 - [06_Achats/05_listebl_apercu-imprimer.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/05_listebl_apercu-imprimer.png) — Fenêtre d'aperçu — onglet Imprimer (v105)
 - [06_Achats/06_listebl_apercu-exporter.png](../../03_SOURCES_REFERENCE/prototype/captures/06_Achats/06_listebl_apercu-exporter.png) — Fenêtre d'aperçu — onglet Exporter (v105)
 
-Les données visibles sur les captures sont celles de RUTHY'S : la maquette Smart Collab utilise des données fictives.
+Les données visibles sur les captures sont celles du client fondateur : la maquette Smart Collab utilise des données fictives.
 
 ## Zones de l'écran
 
@@ -35,9 +35,9 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Site | liste | non | valeurs du référentiel (1 entrées dans le prototype, données RUTHY'S non reprises) |
+| Site | liste | non | valeurs du référentiel (1 entrées dans le prototype, données du client fondateur non reprises) |
 | Type doc. | liste | non | choix : TOUS, BON DE LIVRAISON, AVOIR |
-| Fournisseur | liste | non | valeurs du référentiel (133 entrées dans le prototype, données RUTHY'S non reprises) |
+| Fournisseur | liste | non | valeurs du référentiel (133 entrées dans le prototype, données du client fondateur non reprises) |
 | (sans libellé) | texte | non |  |
 | (sans libellé) | liste | non | choix : 🖨 Microsoft Print to PDF — Prêt, 🖨 HP LaserJet Pro M404 — Prêt, 🖨 EPSON L3150 Series — Impression en cours, 🧾 Star TSP100 Cutter (TSP143) — Prêt · ticket, 🖨 Microsoft XPS Document Writer — Prêt |
 | Couleur | choix | non |  |
@@ -119,8 +119,8 @@ EF-BI-01, EF-POS-04, EF-RH-03 (02_SPECIFICATIONS/06_EXIGENCES_FONCTIONNELLES.md)
 - Relevé automatique des éléments sans effet sur les captures : « ＋ Nouveau bon de livraison », « ✎ Modifier », « 🗑 Supprimer », « (élément de la liste — nom propre au prototype) ».
 - Icônes en émoji, interface en français seulement, pas de thème sombre, données perdues au rechargement : défauts communs à tout le prototype (voir INDEX.md).
 
-## Propre à RUTHY'S → réglages du moteur de configuration
+## Propre au client fondateur → réglages du moteur de configuration
 
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
-- En-tête du document (raison sociale, RCCM, NCC) : données RUTHY'S → Paramètres société.
+- En-tête du document (raison sociale, RCCM, NCC) : données du client fondateur → Paramètres société.

@@ -22,6 +22,7 @@ export type CatalogModule = {
 export const CATALOG: CatalogModule[] = [
   { key: "dashboard", family: "core", core: true },
   { key: "apps", family: "core", core: true },
+  { key: "settings", family: "core", core: true },
   { key: "sales", family: "sales", installed: true },
   { key: "pos", family: "sales", installed: true },
   { key: "stock", family: "supply", installed: true },
