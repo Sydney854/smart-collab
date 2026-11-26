@@ -117,8 +117,10 @@ test("Mosaïque : ouverture en grande fenêtre en haut à gauche, puis en cascad
   const a = (await win(page, "sales").boundingBox())!;
   expect(a.x - desk.x).toBeLessThan(40);
   expect(a.y - desk.y).toBeLessThan(40);
-  expect(a.width / desk.width).toBeGreaterThan(0.65);
-  expect(a.height / desk.height).toBeGreaterThan(0.75);
+  expect(a.width / desk.width).toBeGreaterThan(0.68);
+  expect(a.width / desk.width).toBeLessThan(0.72);
+  expect(a.height / desk.height).toBeGreaterThan(0.78);
+  expect(a.height / desk.height).toBeLessThan(0.82);
   // On revient au bureau pour ouvrir une 2e fenêtre : elle se place en décalé, au-dessus
   await win(page, "sales").getByRole("button", { name: "Réduire Ventes" }).click();
   await tile(page, "stock").click();
