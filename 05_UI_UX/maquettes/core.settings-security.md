@@ -83,7 +83,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À trancher par la cheffe de projet
 
-- Valeurs par défaut proposées (10 caractères, 5 échecs, 15 min, 8 h de session, 15 min d'inactivité, 72 h hors ligne) : à valider.
+Rien : valeurs par défaut validées le 26/11/2026 (10 caractères, 5 échecs, 15 min, 8 h de session, 15 min d'inactivité, 72 h hors ligne), toutes réglables par l'entreprise.
 
 ## À ne pas reproduire
 

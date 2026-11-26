@@ -84,7 +84,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À trancher par la cheffe de projet
 
-- Tableau de bord ouvert à la fin de l'assistant : les fiches de tableaux de bord sont au lot 6 ; au lot 1, garder un tableau d'accueil simple (chiffres clés vides et raccourcis vers les modules installés) ?
+Rien : à la fin de l'assistant, accueil simple (bienvenue, raccourcis vers les modules installés, « Pas encore de données » à la place des chiffres), décision du 26/11/2026 ; les tableaux de bord arrivent au lot 6.
 
 ## À ne pas reproduire
 

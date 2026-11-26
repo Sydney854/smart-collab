@@ -103,11 +103,14 @@ test("installer une application met à jour sa carte", async ({ page }) => {
   await expect(cards.locator("[data-installed=true]")).toHaveCount(2);
 });
 
-test("le menu mène du tableau de bord à la démonstration", async ({ page, isMobile }) => {
+test("les pages de démonstration ne sont dans aucun menu, mais s'ouvrent par leur adresse", async ({ page, isMobile }) => {
   await page.goto("/");
   await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
   if (isMobile) await page.getByRole("button", { name: "Afficher ou réduire le menu" }).click();
-  await page.getByRole("button", { name: "Composants (démo)" }).click();
-  await expect(page).toHaveURL(/ecran=components/);
+  await expect(page.getByRole("button", { name: "Composants (démo)" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Assistant (démo)" })).toHaveCount(0);
+  await page.goto("/?ecran=components");
   await expect(page.getByRole("heading", { level: 1, name: "Composants Smart Collab" })).toBeVisible();
+  await page.goto("/?ecran=setup");
+  await expect(page.getByRole("heading", { level: 1, name: "Choisissez les modules de votre entreprise" })).toBeVisible();
 });

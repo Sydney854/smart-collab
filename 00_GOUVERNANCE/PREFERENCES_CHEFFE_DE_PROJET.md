@@ -33,6 +33,8 @@ Dernière mise à jour : 26/11/2026.
 
 ## 3. Données, sécurité, outils
 
+- **Sécurité** : des valeurs par défaut prudentes, toujours réglables par l'entreprise ; pas de SMS pour la double authentification (26/11).
+- **Écran vide** : « Pas encore de données » plutôt que des zéros (26/11).
 - **Pages partageables** (maquettes, artefacts) : on ne cite pas le nom d'un client ; on écrit « client fondateur » (26/11).
 
 - **Honnêteté sur les données** : jamais de chiffre inventé ; une limite de donnée est affichée, pas cachée.
@@ -66,6 +68,7 @@ Dernière mise à jour : 26/11/2026.
 | Un élément de démonstration ou une option pas encore prête ne se mélange pas aux vrais écrans : il reste dans la page de maquettes ou s'affiche comme inactif | Tuile « Assistant (démo) » retirée de la mosaïque ; modules « À venir » non cliquables ; pas de sélecteur de présentation dans l'assistant |
 | Les fenêtres s'ouvrent toujours de la même façon, sans mémoire de position | Ouverture en cascade à chaque fois |
 | Les modes d'affichage ont les mêmes limites : changer de mode ne crée jamais de cas particulier | 6 écrans au maximum en Liste comme en Mosaïque |
+| Les pages de démonstration technique (composants, assistant) ne figurent dans aucun menu, ni en Liste ni en Mosaïque : on les ouvre depuis la page de maquettes | Décision Q1–Q2 du 26/11 |
 | Montrer le comportement voulu par une **vidéo ou une capture** d'un logiciel qu'elle utilise, puis demander de le copier | Vidéo du 26/11 pour les fenêtres |
 
 ## 5. Ce qui la fait revenir en arrière

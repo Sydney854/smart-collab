@@ -21,11 +21,11 @@ test("mode Liste : ouvrir un module garde les onglets et met à jour l'adresse, 
   await open(page);
   await page.evaluate(() => ((window as unknown as { marker: number }).marker = 42));
   if (isMobile) await page.getByRole("button", { name: "Afficher ou réduire le menu" }).click();
-  await page.getByRole("button", { name: "Composants (démo)" }).click();
-  await expect(page.getByRole("heading", { level: 1, name: "Composants Smart Collab" })).toBeVisible();
-  await expect(page).toHaveURL(/ecran=components/);
+  await page.getByRole("button", { name: "Paramètres", exact: true }).first().click();
+  await expect(page.getByRole("heading", { level: 1, name: "Paramètres" })).toBeVisible();
+  await expect(page).toHaveURL(/ecran=settings/);
   await expect(tab(page, "dashboard")).toBeVisible();
-  await expect(tab(page, "components")).toHaveAttribute("data-active", "true");
+  await expect(tab(page, "settings")).toHaveAttribute("data-active", "true");
   // Même page : rien n'a été rechargé
   expect(await page.evaluate(() => (window as unknown as { marker?: number }).marker)).toBe(42);
   // Retour au tableau de bord par l'onglet
@@ -319,9 +319,9 @@ test("Mosaïque à 390 px, en anglais et en sombre : fenêtre plein écran, sans
   );
   await open(page);
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await tile(page, "components").click();
-  const w = win(page, "components");
-  await expect(w.getByRole("heading", { level: 1, name: "Smart Collab components" })).toBeVisible();
+  await tile(page, "dashboard").click();
+  const w = win(page, "dashboard");
+  await expect(w.getByRole("heading", { level: 1, name: "Dashboard" })).toBeVisible();
   const box = (await w.boundingBox())!;
   expect(box.width).toBeGreaterThanOrEqual(389);
   const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);

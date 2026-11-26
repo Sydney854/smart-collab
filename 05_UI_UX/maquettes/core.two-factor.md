@@ -77,7 +77,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À trancher par la cheffe de projet
 
-- Proposer le **SMS** comme second facteur (capture DreamsERP « Code par SMS ») ? Proposition : non (moins sûr), application d'authentification seulement, e-mail en secours.
+Rien : pas de SMS (décision du 26/11/2026) ; application d'authentification, e-mail en secours.
 
 ## À ne pas reproduire
 

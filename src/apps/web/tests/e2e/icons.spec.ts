@@ -51,6 +51,7 @@ test("Mosaïque : une tuile par module seulement (pas de tuile pour l'assistant 
   await open(page, "/", { "sc-layout": "mosaic" });
   await expect(page.locator("[data-tile=settings]")).toBeVisible();
   await expect(page.locator("[data-tile=setup]")).toHaveCount(0);
+  await expect(page.locator("[data-tile=components]")).toHaveCount(0);
   await expect(page.locator("[data-tile] svg[data-module]")).toHaveCount(await page.locator("[data-tile]").count());
 });
 

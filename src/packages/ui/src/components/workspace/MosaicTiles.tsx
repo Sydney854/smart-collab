@@ -23,7 +23,7 @@ export function MosaicTiles({ screens, openKeys, onOpen }: { screens: ScreenDef[
       >
         {/* Seuls les modules ont une tuile (icône illustrée) ; l'assistant de démonstration n'en a pas (décision du 26/11/2026) */}
         {screens
-          .filter((s) => s.moduleIcon)
+          .filter((s) => s.moduleIcon && !s.hidden)
           .map((s) => (
           <li key={s.key} className="min-w-0">
             <button

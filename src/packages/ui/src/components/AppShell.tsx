@@ -151,7 +151,7 @@ function AppNav({ screens, current, onOpen }: { screens: ScreenDef[]; current: s
     <SidebarGroup>
       <SidebarGroupLabel>{t("apps")}</SidebarGroupLabel>
       <SidebarMenu>
-        {screens.map((s) => (
+        {screens.filter((s) => !s.hidden).map((s) => (
           <SidebarMenuItem key={s.key}>
             <SidebarMenuButton
               tooltip={s.label}

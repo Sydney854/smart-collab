@@ -1,10 +1,10 @@
-# Passation — état du projet au 25/11/2026
+# Passation — état du projet au 26/11/2026
 
 À lire en début de session, après `AGENTS.md`. Mis à jour à chaque fin de session.
 
 ## Où en est le projet
 
-- **Lot en cours : lot 0 — Maquettes et design.** Une première version a été construite dans une autre session avec Ant Design + Preline ; elle doit être adaptée à la stack du 25/11/2026 (shadcn/ui) puis envoyée sur la branche `lot-00`.
+- **Lot en cours : lot 1 — Fondations** (branche `lot-01`, partie de `lot-00`), sur accord écrit du 26/11/2026. Le lot 0 (branche `lot-00`) est livré : application de base shadcn/ui, coquille à 2 modes (Liste / Mosaïque, fenêtres comme la vidéo de référence), icônes des modules, App Store, assistant, Paramètres → Apparence, 13 fiches du lot 1 ; sa liste de contrôle n'est pas à 100 % (voir « Points en attente »). `lot-00` n'est pas encore fusionnée dans `main`.
 - Dossier de cadrage complet : cahier des charges (`02_SPECIFICATIONS/`), catalogue des 46 modules (`01_DOCUMENTATION/catalogue/CATALOGUE_MODULES.md`), plan en 12 lots avec prompts (`04_PROMPTS_AGENTS/`) et listes de contrôle (`06_LOTS/`).
 - UI/UX : 76 fiches écran au statut « proposée » (`05_UI_UX/maquettes/`, index `INDEX.md`), dossier PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx`, jetons `05_UI_UX/DESIGN_TOKENS.md`, composants `05_UI_UX/COMPOSANTS.md`.
 - Références : captures du prototype (`03_SOURCES_REFERENCE/prototype/captures/`, par module) et de DreamsERP (`03_SOURCES_REFERENCE/DREAMSERP/captures/mode-clair|mode-sombre/`, par module).
@@ -23,7 +23,7 @@
 | Supabase | projet `smart-collab-dev`, réf. `ajkginvsjljqufvdppgc`, Paris (eu-west-3), vide ; connexion e-mail confirmée, TOTP, mot de passe ≥ 10 |
 | Vercel | équipe « Team ERP », projet `smart-collab-web`, dossier `src/apps/web`, Node 24, Paris (cdg1), aperçus protégés ; variables `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` (secrète) |
 
-## Prochaine tâche : lot 0
+## Prochaine tâche : lot 1 (avant : lot 0, terminé ci-dessous)
 
 Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et `06_LOTS/lot_00/CHECKLIST.md`) :
 1. Créer l'application de base dans `src/apps/web` (dépôt unique pnpm + Turborepo) : Next.js, Tailwind v4, shadcn/ui aux jetons de `DESIGN_TOKENS.md`, thème clair / sombre, français / anglais.
@@ -31,6 +31,10 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 3. Ensuite : maquettes manquantes et validation des fiches écran, module par module (lots 1 à 3 d'abord).
 
 ## Points en attente
+
+- **Lot 0 non clos (accord du 26/11 pour avancer quand même)** : validation des 89 fiches ; fiches manquantes du lot 1 (masques de champs, création de compte par invitation), de la caisse (modèle de ticket 80 mm / A4, ouverture / clôture de session, retour depuis un ticket) et des lots 2 à 7 ; **nettoyage du PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx` (noms de sites réels du client fondateur) par la session de pilotage, sans le partager d'ici là** (l'ancienne version reste dans l'historique du dépôt privé).
+- **Avant la base du lot 1** : faire trancher « une personne peut-elle appartenir à plusieurs entreprises ? » (décision Q5c du 26/11).
+- Au lot 1 : prévoir dans l'entreprise de démonstration un module construit **non installé**, pour montrer le bouton « Installer » (décision Q3).
 
 - **Pour le lot 1 (contrôle de sécurité du 26/11/2026)** : la présentation de l'assistant et le style d'icône par défaut sont des réglages **de l'entreprise** ; au lot 1, les enregistrer par une action serveur réservée à l'administrateur (rôle lu dans la session, filtre sur l'entreprise), et non plus seulement dans le navigateur. Ajouter aussi les en-têtes de sécurité (protection contre l'affichage dans une autre page) avec la connexion.
 
