@@ -1,0 +1,52 @@
+# Intégration continue Smart Collab : à chaque envoi sur une branche et à chaque demande de fusion.
+# 1. Application : vérification des types, tests unitaires, construction, tests d'écran (ordinateur et téléphone).
+# 2. Base de données : migrations appliquées sur une base jetable + tests d'isolation des entreprises (SEC-MO-01).
+# Aucune clé secrète n'est utilisée ici.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: src
+
+jobs:
+  application:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: src/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: src/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm --filter @smart-collab/web exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+        env:
+          CI: "true"
+
+  base-de-donnees:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      # PostgreSQL 16 est déjà présent sur l'image ubuntu-24.04 (binaires seulement, aucun service démarré)
+      - run: ls /usr/lib/postgresql/
+      - run: bash supabase/scripts/test-db.sh

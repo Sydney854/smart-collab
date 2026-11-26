@@ -22,6 +22,34 @@ Mise en ligne : Vercel (préversion par branche, production depuis la branche pr
 
 Après chaque lot, documenter ici : commandes d'installation et de lancement (dont `supabase start` en local), comptes de démonstration, adresse locale, commande des tests.
 
+## Lot 1 (branche `lot-01`) — étape 1 : base de données du socle
+
+```
+src/supabase/
+  migrations/20261126000100_socle_plateforme.sql   tables du socle, sécurité par entreprise (RLS activée et forcée partout)
+  tests/00_supabase_local.sql                      imitation minimale de Supabase (rôles, auth.uid(), auth.jwt()) pour les tests
+  tests/fixtures.sql                               deux entreprises fictives A et B, quatre personnes fictives
+  tests/10_… à 40_….sql                            tests : couverture RLS, isolation A / B, ajout seul, entreprise du jeton
+  scripts/test-db.sh                               crée une base jetable, applique les migrations, lance les tests
+```
+
+Principes (décisions du 26/11/2026) :
+- une personne = un compte de connexion Supabase, reliée à une ou plusieurs entreprises (`memberships`) ;
+- l'entreprise courante est ajoutée au jeton par la base (`custom_access_token_hook`), puis revérifiée à chaque requête (`app.current_tenant()` : la personne doit être membre active) ;
+- les écrans n'ont que la lecture ; les écritures passeront par des fonctions serveur (étapes suivantes) ;
+- journal d'audit et journal des accès en ajout seul, même pour le propriétaire de la base.
+
+Tester la base (PostgreSQL 16 ou plus installé : `initdb`, `pg_ctl`, `psql` ; aucune connexion à Internet ni à Supabase) :
+
+```bash
+cd src
+pnpm test:db
+```
+
+Intégration continue : `.github/workflows/ci.yml` (racine du dépôt) lance à chaque envoi les tests de l'application (types, unitaires, construction, écrans) et ceux de la base.
+
+Supabase en local (`supabase start`) demande Docker : pas encore configuré (le conteneur de développement n'a pas Docker en marche). Les tests utilisent une base PostgreSQL seule qui imite Supabase.
+
 ## État au lot 0 (branche `lot-00`)
 
 Ce qui existe :

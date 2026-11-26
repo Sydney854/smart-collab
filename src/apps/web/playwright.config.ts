@@ -15,7 +15,8 @@ export default defineConfig({
   webServer: {
     command: `pnpm start --port ${PORT}`,
     url: `http://localhost:${PORT}/`,
-    reuseExistingServer: true,
+    // En intégration continue, toujours un serveur neuf ; en local, on peut réutiliser celui qui tourne
+    reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },
 });
