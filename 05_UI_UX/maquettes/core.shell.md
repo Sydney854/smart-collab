@@ -84,7 +84,6 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 
 ## À trancher par la cheffe de projet
 
-
 - Changement de société dans l'en-tête (capture DreamsERP 02_societe-menu) : une même personne peut-elle passer d'une entreprise à l'autre, et dès le lot 1 ?
 
 ## À ne pas reproduire

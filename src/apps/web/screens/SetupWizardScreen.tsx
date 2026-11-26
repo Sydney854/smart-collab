@@ -16,6 +16,8 @@ import { type KeyboardEvent, type ReactNode, useState } from "react";
 import { CATALOG, FAMILIES, WIZARD_INITIAL_SELECTION } from "@/lib/modules";
 
 const CORE = CATALOG.filter((m) => m.core).map((m) => m.key);
+// Modules pas encore construits : « À venir », non cochables (décision du 26/11/2026)
+const UPCOMING = CATALOG.filter((m) => m.example).map((m) => m.key);
 
 /** Cadre net autour de l'icône (styles autres que « pastille », qui porte son propre fond). */
 function IconFrame({ module, children }: { module: ModuleIconKey; children?: ReactNode }) {
@@ -38,18 +40,19 @@ export function SetupWizardScreen() {
   const t = useTranslations("wizard");
   const tm = useTranslations("modules");
   const tf = useTranslations("families");
+  const tstore = useTranslations("store");
   const toast = useToast();
   const { iconSize, iconStyle, wizardLayout } = useAppearance();
   const [selected, setSelected] = useState<ModuleIconKey[]>(WIZARD_INITIAL_SELECTION);
 
   const isOn = (k: ModuleIconKey) => CORE.includes(k) || selected.includes(k);
   const toggle = (k: ModuleIconKey) => {
-    if (CORE.includes(k)) return;
+    if (CORE.includes(k) || UPCOMING.includes(k)) return;
     setSelected((s) => (s.includes(k) ? s.filter((x) => x !== k) : [...s, k]));
   };
   // Une tuile se coche au clic, à la touche Espace ou Entrée (rôle checkbox)
   const checkboxProps = (k: ModuleIconKey) =>
-    CORE.includes(k)
+    CORE.includes(k) || UPCOMING.includes(k)
       ? { "aria-disabled": true as const }
       : {
           role: "checkbox" as const,
@@ -100,6 +103,7 @@ export function SetupWizardScreen() {
                 <p className="font-semibold">{tm(`${m.key}.name`)}</p>
                 <p className="text-sm text-muted-foreground">{tm(`${m.key}.desc`)}</p>
                 {m.core && <p className="mt-0.5 text-xs font-semibold text-green">{t("alwaysOn")}</p>}
+                {m.example && <p data-status="upcoming" className="mt-0.5 text-xs font-semibold text-muted-foreground">{tstore("upcoming")}</p>}
               </div>
             </div>
           );
@@ -127,6 +131,7 @@ export function SetupWizardScreen() {
                     className="relative flex min-w-0 cursor-pointer flex-col items-center gap-2.5 rounded-2xl border-2 border-border/60 bg-muted/40 px-2.5 pt-5 pb-3.5 text-center outline-none focus-visible:ring-2 focus-visible:ring-ring data-[on=true]:border-primary/60 data-[on=true]:bg-primary/5 aria-disabled:cursor-default"
                   >
                     {m.core && <span className="absolute top-2 left-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">{t("core")}</span>}
+                    {m.example && <span data-status="upcoming" className="absolute top-2 left-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">{tstore("upcoming")}</span>}
                     <span
                       aria-hidden
                       className="absolute top-2 right-2 grid size-[22px] place-items-center rounded-full border-2 bg-card text-primary-foreground data-[on=true]:border-primary data-[on=true]:bg-primary"

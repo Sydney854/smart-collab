@@ -85,6 +85,12 @@ test("assistant, proposition 1 : cocher au clic et au clavier, socle non modifia
   // Socle : pas une case à cocher, toujours actif
   await expect(page.locator("[data-module=dashboard][role=checkbox]")).toHaveCount(0);
   await expect(page.locator("div[data-module=dashboard]")).toContainText("Toujours actif");
+  // Modules pas encore construits : « À venir », non cochables
+  const payroll = page.locator("div[data-module=hr-payroll]");
+  await expect(payroll).toContainText("À venir");
+  await expect(page.locator("[data-module=hr-payroll][role=checkbox]")).toHaveCount(0);
+  await payroll.click();
+  await expect(count).toHaveText("6 modules choisis");
 });
 
 test("assistant, proposition 2 : cartes et récapitulatif « Votre sélection »", async ({ page }) => {

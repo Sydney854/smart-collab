@@ -31,9 +31,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Prima Center | case à cocher | non |  |
-| Aéroport | case à cocher | non |  |
-| San Pedro | case à cocher | non |  |
+| Sites | case à cocher (une par site du référentiel) | non | données du client fondateur non reprises |
 
 Obligatoires à confirmer en maquette : le prototype ne marque presque aucun champ obligatoire (il bloque sans le dire).
 

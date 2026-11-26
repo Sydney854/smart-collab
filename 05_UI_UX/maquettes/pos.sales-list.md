@@ -122,4 +122,4 @@ EF-GEN-04, EF-POS-04, EF-POS-05, EF-BI-01, EF-GEN-02 (02_SPECIFICATIONS/06_EXIGE
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Récapitulatifs par mode de règlement et par vendeur : modes de règlement du client fondateur → registre configurable.
-- Données des ventes et des vendeurs : client fondateur.
+- Données des ventes et des vendeurs : données du client fondateur.

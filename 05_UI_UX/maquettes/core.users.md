@@ -34,7 +34,7 @@ Relevés dans le prototype (toutes captures de la fiche). Barre de période et s
 | PROFIL | liste | non | choix : Caissière, Responsable boutique, Gestionnaire de stock, Responsable logistique, Comptable, Responsable Opérations et Performance … |
 | Multi-session peut ouvrir plusieurs sessions | case à cocher | non |  |
 | Compte consultation lecture seule, aucune écriture | case à cocher | non |  |
-| Multi-site accède à Prima et à Aéroport | case à cocher | non |  |
+| Multi-site : accès aux sites choisis | case à cocher (une par site du référentiel) | non | noms de sites du client fondateur non repris |
 | Super-opérateur contourne les validations à deux niveaux | case à cocher | non |  |
 | En activité un compte se désactive, il ne se supprime pas | case à cocher | non |  |
 | Accès | case à cocher | non |  |

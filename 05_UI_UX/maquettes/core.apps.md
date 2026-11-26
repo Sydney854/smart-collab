@@ -18,7 +18,7 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 
 - En-tête : titre, phrase d'explication, filtre par famille du catalogue, recherche.
 - Grille de cartes regroupées par famille : icône illustrée dans son cadre, nom, description courte, famille, statut.
-- Statuts : **Toujours actif** (socle, gris), **Installée** (vert), **Installer** (contour or), **Archivée** (désinstallée, données conservées) avec **Réinstaller**, **Non inclus dans l'abonnement** (EF-APP-06) avec lien vers la formule.
+- Statuts : **Toujours actif** (socle, gris), **Installée** (vert), **Installer** (contour or), **Archivée** (désinstallée, données conservées) avec **Réinstaller**, **Non inclus dans l'abonnement** (EF-APP-06) avec lien vers la formule, **À venir** (module pas encore construit, gris, non cliquable, décision du 26/11/2026).
 - **Fiche d'une application** (clic sur la carte, panneau latéral) : description, captures, applications dont elle dépend et qui dépendent d'elle, événements publiés et écoutés (manifeste), bouton d'action ; états : chargement en squelette, erreur avec Réessayer.
 
 ## Champs et filtres
@@ -67,6 +67,7 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Installer | Install |
 | Installée | Installed |
 | Toujours actif | Always on |
+| À venir | Coming soon |
 | Non inclus dans votre abonnement | Not included in your plan |
 | Installer {name} ajoutera aussi : {list} | Installing {name} will also add: {list} |
 | Désinstaller | Uninstall |
