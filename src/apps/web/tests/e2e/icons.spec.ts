@@ -100,6 +100,10 @@ test("assistant, proposition 2 : cartes et récapitulatif « Votre sélection »
   await page.locator("[data-module=purchases][role=checkbox]").click();
   await expect(recap).toContainText("Achats");
   await expect(page.getByTestId("wizard-count")).toHaveText("7 modules choisis");
+  // Carte « À venir » : non cochable, sans rond de coche
+  await expect(page.locator("[data-module=hr-employees][role=checkbox]")).toHaveCount(0);
+  await page.locator("div[data-module=hr-employees]").click();
+  await expect(page.getByTestId("wizard-count")).toHaveText("7 modules choisis");
 });
 
 test("assistant à 390 px : la page tient dans la largeur, dans les deux propositions", async ({ page }) => {
