@@ -32,6 +32,8 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 
 ## Points en attente
 
+- **Pour le lot 1 (contrôle de sécurité du 26/11/2026)** : la présentation de l'assistant et le style d'icône par défaut sont des réglages **de l'entreprise** ; au lot 1, les enregistrer par une action serveur réservée à l'administrateur (rôle lu dans la session, filtre sur l'entreprise), et non plus seulement dans le navigateur. Ajouter aussi les en-têtes de sécurité (protection contre l'affichage dans une autre page) avec la connexion.
+
 - Lien Vercel ↔ GitHub vérifié le 25/11/2026 : chaque envoi sur `main` déclenche un déploiement. Les déploiements échouent tant que `src/apps/web` n'existe pas (attendu). Après le premier déploiement réussi, ajouter l'adresse Vercel dans Supabase → Authentication → Redirect URLs.
 - Code d'achat et certificat de licence DreamsERP à ajouter dans `00_GOUVERNANCE/LICENCES.md` et `00_GOUVERNANCE/licences/`.
 - Répartition du travail entre Claude Code et Antigravity à décider.

@@ -91,3 +91,30 @@ test("assistant à 390 px : la page tient dans la largeur, dans les deux proposi
     expect(scroll, `proposition ${layout}`).toBeLessThanOrEqual(width);
   }
 });
+
+test("écrans de l'étape à 390 px, en anglais et en sombre : sans erreur, sans débordement, sans texte français", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => (m.type() === "error" || m.type() === "warning") && errors.push(m.text()));
+  await page.setViewportSize({ width: 390, height: 844 });
+  const base = { NEXT_LOCALE: "en", "sc-theme": "dark" };
+  const pages: [string, Record<string, string>][] = [
+    ["/", { ...base, "sc-layout": "mosaic" }],
+    ["/?ecran=settings", base],
+    ["/?ecran=apps", base],
+    ["/?ecran=setup", { ...base, "sc-wizard": "1" }],
+    ["/?ecran=setup", { ...base, "sc-wizard": "2" }],
+  ];
+  for (const [path, cookies] of pages) {
+    await open(page, path, cookies);
+    const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
+    expect(scroll, path).toBeLessThanOrEqual(width);
+    const text = await page.locator("main").innerText();
+    for (const fr of ["Toujours actif", "Votre sélection", "Installer", "Choisissez", "Paramètres"]) expect(text, `${path} : ${fr}`).not.toContain(fr);
+  }
+  // Proposition 2 sur téléphone : le récapitulatif passe sous la liste
+  const recap = (await page.getByRole("complementary", { name: "Your selection" }).boundingBox())!;
+  const firstCard = (await page.locator("[data-module=sales]").first().boundingBox())!;
+  expect(recap.y).toBeGreaterThan(firstCard.y);
+  expect(errors).toEqual([]);
+});

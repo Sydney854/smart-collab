@@ -155,7 +155,8 @@
       "profile": "Mon profil",
       "settings": "Paramètres",
       "signOut": "Se déconnecter",
-      "searchName": "Recherche globale"
+      "searchName": "Recherche globale",
+      "menuEdge": "Bord du menu : cliquer pour l'afficher ou le réduire"
     },
     "period": {
       "today": "Aujourd'hui",

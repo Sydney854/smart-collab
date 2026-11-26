@@ -339,7 +339,8 @@ export function AppShell({
         <SidebarFooter>
           <UserMenu user={user} actions={userActions} />
         </SidebarFooter>
-        <SidebarRail />
+        {/* Libellé traduit (le composant shadcn d'origine dit « Toggle Sidebar ») */}
+        <SidebarRail aria-label={t("menuEdge")} title={t("menuEdge")} />
       </Sidebar>
       <SidebarInset className="min-w-0">
         <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">

@@ -155,7 +155,8 @@
       "profile": "My profile",
       "settings": "Settings",
       "signOut": "Sign out",
-      "searchName": "Global search"
+      "searchName": "Global search",
+      "menuEdge": "Menu edge: click to show or collapse"
     },
     "period": {
       "today": "Today",
