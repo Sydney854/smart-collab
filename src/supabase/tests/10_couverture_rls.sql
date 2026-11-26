@@ -29,3 +29,14 @@ do $$ begin
   assert not has_function_privilege('anon', 'public.custom_access_token_hook(jsonb)', 'execute'), 'crochet ouvert aux visiteurs';
   assert not has_function_privilege('authenticated', 'public.custom_access_token_hook(jsonb)', 'execute'), 'crochet ouvert aux personnes connectées';
 end $$;
+
+-- Droits accordés colonne par colonne : lecture seule, jamais pour les visiteurs
+do $$
+declare r record;
+begin
+  for r in select table_name, column_name, privilege_type, grantee from information_schema.column_privileges
+           where table_schema = 'public' and grantee in ('anon', 'authenticated') loop
+    assert r.grantee <> 'anon', format('Le visiteur (anon) a le droit %s sur %s.%s', r.privilege_type, r.table_name, r.column_name);
+    assert r.privilege_type = 'SELECT', format('Écriture directe %s accordée sur %s.%s', r.privilege_type, r.table_name, r.column_name);
+  end loop;
+end $$;
