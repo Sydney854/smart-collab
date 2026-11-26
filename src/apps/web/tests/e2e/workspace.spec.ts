@@ -15,6 +15,7 @@ const win = (page: Page, key: string) => page.locator(`[data-window="${key}"]`);
 const tile = (page: Page, key: string) => page.locator(`[data-tile="${key}"]`);
 const tab = (page: Page, key: string) => page.locator(`[data-tab="${key}"]`);
 const reduced = (page: Page, key: string) => page.locator(`[data-minimized-window="${key}"]`);
+const restore = (page: Page, key: string) => reduced(page, key).getByRole("button", { name: /^Restaurer/ }).click();
 
 test("mode Liste : ouvrir un module garde les onglets et met à jour l'adresse, sans recharger", async ({ page, isMobile }) => {
   await open(page);
@@ -66,6 +67,9 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   // Numéro de lot tiré de 13_PLAN_LOTS.md (Ventes : devis, factures, avoirs = lot 5)
   await expect(w).toContainText(/Cet écran sera construit au lot \d+/);
   await expect(w).toContainText("lot 5");
+  // Pas de barre d'onglets en Mosaïque ; pas de barre du bas tant qu'aucune fenêtre n'est réduite
+  await expect(page.locator("[data-tab]")).toHaveCount(0);
+  await expect(page.getByTestId("minimized-bar")).toHaveCount(0);
 
   // Réduire (vidéo du 26/11) : la fenêtre disparaît et un petit bouton apparaît en bas à gauche
   await w.getByRole("button", { name: "Réduire Ventes" }).click();
@@ -79,9 +83,10 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   const btn = (await reduced(page, "sales").boundingBox())!;
   expect(btn.x).toBeLessThan(40);
   // Restaurer par ce bouton
-  await reduced(page, "sales").click();
+  await restore(page, "sales");
   await expect(win(page, "sales")).toBeVisible();
   await expect(reduced(page, "sales")).toHaveCount(0);
+  await expect(page.getByTestId("minimized-bar")).toHaveCount(0);
 
   if (!isMobile) {
     // Agrandir puis restaurer
@@ -92,7 +97,15 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   }
   await win(page, "sales").getByRole("button", { name: "Fermer Ventes" }).click();
   await expect(win(page, "sales")).toHaveCount(0);
-  await expect(tab(page, "sales")).toHaveCount(0);
+
+  // Fermer une fenêtre réduite depuis la barre du bas : son bouton disparaît, puis la barre
+  await tile(page, "stock").click();
+  await win(page, "stock").getByRole("button", { name: "Réduire Stock" }).click();
+  await expect(reduced(page, "stock")).toBeVisible();
+  await reduced(page, "stock").getByRole("button", { name: "Fermer Stock" }).click();
+  await expect(reduced(page, "stock")).toHaveCount(0);
+  await expect(win(page, "stock")).toHaveCount(0);
+  await expect(page.getByTestId("minimized-bar")).toHaveCount(0);
 });
 
 test("Mosaïque : ouverture en grande fenêtre en haut à gauche, puis en cascade au premier plan", async ({ page, isMobile }) => {
@@ -109,7 +122,7 @@ test("Mosaïque : ouverture en grande fenêtre en haut à gauche, puis en cascad
   // On revient au bureau pour ouvrir une 2e fenêtre : elle se place en décalé, au-dessus
   await win(page, "sales").getByRole("button", { name: "Réduire Ventes" }).click();
   await tile(page, "stock").click();
-  await reduced(page, "sales").click();
+  await restore(page, "sales");
   const b = (await win(page, "stock").boundingBox())!;
   const a2 = (await win(page, "sales").boundingBox())!;
   expect(Math.abs(a2.x - a.x)).toBeLessThan(2);
@@ -219,6 +232,31 @@ test("Mosaïque : tirer le bord haut au-dessus du bureau garde la barre de titre
   await page.mouse.up();
   const after = (await frame.boundingBox())!;
   expect(after.x).toBeGreaterThan(handle.x + 50);
+});
+
+test("Mosaïque : une fenêtre ne descend pas sous sa taille minimale, mais peut passer en plein écran", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Sur téléphone, les fenêtres sont en plein écran");
+  await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
+  await open(page);
+  await tile(page, "dashboard").click();
+  const frame = win(page, "dashboard");
+  const r = (await frame.boundingBox())!;
+  await page.mouse.move(r.x + r.width - 2, r.y + r.height - 2);
+  await page.mouse.down();
+  await page.mouse.move(r.x + 10, r.y + 10, { steps: 10 });
+  await page.mouse.up();
+  const small = (await frame.boundingBox())!;
+  expect(small.width).toBeGreaterThanOrEqual(639);
+  expect(small.height).toBeGreaterThanOrEqual(439);
+  // À cette taille, le contenu s'adapte : pas de débordement horizontal dans la fenêtre
+  const overflow = await frame.locator(".\\@container").first().evaluate((el) => el.scrollWidth - el.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  // Plein écran : la fenêtre occupe tout le bureau
+  await frame.getByRole("button", { name: "Agrandir Tableau de bord" }).click();
+  const desk = (await page.locator("main").boundingBox())!;
+  const full = (await frame.boundingBox())!;
+  expect(Math.abs(full.width - desk.width)).toBeLessThan(2);
+  expect(Math.abs(full.height - desk.height)).toBeLessThan(2);
 });
 
 test("Mosaïque : 6 fenêtres au maximum", async ({ page }) => {

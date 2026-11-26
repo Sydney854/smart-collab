@@ -280,13 +280,7 @@ export function AppShell({
           {searchBox}
           {right}
         </header>
-        {/* En Mosaïque, la barre du haut ne montre que les fenêtres ouvertes ; les fenêtres réduites vont en bas à gauche */}
-        <TabsBar
-          items={tabs.filter((tab) => !tab.minimized)}
-          closable
-          onSelect={(key) => dispatch({ type: "focus", key })}
-          onClose={(key) => dispatch({ type: "close", key, fallback })}
-        />
+        {/* Pas de barre d'onglets en Mosaïque (décision du 26/11/2026) : les fenêtres réduites vont dans la barre du bas */}
         {banner && <div className="shrink-0 px-4 pt-4 md:px-6">{banner}</div>}
         <main ref={desktopRef} className="relative min-h-0 flex-1 overflow-hidden" aria-label={tw("desktop")}>
           <div className="absolute inset-0 overflow-auto p-4 md:p-6">
@@ -322,6 +316,7 @@ export function AppShell({
             .filter((o) => o.minimized)
             .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon }))}
           onRestore={(key) => dispatch({ type: "focus", key })}
+          onClose={(key) => dispatch({ type: "close", key, fallback })}
         />
       </div>
     );

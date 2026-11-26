@@ -24,9 +24,9 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 - **En-tête** : en mode Liste, bouton du menu et fil d'Ariane ; en mode Mosaïque, logo et nom de l'entreprise. Puis recherche globale, bouton Liste / Mosaïque, FR / EN, clair / sombre, palette de couleur, notifications, menu utilisateur (en Mosaïque).
 - **Mode Liste** : menu latéral bleu marine (240 px, réductible en icônes), applications installées seulement (EF-APP-04), écran actif en or ; utilisateur en bas du menu.
-- **Mode Mosaïque** : tuiles des applications installées (icônes illustrées, `ICONES_MODULES.md`) ; chaque écran s'ouvre dans une fenêtre déplaçable, redimensionnable, agrandissable et réductible ; plein écran sur téléphone ; 6 écrans ouverts au maximum. Comportement des fenêtres (décision du 26/11/2026) : ouverture en grande fenêtre (70 % × 80 % du bureau) en haut à gauche, les suivantes en cascade vers le bas à droite, la dernière ouverte devant ; chevauchement libre, un clic met la fenêtre devant ; une fenêtre peut dépasser les bords du bureau, sa barre de titre reste toujours attrapable (déplacement et redimensionnement) ; déplacement par un contour qui suit la souris, la fenêtre saute à sa place au relâchement.
-- **Barre d'onglets** : écrans ouverts (Liste) ; en Mosaïque, fenêtres ouvertes seulement.
-- **Barre des fenêtres réduites** (Mosaïque, en bas à gauche) : un bouton icône + titre par fenêtre réduite ; un clic la restaure (décision du 26/11/2026).
+- **Mode Mosaïque** : tuiles des applications installées (icônes illustrées, `ICONES_MODULES.md`) ; chaque écran s'ouvre dans une fenêtre déplaçable, redimensionnable, agrandissable et réductible ; plein écran sur téléphone ; 6 écrans ouverts au maximum. Comportement des fenêtres (décision du 26/11/2026) : ouverture en grande fenêtre (70 % × 80 % du bureau) en haut à gauche, les suivantes en cascade vers le bas à droite, la dernière ouverte devant ; chevauchement libre, un clic met la fenêtre devant ; une fenêtre peut dépasser les bords du bureau, sa barre de titre reste toujours attrapable (déplacement et redimensionnement) ; déplacement par un contour qui suit la souris, la fenêtre saute à sa place au relâchement ; le contenu s'adapte à la taille de la fenêtre ; taille minimale 640 × 440 px ; agrandissement en plein écran.
+- **Barre d'onglets** : écrans ouverts, en mode Liste seulement (aucune barre d'onglets en Mosaïque).
+- **Barre des fenêtres réduites** (Mosaïque, en bas à gauche) : un bouton icône + titre par fenêtre réduite ; un clic la restaure, la croix la ferme ; la barre n'apparaît que s'il y a au moins une fenêtre réduite (décision du 26/11/2026).
 - **Barre de période** (`PeriodBar`, commune à tous les écrans qui en ont besoin, pas aux autres) : en tête de l'écran, sous les onglets ; périodes prédéfinies (aujourd'hui, semaine, mois, trimestre, année, personnalisée), puis **date de début** et **date de fin**, chacune avec un seul mois de calendrier qui se referme après le choix (décision du 25/11/2026). En mode Mosaïque, chaque fenêtre a sa propre barre.
 - **Bandeau hors ligne** (`OfflineBanner`) sous les onglets : en ligne / hors ligne + nombre d'opérations en attente (EF-OFF-01).
 - **Panneau des notifications** (cloche) : vide au lot 1 (« Aucune notification »), alimenté par les lots suivants.
@@ -40,7 +40,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 ## Actions (ce que fait chaque clic)
 
 - Clic sur un module (menu ou tuile) : ouvre l'écran (onglet ou fenêtre) ; l'adresse suit l'écran courant.
-- Fenêtre (Mosaïque) : **Réduire** (→ barre du bas), **Agrandir / Restaurer** (ou double-clic sur la barre de titre), **Fermer** ; glisser la barre de titre déplace la fenêtre par contour, **Échap** annule ; clic sur un bouton de la barre du bas : restaure la fenêtre.
+- Fenêtre (Mosaïque) : **Réduire** (→ barre du bas), **Agrandir / Restaurer** (ou double-clic sur la barre de titre), **Fermer** ; glisser la barre de titre déplace la fenêtre par contour, **Échap** annule ; clic sur un bouton de la barre du bas : restaure la fenêtre ; sa croix : ferme la fenêtre réduite.
 - Bouton **Liste / Mosaïque** : change de mode ; choix retenu par utilisateur (navigateur, puis profil au lot 1).
 - Menu utilisateur : **Mon profil** (→ `core.profile`), **Paramètres** (si droit), **Verrouiller** (→ `core.lock-screen`), **Se déconnecter** (ferme la session au serveur et **efface les données locales**, sauf la file non encore envoyée : EF-OFF-03, SEC-MO-11).
 - Cloche : ouvre le panneau des notifications.
@@ -81,11 +81,9 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Se déconnecter | Sign out |
 | En ligne — tout est synchronisé | Online — everything is synced |
 | Fenêtres réduites | Minimised windows |
-| Aucune fenêtre réduite | No minimised windows |
 
 ## À trancher par la cheffe de projet
 
-- Barre des fenêtres réduites : toujours visible (« Aucune fenêtre réduite ») ou seulement quand une fenêtre est réduite ? Barre d'onglets du haut en Mosaïque : la masquer quand elle est vide, ou la supprimer.
 - Déplacement d'une fenêtre au clavier : maintenant ou plus tard.
 
 - Changement de société dans l'en-tête (capture DreamsERP 02_societe-menu) : une même personne peut-elle passer d'une entreprise à l'autre, et dès le lot 1 ?

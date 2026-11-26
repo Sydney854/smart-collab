@@ -287,8 +287,7 @@
       "isOpen": "ouvert",
       "desktop": "Bureau",
       "tooMany": "{count} écrans ouverts au maximum : fermez-en un pour en ouvrir un autre.",
-      "minimizedBar": "Fenêtres réduites",
-      "noMinimized": "Aucune fenêtre réduite"
+      "minimizedBar": "Fenêtres réduites"
     },
     "window": {
       "minimize": "Réduire {name}",

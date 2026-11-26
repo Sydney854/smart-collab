@@ -27,7 +27,8 @@ export type WorkspaceAction =
   | { type: "place"; key: string; rect: Partial<Rect> }
   | { type: "setMode"; mode: LayoutMode; desk: { w: number; h: number }; fallback: string };
 
-export const MIN_WINDOW = { w: 360, h: 240 };
+/** Taille minimale d'une fenêtre : en dessous, le contenu des écrans ne s'affiche plus correctement (décision du 26/11/2026). */
+export const MIN_WINDOW = { w: 640, h: 440 };
 /** Taille d'une nouvelle fenêtre, en part du bureau (comportement de la vidéo de référence du 26/11/2026). */
 export const WINDOW_SHARE = { w: 0.7, h: 0.8 };
 /** Décalage en cascade entre deux fenêtres ouvertes l'une après l'autre. */

@@ -287,8 +287,7 @@
       "isOpen": "open",
       "desktop": "Desktop",
       "tooMany": "{count} open screens at most: close one to open another.",
-      "minimizedBar": "Minimised windows",
-      "noMinimized": "No minimised windows"
+      "minimizedBar": "Minimised windows"
     },
     "window": {
       "minimize": "Minimise {name}",
