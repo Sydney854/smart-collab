@@ -49,7 +49,7 @@
       "theme": "Sélecteur de thème (ThemePicker)",
       "themeHint": "Ouvrez la palette en haut à droite pour changer la couleur principale et le thème clair / sombre.",
       "shell": "Cadre de l'application (AppShell)",
-      "shellHint": "Le menu latéral, la barre du haut et les onglets ouverts qui entourent cette page."
+      "shellHint": "L'en-tête, le menu (mode Liste) ou les tuiles et fenêtres (mode Mosaïque) qui entourent cette page."
     },
     "kpi": {
       "revenue": "Chiffre d'affaires",

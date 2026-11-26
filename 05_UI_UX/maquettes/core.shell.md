@@ -1,4 +1,4 @@
-# core.shell — Cadre général (menu à 2 modes, onglets, en-tête)
+# core.shell — Cadre général (menu à 2 modes, onglets ou fenêtres, en-tête)
 
 **Statut : proposée**
 
@@ -27,8 +27,8 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 - **Mode Mosaïque** : tuiles des applications installées (icônes illustrées, `ICONES_MODULES.md`) ; chaque écran s'ouvre dans une fenêtre déplaçable, redimensionnable, agrandissable et réductible ; plein écran sur téléphone ; 6 écrans ouverts au maximum. Comportement des fenêtres (décision du 26/11/2026) : ouverture en grande fenêtre (70 % × 80 % du bureau) en haut à gauche, les suivantes en cascade vers le bas à droite, la dernière ouverte devant ; chevauchement libre, un clic met la fenêtre devant ; une fenêtre peut dépasser les bords du bureau, sa barre de titre reste toujours attrapable (déplacement et redimensionnement) ; déplacement par un contour qui suit la souris, la fenêtre saute à sa place au relâchement ; le contenu s'adapte à la taille de la fenêtre ; taille minimale 640 × 440 px ; agrandissement en plein écran.
 - **Barre d'onglets** : écrans ouverts, en mode Liste seulement (aucune barre d'onglets en Mosaïque).
 - **Barre des fenêtres réduites** (Mosaïque, en bas à gauche) : un bouton icône + titre par fenêtre réduite ; un clic la restaure, la croix la ferme ; la barre n'apparaît que s'il y a au moins une fenêtre réduite (décision du 26/11/2026).
-- **Barre de période** (`PeriodBar`, commune à tous les écrans qui en ont besoin, pas aux autres) : en tête de l'écran, sous les onglets ; périodes prédéfinies (aujourd'hui, semaine, mois, trimestre, année, personnalisée), puis **date de début** et **date de fin**, chacune avec un seul mois de calendrier qui se referme après le choix (décision du 25/11/2026). En mode Mosaïque, chaque fenêtre a sa propre barre.
-- **Bandeau hors ligne** (`OfflineBanner`) sous les onglets : en ligne / hors ligne + nombre d'opérations en attente (EF-OFF-01).
+- **Barre de période** (`PeriodBar`, commune à tous les écrans qui en ont besoin, pas aux autres) : en tête de l'écran, sous les onglets (Liste) ; périodes prédéfinies (aujourd'hui, semaine, mois, trimestre, année, personnalisée), puis **date de début** et **date de fin**, chacune avec un seul mois de calendrier qui se referme après le choix (décision du 25/11/2026). En mode Mosaïque, chaque fenêtre a sa propre barre.
+- **Bandeau hors ligne** (`OfflineBanner`) sous les onglets (Liste) ou sous l'en-tête (Mosaïque) : en ligne / hors ligne + nombre d'opérations en attente (EF-OFF-01).
 - **Panneau des notifications** (cloche) : vide au lot 1 (« Aucune notification »), alimenté par les lots suivants.
 
 ## Champs et filtres

@@ -24,12 +24,12 @@ export function MinimizedBar({
   const tw = useTranslations("ui.window");
   if (items.length === 0) return null;
   return (
-    <nav aria-label={t("minimizedBar")} className="flex h-11 shrink-0 items-center gap-2 overflow-x-auto border-t bg-card px-3" data-testid="minimized-bar">
+    <nav aria-label={t("minimizedBar")} className="flex h-11 shrink-0 items-center max-sm:h-14 gap-2 overflow-x-auto border-t bg-card px-3" data-testid="minimized-bar">
       {items.map((item) => (
         <span
           key={item.key}
           data-minimized-window={item.key}
-          className="flex h-8 max-w-56 shrink-0 items-center rounded-lg border bg-background text-sm shadow-card hover:border-primary"
+          className="flex h-8 max-w-56 shrink-0 max-sm:h-11 items-center rounded-lg border bg-background text-sm shadow-card hover:border-primary"
         >
           <button
             type="button"
@@ -46,7 +46,7 @@ export function MinimizedBar({
             title={tw("close", { name: item.label })}
             aria-label={tw("close", { name: item.label })}
             onClick={() => onClose(item.key)}
-            className="grid h-full w-7 shrink-0 place-items-center rounded-r-lg text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+            className="grid h-full w-7 shrink-0 max-sm:w-11 place-items-center rounded-r-lg text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
           >
             <XIcon className="size-3.5" aria-hidden />
           </button>

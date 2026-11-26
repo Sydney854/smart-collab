@@ -49,7 +49,7 @@
       "theme": "Theme picker (ThemePicker)",
       "themeHint": "Open the palette at the top right to change the main colour and the light / dark theme.",
       "shell": "Application frame (AppShell)",
-      "shellHint": "The side menu, top bar and open tabs around this page."
+      "shellHint": "The header, the menu (List mode) or the tiles and windows (Mosaic mode) around this page."
     },
     "kpi": {
       "revenue": "Revenue",

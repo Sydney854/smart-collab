@@ -11,7 +11,7 @@ Source : les 130 captures de `03_SOURCES_REFERENCE/prototype/CAPTURES.md` (chaqu
 | `core` | [users](core.users.md) | Comptes collaborateurs (utilisateurs et droits) | 1 | 1 | proposée |
 | `core` | [roles](core.roles.md) | Profils et droits | 1 | 1 | proposée |
 | `core` | [company](core.company.md) | Paramètres société | 1 | 1 | proposée |
-| `core` | [shell](core.shell.md) | Cadre général (menu à 2 modes, onglets, en-tête) | 1 | 5 (DreamsERP) + maquettes M-01 à M-16 | proposée |
+| `core` | [shell](core.shell.md) | Cadre général (menu à 2 modes, onglets ou fenêtres, en-tête) | 1 | 5 (DreamsERP) + maquettes M-01 à M-16 | proposée |
 | `core` | [login](core.login.md) | Connexion | 1 | 2 (DreamsERP) | proposée |
 | `core` | [two-factor](core.two-factor.md) | Double authentification | 1 | 4 (DreamsERP) | proposée |
 | `core` | [forgot-password](core.forgot-password.md) | Mot de passe oublié | 1 | 2 (DreamsERP) | proposée |
