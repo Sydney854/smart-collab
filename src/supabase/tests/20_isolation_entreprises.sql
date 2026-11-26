@@ -3,9 +3,15 @@ begin;
 \ir fixtures.sql
 
 create temporary table tenant_tables(name text) on commit drop;
-insert into tenant_tables values ('subscriptions'),('app_installations'),('memberships'),('roles'),('role_permissions'),
-  ('user_roles'),('field_masks'),('config_items'),('config_versions'),('number_sequences'),('audit_log'),('access_log'),
-  ('event_outbox'),('delete_requests'),('devices'),('sync_operations'),('sync_conflicts');
+-- Détection automatique : toute table du schéma public qui a une colonne tenant_id est contrôlée
+-- (une table ajoutée plus tard ne peut pas échapper au test)
+insert into tenant_tables
+  select c.table_name from information_schema.columns c
+  join information_schema.tables t on t.table_schema = c.table_schema and t.table_name = c.table_name and t.table_type = 'BASE TABLE'
+  where c.table_schema = 'public' and c.column_name = 'tenant_id';
+do $$ begin
+  assert (select count(*) from tenant_tables) >= 17, 'Détection des tables d''entreprise incomplète';
+end $$;
 grant select on tenant_tables to authenticated;
 
 -- 1. Alice (A) : voit les lignes de A dans chaque table, aucune de B
