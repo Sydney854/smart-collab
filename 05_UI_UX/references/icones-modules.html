@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Maquette de référence validée le 26/11/2026 (05_UI_UX/ICONES_MODULES.md). Données fictives. Ouvrir dans un navigateur. -->
+<title>Icônes des modules Smart Collab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Mise en page : en-tête de choix, aperçu de la mosaïque tel qu'à l'écran, puis comparatif côte à côte. Jetons repris de Smart Collab (Inter, or, bleu marine). */
+:root{
+  --bg:#F3F6FA; --surface:#FFFFFF; --fg:#18202F; --muted:#677084; --border:#E2E7EE;
+  --gold:#D19A2E; --gold-l:#FBF1DE; --navy:#1E2A4A; --icon-box:#FFFFFF; --icon-shadow:0 1px 2px rgba(24,32,47,.08),0 2px 8px rgba(24,32,47,.06);
+  --chip:#EEF1F6; --hover:#F7F9FC; --legacy-box:#FAF0DF;
+  --ok:#1F9D55; --ok-l:#E3F5EA; --ok-fg:#146C3A;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1524; --surface:#162033; --fg:#E7EBF2; --muted:#98A2B5; --border:#253148;
+  --gold:#E2AE48; --gold-l:#3A3020; --navy:#AFC0E6; --icon-box:#1F2B42; --icon-shadow:0 1px 2px rgba(0,0,0,.35);
+  --chip:#1C2740; --hover:#1B263B; --legacy-box:#33291A; --ok:#2FB46A; --ok-l:#173828; --ok-fg:#7FDBA6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1524; --surface:#162033; --fg:#E7EBF2; --muted:#98A2B5; --border:#253148;
+  --gold:#E2AE48; --gold-l:#3A3020; --navy:#AFC0E6; --icon-box:#1F2B42; --icon-shadow:0 1px 2px rgba(0,0,0,.35);
+  --chip:#1C2740; --hover:#1B263B; --legacy-box:#33291A; --ok:#2FB46A; --ok-l:#173828; --ok-fg:#7FDBA6; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1{font-size:26px;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:18px;font-weight:650;margin:0;text-wrap:balance}
+p{margin:0}
+.lead{color:var(--muted);max-width:68ch}
+.head{display:flex;flex-direction:column;gap:8px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ctl>span{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.seg{display:inline-flex;background:var(--chip);border-radius:9px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:inherit;font-size:13px;font-weight:500;border:0;background:transparent;color:var(--fg);padding:6px 11px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--gold);color:#1B1406;font-weight:600}
+.seg button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.note{font-size:13px;color:var(--muted)}
+/* Aperçu */
+.stage{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:22px}
+.stage-bar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:600;color:var(--muted);background:var(--chip);padding:3px 9px;border-radius:999px}
+.group{display:flex;flex-direction:column;gap:12px}
+.group h3{font-size:15px;font-weight:650;margin:0;display:flex;align-items:center;gap:8px}
+.group h3 small{font-weight:500;font-size:12px;color:var(--muted)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.tile{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;min-width:0;cursor:pointer;transition:background .15s,border-color .15s}
+.tile:hover{background:var(--hover);border-color:var(--gold)}
+.ibox{flex:none;width:var(--box,72px);height:var(--box,72px);border-radius:calc(var(--box,72px) * .22);background:var(--icon-box);box-shadow:var(--icon-shadow);display:grid;place-items:center}
+.ibox svg{width:var(--ico,52px);height:var(--ico,52px)}
+.tt{min-width:0}
+.tt b{display:block;font-size:15px;font-weight:600}
+.tt span{display:block;font-size:13px;color:var(--muted)}
+.legacy .ibox{background:var(--legacy-box);box-shadow:none}
+.ibox.pill{background:none;box-shadow:none}
+.ibox.pill svg{width:var(--box,72px);height:var(--box,72px)}
+.ic{display:block;flex:none;width:var(--box,72px);height:var(--box,72px)}
+/* Mosaïque du menu : icône directement dans la carte, nom seul */
+.mgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(calc(var(--box,72px) + 80px),1fr))}
+.mcard{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;cursor:pointer;min-width:0;padding:6px 4px;border-radius:12px}
+.mcard:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.mtile{display:grid;place-items:center;width:calc(var(--box,72px) + 40px);height:calc(var(--box,72px) + 40px);background:var(--surface);border:1px solid var(--border);border-radius:24%;box-shadow:var(--icon-shadow);transition:border-color .15s,transform .15s}
+.mcard:hover .mtile{border-color:var(--gold);transform:translateY(-2px)}
+.mcard b{font-size:14px;font-weight:600;line-height:1.3}
+/* Assistant : cadre net autour de l'icône, cadre effacé autour de l'icône et du texte */
+.stage{--faint-bg:color-mix(in srgb,var(--surface) 40%,var(--bg));--faint-bd:color-mix(in srgb,var(--border) 55%,transparent)}
+.ibox{border:1px solid var(--border)}
+.ibox.pill{border:0}
+/* App Store : format précédent (icône encadrée, nom, description, statut) */
+.sgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.scard{display:flex;flex-direction:column;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;min-width:0}
+.scard .tt b{margin-top:2px}
+.scard .ft{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:4px}
+.btn{flex:none;white-space:nowrap;font:inherit;font-size:13px;font-weight:600;border-radius:8px;padding:6px 12px;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--fg)}
+.btn.inst{border-color:transparent;background:var(--ok-l);color:var(--ok-fg)}
+.btn.lock{border-color:transparent;background:var(--chip);color:var(--muted);cursor:default}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fam{font-size:12px;color:var(--muted);min-width:0;line-height:1.3}
+/* Assistant 1 : coche verte sur l'icône */
+.w1{display:flex;align-items:center;gap:16px;background:var(--faint-bg);border:1px solid var(--faint-bd);border-radius:14px;padding:14px 16px;cursor:pointer;min-width:0;transition:border-color .15s}
+.w1:hover{border-color:var(--ok)}
+.icw{position:relative;flex:none;line-height:0}
+.icw .ic{transition:filter .15s,opacity .15s}
+.w1:not(.on) .icw svg{filter:grayscale(1);opacity:.42}
+.badge{position:absolute;top:-7px;right:-7px;width:26px;height:26px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;border:2px solid var(--surface);transform:scale(0);transition:transform .15s}
+.badge svg{width:14px;height:14px}
+.on .badge{transform:scale(1)}
+.w1 .tt small{display:block;font-size:12px;font-weight:600;color:var(--ok-fg);margin-top:2px}
+/* Assistant 2 : cartes carrées + récapitulatif */
+.w2wrap{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;align-items:start}
+.w2main{display:flex;flex-direction:column;gap:22px;min-width:0}
+.sq{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;background:var(--faint-bg);border:2px solid var(--faint-bd);border-radius:14px;padding:18px 10px 14px;cursor:pointer;min-width:0}
+.sq b{font-size:14px;font-weight:600;line-height:1.3}
+.sq.on{border-color:color-mix(in srgb,var(--gold) 60%,transparent);background:color-mix(in srgb,var(--gold) 6%,var(--faint-bg))}
+.sq .chk2{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;color:#1B1406;background:var(--surface)}
+.sq .chk2 svg{width:12px;height:12px;visibility:hidden}
+.sq.on .chk2{background:var(--gold);border-color:var(--gold)}
+.sq.on .chk2 svg{visibility:visible}
+.sq .lk{position:absolute;top:8px;left:8px;font-size:10px;font-weight:600;color:var(--muted);background:var(--chip);padding:2px 6px;border-radius:999px}
+.recap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.recap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.recap li{display:flex;align-items:center;gap:10px;font-size:14px}
+.recap li svg{width:28px;height:28px;flex:none}
+.recap .big{font-size:28px;font-weight:700;line-height:1}
+.btn.go{background:var(--gold);border-color:var(--gold);color:#1B1406;width:100%;padding:9px}
+/* Assistant 3 : liste par famille avec interrupteurs */
+.w3sec{background:var(--faint-bg);border:1px solid var(--faint-bd);border-radius:14px;overflow:hidden}
+.w3head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--faint-bd)}
+.w3head h3{margin:0;font-size:15px;font-weight:650}
+.lnk{font:inherit;font-size:13px;font-weight:600;color:var(--gold);background:none;border:0;cursor:pointer;padding:2px 0}
+.lnk:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.row{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--faint-bd);cursor:pointer}
+.row .ibox{width:min(var(--box,72px),56px);height:min(var(--box,72px),56px)}
+.row .ibox svg{width:min(var(--ico,52px),40px);height:min(var(--ico,52px),40px)}
+.row .ibox.pill svg{width:min(var(--box,72px),56px);height:min(var(--box,72px),56px)}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--hover)}
+.row .ic{width:min(var(--box,72px),48px);height:min(var(--box,72px),48px)}
+.sw{flex:none;margin-left:auto;width:42px;height:24px;border-radius:999px;background:var(--border);position:relative;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.on .sw{background:var(--ok)}
+.on .sw::after{transform:translateX(18px)}
+.row.fixed{cursor:default}
+.row.fixed .sw{opacity:.55}
+.core{flex:none;margin-left:auto;font-size:11px;font-weight:600;color:var(--muted);background:var(--chip);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.fixed{cursor:default}
+.wiz-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.wtab{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
+.wtab[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-l)}
+.wtab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:860px){.w2wrap{grid-template-columns:1fr}.recap{position:static}}
+.wiz-intro{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px}
+.wiz-intro b{font-size:15px}
+.wiz-intro .note{max-width:60ch}
+.wiz-count{font-weight:600;color:var(--gold);white-space:nowrap}
+.groups{display:flex;flex-direction:column;gap:22px}
+/* Comparatif */
+.cmp-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:1060px}
+th,td{padding:10px 12px;text-align:center;border-bottom:1px solid var(--border)}
+th{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--surface)}
+td:first-child,th:first-child{text-align:left;font-weight:600;color:var(--fg);text-transform:none;letter-spacing:0;font-size:14px;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.duo{display:inline-flex;gap:6px}
+.duo i{display:grid;place-items:center;width:52px;height:52px;border-radius:11px}
+.duo i.l{background:#fff;box-shadow:0 1px 3px rgba(24,32,47,.12)}
+.duo i.d{background:#1F2B42}
+.duo svg{width:36px;height:36px}
+th.sel,td.sel{background:color-mix(in srgb,var(--gold) 9%,transparent)}
+/* Cartes de choix */
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{margin:0;font-size:15px;font-weight:650}
+.card ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px}
+.card .k{font-size:12px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
+.rule{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.rule ul{margin:0;padding-left:18px}
+@media (max-width:560px){.stage{--box:56px!important;--ico:40px!important}.controls{position:static}.mgrid{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){.tile,.mcard,.w1,.badge,.icw .ic,.sw,.sw::after{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <h1>Icônes des modules</h1>
+    <p class="lead">Six styles d'icônes pour les tuiles des modules (mode Mosaïque, écran Apps, assistant de configuration) : l'icône actuelle au trait et cinq styles illustrés. Tous seront proposés au choix dans les réglages d'apparence. Les icônes de l'interface (boutons, menus) restent en Lucide. Les dessins sont propres à Smart Collab : aucun n'est repris d'Odoo.</p>
+  </header>
+
+  <div class="controls" role="group" aria-label="Choix d'affichage">
+    <div class="ctl"><span>Style</span>
+      <div class="seg" id="segStyle">
+        <button data-v="trait">Actuel (trait)</button>
+        <button data-v="bi">A · Plat bicolore</button>
+        <button data-v="multi">B · Multicolore</button>
+        <button data-v="grad">C · Dégradé doux</button>
+        <button data-v="duo">D · Contour teinté</button>
+        <button data-v="pill">E · Pastille couleur</button>
+      </div></div>
+    <div class="ctl"><span>Écran</span>
+      <div class="seg" id="segLayout">
+        <button data-v="menu">Mosaïque du menu</button>
+        <button data-v="store">App Store</button>
+        <button data-v="wiz">Assistant 1ʳᵉ connexion</button>
+      </div></div>
+    <div class="ctl"><span>Taille</span>
+      <div class="seg" id="segSize">
+        <button data-v="s">Petite</button>
+        <button data-v="m">Moyenne</button>
+        <button data-v="l">Grande</button>
+        <button data-v="xl">Très grande</button>
+      </div></div>
+    <div class="ctl"><span>Thème</span>
+      <div class="seg" id="segTheme">
+        <button data-v="light">Clair</button>
+        <button data-v="dark">Sombre</button>
+      </div></div>
+  </div>
+
+  <section class="stage" id="stage" aria-label="Aperçu de la mosaïque">
+    <div class="stage-bar">
+      <h2 id="stageTitle">Aperçu</h2>
+      <span class="tag" id="stageTag"></span>
+    </div>
+    <div class="groups" id="groups"></div>
+  </section>
+
+  <section class="head">
+    <h2>Les styles côte à côte</h2>
+    <p class="lead">Chaque case montre l'icône sur fond clair et sur fond sombre. La colonne du style choisi en haut est surlignée.</p>
+  </section>
+  <div class="cmp-wrap"><table id="cmp"></table></div>
+
+  <section class="head"><h2>Ce que chaque style implique</h2></section>
+  <div class="cards">
+    <div class="card"><span class="k">A · Plat bicolore</span><h3>Sobre et professionnel</h3>
+      <ul><li>Couleur du module + bleu marine : reste proche de l'identité or et bleu marine.</li><li>Lisible en petit (menu, onglets).</li><li>Moins de différence d'un module à l'autre.</li></ul></div>
+    <div class="card"><span class="k">B · Multicolore</span><h3>Vivant, reconnaissable</h3>
+      <ul><li>Trois couleurs par icône, formes superposées : le plus proche de l'effet Odoo.</li><li>On reconnaît le module sans lire le titre.</li><li>Demande une palette tenue pour ne pas devenir criard avec 40 modules.</li></ul></div>
+    <div class="card"><span class="k">C · Dégradé doux</span><h3>Moderne, plus « application »</h3>
+      <ul><li>Dégradés légers sur chaque forme, rendu en relief.</li><li>Très bien sur grand écran, un peu moins net en très petit.</li><li>Plus long à dessiner pour chaque nouveau module.</li></ul></div>
+    <div class="card"><span class="k">D · Contour teinté</span><h3>Entre le trait et la couleur</h3>
+      <ul><li>Contour net de la couleur du module, intérieur teinté et transparent.</li><li>Garde la finesse du style actuel, avec une couleur par module.</li><li>Très lisible en clair comme en sombre.</li></ul></div>
+    <div class="card"><span class="k">E · Pastille couleur</span><h3>Façon icône de téléphone</h3>
+      <ul><li>Carré arrondi de la couleur du module, dessin blanc par-dessus.</li><li>Le plus visible de loin ; chaque module a sa pastille.</li><li>Plus d'aplats de couleur à l'écran : à réserver aux tuiles.</li></ul></div>
+  </div>
+
+  <div class="rule">
+    <h2>Ce qui change quel que soit le style</h2>
+    <ul>
+      <li><b>Mosaïque du menu</b> : le cadre entoure uniquement l'icône ; le nom du module s'affiche dessous, hors du cadre, sans description.</li>
+      <li><b>App Store</b> (écran Applications) : garde le format précédent, icône encadrée, nom, description et statut (Installée, Installer, Toujours actif).</li>
+      <li><b>Assistant de première connexion</b> : trois propositions. 1 : coche verte directement sur l'icône, sans cadre, icône grisée tant qu'elle n'est pas choisie. 2 : cartes carrées avec récapitulatif de la sélection à droite. 3 : liste par famille avec interrupteurs et « Tout choisir ». Dans les trois : un cadre net autour de l'icône, un second cadre plus effacé autour de l'icône et du texte, modules regroupés par famille du catalogue et modules du socle marqués « Toujours actif ».</li>
+      <li><b>Taille des icônes réglable</b> dans les paramètres d'apparence : Petite, Moyenne, Grande (par défaut) ou Très grande. Sur téléphone, la taille est ramenée à 56 px pour garder deux tuiles par ligne.</li>
+      <li><b>Style au choix</b> : les six styles sont proposés dans les réglages d'apparence (choix par utilisateur, avec un style par défaut fixé par l'entreprise). Les dessins sont les mêmes, seul le rendu change.</li>
+      <li><b>Exception à la règle des icônes</b> : Lucide pour l'interface, icônes illustrées Smart Collab uniquement pour les tuiles des modules. Ce sont de simples fichiers SVG, aucun outil ajouté.</li>
+      <li>La famille RH &amp; Paie est montrée à titre d'exemple : ces modules n'existent pas encore dans l'application.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const NAVY="#1E2A4A";
+const C={gold:"#D9A13B",coral:"#E2674A",teal:"#1E9E8F",blue:"#3478C6",orange:"#EE8A2A",green:"#2F9A5C",violet:"#7B5AC8",pink:"#D1508A",plum:"#A24E9A",sky:"#2A9FD6",indigo:"#4A5BD0"};
+// Géométrie commune (viewBox 48) ; rôle : p principal, s second, t troisième, n sombre, w blanc
+const M={
+ dash:{n:"Tableau de bord",d:"Chiffres clés, ventes du mois",c:C.gold,m:[C.gold,C.coral,C.teal],g:[
+  ["rect",{x:6,y:22,width:9,height:20,rx:2.5},"s"],["rect",{x:19.5,y:10,width:9,height:32,rx:2.5},"p"],["rect",{x:33,y:28,width:9,height:14,rx:2.5},"t"],["circle",{cx:37.5,cy:15,r:5},"n"]]},
+ ventes:{n:"Ventes",d:"Devis, factures, avoirs",c:C.coral,m:[C.coral,C.gold,C.violet],g:[
+  ["path",{d:"M7 9.5Q7 7 9.5 7H24L42 25 25 42 7 24Z"},"p"],["circle",{cx:15,cy:15,r:3.2},"w"],["circle",{cx:34,cy:35,r:9.5},"s"],["circle",{cx:34,cy:35,r:4.5},"t"]]},
+ caisse:{n:"Caisse",d:"Encaissement en boutique",c:C.orange,m:[C.orange,C.violet,C.teal],g:[
+  ["rect",{x:30,y:15,width:4,height:6},"n"],["rect",{x:23,y:5,width:18,height:11,rx:2.5},"s"],["path",{d:"M9 20H39L43 34H5Z"},"p"],["rect",{x:3,y:34,width:42,height:9,rx:2.5},"t"],
+  ["rect",{x:12,y:24,width:5,height:3.5,rx:1},"w"],["rect",{x:21.5,y:24,width:5,height:3.5,rx:1},"w"],["rect",{x:31,y:24,width:5,height:3.5,rx:1},"w"]]},
+ stock:{n:"Stock",d:"Produits, mouvements, inventaires",c:C.teal,m:[C.teal,C.blue,C.gold],g:[
+  ["path",{d:"M6 15 24 24V43L6 34Z"},"p"],["path",{d:"M24 24 42 15V34L24 43Z"},"s"],["path",{d:"M24 6 42 15 24 24 6 15Z"},"t"],["path",{d:"M15 10.5 33 19.5V25L29 27V21.5L11 12.5Z"},"w"]]},
+ achats:{n:"Achats",d:"Commandes et réceptions fournisseurs",c:C.blue,m:[C.blue,C.teal,C.gold],g:[
+  ["rect",{x:3,y:11,width:26,height:21,rx:2.5},"p"],["path",{d:"M29 18H37L44 25V32H29Z"},"s"],["rect",{x:32,y:21,width:5,height:5,rx:1},"w"],
+  ["circle",{cx:13,cy:35,r:5.5},"n"],["circle",{cx:13,cy:35,r:2},"t"],["circle",{cx:36,cy:35,r:5.5},"n"],["circle",{cx:36,cy:35,r:2},"t"]]},
+ finance:{n:"Finance",d:"Trésorerie et comptabilité",c:C.green,m:[C.green,C.gold,C.coral],g:[
+  ["rect",{x:11,y:6,width:26,height:15,rx:2.5,transform:"rotate(-8 24 13)"},"t"],["rect",{x:5,y:14,width:38,height:28,rx:4.5},"p"],["rect",{x:28,y:22,width:15,height:12,rx:3.5},"s"],["circle",{cx:34.5,cy:28,r:2.5},"w"]]},
+ emp:{n:"Employés",d:"Fiches, départements, désignations",c:C.plum,m:[C.violet,C.gold,C.teal],ex:1,g:[
+  ["circle",{cx:32,cy:14,r:6},"s"],["rect",{x:21,y:23,width:22,height:17,rx:8.5},"s"],["circle",{cx:17,cy:17,r:7},"p"],["rect",{x:4,y:27,width:26,height:17,rx:8.5},"p"],["rect",{x:15,y:31,width:4,height:9,rx:2},"t"]]},
+ pres:{n:"Présence",d:"Pointage, retards, heures",c:C.sky,m:[C.blue,C.coral,C.gold],ex:1,g:[
+  ["circle",{cx:11,cy:10,r:5},"t"],["circle",{cx:37,cy:10,r:5},"t"],["circle",{cx:24,cy:26,r:18},"p"],["circle",{cx:24,cy:26,r:13.5},"w"],
+  ["path",{d:"M24 26V16.5",fill:"none","stroke-width":3.2,"stroke-linecap":"round"},"n"],["path",{d:"M24 26 31 30.5",fill:"none","stroke-width":3.2,"stroke-linecap":"round"},"s"],["circle",{cx:24,cy:26,r:2.4},"n"]]},
+ paie:{n:"Paie",d:"Bulletins et charges sociales",c:C.indigo,m:[C.gold,C.teal,C.violet],ex:1,g:[
+  ["rect",{x:6,y:4,width:27,height:35,rx:3.5},"s"],["rect",{x:11,y:11,width:17,height:3,rx:1.5},"w"],["rect",{x:11,y:17,width:12,height:3,rx:1.5},"w"],["rect",{x:11,y:23,width:14,height:3,rx:1.5},"w"],
+  ["circle",{cx:33,cy:34,r:10.5},"p"],["circle",{cx:33,cy:34,r:5},"t"]]},
+ apps:{n:"Applications",d:"Installer ou retirer des modules",c:C.violet,m:[C.violet,C.teal,C.gold],g:[
+  ["rect",{x:5,y:5,width:17,height:17,rx:4.5},"p"],["rect",{x:26,y:5,width:17,height:17,rx:4.5},"s"],["rect",{x:5,y:26,width:17,height:17,rx:4.5},"t"],["circle",{cx:34.5,cy:34.5,r:8.5},"n"]]},
+ demo:{n:"Composants (démo)",d:"Catalogue des composants",c:C.pink,m:[C.coral,C.blue,C.gold],g:[
+  ["circle",{cx:17,cy:18,r:12},"p"],["rect",{x:20,y:21,width:23,height:22,rx:4.5,opacity:.92},"s"],["path",{d:"M35 4 44 18H26Z"},"t"]]}
+};
+const GROUPS=[
+ ["Pilotage & Contrôle","",["dash"]],["Ventes & CRM","",["ventes","caisse"]],["Chaîne d'approvisionnement","",["stock","achats"]],
+ ["Finance & Comptabilité","",["finance"]],["RH & Paie","exemple, modules à venir",["emp","pres","paie"]],["Système","",["apps","demo"]]];
+const LEGACY_ORDER=["dash","ventes","stock","achats","caisse","finance","apps","demo"];
+
+function mix(h,t,a){const p=x=>parseInt(x,16);const r=[1,3,5].map(i=>p(h.slice(i,i+2))),q=[1,3,5].map(i=>p(t.slice(i,i+2)));
+ return"#"+r.map((v,i)=>Math.round(v+(q[i]-v)*a).toString(16).padStart(2,"0")).join("")}
+const tint=(h,a)=>mix(h,"#ffffff",a),shade=(h,a)=>mix(h,"#000000",a);
+let uid=0;
+function svg(key,style,dark){
+ const mod=M[key],id="i"+(uid++);let defs="";const navy=dark?"#3B4E7E":NAVY;
+ const col=r=>{
+  if(style==="bi")return{p:mod.c,s:navy,t:tint(mod.c,.5),n:navy,w:"#ffffff"}[r];
+  if(style==="multi")return{p:mod.m[0],s:mod.m[1],t:mod.m[2],n:dark?"#3B4E7E":"#2B3A67",w:"#ffffff"}[r];
+  if(style==="grad"){
+   const base={p:mod.c,s:mod.m[1]===mod.c?mod.m[0]:mod.m[1],t:tint(mod.c,.35),n:shade(mod.c,.35),w:"#ffffff"}[r];
+   if(r==="w")return"rgba(255,255,255,.92)";
+   const g=id+r;defs+=`<linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${tint(base,.38)}"/><stop offset="1" stop-color="${shade(base,.1)}"/></linearGradient>`;
+   return`url(#${g})`}
+ };
+ let body="";
+ if(style==="duo"){
+  const line=dark?tint(mod.c,.2):shade(mod.c,.12);
+  for(const[tag,a,role]of mod.g){const attrs=Object.entries(a).map(([k,v])=>`${k}="${v}"`).join(" ");
+   if(a.fill==="none"){body+=`<${tag} ${attrs} stroke="${line}"/>`;continue}
+   const f=role==="w"?(dark?"#1F2B42":"#ffffff"):mod.c,fo=role==="w"?1:({p:.32,s:.5,t:.18,n:.6}[role]);
+   body+=`<${tag} ${attrs} fill="${f}" fill-opacity="${fo}" stroke="${line}" stroke-width="2" stroke-linejoin="round"/>`}
+  return`<svg viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`}
+ if(style==="pill"){
+  const g=id+"bg";defs=`<linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${tint(mod.c,.18)}"/><stop offset="1" stop-color="${shade(mod.c,.14)}"/></linearGradient>`;
+  for(const[tag,a,role]of mod.g){const attrs=Object.entries(a).map(([k,v])=>`${k}="${v}"`).join(" ");
+   if(a.fill==="none"){body+=`<${tag} ${attrs} stroke="${mod.c}"/>`;continue}
+   if(role==="w"){body+=`<${tag} ${attrs} fill="${mod.c}"/>`;continue}
+   body+=`<${tag} ${attrs} fill="#ffffff" fill-opacity="${({p:1,s:.7,t:.5,n:.88}[role])}"/>`}
+  return`<svg viewBox="0 0 48 48" aria-hidden="true"><defs>${defs}</defs><rect width="48" height="48" rx="12" fill="url(#${g})"/><g transform="translate(10.5 10.5) scale(.5625)">${body}</g></svg>`}
+ for(const[tag,a,role]of mod.g){
+  const attrs=Object.entries(a).map(([k,v])=>`${k}="${v}"`).join(" ");
+  if(style==="trait"){ if(role==="w")continue;
+   body+=`<${tag} ${attrs} fill="none" stroke="${dark?"#E2AE48":"#C98F22"}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;continue}
+  const c=col(role);
+  body+=a.fill==="none"?`<${tag} ${attrs} stroke="${c}"/>`:`<${tag} ${attrs} fill="${c}"/>`;
+ }
+ const op=style==="multi"?' style="isolation:isolate"':"";
+ return`<svg viewBox="0 0 48 48" aria-hidden="true"${op}>${defs?`<defs>${defs}</defs>`:""}${body}</svg>`;
+}
+
+const state={style:"multi",layout:"menu",wiz:"1",theme:null,size:"l",sel:["ventes","caisse","stock"]};
+const SIZES={s:[44,30],m:[56,40],l:[72,52],xl:[88,64]};
+try{const s=JSON.parse(localStorage.getItem("sc-icones")||"{}");Object.assign(state,s)}catch(e){}
+if(!["menu","store","wiz"].includes(state.layout))state.layout="menu";
+if(!["1","2","3"].includes(state.wiz))state.wiz="1";
+if(!Array.isArray(state.sel))state.sel=["ventes","caisse","stock"];
+function isDark(){const t=document.documentElement.getAttribute("data-theme");return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches}
+const CORE=["dash","apps"];
+const CHECK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ibox=k=>`<div class="ibox${state.style==="pill"?" pill":""}">${svg(k,state.style,isDark())}</div>`;
+const ic=k=>svg(k,state.style,isDark()).replace("<svg ",'<svg class="ic" ');
+const isOn=k=>CORE.includes(k)||state.sel.includes(k);
+const famOf=k=>(GROUPS.find(g=>g[2].includes(k))||[""])[0];
+const WIZ_GROUPS=()=>GROUPS.map(([t,sub,ks])=>[t,sub,ks.filter(k=>k!=="demo")]).filter(g=>g[2].length);
+const cbAttrs=(k,on)=>CORE.includes(k)?"":`role="checkbox" aria-checked="${on}" tabindex="0"`;
+const ghead=(t,sub)=>`<h3>${t}${sub?` <small>· ${sub}</small>`:""}</h3>`;
+function viewMenu(){return`<div class="mgrid">${LEGACY_ORDER.map(k=>`<div class="mcard" tabindex="0"><span class="mtile">${ic(k)}</span><b>${M[k].n}</b></div>`).join("")}</div>`}
+function viewStore(){
+ return`<div class="sgrid">${Object.keys(M).filter(k=>k!=="demo").map(k=>{const m=M[k],core=CORE.includes(k),on=isOn(k);
+  const b=core?'<span class="btn lock">Toujours actif</span>':on?`<button class="btn inst" data-k="${k}">✓ Installée</button>`:`<button class="btn" data-k="${k}">Installer</button>`;
+  return`<div class="scard">${ibox(k)}<div class="tt"><b>${m.n}</b><span>${m.d}</span></div><div class="ft"><span class="fam">${famOf(k)}</span>${b}</div></div>`}).join("")}</div>`}
+function wiz1(){return WIZ_GROUPS().map(([t,sub,ks])=>`<div class="group">${ghead(t,sub)}<div class="grid">${ks.map(k=>{const m=M[k],on=isOn(k),core=CORE.includes(k);
+ return`<div class="w1 ${on?"on":""} ${core?"fixed":""}" data-k="${k}" ${cbAttrs(k,on)}><div class="icw">${ibox(k)}<span class="badge">${CHECK}</span></div><div class="tt"><b>${m.n}</b><span>${m.d}</span>${core?"<small>Toujours actif</small>":""}</div></div>`}).join("")}</div></div>`).join("")}
+function wiz2(){const chosen=Object.keys(M).filter(k=>k!=="demo"&&isOn(k));
+ const main=WIZ_GROUPS().map(([t,sub,ks])=>`<div class="group">${ghead(t,sub)}<div class="mgrid">${ks.map(k=>{const on=isOn(k),core=CORE.includes(k);
+  return`<div class="sq ${on?"on":""} ${core?"fixed":""}" data-k="${k}" ${cbAttrs(k,on)}>${core?'<span class="lk">Socle</span>':""}<span class="chk2">${CHECK}</span>${ibox(k)}<b>${M[k].n}</b></div>`}).join("")}</div></div>`).join("");
+ const recap=`<aside class="recap"><b>Votre sélection</b><div><span class="big">${chosen.length}</span> <span class="note">module${chosen.length>1?"s":""}</span></div><ul>${chosen.map(k=>`<li>${svg(k,state.style,isDark())}${M[k].n}</li>`).join("")}</ul><button class="btn go" type="button">Continuer</button><p class="note">Modifiable plus tard depuis l'App Store.</p></aside>`;
+ return`<div class="w2wrap"><div class="w2main">${main}</div>${recap}</div>`}
+function wiz3(){return WIZ_GROUPS().map(([t,sub,ks])=>{const free=ks.filter(k=>!CORE.includes(k)),all=free.length&&free.every(k=>state.sel.includes(k));
+ return`<section class="w3sec"><div class="w3head"><h3>${t}${sub?` <small class="note">· ${sub}</small>`:""}</h3>${free.length?`<button class="lnk" data-grp="${t}">${all?"Tout retirer":"Tout choisir"}</button>`:""}</div>${ks.map(k=>{const m=M[k],on=isOn(k),core=CORE.includes(k);
+  return`<div class="row ${on?"on":""} ${core?"fixed":""}" data-k="${k}" ${cbAttrs(k,on)}>${ibox(k)}<div class="tt"><b>${m.n}</b><span>${m.d}</span></div>${core?'<span class="core">Toujours actif</span>':'<span class="sw"></span>'}</div>`}).join("")}</section>`}).join("")}
+const WIZ_NAMES={"1":"Proposition 1 · coche verte sur l'icône","2":"Proposition 2 · cartes + récapitulatif","3":"Proposition 3 · liste avec interrupteurs"};
+const NAMES={trait:"Actuel (trait)",bi:"A · Plat bicolore",multi:"B · Multicolore",grad:"C · Dégradé doux",duo:"D · Contour teinté",pill:"E · Pastille couleur"};
+function render(){
+ if(state.theme)document.documentElement.setAttribute("data-theme",state.theme);
+ for(const[segId,key]of[["segStyle","style"],["segLayout","layout"],["segSize","size"],["segTheme","theme"]]){
+  const cur=key==="theme"?(isDark()?"dark":"light"):state[key];
+  document.querySelectorAll(`#${segId} button`).forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===cur)));
+ }
+ const stage=document.getElementById("stage");
+ const[bx,ic]=SIZES[state.size]||SIZES.l;stage.style.setProperty("--box",bx+"px");stage.style.setProperty("--ico",ic+"px");
+ stage.classList.toggle("legacy",state.style==="trait");
+ document.getElementById("stageTitle").textContent={menu:"Mosaïque du menu principal",store:"App Store · écran Applications",wiz:"Assistant · choix des modules à la première connexion"}[state.layout];
+ document.getElementById("stageTag").textContent=NAMES[state.style]+" · taille "+({s:"petite",m:"moyenne",l:"grande",xl:"très grande"}[state.size]||"grande")+" · "+(isDark()?"thème sombre":"thème clair");
+ const g=document.getElementById("groups");
+ if(state.layout==="menu")g.innerHTML=viewMenu();
+ else if(state.layout==="store")g.innerHTML=viewStore();
+ else{const n=Object.keys(M).filter(k=>k!=="demo"&&isOn(k)).length;
+  g.innerHTML=`<div class="wiz-tabs" role="group" aria-label="Propositions d'assistant">${["1","2","3"].map(w=>`<button class="wtab" data-wiz="${w}" aria-pressed="${state.wiz===w}">${WIZ_NAMES[w]}</button>`).join("")}</div>`+
+  `<div class="wiz-intro"><div><b>Choisissez les modules de votre entreprise</b><p class="note">Sélectionnez ce dont vous avez besoin. Vous pourrez en ajouter ou en retirer plus tard depuis l'App Store.</p></div><span class="wiz-count">${n} module${n>1?"s":""} choisi${n>1?"s":""}</span></div>`+
+  ({"1":wiz1,"2":wiz2,"3":wiz3}[state.wiz])()}
+ const cols=["trait","bi","multi","grad","duo","pill"];
+ let h=`<thead><tr><th>Module</th>${cols.map(c=>`<th class="${c===state.style?"sel":""}">${NAMES[c]}</th>`).join("")}</tr></thead><tbody>`;
+ for(const k of Object.keys(M))h+=`<tr><td>${M[k].n}</td>${cols.map(c=>`<td class="${c===state.style?"sel":""}"><span class="duo"><i class="l">${svg(k,c,false)}</i><i class="d">${svg(k,c,true)}</i></span></td>`).join("")}</tr>`;
+ document.getElementById("cmp").innerHTML=h+"</tbody>";
+ try{localStorage.setItem("sc-icones",JSON.stringify(state))}catch(e){}
+}
+for(const[segId,key]of[["segStyle","style"],["segLayout","layout"],["segSize","size"],["segTheme","theme"]])
+ document.getElementById(segId).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state[key]=b.dataset.v;render()});
+function toggleMod(t){const k=t&&t.dataset.k;if(!k||CORE.includes(k)||state.layout==="menu")return;
+ state.sel=state.sel.includes(k)?state.sel.filter(x=>x!==k):[...state.sel,k];render();document.querySelector(`#groups [data-k="${k}"]`)?.focus()}
+const groupsEl=document.getElementById("groups");
+groupsEl.addEventListener("click",e=>{
+ const w=e.target.closest("[data-wiz]");if(w){state.wiz=w.dataset.wiz;render();return}
+ const gb=e.target.closest("[data-grp]");if(gb){const ks=(GROUPS.find(g=>g[0]===gb.dataset.grp)||[,,[]])[2].filter(k=>!CORE.includes(k)&&k!=="demo");
+  const all=ks.every(k=>state.sel.includes(k));state.sel=all?state.sel.filter(k=>!ks.includes(k)):[...new Set([...state.sel,...ks])];render();return}
+ toggleMod(e.target.closest("[data-k]"))});
+groupsEl.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){const t=e.target.closest("[role=checkbox]");if(t){e.preventDefault();toggleMod(t)}}});
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(!state.theme)render()});
+render();
+</script>
