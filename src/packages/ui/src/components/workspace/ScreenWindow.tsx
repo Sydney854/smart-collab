@@ -80,12 +80,16 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
   const [outline, setOutline] = useState<Rect | null>(null);
   const drag = useRef<{ startX: number; startY: number; moved: boolean; desk: { w: number; h: number } } | null>(null);
   const anchorRef = useRef<HTMLSpanElement>(null);
+  // Retire les écouteurs du geste en cours (relâchement, Échap ou disparition de la fenêtre)
+  const stopListening = useRef<(() => void) | null>(null);
+  useEffect(() => () => stopListening.current?.(), []);
 
   // Échap pendant un déplacement : on annule, la fenêtre ne bouge pas
   useEffect(() => {
     if (!outline) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        stopListening.current?.();
         drag.current = null;
         setOutline(null);
       }
@@ -114,9 +118,7 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
       setOutline(clampRect({ x: win.x + dx, y: win.y + dy, w: win.w, h: win.h }, d.desk));
     };
     const up = (ev: PointerEvent) => {
-      handle.removeEventListener("pointermove", move);
-      handle.removeEventListener("pointerup", up);
-      handle.removeEventListener("pointercancel", up);
+      stopListening.current?.();
       const d = drag.current;
       drag.current = null;
       setOutline(null);
@@ -127,6 +129,12 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
     handle.addEventListener("pointermove", move);
     handle.addEventListener("pointerup", up);
     handle.addEventListener("pointercancel", up);
+    stopListening.current = () => {
+      handle.removeEventListener("pointermove", move);
+      handle.removeEventListener("pointerup", up);
+      handle.removeEventListener("pointercancel", up);
+      stopListening.current = null;
+    };
   }
 
   const frame = (
@@ -180,7 +188,14 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
         onResizeStart={() => {
           onFocus();
         }}
-        onResizeStop={(_e, _dir, ref, _delta, pos) => onPlace({ w: ref.offsetWidth, h: ref.offsetHeight, x: pos.x, y: pos.y })}
+        onResizeStop={(_e, _dir, ref, _delta, pos) => {
+          // Bord haut tiré au-dessus du bureau : on coupe ce qui dépasse pour garder la barre de titre visible
+          const top = Math.min(0, pos.y);
+          const desktop = anchorRef.current?.parentElement;
+          const desk = { w: desktop?.clientWidth ?? window.innerWidth, h: desktop?.clientHeight ?? window.innerHeight };
+          const r = clampRect({ x: pos.x, y: pos.y - top, w: ref.offsetWidth, h: Math.max(MIN_WINDOW.h, ref.offsetHeight + top) }, desk);
+          onPlace(r);
+        }}
       >
         {frame}
       </Rnd>

@@ -198,6 +198,29 @@ test("Mosaïque : une fenêtre peut dépasser le bord du bureau sans élargir la
   expect(overflow).toBeLessThanOrEqual(0);
 });
 
+test("Mosaïque : tirer le bord haut au-dessus du bureau garde la barre de titre visible", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Sur téléphone, les fenêtres sont en plein écran");
+  await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
+  await open(page);
+  await tile(page, "pos").click();
+  const frame = win(page, "pos");
+  const r = (await frame.boundingBox())!;
+  await page.mouse.move(r.x + r.width / 2, r.y + 1);
+  await page.mouse.down();
+  await page.mouse.move(r.x + r.width / 2, r.y - 300, { steps: 8 });
+  await page.mouse.up();
+  const desk = (await page.locator("main").boundingBox())!;
+  const handle = (await frame.locator(".sc-window-handle").boundingBox())!;
+  expect(handle.y).toBeGreaterThanOrEqual(desk.y - 1);
+  // La fenêtre reste déplaçable par sa barre de titre
+  await page.mouse.move(handle.x + 60, handle.y + handle.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(handle.x + 160, handle.y + 60, { steps: 6 });
+  await page.mouse.up();
+  const after = (await frame.boundingBox())!;
+  expect(after.x).toBeGreaterThan(handle.x + 50);
+});
+
 test("Mosaïque : 6 fenêtres au maximum", async ({ page }) => {
   await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
   await open(page);
