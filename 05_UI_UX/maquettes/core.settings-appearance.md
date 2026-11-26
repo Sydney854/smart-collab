@@ -8,7 +8,7 @@
 | Écran | `settings-appearance` |
 | Lot | 1 |
 | Prototype | — (écran absent du prototype) |
-| Maquette Smart Collab | M-22 (page de maquettes) ; code de démonstration : `src/apps/web/screens/SettingsScreen.tsx` ; règles : `05_UI_UX/ICONES_MODULES.md` § 5 |
+| Maquette Smart Collab | M-22 (page de maquettes du lot 0, adresse dans 00_GOUVERNANCE/PASSATION.md) ; code de démonstration : `src/apps/web/screens/SettingsScreen.tsx` ; règles : `05_UI_UX/ICONES_MODULES.md` § 5 |
 
 ## Captures de référence
 

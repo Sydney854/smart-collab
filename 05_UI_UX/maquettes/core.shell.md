@@ -8,7 +8,7 @@
 | Écran | `shell` |
 | Lot | 1 |
 | Prototype | — (écran absent du prototype) |
-| Maquette Smart Collab | M-01 à M-16 (page de maquettes) ; code de démonstration : `src/packages/ui/src/components/AppShell.tsx` |
+| Maquette Smart Collab | M-01 à M-16 (page de maquettes du lot 0, adresse dans 00_GOUVERNANCE/PASSATION.md) ; code de démonstration : `src/packages/ui/src/components/AppShell.tsx` |
 
 ## Captures de référence
 
