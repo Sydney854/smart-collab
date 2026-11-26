@@ -286,7 +286,9 @@
       "tilesTitle": "Modules",
       "isOpen": "ouvert",
       "desktop": "Bureau",
-      "tooMany": "{count} écrans ouverts au maximum : fermez-en un pour en ouvrir un autre."
+      "tooMany": "{count} écrans ouverts au maximum : fermez-en un pour en ouvrir un autre.",
+      "minimizedBar": "Fenêtres réduites",
+      "noMinimized": "Aucune fenêtre réduite"
     },
     "window": {
       "minimize": "Réduire {name}",

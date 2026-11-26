@@ -28,13 +28,31 @@ export type WorkspaceAction =
   | { type: "setMode"; mode: LayoutMode; desk: { w: number; h: number }; fallback: string };
 
 export const MIN_WINDOW = { w: 360, h: 240 };
+/** Taille d'une nouvelle fenêtre, en part du bureau (comportement de la vidéo de référence du 26/11/2026). */
+export const WINDOW_SHARE = { w: 0.7, h: 0.8 };
+/** Décalage en cascade entre deux fenêtres ouvertes l'une après l'autre. */
+export const CASCADE_STEP = { x: 36, y: 30 };
+/** Une fenêtre peut dépasser les bords du bureau, mais sa barre de titre reste attrapable. */
+export const MIN_VISIBLE = { x: 120, y: 40 };
 
-/** Position d'une nouvelle fenêtre : en cascade, dans les limites du bureau. */
+/** Garde une fenêtre attrapable : elle peut dépasser à droite, à gauche et en bas, jamais en haut. */
+export function clampRect(rect: Rect, desk: { w: number; h: number }): Rect {
+  return {
+    ...rect,
+    x: Math.round(Math.min(Math.max(rect.x, MIN_VISIBLE.x - rect.w), desk.w - MIN_VISIBLE.x)),
+    y: Math.round(Math.min(Math.max(rect.y, 0), Math.max(0, desk.h - MIN_VISIBLE.y))),
+  };
+}
+
+/**
+ * Position d'une nouvelle fenêtre : grande (70 % × 80 % du bureau), posée en haut à gauche,
+ * chaque nouvelle fenêtre décalée en cascade vers le bas et la droite.
+ */
 export function cascadeRect(index: number, desk: { w: number; h: number }): Rect {
-  const w = Math.max(MIN_WINDOW.w, Math.min(960, desk.w - 48));
-  const h = Math.max(MIN_WINDOW.h, Math.min(640, desk.h - 48));
-  const step = 32 * (index % MAX_OPEN);
-  return { x: Math.max(0, Math.min(24 + step, desk.w - w)), y: Math.max(0, Math.min(16 + step, desk.h - h)), w, h };
+  const w = Math.max(MIN_WINDOW.w, Math.round(desk.w * WINDOW_SHARE.w));
+  const h = Math.max(MIN_WINDOW.h, Math.round(desk.h * WINDOW_SHARE.h));
+  const i = index % MAX_OPEN;
+  return clampRect({ x: 16 + CASCADE_STEP.x * i, y: 12 + CASCADE_STEP.y * i, w, h }, desk);
 }
 
 /** L'écran peut-il être ouvert ? (déjà ouvert, ou moins de MAX_OPEN éléments) */

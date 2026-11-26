@@ -286,7 +286,9 @@
       "tilesTitle": "Modules",
       "isOpen": "open",
       "desktop": "Desktop",
-      "tooMany": "{count} open screens at most: close one to open another."
+      "tooMany": "{count} open screens at most: close one to open another.",
+      "minimizedBar": "Minimised windows",
+      "noMinimized": "No minimised windows"
     },
     "window": {
       "minimize": "Minimise {name}",

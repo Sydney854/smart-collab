@@ -14,6 +14,7 @@ async function open(page: Page, path = "/") {
 const win = (page: Page, key: string) => page.locator(`[data-window="${key}"]`);
 const tile = (page: Page, key: string) => page.locator(`[data-tile="${key}"]`);
 const tab = (page: Page, key: string) => page.locator(`[data-tab="${key}"]`);
+const reduced = (page: Page, key: string) => page.locator(`[data-minimized-window="${key}"]`);
 
 test("mode Liste : ouvrir un module garde les onglets et met à jour l'adresse, sans recharger", async ({ page, isMobile }) => {
   await open(page);
@@ -66,13 +67,21 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   await expect(w).toContainText(/Cet écran sera construit au lot \d+/);
   await expect(w).toContainText("lot 5");
 
-  // Réduire : la fenêtre disparaît et reste dans la barre d'onglets
+  // Réduire (vidéo du 26/11) : la fenêtre disparaît et un petit bouton apparaît en bas à gauche
   await w.getByRole("button", { name: "Réduire Ventes" }).click();
   await expect(w).toHaveCount(0);
-  await expect(tab(page, "sales")).toHaveAttribute("data-minimized", "true");
-  // Restaurer par l'onglet
-  await tab(page, "sales").getByRole("button", { name: "Ventes", exact: true }).click();
+  await expect(tab(page, "sales")).toHaveCount(0);
+  await expect(reduced(page, "sales")).toBeVisible();
+  await expect(reduced(page, "sales")).toContainText("Ventes");
+  const bar = (await page.getByTestId("minimized-bar").boundingBox())!;
+  const vp = page.viewportSize()!;
+  expect(bar.y + bar.height).toBeGreaterThan(vp.height - 4);
+  const btn = (await reduced(page, "sales").boundingBox())!;
+  expect(btn.x).toBeLessThan(40);
+  // Restaurer par ce bouton
+  await reduced(page, "sales").click();
   await expect(win(page, "sales")).toBeVisible();
+  await expect(reduced(page, "sales")).toHaveCount(0);
 
   if (!isMobile) {
     // Agrandir puis restaurer
@@ -86,34 +95,107 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   await expect(tab(page, "sales")).toHaveCount(0);
 });
 
-test("Mosaïque : on déplace et redimensionne une fenêtre", async ({ page, isMobile }) => {
+test("Mosaïque : ouverture en grande fenêtre en haut à gauche, puis en cascade au premier plan", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Sur téléphone, les fenêtres sont en plein écran");
+  await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
+  await open(page);
+  const desk = (await page.locator("main").boundingBox())!;
+  await tile(page, "sales").click();
+  const a = (await win(page, "sales").boundingBox())!;
+  expect(a.x - desk.x).toBeLessThan(40);
+  expect(a.y - desk.y).toBeLessThan(40);
+  expect(a.width / desk.width).toBeGreaterThan(0.65);
+  expect(a.height / desk.height).toBeGreaterThan(0.75);
+  // On revient au bureau pour ouvrir une 2e fenêtre : elle se place en décalé, au-dessus
+  await win(page, "sales").getByRole("button", { name: "Réduire Ventes" }).click();
+  await tile(page, "stock").click();
+  await reduced(page, "sales").click();
+  const b = (await win(page, "stock").boundingBox())!;
+  const a2 = (await win(page, "sales").boundingBox())!;
+  expect(Math.abs(a2.x - a.x)).toBeLessThan(2);
+  expect(b.x - a.x).toBeGreaterThan(20);
+  expect(b.y - a.y).toBeGreaterThan(20);
+  // Superposition : la fenêtre restaurée passe devant ; un clic sur l'autre la remet devant
+  await expect(win(page, "sales")).toHaveAttribute("data-active", "true");
+  // Le coin bas-droit de « Stock » dépasse de « Ventes » (décalage de cascade) : on clique dessus
+  await page.mouse.click(b.x + b.width - 10, b.y + b.height - 10);
+  await expect(win(page, "stock")).toHaveAttribute("data-active", "true");
+  await expect(win(page, "sales")).toHaveAttribute("data-active", "false");
+});
+
+test("Mosaïque : déplacement par contour, puis la fenêtre saute au relâchement ; redimensionnement", async ({ page, isMobile }) => {
   test.skip(isMobile, "Sur téléphone, les fenêtres sont en plein écran");
   await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
   await open(page);
   await tile(page, "stock").click();
   const frame = win(page, "stock");
   const before = (await frame.boundingBox())!;
-  // Déplacer par la barre de titre
   const handle = frame.locator(".sc-window-handle");
   const h = (await handle.boundingBox())!;
   await page.mouse.move(h.x + 60, h.y + h.height / 2);
   await page.mouse.down();
   await page.mouse.move(h.x + 260, h.y + 120, { steps: 8 });
+  // Pendant le geste : seul le contour bouge, la fenêtre reste en place
+  const outline = page.getByTestId("window-outline");
+  await expect(outline).toBeVisible();
+  const o = (await outline.boundingBox())!;
+  expect(o.x).toBeGreaterThan(before.x + 150);
+  const still = (await frame.boundingBox())!;
+  expect(Math.abs(still.x - before.x)).toBeLessThan(2);
   await page.mouse.up();
+  await expect(outline).toHaveCount(0);
   const moved = (await frame.boundingBox())!;
   expect(moved.x).toBeGreaterThan(before.x + 150);
   expect(moved.y).toBeGreaterThan(before.y + 80);
-  // Redimensionner par le coin inférieur droit
-  await page.mouse.move(moved.x + moved.width - 2, moved.y + moved.height - 2);
+
+  // Échap pendant le geste : on annule
+  const h2 = (await handle.boundingBox())!;
+  await page.mouse.move(h2.x + 60, h2.y + h2.height / 2);
   await page.mouse.down();
-  await page.mouse.move(moved.x + moved.width - 202, moved.y + moved.height - 102, { steps: 8 });
+  await page.mouse.move(h2.x + 160, h2.y + 60, { steps: 5 });
+  await page.keyboard.press("Escape");
+  await page.mouse.up();
+  const same = (await frame.boundingBox())!;
+  expect(Math.abs(same.x - moved.x)).toBeLessThan(2);
+
+  // Redimensionner par le coin inférieur droit (visible : la fenêtre a été glissée vers le bas, on la remonte d'abord)
+  const h3 = (await handle.boundingBox())!;
+  await page.mouse.move(h3.x + 60, h3.y + h3.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(h3.x - 140, h3.y - 100, { steps: 6 });
+  await page.mouse.up();
+  const up = (await frame.boundingBox())!;
+  await page.mouse.move(up.x + up.width - 2, up.y + up.height - 2);
+  await page.mouse.down();
+  await page.mouse.move(up.x + up.width - 202, up.y + up.height - 102, { steps: 8 });
   await page.mouse.up();
   const resized = (await frame.boundingBox())!;
-  expect(resized.width).toBeLessThan(moved.width - 150);
-  expect(resized.height).toBeLessThan(moved.height - 60);
+  expect(resized.width).toBeLessThan(up.width - 150);
+  expect(resized.height).toBeLessThan(up.height - 60);
   // Double-clic sur la barre de titre : agrandir
   await frame.locator(".sc-window-handle").dblclick({ position: { x: 80, y: 10 } });
   await expect(frame).toHaveAttribute("data-maximized", "true");
+});
+
+test("Mosaïque : une fenêtre peut dépasser le bord du bureau sans élargir la page", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Sur téléphone, les fenêtres sont en plein écran");
+  await page.context().addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
+  await open(page);
+  await tile(page, "finance").click();
+  const frame = win(page, "finance");
+  const h = (await frame.locator(".sc-window-handle").boundingBox())!;
+  await page.mouse.move(h.x + 60, h.y + h.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(h.x + 3000, h.y + 40, { steps: 10 });
+  await page.mouse.up();
+  const desk = (await page.locator("main").boundingBox())!;
+  const r = (await frame.boundingBox())!;
+  // Elle dépasse à droite…
+  expect(r.x + r.width).toBeGreaterThan(desk.x + desk.width);
+  // …mais un bout de sa barre de titre reste visible pour la rattraper
+  expect(r.x).toBeLessThanOrEqual(desk.x + desk.width - 100);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
 });
 
 test("Mosaïque : 6 fenêtres au maximum", async ({ page }) => {
@@ -125,7 +207,8 @@ test("Mosaïque : 6 fenêtres au maximum", async ({ page }) => {
     // La fenêtre recouvre les tuiles : on la réduit pour revenir au bureau
     await win(page, key).getByRole("button", { name: /^Réduire/ }).click();
   }
-  await expect(page.locator("[data-tab]")).toHaveCount(6);
+  // Les 6 fenêtres réduites sont rangées en bas à gauche
+  await expect(page.locator("[data-minimized-window]")).toHaveCount(6);
   await tile(page, "apps").click();
   await expect(page.getByText("6 écrans ouverts au maximum")).toBeVisible();
   await expect(win(page, "apps")).toHaveCount(0);

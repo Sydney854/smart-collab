@@ -46,6 +46,7 @@ import {
   useSidebar,
 } from "./ui/sidebar";
 import { ScreenContainerContext } from "./workspace/context";
+import { MinimizedBar } from "./workspace/MinimizedBar";
 import { ModeSwitch } from "./workspace/ModeSwitch";
 import { MosaicTiles } from "./workspace/MosaicTiles";
 import { ScreenWindow } from "./workspace/ScreenWindow";
@@ -279,8 +280,9 @@ export function AppShell({
           {searchBox}
           {right}
         </header>
+        {/* En Mosaïque, la barre du haut ne montre que les fenêtres ouvertes ; les fenêtres réduites vont en bas à gauche */}
         <TabsBar
-          items={tabs}
+          items={tabs.filter((tab) => !tab.minimized)}
           closable
           onSelect={(key) => dispatch({ type: "focus", key })}
           onClose={(key) => dispatch({ type: "close", key, fallback })}
@@ -315,6 +317,12 @@ export function AppShell({
             );
           })}
         </main>
+        <MinimizedBar
+          items={state.open
+            .filter((o) => o.minimized)
+            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon }))}
+          onRestore={(key) => dispatch({ type: "focus", key })}
+        />
       </div>
     );
   }
