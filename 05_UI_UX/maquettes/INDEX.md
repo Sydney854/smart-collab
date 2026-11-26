@@ -11,6 +11,17 @@ Source : les 130 captures de `03_SOURCES_REFERENCE/prototype/CAPTURES.md` (chaqu
 | `core` | [users](core.users.md) | Comptes collaborateurs (utilisateurs et droits) | 1 | 1 | proposée |
 | `core` | [roles](core.roles.md) | Profils et droits | 1 | 1 | proposée |
 | `core` | [company](core.company.md) | Paramètres société | 1 | 1 | proposée |
+| `core` | [shell](core.shell.md) | Cadre général (menu à 2 modes, onglets, en-tête) | 1 | 0 (maquettes M-01 à M-16) | proposée |
+| `core` | [login](core.login.md) | Connexion | 1 | 2 (DreamsERP) | proposée |
+| `core` | [two-factor](core.two-factor.md) | Double authentification | 1 | 1 (DreamsERP) | proposée |
+| `core` | [forgot-password](core.forgot-password.md) | Mot de passe oublié | 1 | 2 (DreamsERP) | proposée |
+| `core` | [reset-password](core.reset-password.md) | Nouveau mot de passe | 1 | 2 (DreamsERP) | proposée |
+| `core` | [email-verification](core.email-verification.md) | Vérification de l'e-mail | 1 | 2 (DreamsERP) | proposée |
+| `core` | [lock-screen](core.lock-screen.md) | Verrouillage d'écran | 1 | 0 | proposée |
+| `core` | [errors](core.errors.md) | Pages d'erreur (403, 404, 500) | 1 | 2 (DreamsERP) | proposée |
+| `core` | [apps](core.apps.md) | Applications (App Store) | 1 | 0 (maquette M-23) | proposée |
+| `core` | [setup-wizard](core.setup-wizard.md) | Assistant de première configuration | 1 | 0 (maquettes M-24, M-25) | proposée |
+| `core` | [settings-appearance](core.settings-appearance.md) | Paramètres — Apparence | 1 | 1 (DreamsERP) + maquette M-22 | proposée |
 | `inventory` | [overview](inventory.overview.md) | Produits & Stocks — vue d'ensemble | 2 | 1 | proposée |
 | `inventory` | [catalog](inventory.catalog.md) | Catalogue produits — liste | 2 | 3 | proposée |
 | `inventory` | [product](inventory.product.md) | Fiche produit (7 onglets) et fenêtre flottante | 2 | 8 | proposée |
@@ -86,6 +97,8 @@ Source : les 130 captures de `03_SOURCES_REFERENCE/prototype/CAPTURES.md` (chaqu
 | `marketing` | [home](marketing.home.md) | Marketing | hors lots 1 à 7 | 1 | proposée |
 
 Applications `hr`, `attendance`, `payroll` et `marketing` : identifiants proposés, absents de la liste du contrat d'application (`02_SPECIFICATIONS/16_CONTRAT_APPLICATION.md` §7) — à confirmer ou à renommer.
+
+Fiches ajoutées le 26/11/2026 (lot 1, écrans absents du prototype) : références DreamsERP ou maquettes Smart Collab (« M-xx » de la page de maquettes), et rubrique « Textes fr / en ». L'inscription libre n'a pas de fiche : les comptes sont créés par l'administrateur ; l'essai en ligne relève du site commercial (lot 12).
 
 ## Écrans à maquetter sans capture
 
