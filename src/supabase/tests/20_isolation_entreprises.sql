@@ -102,6 +102,17 @@ do $$ begin
 end $$;
 reset role;
 
+-- 5 bis (suite). La clé de licence n'est jamais lisible depuis l'écran, même dans sa propre entreprise
+select set_config('request.jwt.claims', '{"sub":"a1000000-0000-0000-0000-000000000001","tenant_id":"aaaaaaaa-0000-0000-0000-000000000001","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  begin
+    perform license_key from public.subscriptions;
+    assert false, 'Clé de licence lisible depuis l''écran';
+  exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+
 -- 5 ter. Personne désactivée mais encore membre : ne voit plus ni ses entreprises ni ses appartenances
 update public.users set is_active = false where id = 'b2000000-0000-0000-0000-000000000002';
 select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated"}', true);

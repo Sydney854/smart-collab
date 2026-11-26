@@ -416,6 +416,9 @@ grant select on all tables in schema public to authenticated;
 -- restent privées (elles révéleraient les autres entreprises de la personne)
 revoke select on public.users from authenticated;
 grant select (id, email, full_name, locale, is_active, created_at) on public.users to authenticated;
+-- Clé de licence : traitée comme un secret, lisible par le serveur seulement (décision E3 du 26/11/2026)
+revoke select on public.subscriptions from authenticated;
+grant select (id, tenant_id, plan_id, starts_on, ends_on, amount, currency, status, created_at) on public.subscriptions to authenticated;
 
 -- ─────────────────────────────────────────────
 -- Sécurité au niveau des lignes (RLS) : activée et forcée partout, aucune table sans règle (SEC-MO-01)

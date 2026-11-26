@@ -35,6 +35,8 @@ Dernière mise à jour : 26/11/2026.
 
 - **Sécurité** : des valeurs par défaut prudentes, toujours réglables par l'entreprise ; pas de SMS pour la double authentification (26/11).
 - **Écran vide** : « Pas encore de données » plutôt que des zéros (26/11).
+- **Vérifier pour de vrai** : essayer sur le vrai service de développement (Supabase en ligne, données fictives) plutôt que seulement sur une imitation, et dire ce qui a été vérifié pour de vrai ; pas de nouvel outil dans l'environnement tant que cette vérification suffit (26/11).
+- **Clé de licence ou d'activation** : traitée comme un secret, lisible par le serveur seulement, dès sa création (26/11).
 - **Pages partageables** (maquettes, artefacts) : on ne cite pas le nom d'un client ; on écrit « client fondateur » (26/11).
 
 - **Honnêteté sur les données** : jamais de chiffre inventé ; une limite de donnée est affichée, pas cachée.
