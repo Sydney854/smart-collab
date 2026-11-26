@@ -61,3 +61,14 @@ Déroulé en fin d'étape :
 4. Dans la synthèse à la cheffe de projet : verdict de chaque agent en une ligne, points corrigés, points restants. Pas de rapport technique brut.
 
 Ces agents n'existent que dans Claude Code. Si une partie du travail passe par Antigravity, appliquer les mêmes contrôles à la main à partir de ces fichiers.
+
+## Agent de conseil (décision du 26/11/2026)
+
+Avant de présenter la synthèse de fin d'étape, lancer `conseil-validation` (`.claude/agents/conseil-validation.md`) avec la liste des ajustements possibles et des questions. Il s'appuie sur `00_GOUVERNANCE/PREFERENCES_CHEFFE_DE_PROJET.md` et le journal des décisions.
+
+Dans la synthèse :
+- le tableau des ajustements a une colonne **Recommandation** (avec son niveau de confiance) ;
+- les questions déjà tranchées par une décision ne sont pas reposées ;
+- un message **« Réponse proposée »**, numéroté, que la cheffe de projet peut renvoyer tel quel ou corriger.
+
+Quand elle tranche une question qui révèle une préférence générale, ajouter la ligne proposée par l'agent dans `PREFERENCES_CHEFFE_DE_PROJET.md`.
