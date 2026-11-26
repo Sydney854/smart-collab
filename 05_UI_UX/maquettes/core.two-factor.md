@@ -37,8 +37,8 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 - **Utiliser un code de secours** : bascule vers un champ unique ; le code utilisé est invalidé.
 - **Retour à la connexion** : annule et revient à `core.login`.
 - Activation : **Télécharger les codes de secours** (fichier texte) puis **J'ai noté mes codes** (obligatoire pour terminer). Les codes de secours sont conservés **hachés**, à usage unique, contrôlés par le serveur.
-- **Désactiver** (profil) : demande le mot de passe ; impossible pour un administrateur. Activation et désactivation inscrites au journal, avec e-mail d'alerte au titulaire.
-- **Téléphone perdu** : un autre administrateur réinitialise le second facteur de l'utilisateur ; opération journalisée et e-mail d'alerte au titulaire ; l'utilisateur doit l'activer à nouveau à la connexion suivante.
+- **Désactiver** (profil) : demande le mot de passe **et** un code du second facteur ; impossible pour un administrateur et pour les rôles où l'entreprise l'a rendue obligatoire (`core.settings-security`), que la connexion impose alors comme pour les administrateurs. Activation et désactivation inscrites au journal, avec e-mail d'alerte au titulaire.
+- **Téléphone perdu** : un autre administrateur réinitialise le second facteur de l'utilisateur ; opération journalisée et e-mail d'alerte au titulaire ; l'utilisateur doit l'activer à nouveau à la connexion suivante. **Administrateur unique** : la réinitialisation passe par l'éditeur (console éditeur, lot 12) après vérification d'identité, avec journal et e-mail au titulaire.
 
 ## États
 
@@ -74,6 +74,10 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Code incorrect ou expiré. | Incorrect or expired code. |
 | Activer la double authentification | Turn on two-step verification |
 | J'ai noté mes codes de secours | I have saved my backup codes |
+
+## À trancher par la cheffe de projet
+
+- Proposer le **SMS** comme second facteur (capture DreamsERP « Code par SMS ») ? Proposition : non (moins sûr), application d'authentification seulement, e-mail en secours.
 
 ## À ne pas reproduire
 

@@ -31,7 +31,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 |---|---|---|---|
 | Nom, prénom | texte | oui |  |
 | Téléphone | téléphone | non | format international |
-| Photo | fichier | non | PNG, JPEG ou WebP, ≤ 2 Mo, contrôlé par le serveur |
+| Photo | fichier | non | PNG, JPEG ou WebP, ≤ 2 Mo, contrôlé par le serveur, dossier privé de l'entreprise, affichée par liens signés (SEC-MO-05) |
 | Langue | liste | oui | français ou anglais |
 | Mot de passe actuel | mot de passe | oui (pour changer) |  |
 | Nouveau mot de passe | mot de passe | oui (pour changer) | règles de Paramètres → Sécurité |
@@ -39,7 +39,8 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 ## Actions (ce que fait chaque clic)
 
 - **Enregistrer** (identité, préférences) : appliqué tout de suite ; journal d'audit.
-- **Changer le mot de passe** : fenêtre ; exige le mot de passe actuel ; ferme les autres sessions ; e-mail d'alerte.
+- **Changer le mot de passe** : fenêtre ; exige le mot de passe actuel ; ferme les autres sessions ; e-mail d'alerte ; inscrit au journal d'audit.
+- **Code de caisse** (si Point de vente installé) : créer ou réinitialiser le code utilisé hors ligne (8 chiffres minimum), après saisie du mot de passe.
 - **Double authentification** : ouvre l'activation (`core.two-factor`) ; désactivation impossible pour un administrateur.
 - **Fermer une session** : déconnecte l'appareil concerné au serveur.
 
@@ -52,7 +53,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 ## Droits nécessaires
 
-- Chacun pour son propre profil (aucun droit particulier) ; l'e-mail et le rôle ne sont modifiables que par core.user.manage.
+- Chacun pour son propre profil (aucun droit particulier) ; l'e-mail et le rôle ne sont modifiables que par un administrateur (droit de gestion des comptes de `core.users`). Un changement d'e-mail par l'administrateur prévient l'ancienne adresse et fait vérifier la nouvelle.
 
 Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_DROITS.md). Une action non autorisée est masquée, pas grisée.
 

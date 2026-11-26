@@ -19,13 +19,15 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 ## Zones de l'écran
 
 - **Voile opaque** (pas un simple flou) sur toute l'application ; carte centrée : avatar et nom de l'utilisateur, champ mot de passe, bouton Déverrouiller, lien « Ce n'est pas moi ».
-- Si la session a **expiré** (et non simple inactivité), les données affichées sont retirées de la page ; seules les saisies en cours sont gardées sur l'appareil (chiffrées), puis restituées après le déverrouillage.
+- À **chaque** verrouillage (inactivité ou session expirée), les données affichées sont retirées de la page et la session est **suspendue côté serveur** jusqu'au déverrouillage ; seules les saisies en cours sont gardées sur l'appareil (chiffrées), puis restituées.
+- Lien « Mot de passe oublié ? » sous le bouton ; sur un poste de caisse hors ligne, le champ mot de passe est remplacé par le **code de caisse**.
 
 ## Champs et filtres
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
 | Mot de passe | mot de passe | oui |  |
+| Code de caisse | code chiffré | oui (caisse hors ligne) | 8 chiffres minimum ; créé et réinitialisé dans `core.profile` ; ne sert pas seul de clé de chiffrement des données locales |
 
 ## Actions (ce que fait chaque clic)
 
@@ -66,6 +68,8 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Déverrouiller | Unlock |
 | Ce n'est pas moi | Not me |
 | Verrouiller | Lock |
+| Mot de passe oublié ? | Forgot password? |
+| Code de caisse | Till code |
 
 ## À ne pas reproduire
 

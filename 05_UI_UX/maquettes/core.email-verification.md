@@ -31,7 +31,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 - **Vérifier** : confirme l'adresse ; succès → première connexion (choix du mot de passe si compte créé par l'administrateur, puis assistant si l'entreprise n'est pas configurée).
 - **Renvoyer le code** : disponible après 60 secondes (compte à rebours affiché) ; le délai et le nombre de renvois (5 par heure) sont **appliqués par le serveur**, pas seulement par l'écran ; contrôle anti-robot (SEC-MO-04).
-- Invitations envoyées par l'administrateur : lien valable 72 heures, à usage unique. *Valeurs : propositions à valider.*
+- Invitations envoyées par l'administrateur : lien valable 72 heures, à usage unique ; plafond d'invitations par heure et par entreprise appliqué par le serveur. *Valeurs : propositions à valider.*
 
 ## États
 

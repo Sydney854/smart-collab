@@ -27,17 +27,21 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 | Champ | Type | Obligatoire | Précisions |
 |---|---|---|---|
-| Longueur minimale du mot de passe | nombre | oui | 10 par défaut, 10 au minimum |
-| Échecs avant verrouillage | nombre | oui | 5 par défaut (3 à 10) |
-| Durée du verrouillage | minutes | oui | 15 par défaut |
-| Durée de session | heures | oui | 8 par défaut |
-| Verrouillage après inactivité | minutes | oui | 15 par défaut ; 0 interdit |
-| Double authentification des autres rôles | choix | oui | proposée / obligatoire |
-| Durée maximale hors ligne | heures | oui | 72 par défaut (EF-OFF-02) |
+| Longueur minimale du mot de passe | nombre | oui | 10 par défaut ; bornes 10 à 64 |
+| Refus des mots de passe compromis | oui / non | oui | oui par défaut |
+| Durée de validité du mot de passe | jours | non | vide = sans expiration ; 30 à 365 |
+| Échecs avant verrouillage | nombre | oui | 5 par défaut ; 3 à 10 |
+| Durée du verrouillage | minutes | oui | 15 par défaut ; 5 à 1 440 |
+| Durée de session | heures | oui | 8 par défaut ; 1 à 24 |
+| Verrouillage après inactivité | minutes | oui | 15 par défaut ; 1 à 60 |
+| Double authentification des autres rôles | choix par rôle | oui | proposée / obligatoire |
+| Durée maximale hors ligne | heures | oui | 72 par défaut ; 1 à 168 (EF-OFF-02) |
+| Code de caisse obligatoire hors ligne | oui / non | oui | oui par défaut ; 8 chiffres minimum |
 
 ## Actions (ce que fait chaque clic)
 
-- **Enregistrer** : vérifié et appliqué par le serveur (bornes min / max), journal d'audit avec ancienne et nouvelle valeur (ENF-TRA-01) ; s'applique aux prochaines connexions.
+- **Enregistrer** : vérifié et appliqué par le serveur (bornes min / max), journal d'audit avec ancienne et nouvelle valeur (ENF-TRA-01) ; s'applique aux prochaines connexions. Un réglage **plus faible** que le précédent redemande le second facteur avant d'être enregistré.
+- Stockage : ces réglages sont **propres à chaque entreprise**, rangés dans sa configuration et appliqués par notre serveur (crochets d'authentification) ; on ne modifie jamais la configuration commune de Supabase Auth, qui toucherait toutes les entreprises.
 
 ## États
 
@@ -73,6 +77,9 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | Verrouillage après inactivité | Lock after inactivity |
 | Double authentification | Two-step verification |
 | Durée maximale hors ligne | Maximum offline time |
+| Connexion | Sign-in |
+| Hors ligne | Offline |
+| Code de caisse obligatoire | Till code required |
 
 ## À trancher par la cheffe de projet
 

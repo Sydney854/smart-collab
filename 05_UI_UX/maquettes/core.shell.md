@@ -40,9 +40,8 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 - Clic sur un module (menu ou tuile) : ouvre l'écran (onglet ou fenêtre) ; l'adresse suit l'écran courant.
 - Bouton **Liste / Mosaïque** : change de mode ; choix retenu par utilisateur (navigateur, puis profil au lot 1).
-- Menu utilisateur : **Mon profil**, **Paramètres** (si droit), **Verrouiller** (→ `core.lock-screen`), **Se déconnecter** (ferme la session au serveur et **efface les données locales**, sauf la file non encore envoyée : EF-OFF-03, SEC-MO-11).
+- Menu utilisateur : **Mon profil** (→ `core.profile`), **Paramètres** (si droit), **Verrouiller** (→ `core.lock-screen`), **Se déconnecter** (ferme la session au serveur et **efface les données locales**, sauf la file non encore envoyée : EF-OFF-03, SEC-MO-11).
 - Cloche : ouvre le panneau des notifications.
-- Menu utilisateur : **Mon profil** → `core.profile`.
 
 ## États
 

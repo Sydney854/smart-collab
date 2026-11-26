@@ -18,7 +18,7 @@ Référence visuelle seulement : la maquette Smart Collab reprend la disposition
 
 ## Zones de l'écran
 
-- Carte « Apparence » dans les Paramètres (les autres rubriques : Société `core.company`, Utilisateurs `core.users`, Profils `core.roles`, Sécurité…).
+- Carte « Apparence » dans les Paramètres (les autres rubriques : Société `core.company`, Utilisateurs `core.users`, Profils `core.roles`, Sécurité `core.settings-security`).
 - **Mes réglages** : style des icônes de modules (6 choix avec aperçu de 3 icônes), taille (4 choix avec aperçu), thème et couleur principale (repris de la palette de l'en-tête ; ajout par rapport à `ICONES_MODULES.md` § 5).
 - **Valeurs de l'entreprise** (bloc visible seulement avec core.company.configure) : style d'icône par défaut pour les nouveaux utilisateurs, présentation de l'assistant (proposition 1 ou 2).
 

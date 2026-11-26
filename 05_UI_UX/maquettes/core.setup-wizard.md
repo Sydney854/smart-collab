@@ -40,7 +40,7 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 ## Actions (ce que fait chaque clic)
 
 - **Continuer** : valide l'étape (zod) et passe à la suivante ; la progression est enregistrée (reprise possible).
-- **Terminer** : crée la configuration en une seule opération (tout ou rien) : entreprise, sites par défaut, applications et dépendances, rôles, invitations ; inscription au journal ; ouverture du tableau de bord. Le serveur **refait toute la validation** (zod), fixe lui-même l'entreprise et les rôles (jamais lus dans le formulaire, SEC-MO-03) et **refuse l'assistant si l'entreprise est déjà configurée**. La saisie gardée dans le navigateur est effacée à « Terminer » et à la déconnexion.
+- **Terminer** : crée la configuration en une seule opération (tout ou rien) : entreprise, sites par défaut, applications et dépendances, rôles, invitations ; inscription au journal ; ouverture du tableau de bord. Le serveur **refait toute la validation** (zod), fixe lui-même l'entreprise (jamais lue dans le formulaire, SEC-MO-03) et n'accepte pour les invités **que les rôles de cette entreprise, jamais un rôle d'éditeur** et **refuse l'assistant si l'entreprise est déjà configurée**. La saisie en cours n'est gardée que le temps de la session, chiffrée, et effacée à « Terminer » et à la déconnexion.
 - **Plus tard** (étape 4) : passe sans inviter.
 
 ## États
@@ -48,7 +48,7 @@ Aucune capture (écran propre à Smart Collab) : voir la maquette Smart Collab c
 - **Vide** : étape 1 vierge, pays et langue proposés selon le navigateur.
 - **Chargement** : « Préparation de votre espace… » à la fin.
 - **Erreur** : champ invalide sous le champ ; échec à la fin : rien n'est créé, message et bouton Réessayer.
-- **Hors ligne** : « Connexion nécessaire pour terminer » ; la saisie déjà faite reste dans le navigateur.
+- **Hors ligne** : « Connexion nécessaire pour terminer » ; la saisie déjà faite reste dans la session (chiffrée).
 
 ## Droits nécessaires
 
