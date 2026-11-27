@@ -19,9 +19,11 @@ const MIN_PASSWORD = 10;
 
 type Admin = NonNullable<ReturnType<typeof createAdminClient>>;
 
+/** Écrit au journal des accès ; renvoie false si l'écriture a échoué (la connexion est alors refusée : sécurité par défaut) */
 async function record(admin: Admin, email: string, event: "login" | "login_failed" | "logout" | "locked", tenant: string | null = null) {
   const { ip, userAgent } = await requestInfo();
-  await admin.rpc("record_access", { p_email: email, p_event: event, p_tenant: tenant, p_ip: ip, p_user_agent: userAgent });
+  const { error } = await admin.rpc("record_access", { p_email: email, p_event: event, p_tenant: tenant, p_ip: ip, p_user_agent: userAgent });
+  return !error;
 }
 
 async function isLocked(admin: Admin, email: string) {
@@ -40,12 +42,9 @@ async function nextStep(next: string): Promise<AuthResult> {
   const { data } = await supabase.auth.getClaims();
   const tenant = (data?.claims as { tenant_id?: string } | undefined)?.tenant_id;
   if (!tenant) return { redirect: `/connexion/entreprise?suite=${encodeURIComponent(next)}` };
-  // Production : un administrateur sans second facteur l'active avant tout autre écran (décision L5, SEC-MO-04)
-  if (process.env.VERCEL_ENV === "production" && aal?.currentLevel !== "aal2") {
-    const { data: roles } = await supabase.from("user_roles").select("roles(code)").eq("tenant_id", tenant);
-    const isAdmin = (roles ?? []).some((r) => (r.roles as unknown as { code?: string } | null)?.code === "admin");
-    if (isAdmin) return { redirect: `/connexion/double-authentification/activer?suite=${encodeURIComponent(next)}` };
-  }
+  // Administrateur sans second facteur alors que la plateforme l'exige (production, décision L5) : la base le dit
+  const { data: mustEnroll, error } = await supabase.rpc("must_enroll_mfa");
+  if (error || mustEnroll) return { redirect: `/connexion/double-authentification/activer?suite=${encodeURIComponent(next)}` };
   return { redirect: safeNext(next) };
 }
 
@@ -63,9 +62,9 @@ export async function signIn(input: { email: string; password: string }, next: s
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    await record(admin, email, "login_failed");
-    if (await isLocked(admin, email)) {
-      await record(admin, email, "locked");
+    const logged = await record(admin, email, "login_failed");
+    if (!logged || (await isLocked(admin, email))) {
+      if (logged) await record(admin, email, "locked");
       return { error: "unavailable" };
     }
     return { error: "invalid" };
@@ -73,7 +72,10 @@ export async function signIn(input: { email: string; password: string }, next: s
   const step = await nextStep(next);
   if (step.redirect && !step.redirect.startsWith("/connexion/double-authentification?")) {
     const { data } = await supabase.auth.getClaims();
-    await record(admin, email, "login", (data?.claims as { tenant_id?: string } | undefined)?.tenant_id ?? null);
+    if (!(await record(admin, email, "login", (data?.claims as { tenant_id?: string } | undefined)?.tenant_id ?? null))) {
+      await supabase.auth.signOut();
+      return { error: "unavailable" };
+    }
   }
   return step;
 }
@@ -95,9 +97,9 @@ export async function verifyTotp(code: string, next: string): Promise<AuthResult
   if (!factor) return { redirect: `/connexion/double-authentification/activer?suite=${encodeURIComponent(next)}` };
   const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: factor.id, code });
   if (error) {
-    await record(admin, email, "login_failed");
-    if (await isLocked(admin, email)) {
-      await record(admin, email, "locked");
+    const logged = await record(admin, email, "login_failed");
+    if (!logged || (await isLocked(admin, email))) {
+      if (logged) await record(admin, email, "locked");
       await supabase.auth.signOut();
       return { error: "unavailable" };
     }
@@ -105,7 +107,10 @@ export async function verifyTotp(code: string, next: string): Promise<AuthResult
   }
   const step = await nextStep(next);
   const { data } = await supabase.auth.getClaims();
-  await record(admin, email, "login", (data?.claims as { tenant_id?: string } | undefined)?.tenant_id ?? null);
+  if (!(await record(admin, email, "login", (data?.claims as { tenant_id?: string } | undefined)?.tenant_id ?? null))) {
+    await supabase.auth.signOut();
+    return { error: "unavailable" };
+  }
   return step;
 }
 
@@ -124,9 +129,27 @@ export async function enrollTotp(): Promise<{ factorId?: string; qr?: string; se
 
 export async function confirmTotp(factorId: string, code: string, next: string): Promise<AuthResult> {
   if (!/^\d{6}$/.test(code)) return { error: "code" };
+  const admin = createAdminClient();
+  if (!admin) return { error: "config" };
   const supabase = await createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const email = userData.user?.email;
+  if (!email) return { redirect: "/connexion" };
+  if (await isLocked(admin, email)) {
+    await supabase.auth.signOut();
+    return { error: "unavailable" };
+  }
   const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code });
-  if (error) return { error: "code" };
+  if (error) {
+    // Les erreurs de code à l'activation comptent aussi pour le verrouillage
+    const logged = await record(admin, email, "login_failed");
+    if (!logged || (await isLocked(admin, email))) {
+      if (logged) await record(admin, email, "locked");
+      await supabase.auth.signOut();
+      return { error: "unavailable" };
+    }
+    return { error: "code" };
+  }
   return nextStep(next);
 }
 

@@ -461,7 +461,6 @@
     "capsLock": "Majuscules activées",
     "signIn": "Se connecter",
     "signingIn": "Connexion…",
-    "forgot": "Mot de passe oublié ?",
     "errors": {
       "invalid": "E-mail ou mot de passe incorrect.",
       "unavailable": "Connexion impossible pour le moment. Réessayez plus tard.",
@@ -477,7 +476,6 @@
       "passwordMatch": "Les deux mots de passe ne sont pas identiques.",
       "terms": "Acceptez les conditions d'utilisation."
     },
-    "forgotSoon": "La réinitialisation du mot de passe arrive à la prochaine étape. En attendant, contactez l'administrateur de votre entreprise.",
     "companyTitle": "Choisissez l'entreprise",
     "companyHint": "Votre compte a accès à plusieurs entreprises.",
     "noCompany": "Votre compte n'a accès à aucune entreprise pour le moment.",
@@ -508,6 +506,8 @@
     "join": "Rejoindre {company}",
     "signInToJoin": "Se connecter pour rejoindre",
     "passwordRule": "Au moins {min} caractères.",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "inviteInvalidTitle": "Invitation",
+    "backToSignIn": "Retour à la connexion"
   }
 }

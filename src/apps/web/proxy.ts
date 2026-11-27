@@ -55,6 +55,11 @@ export async function proxy(request: NextRequest) {
     return redirect(`/connexion/double-authentification?suite=${encodeURIComponent(wanted)}`);
   }
   if (!claims.tenant_id) return redirect(`/connexion/entreprise?suite=${encodeURIComponent(wanted)}`);
+  // Administrateur sans second facteur alors que la plateforme l'exige (production, décision L5) : activation d'abord
+  if (claims.aal !== "aal2") {
+    const { data: mustEnroll, error } = await supabase.rpc("must_enroll_mfa");
+    if (error || mustEnroll) return redirect(`/connexion/double-authentification/activer?suite=${encodeURIComponent(wanted)}`);
+  }
   return response;
 }
 

@@ -12,7 +12,10 @@ export const authConfigured = Boolean(SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY);
  * Sans Supabase et sans cette demande, l'application refuse de s'ouvrir (sécurité par défaut).
  */
 export const demoWithoutAuth =
-  !authConfigured && process.env.SC_DEMO_SANS_CONNEXION === "1" && process.env.VERCEL_ENV !== "production";
+  !authConfigured &&
+  process.env.SC_DEMO_SANS_CONNEXION === "1" &&
+  process.env.VERCEL_ENV !== "production" &&
+  process.env.SC_ENVIRONMENT !== "production";
 
 /** Adresses accessibles sans être connecté */
 export const PUBLIC_PATHS = ["/connexion", "/invitation"];
@@ -21,7 +24,22 @@ export function isPublicPath(path: string) {
   return PUBLIC_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
-/** Retour après connexion : seulement une adresse interne (jamais un autre site) */
+const SELF = "https://smart-collab.invalid";
+
+/**
+ * Retour après connexion : seulement une adresse de notre site (jamais un autre site).
+ * Refuse les caractères de contrôle (tabulation, retour à la ligne : le navigateur les supprime et « /\t/x » devient « //x »),
+ * la barre oblique inversée, puis vérifie qu'une fois interprétée l'adresse reste sur notre site.
+ */
 export function safeNext(value: unknown): string {
-  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//") && !value.startsWith("/\\") ? value : "/";
+  if (typeof value !== "string" || !value.startsWith("/") || value.length > 2000) return "/";
+  // biome-ignore lint/suspicious/noControlCharactersInRegex: on cherche justement les caractères de contrôle
+  if (/[\u0000-\u001f\u007f\\]/.test(value)) return "/";
+  try {
+    const url = new URL(value, SELF);
+    if (url.origin !== SELF) return "/";
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return "/";
+  }
 }

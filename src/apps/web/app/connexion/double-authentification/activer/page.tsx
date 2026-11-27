@@ -10,5 +10,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims) redirect(`/connexion?suite=${encodeURIComponent("/connexion/double-authentification/activer")}`);
-  return <MfaSetupPage next={next} required={process.env.VERCEL_ENV === "production"} />;
+  const { data: required } = await supabase.rpc("must_enroll_mfa");
+  return <MfaSetupPage next={next} required={Boolean(required)} />;
 }

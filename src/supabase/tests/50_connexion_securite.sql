@@ -132,3 +132,44 @@ do $$ begin
   assert exists (select 1 from public.audit_log where entity = 'invitation' and action = 'accept'), 'Acceptation non tracée';
 end $$;
 rollback;
+
+-- 4. Administrateur sans second facteur : refusé par la base quand la plateforme l'exige (production) ; libre sinon
+begin;
+\ir fixtures.sql
+select set_config('request.jwt.claims', '{"sub":"a1000000-0000-0000-0000-000000000001","tenant_id":"aaaaaaaa-0000-0000-0000-000000000001","role":"authenticated","aal":"aal1"}', true);
+set local role authenticated;
+do $$ begin
+  assert app.current_tenant() is not null, 'Sans le réglage, l''administrateur entre sans second facteur (démonstration)';
+  assert not public.must_enroll_mfa(), 'Sans le réglage, pas d''activation imposée';
+end $$;
+reset role;
+insert into app.settings values ('require_admin_mfa', 'true');
+set local role authenticated;
+do $$ begin
+  assert app.current_tenant() is null, 'Production : administrateur sans second facteur accepté';
+  assert (select count(*) from public.roles) = 0, 'Production : administrateur sans second facteur voit les données';
+  assert public.must_enroll_mfa(), 'Production : activation non demandée';
+  begin
+    perform 1 from app.settings;
+    assert false, 'Les réglages de la plateforme sont lisibles';
+  exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+-- Une personne non administratrice n'est pas concernée
+select set_config('request.jwt.claims', '{"sub":"c3000000-0000-0000-0000-000000000003","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated","aal":"aal1"}', true);
+set local role authenticated;
+do $$ begin
+  assert app.current_tenant() is not null, 'Non-administrateur bloqué à tort';
+end $$;
+reset role;
+-- Jeton sans e-mail : une invitation ne peut pas être acceptée
+select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  begin
+    perform public.accept_invitation(repeat('0', 64));
+    assert false, 'Acceptation possible';
+  exception when no_data_found or insufficient_privilege then null; end;
+end $$;
+reset role;
+rollback;

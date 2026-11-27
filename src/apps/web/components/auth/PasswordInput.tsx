@@ -18,7 +18,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<typeof 
           ref={ref}
           {...props}
           type={shown ? "text" : "password"}
-          className="pr-10"
+          className="pr-10 max-sm:h-11"
           onKeyUp={(e) => setCaps(e.getModifierState?.("CapsLock") ?? false)}
         />
         <Button

@@ -72,6 +72,7 @@ function CodeForm({ onSubmit, pending, label }: { onSubmit: (code: string) => vo
       onSubmit={(e: FormEvent) => {
         e.preventDefault();
         onSubmit(code);
+        setCode("");
       }}
     >
       <div className="flex flex-col gap-1.5">
@@ -80,11 +81,10 @@ function CodeForm({ onSubmit, pending, label }: { onSubmit: (code: string) => vo
           id="mfa-code"
           inputMode="numeric"
           autoComplete="one-time-code"
-          maxLength={6}
           autoFocus
           value={code}
-          onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
-          className="text-center font-mono text-lg tracking-[0.5em]"
+          onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+          className="h-11 text-center font-mono text-lg tracking-[0.5em]"
         />
       </div>
       <Button type="submit" disabled={pending || code.length !== 6}>
@@ -193,8 +193,11 @@ export function InvitationPage({ view }: { view: InvitationView }) {
 
   if (view.state === "invalid") {
     return (
-      <AuthLayout title={t("signInTitle")}>
+      <AuthLayout title={t("inviteInvalidTitle")}>
         <FormError message={t("errors.expired")} />
+        <Button asChild variant="outline">
+          <a href="/connexion">{t("backToSignIn")}</a>
+        </Button>
       </AuthLayout>
     );
   }

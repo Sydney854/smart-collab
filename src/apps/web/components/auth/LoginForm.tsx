@@ -50,20 +50,16 @@ export function LoginForm({ next }: { next: string }) {
       <FormError message={error ? t(`errors.${error}`) : undefined} />
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="login-email">{t("email")}</Label>
-        <Input id="login-email" type="email" inputMode="email" autoComplete="username" autoFocus disabled={pending} aria-invalid={!!errors.email} {...form.register("email")} />
+        <Input id="login-email" className="max-sm:h-11" type="email" inputMode="email" autoComplete="username" autoFocus disabled={pending} aria-invalid={!!errors.email} {...form.register("email")} />
         {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
       </div>
       <div className="flex flex-col gap-1.5">
-        <div className="flex items-baseline justify-between gap-2">
-          <Label htmlFor="login-password">{t("password")}</Label>
-          <button type="button" className="text-sm text-gold-strong hover:underline" onClick={() => toast.info(t("forgotSoon"))}>
-            {t("forgot")}
-          </button>
-        </div>
+        {/* « Mot de passe oublié ? » : affiché quand l'écran core.forgot-password existera (pas de lien sans effet) */}
+        <Label htmlFor="login-password">{t("password")}</Label>
         <PasswordInput id="login-password" autoComplete="current-password" disabled={pending} aria-invalid={!!errors.password} {...form.register("password")} />
         {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
       </div>
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" className="max-sm:h-11" disabled={pending}>
         {pending ? t("signingIn") : t("signIn")}
       </Button>
     </form>

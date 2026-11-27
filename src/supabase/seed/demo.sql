@@ -1,6 +1,7 @@
 -- Smart Collab — Données de démonstration du lot 1 (FICTIVES ; décision L4 du 26/11/2026)
 -- À n'appliquer que sur une base de développement ou de démonstration, JAMAIS en production :
--- le script s'arrête si la base contient une personne dont l'e-mail ne finit pas par « .test ».
+-- le script s'arrête si le réglage app.settings « allow_demo_data » n'est pas vrai, ou si la base contient
+-- une personne dont l'e-mail ne finit pas par « .test ».
 -- Le mot de passe commun des comptes n'est pas dans ce fichier : on passe son empreinte bcrypt
 -- (remplacer __DEMO_PASSWORD_HASH__ ; mot de passe documenté dans src/README.md).
 -- Réexécutable : ne crée que ce qui manque.
@@ -13,6 +14,9 @@ declare
   r record;
   uid uuid;
 begin
+  if not app.setting_true('allow_demo_data') then
+    raise exception 'Données de démonstration refusées : réglage allow_demo_data absent (base de production ?)';
+  end if;
   if exists (select 1 from public.users where email !~* '\.test$') or exists (select 1 from auth.users where email !~* '\.test$') then
     raise exception 'Base non vide de comptes réels : données de démonstration refusées';
   end if;
