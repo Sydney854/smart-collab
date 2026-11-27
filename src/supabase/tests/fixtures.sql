@@ -51,5 +51,7 @@ begin
     k := gen_random_uuid();
     insert into public.sync_operations (idempotency_key, tenant_id, device_id, operation, payload, performed_at) values (k, t, d, 'pos.sale.create', '{}', now());
     insert into public.sync_conflicts (tenant_id, idempotency_key, kind, detail) values (t, k, 'price_changed', '{}');
+    insert into public.invitations (tenant_id, email, full_name, role_id, token_hash, expires_at, invited_by)
+      values (t, 'invite-' || left(t::text, 4) || '@demo.test', 'Personne Invitée', r, md5(t::text || 'x'), now() + interval '7 days', u);
   end loop;
 end $$;

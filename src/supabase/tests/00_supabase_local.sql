@@ -15,6 +15,9 @@ grant create on database postgres to postgres;
 create schema if not exists extensions authorization postgres;
 create schema if not exists auth;
 create table if not exists auth.users (id uuid primary key, email text);
+-- Seconds facteurs (double authentification) : seuls les champs lus par Smart Collab
+create table if not exists auth.mfa_factors (id uuid primary key default gen_random_uuid(), user_id uuid not null, status text not null);
+grant select on auth.mfa_factors to postgres;
 grant usage on schema auth to postgres, anon, authenticated, service_role, supabase_auth_admin;
 grant select, references on auth.users to postgres;
 create or replace function auth.jwt() returns jsonb language sql stable as $$
