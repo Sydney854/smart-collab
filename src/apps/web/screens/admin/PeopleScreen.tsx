@@ -36,7 +36,13 @@ export function PeopleScreen() {
   const [deactivating, setDeactivating] = useState<Member>();
 
   if (data === undefined) return <p className="text-muted-foreground">…</p>;
-  if (data === null) return <EmptyState title={t("peopleTitle")} description={t("signedOutOnly")} />;
+  if (data === null)
+    return (
+      <div className="mx-auto flex max-w-6xl flex-col gap-5">
+        <h1 className="text-2xl font-semibold tracking-tight">{t("peopleTitle")}</h1>
+        <EmptyState description={t("signedOutOnly")} />
+      </div>
+    );
   const roleName = (id: string) => label(data.roles.find((r) => r.id === id)?.name);
   const invitableRoles = data.roles.filter((r) => r.isActive && (r.code !== "admin" || can("core.roles.manage")));
 

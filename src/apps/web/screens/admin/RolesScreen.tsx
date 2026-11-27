@@ -21,7 +21,13 @@ export function RolesScreen() {
   const editable = can("core.roles.manage");
 
   if (data === undefined) return <p className="text-muted-foreground">…</p>;
-  if (data === null) return <EmptyState title={t("rolesTitle")} description={t("signedOutOnly")} />;
+  if (data === null)
+    return (
+      <div className="mx-auto flex max-w-6xl flex-col gap-5">
+        <h1 className="text-2xl font-semibold tracking-tight">{t("rolesTitle")}</h1>
+        <EmptyState description={t("signedOutOnly")} />
+      </div>
+    );
 
   const roles = data.roles.filter((r) => r.isActive);
   return (
