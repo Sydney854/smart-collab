@@ -48,7 +48,14 @@ pnpm test:db
 
 Intégration continue : `.github/workflows/ci.yml` (racine du dépôt) lance à chaque envoi les tests de l'application (types, unitaires, construction, écrans) et ceux de la base.
 
-Supabase en local (`supabase start`) demande Docker : pas encore configuré (le conteneur de développement n'a pas Docker en marche). Les tests utilisent une base PostgreSQL seule qui imite Supabase.
+Supabase en local (`supabase start`) demande Docker : pas encore configuré (le conteneur de développement n'a pas Docker en marche). Les tests utilisent une base PostgreSQL seule qui imite Supabase (écart au prompt du lot 1 accepté le 26/11, décision E2).
+
+Vérification sur le vrai Supabase (projet de développement `smart-collab-dev`, 27/11/2026) :
+- migration appliquée sous le nom `socle_plateforme` (même contenu que le fichier, sans les commentaires) ; à l'arrivée du CLI Supabase, aligner l'historique (`supabase migration repair`) ;
+- 23 tables, toutes avec RLS activée et forcée, aucune sans règle, aucun droit pour `anon`, aucune écriture pour `authenticated`, clé de licence illisible ;
+- le test d'isolation (17 tables d'entreprise), le crochet de connexion et l'ajout seul passent, dans une transaction annulée (aucune donnée laissée) ;
+- conseils de sécurité Supabase : un seul avertissement, voulu — `select_tenant` est appelable par une personne connectée (elle vérifie l'appartenance avant d'agir).
+- reste à faire à l'étape 2 : brancher le crochet dans Supabase → Authentication → Hooks (`public.custom_access_token_hook`).
 
 ## État au lot 0 (branche `lot-00`)
 
