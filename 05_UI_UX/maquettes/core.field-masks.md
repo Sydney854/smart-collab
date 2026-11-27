@@ -29,7 +29,7 @@ Prix d'achat, marges, salaires et taux internes sont **masquables par rôle, cha
 
 ## Actions
 
-- **Basculer un interrupteur** : enregistré immédiatement par le serveur (permission `core.roles.manage`), tracé dans le journal d'audit (ancien et nouvel état).
+- **Basculer un interrupteur** : la modification est en attente (compteur « N modifications ») ; **Enregistrer** l'envoie au serveur (permission `core.roles.manage`), tracée dans le journal d'audit ; **Annuler les modifications** revient à l'état enregistré (décision G4 du 27/11/2026).
 - **Rétablir le préréglage du métier** : remet les valeurs d'origine pour ce rôle, après confirmation.
 
 ## États
