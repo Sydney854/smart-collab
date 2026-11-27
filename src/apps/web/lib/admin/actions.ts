@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { authConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -25,6 +26,7 @@ export type AdminData = {
 export type ActionResult = { ok: boolean; error?: "forbidden" | "invalid" | "exists" | "self" | "reason" | "failed"; token?: string };
 
 async function context() {
+  if (!authConfigured) throw new Error("Connexion non configurée");
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   const claims = data?.claims as { sub?: string; tenant_id?: string } | undefined;
@@ -41,6 +43,8 @@ function fail(error: { code?: string } | null): ActionResult {
 
 /** Données des écrans d'administration (ce que la base laisse voir à la personne connectée) */
 export async function loadAdminData(): Promise<AdminData | null> {
+  // Démonstration sans connexion : aucune donnée réelle à montrer
+  if (!authConfigured) return null;
   const { supabase, me, tenant } = await context();
   if (!tenant) return null;
   const [members, userRoles, roles, perms, masks, invitations, catalog, fields] = await Promise.all([
