@@ -573,6 +573,24 @@
     "settingsRoles": "Permissions of each role and sensitive data",
     "save": "Save",
     "roleLabel": "Role",
-    "powerWarning": "Note: a role that can “Change roles and permissions” can grant itself every permission, including administrator."
+    "powerWarning": "Note: a role that can “Change roles and permissions” can grant itself every permission, including administrator.",
+    "profiles": "Roles",
+    "rightsCount": "{count, plural, =0 {no permission} one {# permission} other {# permissions}}",
+    "membersCount": "{count, plural, =0 {nobody} one {# person} other {# people}}",
+    "createProfile": "Create a role",
+    "copyFrom": "Start from the permissions of",
+    "emptyProfile": "Empty role",
+    "nameFr": "Name (French)",
+    "nameEn": "Name (English)",
+    "rename": "Rename",
+    "deactivateProfile": "Deactivate role",
+    "deactivateProfileConfirm": "Deactivate the role “{name}”? It can no longer be assigned; history is kept.",
+    "pendingChanges": "{count, plural, one {# pending change} other {# pending changes}}",
+    "discard": "Discard changes",
+    "filterAll": "All",
+    "filterActive": "Active",
+    "filterInactive": "Deactivated",
+    "appGroup": "Core",
+    "inactiveProfile": "deactivated"
   }
 }

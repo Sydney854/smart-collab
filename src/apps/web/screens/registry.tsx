@@ -52,9 +52,9 @@ export function useScreens(): ScreenDef[] {
       { key: "finance", label: t("finance"), description: d("finance"), icon: <WalletIcon />, moduleIcon: "finance", render: planned("finance") },
       { key: "apps", label: t("apps"), description: d("apps"), icon: <AppWindowIcon />, moduleIcon: "apps", render: () => <AppStoreScreen />, needs: "core.apps.view" },
       { key: "settings", label: t("settings"), description: d("settings"), icon: <SettingsIcon />, moduleIcon: "settings", render: () => <SettingsScreen />, needs: "core.settings.view" },
-      // Administration : dans le menu (Liste) et depuis Paramètres ; pas de tuile (ce ne sont pas des modules)
-      { key: "people", label: t("people"), description: d("people"), icon: <UsersIcon />, render: () => <PeopleScreen />, needs: "core.users.view" },
-      { key: "roles", label: t("roles"), description: d("roles"), icon: <ShieldCheckIcon />, render: () => <RolesScreen />, needs: "core.roles.view" },
+      // Administration : ouverte depuis Paramètres, de la même façon en Liste et en Mosaïque (décision G5) ; ni menu, ni tuile
+      { key: "people", label: t("people"), description: d("people"), icon: <UsersIcon />, hidden: true, render: () => <PeopleScreen />, needs: "core.users.view" },
+      { key: "roles", label: t("roles"), description: d("roles"), icon: <ShieldCheckIcon />, hidden: true, render: () => <RolesScreen />, needs: "core.roles.view" },
       { key: "setup", label: t("setup"), description: d("setup"), icon: <ListChecksIcon />, hidden: true, render: () => <SetupWizardScreen /> },
       { key: "components", label: t("components"), description: d("components"), icon: <ComponentIcon />, moduleIcon: "components", hidden: true, render: () => <ComponentsScreen /> },
     ];

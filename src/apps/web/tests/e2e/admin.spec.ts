@@ -14,12 +14,12 @@ test("Paramètres mène à Collaborateurs et à Profils et droits", async ({ pag
   await expect(page.getByRole("heading", { level: 1, name: "Profils et droits" })).toBeVisible();
 });
 
-test("Collaborateurs et Profils et droits sont dans le menu, mais n'ont pas de tuile (ce ne sont pas des modules)", async ({ page, context, isMobile }) => {
+test("Collaborateurs et Profils et droits s'ouvrent depuis Paramètres, pareil dans les deux modes : ni menu, ni tuile (décision G5)", async ({ page, context, isMobile }) => {
   test.skip(isMobile, "Menu latéral vérifié sur ordinateur");
   await page.goto("/");
   await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
-  await expect(page.getByRole("button", { name: "Collaborateurs", exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Profils et droits", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Collaborateurs", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Profils et droits", exact: true })).toHaveCount(0);
   await context.addCookies([{ name: "sc-layout", value: "mosaic", url: "http://localhost:3100" }]);
   await page.reload();
   await page.locator("html[data-ready=true]").waitFor({ state: "attached" });

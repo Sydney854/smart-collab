@@ -7,6 +7,7 @@ import { Checkbox } from "@smart-collab/ui/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@smart-collab/ui/components/ui/dialog";
 import { Input } from "@smart-collab/ui/components/ui/input";
 import { Label } from "@smart-collab/ui/components/ui/label";
+import { Skeleton } from "@smart-collab/ui/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@smart-collab/ui/components/ui/select";
 import { useFormatDate } from "@smart-collab/ui";
 import { CopyIcon, MailPlusIcon } from "lucide-react";
@@ -35,8 +36,15 @@ export function PeopleScreen() {
   const [editing, setEditing] = useState<Member>();
   const [editRoles, setEditRoles] = useState<string[]>([]);
   const [deactivating, setDeactivating] = useState<Member>();
+  const [filter, setFilter] = useState<"all" | "active" | "inactive">("all");
 
-  if (data === undefined) return <p className="text-muted-foreground">…</p>;
+  if (data === undefined)
+    return (
+      <div className="mx-auto flex max-w-6xl flex-col gap-3" aria-busy>
+        <Skeleton className="h-8 w-64" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
   if (data === null)
     return (
       <div className="mx-auto flex max-w-6xl flex-col gap-5">
@@ -45,6 +53,32 @@ export function PeopleScreen() {
       </div>
     );
   const roleName = (id: string) => label(data.roles.find((r) => r.id === id)?.name);
+  const shown = data.members.filter((m) => filter === "all" || (filter === "active") === m.isActive);
+  const actions = (m: Member) =>
+    can("core.users.manage") && (
+      <span className="inline-flex flex-wrap gap-1">
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => {
+            setEditing(m);
+            setEditRoles(m.roleIds);
+          }}
+        >
+          {t("editRoles")}
+        </Button>
+        {!m.isMe &&
+          (m.isActive ? (
+            <Button size="sm" variant="ghost" className="text-destructive" onClick={() => setDeactivating(m)}>
+              {t("deactivate")}
+            </Button>
+          ) : (
+            <Button size="sm" variant="ghost" onClick={() => apply(() => setMemberActive(m.userId, true, ""), t("saved"))}>
+              {t("reactivate")}
+            </Button>
+          ))}
+      </span>
+    );
   const invitableRoles = data.roles.filter((r) => r.isActive && (r.code !== "admin" || can("core.roles.manage")));
 
   return (
@@ -67,7 +101,40 @@ export function PeopleScreen() {
         )}
       </header>
 
-      <div className="overflow-x-auto rounded-xl border bg-card">
+      {/* Filtres (fiche core.users) */}
+      <div role="radiogroup" aria-label={t("status")} className="flex flex-wrap gap-2">
+        {(["all", "active", "inactive"] as const).map((f) => (
+          <Button key={f} size="sm" variant={filter === f ? "default" : "outline"} role="radio" aria-checked={filter === f} onClick={() => setFilter(f)}>
+            {t(f === "all" ? "filterAll" : f === "active" ? "filterActive" : "filterInactive")}
+          </Button>
+        ))}
+      </div>
+
+      {/* Téléphone : une carte par personne */}
+      <ul className="flex flex-col gap-2 @3xl:hidden" data-testid="people-cards">
+        {shown.map((m) => (
+          <li key={m.userId} className="flex flex-col gap-2 rounded-xl border bg-card p-3" data-member={m.email}>
+            <div>
+              <p className="font-medium">
+                {m.name} {m.isMe && <span className="text-muted-foreground">{t("you")}</span>}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {m.email} · {m.isActive ? t("active") : t("inactive")}
+              </p>
+            </div>
+            <span className="flex flex-wrap gap-1">
+              {m.roleIds.map((r) => (
+                <Badge key={r} variant="secondary">
+                  {roleName(r)}
+                </Badge>
+              ))}
+            </span>
+            {actions(m)}
+          </li>
+        ))}
+      </ul>
+
+      <div className="hidden overflow-x-auto rounded-xl border bg-card @3xl:block">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50 text-left">
@@ -78,7 +145,7 @@ export function PeopleScreen() {
             </tr>
           </thead>
           <tbody>
-            {data.members.map((m) => (
+            {shown.map((m) => (
               <tr key={m.userId} className="border-b last:border-0" data-member={m.email}>
                 <td className="p-3">
                   <p className="font-medium">
@@ -96,32 +163,7 @@ export function PeopleScreen() {
                   </span>
                 </td>
                 <td className="p-3">{m.isActive ? t("active") : t("inactive")}</td>
-                <td className="p-3 text-right whitespace-nowrap">
-                  {can("core.users.manage") && (
-                    <span className="inline-flex gap-1">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          setEditing(m);
-                          setEditRoles(m.roleIds);
-                        }}
-                      >
-                        {t("editRoles")}
-                      </Button>
-                      {!m.isMe &&
-                        (m.isActive ? (
-                          <Button size="sm" variant="ghost" className="text-destructive" onClick={() => setDeactivating(m)}>
-                            {t("deactivate")}
-                          </Button>
-                        ) : (
-                          <Button size="sm" variant="ghost" onClick={() => apply(() => setMemberActive(m.userId, true, ""), t("saved"))}>
-                            {t("reactivate")}
-                          </Button>
-                        ))}
-                    </span>
-                  )}
-                </td>
+                <td className="p-3 text-right whitespace-nowrap">{actions(m)}</td>
               </tr>
             ))}
           </tbody>

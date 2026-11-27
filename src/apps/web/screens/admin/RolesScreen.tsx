@@ -1,15 +1,18 @@
 "use client";
 
-import { EmptyState } from "@smart-collab/ui";
+import { ConfirmDialog, EmptyState } from "@smart-collab/ui";
+import { Button } from "@smart-collab/ui/components/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@smart-collab/ui/components/ui/dialog";
+import { Input } from "@smart-collab/ui/components/ui/input";
 import { Label } from "@smart-collab/ui/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@smart-collab/ui/components/ui/select";
 import { Skeleton } from "@smart-collab/ui/components/ui/skeleton";
 import { Switch } from "@smart-collab/ui/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@smart-collab/ui/components/ui/tabs";
-import { ShieldCheckIcon } from "lucide-react";
+import { PencilIcon, PlusIcon, ShieldCheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { type Role, setFieldMask, setRolePermission } from "@/lib/admin/actions";
+import { type Role, createRole, renameRole, saveRoleChanges, setRoleActive } from "@/lib/admin/actions";
 import { useCan } from "@/lib/permissions";
 import { useAdminData, useLabel } from "./useAdminData";
 
@@ -120,8 +123,11 @@ function RoleMatrix({
   );
 }
 
+type Change = { roleId: string; kind: "permission" | "mask"; key: string; on: boolean };
+
 /**
- * Profils et droits (fiches core.roles et core.field-masks) : droits par rôle, puis données sensibles.
+ * Profils et droits (fiches core.roles et core.field-masks) : cartes des profils, puis droits et données sensibles.
+ * Les changements de droits sont mis en attente puis enregistrés d'un coup (décision G4) ; chacun est tracé au journal.
  * Modifiable seulement avec core.roles.manage ; l'administrateur garde toujours tous les droits.
  */
 export function RolesScreen() {
@@ -130,6 +136,10 @@ export function RolesScreen() {
   const can = useCan();
   const { data, apply } = useAdminData();
   const editable = can("core.roles.manage");
+  const [pending, setPending] = useState<Change[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [editor, setEditor] = useState<{ role?: Role; fr: string; en: string; copyFrom: string }>();
+  const [deactivating, setDeactivating] = useState<Role>();
 
   if (data === undefined)
     return (
@@ -148,12 +158,62 @@ export function RolesScreen() {
 
   const roles = data.roles.filter((r) => r.isActive);
   const locked = (r: Role) => !editable || r.code === "admin";
+  const pendingOf = (r: Role, kind: Change["kind"], key: string) => pending.find((c) => c.roleId === r.id && c.kind === kind && c.key === key);
+  const toggle = (r: Role, kind: Change["kind"], key: string, on: boolean, saved: boolean) =>
+    setPending((list) => {
+      const rest = list.filter((c) => !(c.roleId === r.id && c.kind === kind && c.key === key));
+      // Revenir à l'état enregistré annule la modification en attente
+      return on === saved ? rest : [...rest, { roleId: r.id, kind, key, on }];
+    });
+  const membersOf = (r: Role) => data.members.filter((m) => m.isActive && m.roleIds.includes(r.id)).length;
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-5" data-testid="roles-screen">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">{t("rolesTitle")}</h1>
-        <p className="mt-1 text-muted-foreground">{t("rolesSubtitle")}</p>
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">{t("rolesTitle")}</h1>
+          <p className="mt-1 text-muted-foreground">{t("rolesSubtitle")}</p>
+        </div>
+        {editable && (
+          <Button onClick={() => setEditor({ fr: "", en: "", copyFrom: "" })}>
+            <PlusIcon /> {t("createProfile")}
+          </Button>
+        )}
       </header>
+
+      {/* Cartes des profils (fiche core.roles) */}
+      <section aria-label={t("profiles")} className="grid gap-3 @xl:grid-cols-2 @4xl:grid-cols-3">
+        {data.roles.map((r) => (
+          <article key={r.id} data-profile={r.code} className="flex flex-col gap-1 rounded-xl border bg-card p-4 shadow-card data-[inactive=true]:opacity-60" data-inactive={!r.isActive}>
+            <div className="flex items-start justify-between gap-2">
+              <h2 className="font-semibold">
+                {label(r.name)} {!r.isActive && <span className="text-xs font-normal text-muted-foreground">· {t("inactiveProfile")}</span>}
+              </h2>
+              {editable && r.code !== "admin" && (
+                <span className="flex shrink-0 gap-1">
+                  <Button size="icon" variant="ghost" className="size-8" aria-label={`${t("rename")} ${label(r.name)}`} onClick={() => setEditor({ role: r, fr: r.name.fr, en: r.name.en, copyFrom: "" })}>
+                    <PencilIcon />
+                  </Button>
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {t("rightsCount", { count: r.code === "admin" ? data.permissions.length : r.permissions.length })} · {t("membersCount", { count: membersOf(r) })}
+            </p>
+            {editable && r.code !== "admin" && (
+              <Button
+                size="sm"
+                variant="ghost"
+                className="mt-1 self-start px-0 text-muted-foreground"
+                onClick={() => (r.isActive ? setDeactivating(r) : apply(() => setRoleActive(r.id, true, ""), t("saved")))}
+              >
+                {r.isActive ? t("deactivateProfile") : t("reactivate")}
+              </Button>
+            )}
+          </article>
+        ))}
+      </section>
+
       <Tabs defaultValue="rights">
         <TabsList>
           <TabsTrigger value="rights">{t("tabRights")}</TabsTrigger>
@@ -164,13 +224,14 @@ export function RolesScreen() {
             <ShieldCheckIcon className="size-4 text-gold-strong" aria-hidden /> {t("adminFixed")}
           </p>
           <p className="text-sm text-muted-foreground">{t("powerWarning")}</p>
+          <h3 className="text-sm font-semibold text-muted-foreground">{t("appGroup")}</h3>
           <RoleMatrix
             rows={data.permissions.map((p) => ({ key: p.code, label: label(p.label) }))}
             roles={roles}
             rowsTitle={t("tabRights")}
-            isOn={(r, row) => r.code === "admin" || r.permissions.includes(row.key)}
+            isOn={(r, row) => r.code === "admin" || (pendingOf(r, "permission", row.key)?.on ?? r.permissions.includes(row.key))}
             isLocked={locked}
-            onChange={(r, row, on) => apply(() => setRolePermission(r.id, row.key, on), t("saved"))}
+            onChange={(r, row, on) => toggle(r, "permission", row.key, on, r.permissions.includes(row.key))}
           />
         </TabsContent>
         <TabsContent value="sensitive" className="mt-4 flex flex-col gap-3">
@@ -182,14 +243,107 @@ export function RolesScreen() {
               rows={data.sensitiveFields.map((f) => ({ key: f.key, label: label(f.label) }))}
               roles={roles}
               rowsTitle={t("tabSensitive")}
-              isOn={(r, row) => r.code === "admin" || !r.masks.includes(row.key)}
+              isOn={(r, row) => r.code === "admin" || (pendingOf(r, "mask", row.key)?.on ?? !r.masks.includes(row.key))}
               isLocked={locked}
-              onChange={(r, row, visible) => apply(() => setFieldMask(r.id, row.key, !visible), t("saved"))}
+              onChange={(r, row, visible) => toggle(r, "mask", row.key, visible, !r.masks.includes(row.key))}
               stateLabel={(on) => (on ? t("visible") : t("hidden"))}
             />
           )}
         </TabsContent>
       </Tabs>
+
+      {/* Barre d'enregistrement (décision G4) */}
+      {pending.length > 0 && (
+        <div className="sticky bottom-0 flex flex-wrap items-center justify-between gap-2 rounded-xl border bg-card p-3 shadow-card" data-testid="pending-bar">
+          <span className="text-sm font-medium">{t("pendingChanges", { count: pending.length })}</span>
+          <span className="flex gap-2">
+            <Button variant="ghost" disabled={saving} onClick={() => setPending([])}>
+              {t("discard")}
+            </Button>
+            <Button
+              disabled={saving}
+              onClick={async () => {
+                setSaving(true);
+                const result = await apply(() => saveRoleChanges(pending), t("saved"));
+                setSaving(false);
+                if (result.ok) setPending([]);
+              }}
+            >
+              {t("save")}
+            </Button>
+          </span>
+        </div>
+      )}
+
+      {/* Créer ou renommer un profil */}
+      <Dialog open={!!editor} onOpenChange={(o) => !o && setEditor(undefined)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{editor?.role ? t("rename") : t("createProfile")}</DialogTitle>
+          </DialogHeader>
+          {editor && (
+            <form
+              className="flex flex-col gap-3"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const name = { fr: editor.fr, en: editor.en };
+                const result = await apply(
+                  () => (editor.role ? renameRole(editor.role.id, name) : createRole(name, editor.copyFrom || null)),
+                  t("saved"),
+                );
+                if (result.ok) setEditor(undefined);
+              }}
+            >
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="role-fr">{t("nameFr")}</Label>
+                <Input id="role-fr" required minLength={2} maxLength={60} value={editor.fr} onChange={(e) => setEditor({ ...editor, fr: e.target.value })} />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="role-en">{t("nameEn")}</Label>
+                <Input id="role-en" required minLength={2} maxLength={60} value={editor.en} onChange={(e) => setEditor({ ...editor, en: e.target.value })} />
+              </div>
+              {!editor.role && (
+                <div className="flex flex-col gap-1.5">
+                  <Label>{t("copyFrom")}</Label>
+                  <Select value={editor.copyFrom || "none"} onValueChange={(v) => setEditor({ ...editor, copyFrom: v === "none" ? "" : v })}>
+                    <SelectTrigger aria-label={t("copyFrom")}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">{t("emptyProfile")}</SelectItem>
+                      {roles.map((r) => (
+                        <SelectItem key={r.id} value={r.id}>
+                          {label(r.name)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              <DialogFooter>
+                <Button type="submit" disabled={editor.fr.trim().length < 2 || editor.en.trim().length < 2}>
+                  {t("save")}
+                </Button>
+              </DialogFooter>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmDialog
+        open={!!deactivating}
+        onOpenChange={(o) => !o && setDeactivating(undefined)}
+        title={t("deactivateProfile")}
+        description={deactivating ? t("deactivateProfileConfirm", { name: label(deactivating.name) }) : undefined}
+        danger
+        requireReason
+        confirmLabel={t("deactivateProfile")}
+        onConfirm={(reason) => {
+          const r = deactivating;
+          setDeactivating(undefined);
+          if (r) apply(() => setRoleActive(r.id, false, reason ?? ""), t("saved"));
+        }}
+      />
     </div>
   );
 }

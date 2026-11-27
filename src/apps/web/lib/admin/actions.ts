@@ -38,6 +38,7 @@ function fail(error: { code?: string } | null): ActionResult {
   if (error.code === "42501") return { ok: false, error: "forbidden" };
   if (error.code === "23505") return { ok: false, error: "exists" };
   if (error.code === "23514") return { ok: false, error: "reason" };
+  if (error.code === "P0002") return { ok: false, error: "invalid" };
   return { ok: false, error: "failed" };
 }
 
@@ -144,4 +145,39 @@ export async function cancelInvitation(invitationId: string): Promise<ActionResu
   const { supabase } = await context();
   const { error } = await supabase.rpc("cancel_invitation", { p_invitation: invitationId });
   return fail(error);
+}
+
+const roleName = z.object({ fr: z.string().trim().min(2).max(60), en: z.string().trim().min(2).max(60) });
+
+export async function createRole(name: { fr: string; en: string }, copyFrom: string | null): Promise<ActionResult> {
+  if (!roleName.safeParse(name).success || (copyFrom !== null && !uuid.safeParse(copyFrom).success)) return { ok: false, error: "invalid" };
+  const { supabase } = await context();
+  const { error } = await supabase.rpc("create_role", { p_name_fr: name.fr, p_name_en: name.en, p_copy_from: copyFrom });
+  return fail(error);
+}
+
+export async function renameRole(roleId: string, name: { fr: string; en: string }): Promise<ActionResult> {
+  if (!uuid.safeParse(roleId).success || !roleName.safeParse(name).success) return { ok: false, error: "invalid" };
+  const { supabase } = await context();
+  const { error } = await supabase.rpc("rename_role", { p_role: roleId, p_name_fr: name.fr, p_name_en: name.en });
+  return fail(error);
+}
+
+export async function setRoleActive(roleId: string, active: boolean, reason: string): Promise<ActionResult> {
+  if (!uuid.safeParse(roleId).success || !flag.safeParse(active).success || (!active && !z.string().trim().min(3).max(500).safeParse(reason).success))
+    return { ok: false, error: active ? "invalid" : "reason" };
+  const { supabase } = await context();
+  const { error } = await supabase.rpc("set_role_active", { p_role: roleId, p_active: active, p_reason: reason });
+  return fail(error);
+}
+
+/** Enregistre en une fois les changements de droits et de masques en attente (décision G4) */
+export async function saveRoleChanges(changes: { roleId: string; kind: "permission" | "mask"; key: string; on: boolean }[]): Promise<ActionResult> {
+  const schema = z.array(z.object({ roleId: uuid, kind: z.enum(["permission", "mask"]), key: z.string().regex(/^[a-z0-9_.]{3,80}$/), on: z.boolean() })).max(500);
+  if (!schema.safeParse(changes).success) return { ok: false, error: "invalid" };
+  for (const c of changes) {
+    const result = c.kind === "permission" ? await setRolePermission(c.roleId, c.key, c.on) : await setFieldMask(c.roleId, c.key, !c.on);
+    if (!result.ok) return result;
+  }
+  return { ok: true };
 }

@@ -573,6 +573,24 @@
     "settingsRoles": "Droits de chaque rôle et données sensibles",
     "save": "Enregistrer",
     "roleLabel": "Rôle",
-    "powerWarning": "Attention : un rôle qui peut « Modifier les profils et droits » peut se donner tous les droits, y compris administrateur."
+    "powerWarning": "Attention : un rôle qui peut « Modifier les profils et droits » peut se donner tous les droits, y compris administrateur.",
+    "profiles": "Profils",
+    "rightsCount": "{count, plural, =0 {aucun droit} one {# droit} other {# droits}}",
+    "membersCount": "{count, plural, =0 {personne} one {# personne} other {# personnes}}",
+    "createProfile": "Créer un profil",
+    "copyFrom": "Partir des droits de",
+    "emptyProfile": "Profil vide",
+    "nameFr": "Nom (français)",
+    "nameEn": "Nom (anglais)",
+    "rename": "Renommer",
+    "deactivateProfile": "Désactiver le profil",
+    "deactivateProfileConfirm": "Désactiver le profil « {name} » ? Il ne pourra plus être attribué ; l'historique est conservé.",
+    "pendingChanges": "{count, plural, one {# modification en attente} other {# modifications en attente}}",
+    "discard": "Annuler les modifications",
+    "filterAll": "Tous",
+    "filterActive": "Actifs",
+    "filterInactive": "Désactivés",
+    "appGroup": "Socle",
+    "inactiveProfile": "désactivé"
   }
 }
