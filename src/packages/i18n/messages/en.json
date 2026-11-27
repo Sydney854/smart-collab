@@ -438,7 +438,29 @@
     "alwaysOn": "Always on",
     "installedToast": "“{name}” installed (demo)",
     "demoNote": "Mock-up: real installation, with dependencies and menu updates, comes in lot 1.",
-    "upcoming": "Coming soon"
+    "upcoming": "Coming soon",
+    "needs": "Requires: {list}",
+    "uninstall": "Uninstall",
+    "reinstall": "Reinstall",
+    "archived": "Uninstalled (data kept)",
+    "available": "Available",
+    "upcomingLot": "Usable from lot {lot}",
+    "notInPlan": "Not included in your plan",
+    "installTitle": "Install {name}",
+    "installWillAdd": "These apps will be installed:",
+    "confirmInstall": "Install",
+    "cancel": "Cancel",
+    "uninstallTitle": "Uninstall {name}",
+    "uninstallKeepsData": "The app leaves the menu; its data is kept and comes back if you reinstall it.",
+    "uninstalledToast": "“{name}” uninstalled (data kept)",
+    "errors": {
+      "forbidden": "Action not allowed.",
+      "plan": "App not included in your plan.",
+      "dependents": "Not possible: these installed apps depend on it: {list}.",
+      "reason": "A reason is required (at least 3 characters).",
+      "failed": "The operation failed. Please try again."
+    },
+    "installedLiveToast": "“{name}” installed"
   },
   "wizard": {
     "step": "First sign-in · step 3 of 5",

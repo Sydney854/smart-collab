@@ -16,9 +16,13 @@ async function currentAccount() {
     supabase.from("users").select("full_name, email").eq("id", claims.sub).maybeSingle(),
     supabase.from("tenants").select("legal_name, business_domain").eq("id", claims.tenant_id).maybeSingle(),
   ]);
-  const { data: perms } = await supabase.rpc("my_permissions");
+  const [{ data: perms }, { data: installs }] = await Promise.all([
+    supabase.rpc("my_permissions"),
+    supabase.from("app_installations").select("app_id").eq("tenant_id", claims.tenant_id).eq("status", "installed"),
+  ]);
   return {
     permissions: (perms as string[] | null) ?? [],
+    installedApps: (installs ?? []).map((i) => i.app_id as string),
     name: me?.full_name ?? me?.email ?? "",
     email: me?.email ?? "",
     company: company?.legal_name ?? "",
@@ -37,6 +41,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
       account={account}
       // Démonstration sans connexion : tous les écrans ; sinon les droits lus dans la base
       permissions={account ? account.permissions : demoWithoutAuth ? "all" : []}
+      installedApps={account ? account.installedApps : demoWithoutAuth ? "all" : []}
       initialMode={isLayoutMode(layout) ? layout : "list"}
       initialScreen={ecran}
       // Menu latéral ouvert ou réduit : mémorisé par shadcn/ui dans le cookie « sidebar_state »

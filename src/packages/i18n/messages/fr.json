@@ -438,7 +438,29 @@
     "alwaysOn": "Toujours actif",
     "installedToast": "« {name} » installée (démonstration)",
     "demoNote": "Maquette : l'installation réelle, avec ses dépendances et la mise à jour du menu, arrive au lot 1.",
-    "upcoming": "À venir"
+    "upcoming": "À venir",
+    "needs": "Nécessite : {list}",
+    "uninstall": "Désinstaller",
+    "reinstall": "Réinstaller",
+    "archived": "Désinstallée (données conservées)",
+    "available": "Disponible",
+    "upcomingLot": "Utilisable au lot {lot}",
+    "notInPlan": "Non incluse dans votre formule",
+    "installTitle": "Installer {name}",
+    "installWillAdd": "Ces applications seront installées :",
+    "confirmInstall": "Installer",
+    "cancel": "Annuler",
+    "uninstallTitle": "Désinstaller {name}",
+    "uninstallKeepsData": "L'application disparaît du menu ; ses données sont conservées et réapparaîtront si vous la réinstallez.",
+    "uninstalledToast": "« {name} » désinstallée (données conservées)",
+    "errors": {
+      "forbidden": "Action non autorisée.",
+      "plan": "Application non incluse dans votre formule.",
+      "dependents": "Impossible : ces applications installées en dépendent : {list}.",
+      "reason": "Motif obligatoire (3 caractères au moins).",
+      "failed": "L'opération a échoué. Réessayez."
+    },
+    "installedLiveToast": "« {name} » installée"
   },
   "wizard": {
     "step": "Première connexion · étape 3 sur 5",

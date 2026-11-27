@@ -13,3 +13,12 @@ export function useCan() {
   const perms = useContext(PermissionsContext);
   return (permission: string) => perms === "all" || perms.includes(permission);
 }
+
+/** Applications installées dans l'entreprise (EF-APP-04 : le menu ne montre qu'elles). « all » : démonstration sans connexion. */
+export type InstalledApps = string[] | "all";
+export const InstalledAppsContext = createContext<InstalledApps>("all");
+
+export function useInstalled() {
+  const apps = useContext(InstalledAppsContext);
+  return (appId: string) => apps === "all" || apps.includes(appId);
+}

@@ -82,6 +82,13 @@ Tous fictifs, même mot de passe : `Demo-CI6XjDozJi!` — à changer avant de mo
 
 Création : `src/supabase/seed/demo.sql` (remplacer `__DEMO_PASSWORD_HASH__` par l'empreinte bcrypt du mot de passe) ; le script refuse une base qui contient des comptes réels.
 
+## Lot 1 — étapes 3 et 4 : droits et applications
+
+- Rôles préréglés par métier, droits vérifiés par la base, masques de champs, journaux réservés, profils personnalisés : écrans Paramètres → Collaborateurs et Paramètres → Profils et droits.
+- App Store réel (écran Applications, une fois connecté) : installer ajoute les dépendances listées avant confirmation ; désinstaller demande un motif, est refusé si une application installée en dépend et garde les données ; le menu ne montre que les applications installées. Chaque action est inscrite au journal d'audit et publiée dans `event_outbox` (`core.app.installed` / `core.app.uninstalled`).
+- Démonstration : la boutique a Point de vente (avec Tiers, Produits & Inventaire, Finance) ; Ventes et Achats restent à installer. Le réseau a aussi Transferts et Achats.
+- Pas encore : traitement en arrière-plan des événements (`pg_cron` + fonctions serveur), applications « ponts », manifestes complets dans `src/apps/<id>/` (avec chaque lot métier).
+
 ## État au lot 0 (branche `lot-00`)
 
 Ce qui existe :

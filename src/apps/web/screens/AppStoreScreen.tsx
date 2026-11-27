@@ -4,7 +4,9 @@ import { ModuleIcon, iconSizeVars, useAppearance, useToast } from "@smart-collab
 import { Button } from "@smart-collab/ui/components/ui/button";
 import { CheckIcon, LockIcon, ClockIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { type StoreData, loadStore } from "@/lib/apps/actions";
+import { StoreLive } from "./StoreLive";
 import { CATALOG } from "@/lib/modules";
 
 /**
@@ -12,7 +14,19 @@ import { CATALOG } from "@/lib/modules";
  * Carte : icône dans son cadre, nom, description courte, famille du catalogue, statut.
  * L'installation réelle (registre, dépendances, menu) arrive au lot 1 : ici, l'état est de démonstration.
  */
+/** Connecté : l'App Store réel (étape 4) ; démonstration sans connexion : la maquette du lot 0 */
 export function AppStoreScreen() {
+  const [live, setLive] = useState<StoreData | null | undefined>(undefined);
+  useEffect(() => {
+    loadStore()
+      .then(setLive)
+      .catch(() => setLive(null));
+  }, []);
+  if (live === undefined) return null;
+  return live ? <StoreLive initial={live} /> : <AppStoreDemo />;
+}
+
+function AppStoreDemo() {
   const t = useTranslations("store");
   const tm = useTranslations("modules");
   const tf = useTranslations("families");

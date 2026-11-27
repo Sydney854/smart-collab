@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { signOut } from "@/lib/auth/actions";
-import { type Permissions, PermissionsContext } from "@/lib/permissions";
+import { type InstalledApps, InstalledAppsContext, type Permissions, PermissionsContext } from "@/lib/permissions";
 import { toast } from "sonner";
 import { LAYOUT_COOKIE, writeCookie } from "@/lib/preferences";
 import { useScreens } from "@/screens/registry";
@@ -33,10 +33,20 @@ export function Workspace({
   sidebarOpen,
   account,
   permissions,
-}: { initialMode: LayoutMode; initialScreen?: string; sidebarOpen: boolean; account: Account | null; permissions: Permissions }) {
+  installedApps,
+}: {
+  initialMode: LayoutMode;
+  initialScreen?: string;
+  sidebarOpen: boolean;
+  account: Account | null;
+  permissions: Permissions;
+  installedApps: InstalledApps;
+}) {
   return (
     <PermissionsContext.Provider value={permissions}>
-      <WorkspaceInner initialMode={initialMode} initialScreen={initialScreen} sidebarOpen={sidebarOpen} account={account} />
+      <InstalledAppsContext.Provider value={installedApps}>
+        <WorkspaceInner initialMode={initialMode} initialScreen={initialScreen} sidebarOpen={sidebarOpen} account={account} />
+      </InstalledAppsContext.Provider>
     </PermissionsContext.Provider>
   );
 }
