@@ -28,7 +28,7 @@ begin
   end loop;
   assert (select count(*) from public.tenants) = 1, 'Alice voit une autre entreprise';
   assert not exists (select 1 from public.users where email like '%demo-b.test'), 'Alice voit une personne de B';
-  assert (select count(*) from public.apps) = 2, 'Le catalogue des applications doit rester lisible';
+  assert (select count(*) from public.apps) >= 2, 'Le catalogue des applications doit rester lisible';
 end $$;
 
 -- 2. Écritures directes refusées (même dans sa propre entreprise : elles passeront par des fonctions serveur)

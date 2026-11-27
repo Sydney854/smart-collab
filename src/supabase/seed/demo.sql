@@ -38,6 +38,13 @@ begin
   insert into public.app_installations (tenant_id, app_id, status, installed_version)
   select t, 'core', 'installed', '1.0.0' from unnest(array[t_retail, t_multi]) t
   on conflict do nothing;
+  -- Applications installées (étape 4) : Ventes et Achats restent à installer dans la boutique (décision Q3)
+  insert into public.app_installations (tenant_id, app_id, status, installed_version)
+  select v.t, a, 'installed', '0.1.0' from
+    (values (t_retail, array['partners','inventory','finance','pos']),
+            (t_multi, array['partners','inventory','finance','pos','transfers','purchase'])) v(t, apps),
+    unnest(v.apps) a
+  on conflict do nothing;
 
   -- Rôles préréglés du métier (étape 3), plus un rôle personnalisé « Comptable » pour le cabinet
   perform app.install_role_presets(t_retail);

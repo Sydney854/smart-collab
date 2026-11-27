@@ -2,13 +2,13 @@
 -- alice : A seulement ; bob : B seulement ; carla (comptable) : A et B, entreprise choisie B ; dan : appartenance à A désactivée.
 -- Base de test = démonstration : double authentification des administrateurs facultative (réglage explicite)
 insert into app.settings (key, value) values ('require_admin_mfa', 'false') on conflict (key) do update set value = excluded.value;
-insert into public.plans (id, name) values ('business', '{"fr":"Business","en":"Business"}');
+insert into public.plans (id, name) values ('business', '{"fr":"Business","en":"Business"}') on conflict do nothing;
 insert into public.apps (id, version, category, name, is_core, manifest) values
   ('core', '1.0.0', 'core', '{"fr":"Socle","en":"Core"}', true, '{}'),
   ('pos', '1.0.0', 'sales', '{"fr":"Point de vente","en":"Point of sale"}', false, '{}')
 on conflict (id) do nothing;
-insert into public.app_dependencies values ('pos', 'core');
-insert into public.plan_apps values ('business', 'core'), ('business', 'pos');
+insert into public.app_dependencies values ('pos', 'core') on conflict do nothing;
+insert into public.plan_apps values ('business', 'core'), ('business', 'pos') on conflict do nothing;
 
 insert into public.tenants (id, legal_name, business_domain, plan_id) values
   ('aaaaaaaa-0000-0000-0000-000000000001', 'Boutique Démo A', 'retail', 'business'),
@@ -38,7 +38,7 @@ begin
   foreach t in array array['aaaaaaaa-0000-0000-0000-000000000001'::uuid, 'bbbbbbbb-0000-0000-0000-000000000002'::uuid] loop
     u := case when t::text like 'aaaa%' then 'a1000000-0000-0000-0000-000000000001'::uuid else 'b2000000-0000-0000-0000-000000000002'::uuid end;
     insert into public.subscriptions (tenant_id, plan_id, starts_on, ends_on, amount) values (t, 'business', '2026-01-01', '2027-01-01', 1200000);
-    insert into public.app_installations (tenant_id, app_id, status, installed_version) values (t, 'core', 'installed', '1.0.0');
+    insert into public.app_installations (tenant_id, app_id, status, installed_version) values (t, 'core', 'installed', '1.0.0') on conflict do nothing;
     insert into public.roles (tenant_id, code, name) values (t, 'admin', '{"fr":"Administrateur","en":"Administrator"}') returning id into r;
     insert into public.role_permissions (tenant_id, role_id, permission) values (t, r, 'core.settings.manage'), (t, r, 'core.audit.view'), (t, r, 'core.users.view'), (t, r, 'core.roles.view');
     insert into public.user_roles (tenant_id, user_id, role_id) values (t, u, r);
