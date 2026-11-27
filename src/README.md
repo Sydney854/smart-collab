@@ -57,6 +57,29 @@ Vérification sur le vrai Supabase (projet de développement `smart-collab-dev`,
 - conseils de sécurité Supabase : un seul avertissement, voulu — `select_tenant` est appelable par une personne connectée (elle vérifie l'appartenance avant d'agir).
 - reste à faire à l'étape 2 : brancher le crochet dans Supabase → Authentication → Hooks (`public.custom_access_token_hook`).
 
+## Lot 1 — étape 2 : connexion
+
+Écrans : `/connexion` (e-mail + mot de passe), `/connexion/double-authentification` (code à 6 chiffres), `/connexion/double-authentification/activer`, `/connexion/entreprise` (personne de plusieurs entreprises), `/invitation/<lien>`. Toute autre adresse demande d'être connecté (`apps/web/proxy.ts`).
+
+Règles : message d'erreur unique ; verrouillage après 5 échecs en 15 min (échecs du second facteur compris) ; journal des accès ; double authentification exigée par la base quand elle est activée, obligatoire pour les administrateurs en production (décision L5) ; en-têtes de sécurité (`apps/web/next.config.ts`).
+
+Variables (Vercel ; en local dans `apps/web/.env.local`, jamais envoyé sur GitHub) : `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publiques) et `SUPABASE_SECRET_KEY` (secrète, serveur seulement). Sans elles, l'application refuse de s'ouvrir ; `SC_DEMO_SANS_CONNEXION=1` ouvre la démonstration fictive du lot 0 (tests d'écran seulement, jamais en production).
+
+**Réglage Supabase à faire une fois** (tableau de bord du projet) : Authentication → Hooks → « Customize Access Token (JWT) Claims » → type Postgres, schéma `public`, fonction `custom_access_token_hook` → Activer. Sans lui, l'entreprise n'est pas ajoutée au jeton et personne n'accède aux données.
+
+### Comptes de démonstration (base de développement `smart-collab-dev` seulement — décision L4)
+
+Tous fictifs, même mot de passe : `Demo-CI6XjDozJi!` — à changer avant de montrer l'aperçu hors de l'équipe.
+
+| Compte | Entreprise | Rôle |
+|---|---|---|
+| admin@demo-commerce.test | Boutique Démo Cocody (Commerce de détail) | Administrateur |
+| caissier@demo-commerce.test | Boutique Démo Cocody | Caissier |
+| admin@demo-multisites.test | Réseau Démo Plateau (Multi-sites) | Administrateur |
+| comptable@cabinet-demo.test | les deux (choix de l'entreprise à la connexion) | Comptable |
+
+Création : `src/supabase/seed/demo.sql` (remplacer `__DEMO_PASSWORD_HASH__` par l'empreinte bcrypt du mot de passe) ; le script refuse une base qui contient des comptes réels.
+
 ## État au lot 0 (branche `lot-00`)
 
 Ce qui existe :
