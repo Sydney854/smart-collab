@@ -24,6 +24,7 @@ import { useAdminData, useLabel } from "./useAdminData";
 export function PeopleScreen() {
   const t = useTranslations("admin");
   const tAuth = useTranslations("auth");
+  const tHeader = useTranslations("header");
   const label = useLabel();
   const formatDate = useFormatDate();
   const can = useCan();
@@ -207,8 +208,8 @@ export function PeopleScreen() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="fr">Français</SelectItem>
-                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="fr">{tHeader("french")}</SelectItem>
+                    <SelectItem value="en">{tHeader("english")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -232,13 +233,13 @@ export function PeopleScreen() {
           </DialogHeader>
           <ul className="flex flex-col gap-2">
             {data.roles
-              .filter((r) => r.isActive)
+              // Une action non permise est masquée, pas grisée
+              .filter((r) => r.isActive && (r.code !== "admin" || can("core.roles.manage")))
               .map((r) => (
                 <li key={r.id} className="flex items-center gap-2">
                   <Checkbox
                     id={`role-${r.id}`}
                     checked={editRoles.includes(r.id)}
-                    disabled={r.code === "admin" && !can("core.roles.manage")}
                     onCheckedChange={(v) => setEditRoles((s) => (v === true ? [...s, r.id] : s.filter((x) => x !== r.id)))}
                   />
                   <Label htmlFor={`role-${r.id}`} className="font-normal">

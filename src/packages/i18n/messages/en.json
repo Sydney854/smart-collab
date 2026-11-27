@@ -569,8 +569,10 @@
       "failed": "Saving failed. Please try again."
     },
     "settingsAdmin": "Administration",
-    "settingsPeople": "People, roles and invitations",
+    "settingsPeople": "Accounts, roles and invitations",
     "settingsRoles": "Permissions of each role and sensitive data",
-    "save": "Save"
+    "save": "Save",
+    "roleLabel": "Role",
+    "powerWarning": "Note: a role that can “Change roles and permissions” can grant itself every permission, including administrator."
   }
 }

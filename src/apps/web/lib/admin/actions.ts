@@ -47,6 +47,10 @@ export async function loadAdminData(): Promise<AdminData | null> {
   if (!authConfigured) return null;
   const { supabase, me, tenant } = await context();
   if (!tenant) return null;
+  // Lecture réservée (la base filtre aussi) : il faut au moins voir les collaborateurs ou les profils
+  const { data: mine } = await supabase.rpc("my_permissions");
+  const myPerms = (mine as string[] | null) ?? [];
+  if (!myPerms.includes("core.users.view") && !myPerms.includes("core.roles.view")) return null;
   const [members, userRoles, roles, perms, masks, invitations, catalog, fields] = await Promise.all([
     supabase.from("memberships").select("user_id, is_active, users(full_name, email)").eq("tenant_id", tenant),
     supabase.from("user_roles").select("user_id, role_id").eq("tenant_id", tenant),
@@ -81,8 +85,10 @@ export async function loadAdminData(): Promise<AdminData | null> {
 
 const uuid = z.string().uuid();
 
+const flag = z.boolean();
+
 export async function setRolePermission(roleId: string, permission: string, granted: boolean): Promise<ActionResult> {
-  if (!uuid.safeParse(roleId).success || !/^[a-z0-9_.]+$/.test(permission)) return { ok: false, error: "invalid" };
+  if (!uuid.safeParse(roleId).success || !/^[a-z0-9_.]{3,80}$/.test(permission) || !flag.safeParse(granted).success) return { ok: false, error: "invalid" };
   const { supabase } = await context();
   const { error } = await supabase.rpc("set_role_permission", { p_role: roleId, p_permission: permission, p_granted: granted });
   return fail(error);
@@ -90,21 +96,22 @@ export async function setRolePermission(roleId: string, permission: string, gran
 
 export async function setFieldMask(roleId: string, key: string, masked: boolean): Promise<ActionResult> {
   const [entity, field] = key.split(".");
-  if (!uuid.safeParse(roleId).success || !entity || !field) return { ok: false, error: "invalid" };
+  if (!uuid.safeParse(roleId).success || !entity || !field || !flag.safeParse(masked).success) return { ok: false, error: "invalid" };
   const { supabase } = await context();
   const { error } = await supabase.rpc("set_field_mask", { p_role: roleId, p_entity: entity, p_field: field, p_masked: masked });
   return fail(error);
 }
 
 export async function setMemberRoles(userId: string, roleIds: string[]): Promise<ActionResult> {
-  if (!uuid.safeParse(userId).success || !roleIds.every((r) => uuid.safeParse(r).success)) return { ok: false, error: "invalid" };
+  if (!uuid.safeParse(userId).success || !z.array(uuid).max(20).safeParse(roleIds).success) return { ok: false, error: "invalid" };
   const { supabase } = await context();
   const { error } = await supabase.rpc("set_member_roles", { p_user: userId, p_roles: roleIds });
   return fail(error);
 }
 
 export async function setMemberActive(userId: string, active: boolean, reason: string): Promise<ActionResult> {
-  if (!uuid.safeParse(userId).success) return { ok: false, error: "invalid" };
+  if (!uuid.safeParse(userId).success || !flag.safeParse(active).success || (!active && !z.string().trim().min(3).max(500).safeParse(reason).success))
+    return { ok: false, error: active ? "invalid" : "reason" };
   const { supabase } = await context();
   const { error } = await supabase.rpc("set_member_active", { p_user: userId, p_active: active, p_reason: reason });
   return fail(error);

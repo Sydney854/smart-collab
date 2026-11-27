@@ -569,8 +569,10 @@
       "failed": "L'enregistrement a échoué. Réessayez."
     },
     "settingsAdmin": "Administration",
-    "settingsPeople": "Collaborateurs, rôles et invitations",
+    "settingsPeople": "Comptes, rôles et invitations",
     "settingsRoles": "Droits de chaque rôle et données sensibles",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "roleLabel": "Rôle",
+    "powerWarning": "Attention : un rôle qui peut « Modifier les profils et droits » peut se donner tous les droits, y compris administrateur."
   }
 }

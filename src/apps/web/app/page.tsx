@@ -2,7 +2,7 @@ import { isLayoutMode } from "@smart-collab/ui/workspace";
 import { cookies } from "next/headers";
 import { Workspace } from "@/components/Workspace";
 import { LAYOUT_COOKIE } from "@/lib/preferences";
-import { authConfigured } from "@/lib/supabase/config";
+import { authConfigured, demoWithoutAuth } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
 /** Personne et entreprise connectées (lues dans la base, sécurité par ligne appliquée) ; null en démonstration sans connexion */
@@ -36,7 +36,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
     <Workspace
       account={account}
       // Démonstration sans connexion : tous les écrans ; sinon les droits lus dans la base
-      permissions={account ? account.permissions : authConfigured ? [] : "all"}
+      permissions={account ? account.permissions : demoWithoutAuth ? "all" : []}
       initialMode={isLayoutMode(layout) ? layout : "list"}
       initialScreen={ecran}
       // Menu latéral ouvert ou réduit : mémorisé par shadcn/ui dans le cookie « sidebar_state »
