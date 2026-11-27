@@ -473,8 +473,7 @@
       "emailFormat": "Saisissez une adresse e-mail valide.",
       "required": "Champ obligatoire.",
       "passwordLength": "Au moins {min} caractères.",
-      "passwordMatch": "Les deux mots de passe ne sont pas identiques.",
-      "terms": "Acceptez les conditions d'utilisation."
+      "passwordMatch": "Les deux mots de passe ne sont pas identiques."
     },
     "companyTitle": "Choisissez l'entreprise",
     "companyHint": "Votre compte a accès à plusieurs entreprises.",
@@ -501,13 +500,21 @@
     "inviteSignIn": "Connectez-vous pour rejoindre {company}",
     "fullName": "Nom complet",
     "confirmPassword": "Confirmer le mot de passe",
-    "terms": "J'accepte les conditions d'utilisation",
     "createAndJoin": "Créer mon compte et rejoindre",
     "join": "Rejoindre {company}",
     "signInToJoin": "Se connecter pour rejoindre",
     "passwordRule": "Au moins {min} caractères.",
     "version": "Version {version}",
     "inviteInvalidTitle": "Invitation",
-    "backToSignIn": "Retour à la connexion"
+    "backToSignIn": "Retour à la connexion",
+    "recoveryHint": "Saisissez un de vos codes de secours (10 caractères). Votre second facteur sera retiré : vous en activerez un nouveau.",
+    "recoveryCode": "Code de secours",
+    "useRecoveryCode": "Utiliser un code de secours",
+    "useAppCode": "Utiliser le code de l'application",
+    "recoveryTitle": "Codes de secours",
+    "recoveryIntro": "Gardez ces 8 codes en lieu sûr. Chacun ne sert qu'une fois, si vous perdez votre téléphone. Ils ne seront plus affichés.",
+    "recoveryDownload": "Télécharger les codes",
+    "recoveryNoted": "J'ai noté mes codes",
+    "continue": "Continuer"
   }
 }

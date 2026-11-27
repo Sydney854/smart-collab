@@ -25,6 +25,7 @@ Décisions du 22/11/2026 : écran sur le modèle de la version **Next.js / React
 | Langues | next-intl (français et anglais). **Application** (`apps/web`) : langue mémorisée dans un cookie, adresses identiques en français et en anglais. **Site commercial** (`apps/site`, lot 12) : adresses `/fr/…` et `/en/…` pour le référencement | validé | ENF-USA-02 (décision du 25/11/2026) |
 | Serveur et base de données | Supabase : PostgreSQL, sécurité au niveau des lignes par entreprise, fonctions SQL et fonctions serveur (Edge Functions) | validé | Base PostgreSQL déjà prévue (`sql/`), isolation des entreprises, moins de serveur à écrire et à maintenir |
 | Connexion | Supabase Auth (e-mail + mot de passe, double authentification) | validé | Intégré à la base : l'entreprise et le rôle de l'utilisateur sont lus par les règles de sécurité |
+| Bibliothèques Supabase et formulaires | `@supabase/supabase-js` et `@supabase/ssr` (bibliothèques officielles : session dans les cookies, côté serveur et navigateur), `server-only` (empêche la clé serveur d'aller au navigateur), `@hookform/resolvers` (lien react-hook-form + Zod) | validé | Décision F7 du 27/11/2026 |
 | Paiements | Stripe (cartes, abonnements) ; Wave et Orange Money pour le mobile money | validé, modalités à vérifier (voir ci-dessous) | Abonnements annuels, clients internationaux et clients UEMOA |
 | Déploiement | Vercel (application et site commercial) | validé | Mises en ligne automatiques depuis GitHub, préversion de chaque modification |
 

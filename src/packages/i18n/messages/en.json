@@ -473,8 +473,7 @@
       "emailFormat": "Enter a valid email address.",
       "required": "Required field.",
       "passwordLength": "At least {min} characters.",
-      "passwordMatch": "The two passwords do not match.",
-      "terms": "Accept the terms of use."
+      "passwordMatch": "The two passwords do not match."
     },
     "companyTitle": "Choose a company",
     "companyHint": "Your account has access to several companies.",
@@ -501,13 +500,21 @@
     "inviteSignIn": "Sign in to join {company}",
     "fullName": "Full name",
     "confirmPassword": "Confirm password",
-    "terms": "I accept the terms of use",
     "createAndJoin": "Create my account and join",
     "join": "Join {company}",
     "signInToJoin": "Sign in to join",
     "passwordRule": "At least {min} characters.",
     "version": "Version {version}",
     "inviteInvalidTitle": "Invitation",
-    "backToSignIn": "Back to sign in"
+    "backToSignIn": "Back to sign in",
+    "recoveryHint": "Enter one of your recovery codes (10 characters). Your second factor will be removed: you will set up a new one.",
+    "recoveryCode": "Recovery code",
+    "useRecoveryCode": "Use a recovery code",
+    "useAppCode": "Use the app code",
+    "recoveryTitle": "Recovery codes",
+    "recoveryIntro": "Keep these 8 codes somewhere safe. Each works once, if you lose your phone. They will not be shown again.",
+    "recoveryDownload": "Download the codes",
+    "recoveryNoted": "I have saved my codes",
+    "continue": "Continue"
   }
 }

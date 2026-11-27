@@ -56,3 +56,36 @@ test("écran de connexion à 390 px : pas de débordement", async ({ page }) => 
   const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
   expect(scroll).toBeLessThanOrEqual(width);
 });
+
+test("double authentification : bascule vers un code de secours (10 caractères)", async ({ page }) => {
+  await page.goto("/connexion/double-authentification");
+  await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
+  await expect(page.getByLabel("Code", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Utiliser un code de secours" }).click();
+  const field = page.getByLabel("Code de secours");
+  await expect(field).toBeVisible();
+  const verify = page.getByRole("button", { name: "Vérifier" });
+  await field.fill("ABCDE");
+  await expect(verify).toBeDisabled();
+  await field.fill("abcde-12345");
+  await expect(verify).toBeEnabled();
+});
+
+test("écrans de connexion à 390 px, en anglais et en sombre : sans erreur, sans débordement, sans texte français", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.context().addCookies(
+    [["NEXT_LOCALE", "en"], ["sc-theme", "dark"]].map(([name, value]) => ({ name, value, url: "http://localhost:3100" })),
+  );
+  for (const path of ["/connexion", "/connexion/double-authentification", `/invitation/${"b".repeat(64)}`]) {
+    await page.goto(path);
+    await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
+    const [scroll, width] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
+    expect(scroll, path).toBeLessThanOrEqual(width);
+    const text = await page.locator("body").innerText();
+    for (const fr of ["Connexion", "Mot de passe", "Se connecter", "Retour à la connexion", "Utiliser un code"]) expect(text, `${path} : ${fr}`).not.toContain(fr);
+  }
+  expect(errors).toEqual([]);
+});

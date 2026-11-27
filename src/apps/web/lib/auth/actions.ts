@@ -12,7 +12,7 @@ import { requestInfo } from "./request-info";
  * (décision Q5a), échecs du second facteur compris ; chaque connexion réussie ou échouée est inscrite au journal des accès.
  */
 
-export type AuthResult = { error?: "invalid" | "unavailable" | "config" | "expired" | "otherEmail" | "code" | "noCompany"; redirect?: string };
+export type AuthResult = { codes?: string[]; error?: "invalid" | "unavailable" | "config" | "expired" | "otherEmail" | "code" | "noCompany"; redirect?: string };
 
 const credentials = z.object({ email: z.string().trim().toLowerCase().email().max(254), password: z.string().min(1).max(200) });
 const MIN_PASSWORD = 10;
@@ -55,7 +55,10 @@ export async function signIn(input: { email: string; password: string }, next: s
   const admin = createAdminClient();
   if (!admin) return { error: "config" };
 
-  if (await isLocked(admin, email)) {
+  // Trop d'échecs pour ce compte, ou depuis cette adresse réseau (tous comptes confondus, décision F4)
+  const { ip } = await requestInfo();
+  const { data: ipBlocked, error: ipError } = await admin.rpc("ip_blocked", { p_ip: ip });
+  if (ipError || ipBlocked || (await isLocked(admin, email))) {
     await record(admin, email, "login_failed");
     return { error: "unavailable" };
   }
@@ -150,7 +153,42 @@ export async function confirmTotp(factorId: string, code: string, next: string):
     }
     return { error: "code" };
   }
-  return nextStep(next);
+  // Second facteur activé : 8 codes de secours, montrés une seule fois (décision F1)
+  const { data: codes, error: codesError } = await supabase.rpc("generate_recovery_codes");
+  if (codesError || !Array.isArray(codes)) return { error: "unavailable" };
+  const step = await nextStep(next);
+  return { ...step, codes: codes as string[] };
+}
+
+/** Second facteur perdu : un code de secours valable retire le second facteur ; il faudra en activer un nouveau */
+export async function redeemRecoveryCode(code: string, next: string): Promise<AuthResult> {
+  const clean = code.replace(/[^0-9A-Za-z]/g, "");
+  if (clean.length !== 10) return { error: "code" };
+  const admin = createAdminClient();
+  if (!admin) return { error: "config" };
+  const supabase = await createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
+  if (!user?.email) return { redirect: "/connexion" };
+  if (await isLocked(admin, user.email)) {
+    await supabase.auth.signOut();
+    return { error: "unavailable" };
+  }
+  const { data: ok, error } = await admin.rpc("consume_recovery_code", { p_user: user.id, p_code: clean });
+  if (error || !ok) {
+    const logged = await record(admin, user.email, "login_failed");
+    if (!logged || (await isLocked(admin, user.email))) {
+      if (logged) await record(admin, user.email, "locked");
+      await supabase.auth.signOut();
+      return { error: "unavailable" };
+    }
+    return { error: "code" };
+  }
+  const { data: factors } = await admin.auth.admin.mfa.listFactors({ userId: user.id });
+  for (const f of factors?.factors ?? []) await admin.auth.admin.mfa.deleteFactor({ userId: user.id, id: f.id });
+  await supabase.auth.refreshSession();
+  await record(admin, user.email, "login");
+  return { redirect: `/connexion/double-authentification/activer?suite=${encodeURIComponent(next)}` };
 }
 
 export async function selectCompany(tenantId: string, next: string): Promise<AuthResult> {
@@ -179,6 +217,7 @@ const invitationAccount = z.object({
   fullName: z.string().trim().min(2).max(120),
   password: z.string().min(MIN_PASSWORD).max(200),
 });
+// Pas de case « conditions d'utilisation » tant que le texte n'existe pas (décision F3)
 
 /** Personne sans compte : crée le compte de connexion, ouvre la session, puis rejoint l'entreprise */
 export async function createAccountFromInvitation(input: { token: string; fullName: string; password: string }): Promise<AuthResult> {

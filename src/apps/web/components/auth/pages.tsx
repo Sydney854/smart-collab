@@ -12,6 +12,7 @@ import {
   type AuthResult,
   confirmTotp,
   createAccountFromInvitation,
+  redeemRecoveryCode,
   enrollTotp,
   joinFromInvitation,
   selectCompany,
@@ -97,12 +98,72 @@ function CodeForm({ onSubmit, pending, label }: { onSubmit: (code: string) => vo
 export function MfaVerifyPage({ next }: { next: string }) {
   const t = useTranslations("auth");
   const { pending, error, run } = useAuthAction();
+  const [recovery, setRecovery] = useState(false);
+  const [code, setCode] = useState("");
   return (
-    <AuthLayout title={t("mfaTitle")} subtitle={t("mfaHint")}>
+    <AuthLayout title={t("mfaTitle")} subtitle={recovery ? t("recoveryHint") : t("mfaHint")}>
       <FormError message={error ? t(`errors.${error}`) : undefined} />
-      <CodeForm pending={pending} label={t("verify")} onSubmit={(code) => run(() => verifyTotp(code, next))} />
+      {recovery ? (
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={(e: FormEvent) => {
+            e.preventDefault();
+            run(() => redeemRecoveryCode(code, next));
+            setCode("");
+          }}
+        >
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="recovery-code">{t("recoveryCode")}</Label>
+            <Input id="recovery-code" autoComplete="off" autoFocus value={code} onChange={(e) => setCode(e.target.value.slice(0, 20))} className="h-11 text-center font-mono uppercase" />
+          </div>
+          <Button type="submit" disabled={pending || code.replace(/[^0-9A-Za-z]/g, "").length !== 10}>
+            {t("verify")}
+          </Button>
+        </form>
+      ) : (
+        <CodeForm pending={pending} label={t("verify")} onSubmit={(c) => run(() => verifyTotp(c, next))} />
+      )}
+      <Button type="button" variant="link" className="self-center" onClick={() => setRecovery((r) => !r)}>
+        {recovery ? t("useAppCode") : t("useRecoveryCode")}
+      </Button>
       <SignOutLink />
     </AuthLayout>
+  );
+}
+
+/** Codes de secours montrés une seule fois après l'activation (décision F1) */
+function RecoveryCodes({ codes, onDone }: { codes: string[]; onDone: () => void }) {
+  const t = useTranslations("auth");
+  const [noted, setNoted] = useState(false);
+  const download = () => {
+    const blob = new Blob([`Smart Collab — ${t("recoveryTitle")}\n\n${codes.join("\n")}\n`], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "smart-collab-codes-de-secours.txt";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  return (
+    <div className="flex flex-col gap-4" data-testid="recovery-codes">
+      <p className="text-sm">{t("recoveryIntro")}</p>
+      <ul className="grid grid-cols-2 gap-2 rounded-xl border bg-muted p-3 font-mono text-sm">
+        {codes.map((c) => (
+          <li key={c}>{c}</li>
+        ))}
+      </ul>
+      <Button type="button" variant="outline" onClick={download}>
+        {t("recoveryDownload")}
+      </Button>
+      <div className="flex items-center gap-2">
+        <Checkbox id="codes-noted" checked={noted} onCheckedChange={(v) => setNoted(v === true)} />
+        <Label htmlFor="codes-noted" className="font-normal">
+          {t("recoveryNoted")}
+        </Label>
+      </div>
+      <Button type="button" disabled={!noted} onClick={onDone}>
+        {t("continue")}
+      </Button>
+    </div>
   );
 }
 
@@ -110,6 +171,8 @@ export function MfaSetupPage({ next, required }: { next: string; required: boole
   const t = useTranslations("auth");
   const { pending, error, run } = useAuthAction();
   const [enrolment, setEnrolment] = useState<{ factorId?: string; qr?: string; secret?: string; error?: string }>();
+  const [codes, setCodes] = useState<{ list: string[]; redirect: string }>();
+  const router = useRouter();
   useEffect(() => {
     enrollTotp().then(setEnrolment);
   }, []);
@@ -117,7 +180,7 @@ export function MfaSetupPage({ next, required }: { next: string; required: boole
     <AuthLayout title={t("mfaSetupTitle")} subtitle={t("mfaSetupHint")}>
       {required && <p className="rounded-lg border bg-muted px-3 py-2 text-sm">{t("mfaRequired")}</p>}
       <FormError message={enrolment?.error ? t("errors.unavailable") : error ? t(`errors.${error}`) : undefined} />
-      {enrolment?.qr && (
+      {!codes && enrolment?.qr && (
         <div className="flex flex-col items-center gap-3">
           {/* Image fournie par Supabase (données SVG) : pas de requête vers un autre site */}
           {/* biome-ignore lint/performance/noImgElement: image en ligne (data:) */}
@@ -126,8 +189,32 @@ export function MfaSetupPage({ next, required }: { next: string; required: boole
           <code className="rounded bg-muted px-2 py-1 text-xs break-all select-all">{enrolment.secret}</code>
         </div>
       )}
-      {enrolment?.factorId && (
-        <CodeForm pending={pending} label={t("activate")} onSubmit={(code) => run(() => confirmTotp(enrolment.factorId as string, code, next))} />
+      {codes ? (
+        <RecoveryCodes
+          codes={codes.list}
+          onDone={() => {
+            router.replace(codes.redirect);
+            router.refresh();
+          }}
+        />
+      ) : (
+        enrolment?.factorId && (
+          <CodeForm
+            pending={pending}
+            label={t("activate")}
+            onSubmit={(code) =>
+              run(async () => {
+                const result = await confirmTotp(enrolment.factorId as string, code, next);
+                // Codes de secours : on les montre avant de continuer
+                if (result.codes && result.redirect) {
+                  setCodes({ list: result.codes, redirect: result.redirect });
+                  return {};
+                }
+                return result;
+              })
+            }
+          />
+        )
       )}
       <SignOutLink />
     </AuthLayout>
@@ -188,7 +275,6 @@ export function InvitationPage({ view }: { view: InvitationView }) {
   const [fullName, setFullName] = useState(view.state === "new" ? view.fullName : "");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [terms, setTerms] = useState(false);
   const [local, setLocal] = useState<string>();
 
   if (view.state === "invalid") {
@@ -227,7 +313,6 @@ export function InvitationPage({ view }: { view: InvitationView }) {
     if (fullName.trim().length < 2) return setLocal(t("errors.required"));
     if (password.length < MIN_PASSWORD) return setLocal(t("errors.passwordLength", { min: MIN_PASSWORD }));
     if (password !== confirm) return setLocal(t("errors.passwordMatch"));
-    if (!terms) return setLocal(t("errors.terms"));
     setLocal(undefined);
     run(() => createAccountFromInvitation({ token: view.token, fullName, password }));
   };
@@ -251,12 +336,6 @@ export function InvitationPage({ view }: { view: InvitationView }) {
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="inv-confirm">{t("confirmPassword")}</Label>
           <PasswordInput id="inv-confirm" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="inv-terms" checked={terms} onCheckedChange={(v) => setTerms(v === true)} />
-          <Label htmlFor="inv-terms" className="font-normal">
-            {t("terms")}
-          </Label>
         </div>
         <Button type="submit" disabled={pending}>
           {t("createAndJoin")}
