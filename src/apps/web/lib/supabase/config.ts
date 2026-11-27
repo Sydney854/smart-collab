@@ -37,7 +37,8 @@ export function safeNext(value: unknown): string {
   if (/[\u0000-\u001f\u007f\\]/.test(value)) return "/";
   try {
     const url = new URL(value, SELF);
-    if (url.origin !== SELF) return "/";
+    // « /..//x », « /.//x », « /%2e%2e//x » : une fois simplifiée, l'adresse commencerait par « // » (autre site)
+    if (url.origin !== SELF || url.pathname.startsWith("//")) return "/";
     return `${url.pathname}${url.search}${url.hash}`;
   } catch {
     return "/";

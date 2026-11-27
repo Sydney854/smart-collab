@@ -1,5 +1,7 @@
 -- Données fictives de test : deux entreprises (A = Commerce de détail, B = Multi-sites), une ligne par table et par entreprise.
 -- alice : A seulement ; bob : B seulement ; carla (comptable) : A et B, entreprise choisie B ; dan : appartenance à A désactivée.
+-- Base de test = démonstration : double authentification des administrateurs facultative (réglage explicite)
+insert into app.settings (key, value) values ('require_admin_mfa', 'false') on conflict (key) do update set value = excluded.value;
 insert into public.plans (id, name) values ('business', '{"fr":"Business","en":"Business"}');
 insert into public.apps (id, version, category, name, is_core, manifest) values
   ('core', '1.0.0', 'core', '{"fr":"Socle","en":"Core"}', true, '{}'),

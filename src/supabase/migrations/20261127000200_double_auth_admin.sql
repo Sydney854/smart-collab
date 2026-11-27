@@ -1,7 +1,7 @@
 -- Smart Collab — Double authentification obligatoire pour les administrateurs (décision L5 du 26/11/2026, SEC-MO-04)
--- Imposée par la base (pas seulement par l'enchaînement des écrans) : quand le réglage de la plateforme
--- `require_admin_mfa` est vrai (production), un administrateur sans second facteur validé dans la session ne voit rien.
--- En démonstration (réglage absent ou faux), elle reste facultative.
+-- Imposée par la base (pas seulement par l'enchaînement des écrans) : un administrateur sans second facteur validé
+-- dans la session ne voit rien. Obligatoire PAR DÉFAUT (réglage absent = obligatoire) ; seule une base de
+-- démonstration la rend facultative, en posant explicitement `require_admin_mfa` = false.
 -- Le même tableau de réglages porte `allow_demo_data`, sans lequel le script des comptes de démonstration refuse de s'exécuter.
 
 create table if not exists app.settings (
@@ -21,7 +21,7 @@ $$;
 -- La personne connectée doit-elle activer / valider son second facteur avant d'accéder à l'entreprise du jeton ?
 create or replace function app.admin_mfa_missing(p_tenant uuid) returns boolean
 language sql stable security definer set search_path = '' as $$
-  select app.setting_true('require_admin_mfa')
+  select coalesce((select s.value <> 'false'::jsonb from app.settings s where s.key = 'require_admin_mfa'), true)
      and coalesce(auth.jwt() ->> 'aal', 'aal1') <> 'aal2'
      and exists (select 1 from public.user_roles ur
                  join public.roles r on r.tenant_id = ur.tenant_id and r.id = ur.role_id and r.is_active

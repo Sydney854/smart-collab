@@ -136,14 +136,17 @@ rollback;
 -- 4. Administrateur sans second facteur : refusé par la base quand la plateforme l'exige (production) ; libre sinon
 begin;
 \ir fixtures.sql
+-- Démonstration : réglage explicitement à false → facultative
+insert into app.settings values ('require_admin_mfa', 'false') on conflict (key) do update set value = excluded.value;
 select set_config('request.jwt.claims', '{"sub":"a1000000-0000-0000-0000-000000000001","tenant_id":"aaaaaaaa-0000-0000-0000-000000000001","role":"authenticated","aal":"aal1"}', true);
 set local role authenticated;
 do $$ begin
-  assert app.current_tenant() is not null, 'Sans le réglage, l''administrateur entre sans second facteur (démonstration)';
-  assert not public.must_enroll_mfa(), 'Sans le réglage, pas d''activation imposée';
+  assert app.current_tenant() is not null, 'Démonstration : l''administrateur entre sans second facteur';
+  assert not public.must_enroll_mfa(), 'Démonstration : pas d''activation imposée';
 end $$;
 reset role;
-insert into app.settings values ('require_admin_mfa', 'true');
+-- Réglage absent : obligatoire par défaut
+delete from app.settings where key = 'require_admin_mfa';
 set local role authenticated;
 do $$ begin
   assert app.current_tenant() is null, 'Production : administrateur sans second facteur accepté';
@@ -162,14 +165,18 @@ do $$ begin
   assert app.current_tenant() is not null, 'Non-administrateur bloqué à tort';
 end $$;
 reset role;
--- Jeton sans e-mail : une invitation ne peut pas être acceptée
+-- Jeton sans e-mail : une VRAIE invitation ne peut pas être acceptée
+insert into public.invitations (tenant_id, email, full_name, role_id, token_hash, expires_at, invited_by)
+  select 'aaaaaaaa-0000-0000-0000-000000000001', 'sans-email@demo.test', 'Sans E-mail', id, app.token_hash(repeat('1', 64)),
+         now() + interval '1 day', 'a1000000-0000-0000-0000-000000000001'
+  from public.roles where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'admin';
 select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","role":"authenticated"}', true);
 set local role authenticated;
 do $$ begin
   begin
-    perform public.accept_invitation(repeat('0', 64));
-    assert false, 'Acceptation possible';
-  exception when no_data_found or insufficient_privilege then null; end;
+    perform public.accept_invitation(repeat('1', 64));
+    assert false, 'Invitation acceptée avec un jeton sans e-mail';
+  exception when insufficient_privilege then null; end;
 end $$;
 reset role;
 rollback;

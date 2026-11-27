@@ -65,7 +65,7 @@ Règles : message d'erreur unique ; verrouillage après 5 échecs en 15 min (éc
 
 Variables (Vercel ; en local dans `apps/web/.env.local`, jamais envoyé sur GitHub) : `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publiques) et `SUPABASE_SECRET_KEY` (secrète, serveur seulement). Sans elles, l'application refuse de s'ouvrir ; `SC_DEMO_SANS_CONNEXION=1` ouvre la démonstration fictive du lot 0 (tests d'écran seulement, jamais en production).
 
-**Réglages de la plateforme** (table `app.settings`, une par base, modifiée seulement par migration ou par l'éditeur) : `require_admin_mfa` = `true` en production (double authentification imposée par la base aux administrateurs, décision L5), `false` en développement ; `allow_demo_data` = `true` seulement sur une base de développement (sinon le script des comptes de démonstration refuse). Base `smart-collab-dev` : `allow_demo_data=true`, `require_admin_mfa=false` (27/11/2026).
+**Réglages de la plateforme** (table `app.settings`, une par base, modifiée seulement par migration ou par l'éditeur) : `require_admin_mfa` : double authentification imposée par la base aux administrateurs (décision L5) — **obligatoire si le réglage est absent** ; seule une base de démonstration pose `false` ; `allow_demo_data` = `true` seulement sur une base de développement (sinon le script des comptes de démonstration refuse). Base `smart-collab-dev` : `allow_demo_data=true`, `require_admin_mfa=false` (27/11/2026).
 
 **Réglage Supabase à faire une fois** (tableau de bord du projet) : Authentication → Hooks → « Customize Access Token (JWT) Claims » → type Postgres, schéma `public`, fonction `custom_access_token_hook` → Activer. Sans lui, l'entreprise n'est pas ajoutée au jeton et personne n'accède aux données.
 
