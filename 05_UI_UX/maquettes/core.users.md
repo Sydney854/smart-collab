@@ -100,8 +100,8 @@ Autres gestes : glisser-déposer : réordonner les sous-onglets ou les cartes (5
 
 ## Droits nécessaires
 
-- core.user.manage
-- core.role.assign
+- `core.users.view` (voir), `core.users.invite` (inviter), `core.users.manage` (rôles, activation) ; inviter ou attribuer un profil « puissant » (administrateur, ou qui peut modifier les droits / gérer les collaborateurs) demande aussi `core.roles.manage`
+- core.roles.manage
 
 Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_DROITS.md). Une action non autorisée est masquée, pas grisée.
 
@@ -126,3 +126,10 @@ Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR
 
 - Profils (Caissière, Responsable boutique…) et première fenêtre par profil : rôles du client fondateur → rôles préréglés par métier (§4).
 - Collaborateurs : données du client fondateur.
+
+## Mise à jour du 27/11/2026 (lot 1, étapes 3 et 3 bis)
+
+- Construit : tableau Nom / Rôles / Statut (cartes sur téléphone), filtres **Tous / Actifs / Désactivés**, Modifier les rôles (bouton Enregistrer), Désactiver avec motif, Réactiver, Inviter (lien à copier tant que l'outil d'e-mail n'est pas choisi), invitations en cours (Annuler).
+- Les droits ne se règlent plus personne par personne : ils se règlent **par profil** dans `core.roles` (Enregistrer / Annuler les modifications, décision G4).
+- Attributs du prototype écartés ou déplacés (décision G1) : « super-opérateur » écarté ; « consultation seule » → profil **Lecture seule** ; « première fenêtre » à l'étape 6 ; « multi-session » dans Paramètres → Sécurité.
+- Ouvert depuis **Paramètres** (Liste et Mosaïque, décision G5).

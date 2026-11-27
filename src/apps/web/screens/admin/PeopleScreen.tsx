@@ -111,6 +111,7 @@ export function PeopleScreen() {
       </div>
 
       {/* Téléphone : une carte par personne */}
+      {shown.length === 0 && <EmptyState description={t("noPeople")} />}
       <ul className="flex flex-col gap-2 @3xl:hidden" data-testid="people-cards">
         {shown.map((m) => (
           <li key={m.userId} className="flex flex-col gap-2 rounded-xl border bg-card p-3" data-member={m.email}>

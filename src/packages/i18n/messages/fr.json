@@ -566,7 +566,11 @@
       "exists": "Cette personne est déjà membre.",
       "self": "Action impossible sur votre propre compte.",
       "reason": "Motif obligatoire (3 caractères au moins).",
-      "failed": "L'enregistrement a échoué. Réessayez."
+      "failed": "L'enregistrement a échoué. Réessayez.",
+      "onlyRole": "Des personnes n'ont que ce profil : donnez-leur d'abord un autre profil.",
+      "pendingInvites": "Des invitations en attente utilisent ce profil : annulez-les d'abord.",
+      "nameTaken": "Ce nom de profil existe déjà.",
+      "lastAdmin": "L'entreprise doit garder au moins un administrateur actif."
     },
     "settingsAdmin": "Administration",
     "settingsPeople": "Comptes, rôles et invitations",
@@ -591,6 +595,8 @@
     "filterActive": "Actifs",
     "filterInactive": "Désactivés",
     "appGroup": "Socle",
-    "inactiveProfile": "désactivé"
+    "inactiveProfile": "désactivé",
+    "renameNamed": "Renommer {name}",
+    "noPeople": "Personne ne correspond à ce filtre."
   }
 }

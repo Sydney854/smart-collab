@@ -23,7 +23,12 @@ export type AdminData = {
   permissions: Permission[];
   sensitiveFields: SensitiveField[];
 };
-export type ActionResult = { ok: boolean; error?: "forbidden" | "invalid" | "exists" | "self" | "reason" | "failed"; token?: string };
+export type ActionResult = {
+  ok: boolean;
+  error?: "forbidden" | "invalid" | "exists" | "self" | "reason" | "failed" | "onlyRole" | "pendingInvites" | "nameTaken" | "lastAdmin";
+  token?: string;
+  done?: number;
+};
 
 async function context() {
   if (!authConfigured) throw new Error("Connexion non configurée");
@@ -33,11 +38,19 @@ async function context() {
   return { supabase, me: claims?.sub, tenant: claims?.tenant_id };
 }
 
-function fail(error: { code?: string } | null): ActionResult {
+/** Traduit le refus de la base en message précis (le texte de la base n'est jamais montré tel quel) */
+function fail(error: { code?: string; message?: string } | null): ActionResult {
   if (!error) return { ok: true };
-  if (error.code === "42501") return { ok: false, error: "forbidden" };
-  if (error.code === "23505") return { ok: false, error: "exists" };
-  if (error.code === "23514") return { ok: false, error: "reason" };
+  const m = error.message ?? "";
+  if (error.code === "42501") return { ok: false, error: m.includes("vous-même") || m.includes("propre rôle") ? "self" : "forbidden" };
+  if (error.code === "23505") return { ok: false, error: m.includes("nom de profil") ? "nameTaken" : "exists" };
+  if (error.code === "23514") {
+    if (m.includes("n'ont que ce rôle")) return { ok: false, error: "onlyRole" };
+    if (m.includes("invitations en attente")) return { ok: false, error: "pendingInvites" };
+    if (m.includes("administrateur actif")) return { ok: false, error: "lastAdmin" };
+    if (m.includes("Nom obligatoire")) return { ok: false, error: "invalid" };
+    return { ok: false, error: "reason" };
+  }
   if (error.code === "P0002") return { ok: false, error: "invalid" };
   return { ok: false, error: "failed" };
 }
@@ -175,9 +188,12 @@ export async function setRoleActive(roleId: string, active: boolean, reason: str
 export async function saveRoleChanges(changes: { roleId: string; kind: "permission" | "mask"; key: string; on: boolean }[]): Promise<ActionResult> {
   const schema = z.array(z.object({ roleId: uuid, kind: z.enum(["permission", "mask"]), key: z.string().regex(/^[a-z0-9_.]{3,80}$/), on: z.boolean() })).max(500);
   if (!schema.safeParse(changes).success) return { ok: false, error: "invalid" };
+  // Chaque changement est revérifié et tracé ; en cas de refus, on dit combien sont passés
+  let done = 0;
   for (const c of changes) {
     const result = c.kind === "permission" ? await setRolePermission(c.roleId, c.key, c.on) : await setFieldMask(c.roleId, c.key, !c.on);
-    if (!result.ok) return result;
+    if (!result.ok) return { ...result, done };
+    done += 1;
   }
-  return { ok: true };
+  return { ok: true, done };
 }

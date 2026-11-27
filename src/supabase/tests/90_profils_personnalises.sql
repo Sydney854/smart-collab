@@ -22,6 +22,8 @@ begin
   assert (select name ->> 'fr' from public.roles where id = rid) = 'Responsable de rayon', 'Renommage';
   begin perform public.create_role('X', 'Y'); assert false, 'Nom trop court accepté';
   exception when check_violation then null; end;
+  begin perform public.create_role('caissier', 'Other'); assert false, 'Nom en double accepté';
+  exception when unique_violation then null; end;
   begin perform public.set_role_active((select id from public.roles where code = 'admin'), false, 'test'); assert false, 'Admin désactivé';
   exception when insufficient_privilege then null; end;
   begin perform public.set_role_active(rid, false, ''); assert false, 'Désactivation sans motif';
@@ -37,6 +39,28 @@ do $$ begin
   exception when check_violation then null; end;
 end $$;
 reset role;
+-- Invitation en attente sur le profil : désactivation refusée
+insert into public.invitations (tenant_id, email, full_name, role_id, token_hash, expires_at, invited_by)
+  select 'aaaaaaaa-0000-0000-0000-000000000001', 'attente@demo.test', 'En Attente', v, md5('attente'), now() + interval '1 day', 'a1000000-0000-0000-0000-000000000001' from ids where k = 'custom';
+delete from public.user_roles where user_id = 'd4000000-0000-0000-0000-000000000004';
+set local role authenticated;
+do $$ begin
+  begin perform public.set_role_active((select v from ids where k = 'custom'), false, 'réorganisation'); assert false, 'Invitations en attente ignorées';
+  exception when check_violation then null; end;
+end $$;
+reset role;
+
+-- B ne copie pas un profil de A
+insert into public.role_permissions (tenant_id, role_id, permission)
+  select tenant_id, id, 'core.roles.manage' from public.roles where tenant_id = 'bbbbbbbb-0000-0000-0000-000000000002' and code = 'admin' on conflict do nothing;
+select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated"}', true);
+set local role authenticated;
+do $$ begin
+  begin perform public.create_role('Copie pirate', 'Pirate copy', (select v from ids where k = 'custom')); assert false, 'B copie un profil de A';
+  exception when no_data_found then null; end;
+end $$;
+reset role;
+
 -- Un caissier ne crée pas de profil ; B ne voit pas les profils de A
 select set_config('request.jwt.claims', '{"sub":"b2000000-0000-0000-0000-000000000002","tenant_id":"bbbbbbbb-0000-0000-0000-000000000002","role":"authenticated"}', true);
 set local role authenticated;

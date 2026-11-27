@@ -566,7 +566,11 @@
       "exists": "This person is already a member.",
       "self": "Not possible on your own account.",
       "reason": "A reason is required (at least 3 characters).",
-      "failed": "Saving failed. Please try again."
+      "failed": "Saving failed. Please try again.",
+      "onlyRole": "Some people only have this role: give them another role first.",
+      "pendingInvites": "Pending invitations use this role: cancel them first.",
+      "nameTaken": "This role name already exists.",
+      "lastAdmin": "The company must keep at least one active administrator."
     },
     "settingsAdmin": "Administration",
     "settingsPeople": "Accounts, roles and invitations",
@@ -591,6 +595,8 @@
     "filterActive": "Active",
     "filterInactive": "Deactivated",
     "appGroup": "Core",
-    "inactiveProfile": "deactivated"
+    "inactiveProfile": "deactivated",
+    "renameNamed": "Rename {name}",
+    "noPeople": "Nobody matches this filter."
   }
 }

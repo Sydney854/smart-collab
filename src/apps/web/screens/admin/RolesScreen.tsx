@@ -191,7 +191,7 @@ export function RolesScreen() {
               </h2>
               {editable && r.code !== "admin" && (
                 <span className="flex shrink-0 gap-1">
-                  <Button size="icon" variant="ghost" className="size-8" aria-label={`${t("rename")} ${label(r.name)}`} onClick={() => setEditor({ role: r, fr: r.name.fr, en: r.name.en, copyFrom: "" })}>
+                  <Button size="icon" variant="ghost" className="size-8 max-sm:size-11" aria-label={t("renameNamed", { name: label(r.name) })} onClick={() => setEditor({ role: r, fr: r.name.fr, en: r.name.en, copyFrom: "" })}>
                     <PencilIcon />
                   </Button>
                 </span>
@@ -255,7 +255,7 @@ export function RolesScreen() {
       {/* Barre d'enregistrement (décision G4) */}
       {pending.length > 0 && (
         <div className="sticky bottom-0 flex flex-wrap items-center justify-between gap-2 rounded-xl border bg-card p-3 shadow-card" data-testid="pending-bar">
-          <span className="text-sm font-medium">{t("pendingChanges", { count: pending.length })}</span>
+          <span className="text-sm font-medium" role="status" aria-live="polite">{t("pendingChanges", { count: pending.length })}</span>
           <span className="flex gap-2">
             <Button variant="ghost" disabled={saving} onClick={() => setPending([])}>
               {t("discard")}
@@ -266,7 +266,8 @@ export function RolesScreen() {
                 setSaving(true);
                 const result = await apply(() => saveRoleChanges(pending), t("saved"));
                 setSaving(false);
-                if (result.ok) setPending([]);
+                // Les changements déjà enregistrés quittent la liste d'attente, même après un refus
+                setPending((list) => (result.ok ? [] : list.slice(result.done ?? 0)));
               }}
             >
               {t("save")}

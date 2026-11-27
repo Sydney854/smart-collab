@@ -49,7 +49,7 @@ Autres gestes : glisser-déposer : réordonner les sous-onglets ou les cartes (5
 
 ## Droits nécessaires
 
-- core.role.manage
+- `core.roles.view` (voir), `core.roles.manage` (modifier)
 
 Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_DROITS.md). Une action non autorisée est masquée, pas grisée.
 
@@ -71,3 +71,9 @@ Modèle : rôle × module × action × périmètre (02_SPECIFICATIONS/04_ROLES_D
 Signalé sans recopier les valeurs ; à traiter dans 02_SPECIFICATIONS/07_MOTEUR_CONFIGURATION.md.
 
 - Profils prédéfinis du client fondateur → rôles préréglés par métier (§4).
+
+## Mise à jour du 27/11/2026 (lot 1, étapes 3 et 3 bis)
+
+- Construit : cartes des profils (nombre de droits, nombre de personnes), **Créer un profil** (vide ou à partir d'un profil existant), **Renommer**, **Désactiver** avec motif (jamais l'administrateur ; refus si des personnes n'ont que ce profil ou si des invitations l'utilisent) ; noms uniques.
+- Droits et données sensibles : changements en attente, puis **Enregistrer** / **Annuler les modifications** (décision G4), chacun tracé au journal ; sur téléphone, un profil à la fois.
+- Pas encore : description du profil, « Rétablir le préréglage du métier » (avec les champs sensibles des modules), avertissement avant de quitter avec des modifications en attente.
