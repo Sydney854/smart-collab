@@ -61,7 +61,8 @@ begin
 end $$;
 reset role;
 insert into public.role_permissions (tenant_id, role_id, permission)
-  select tenant_id, id, 'core.users.invite' from public.roles where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'admin';
+  select tenant_id, id, p from public.roles, unnest(array['core.users.invite', 'core.roles.manage']) p
+  where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'admin';
 create temporary table tok(v text) on commit drop;
 grant all on tok to authenticated, service_role;
 set local role authenticated;

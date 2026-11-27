@@ -16,6 +16,7 @@ Source : les 130 captures de `03_SOURCES_REFERENCE/prototype/CAPTURES.md` (chaqu
 | `core` | [two-factor](core.two-factor.md) | Double authentification | 1 | 4 (DreamsERP) | proposée |
 | `core` | [invitation](core.invitation.md) | Création de compte par invitation | 1 | 1 (DreamsERP) | proposée |
 | `core` | [select-company](core.select-company.md) | Choix de l'entreprise à la connexion | 1 | 0 | proposée |
+| `core` | [field-masks](core.field-masks.md) | Masques de champs (données sensibles) | 1 | 0 | proposée |
 | `core` | [forgot-password](core.forgot-password.md) | Mot de passe oublié | 1 | 2 (DreamsERP) | proposée |
 | `core` | [reset-password](core.reset-password.md) | Nouveau mot de passe | 1 | 2 (DreamsERP) | proposée |
 | `core` | [email-verification](core.email-verification.md) | Vérification de l'e-mail | 1 | 2 (DreamsERP) | proposée |

@@ -16,7 +16,9 @@ async function currentAccount() {
     supabase.from("users").select("full_name, email").eq("id", claims.sub).maybeSingle(),
     supabase.from("tenants").select("legal_name, business_domain").eq("id", claims.tenant_id).maybeSingle(),
   ]);
+  const { data: perms } = await supabase.rpc("my_permissions");
   return {
+    permissions: (perms as string[] | null) ?? [],
     name: me?.full_name ?? me?.email ?? "",
     email: me?.email ?? "",
     company: company?.legal_name ?? "",
@@ -33,6 +35,8 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
   return (
     <Workspace
       account={account}
+      // Démonstration sans connexion : tous les écrans ; sinon les droits lus dans la base
+      permissions={account ? account.permissions : authConfigured ? [] : "all"}
       initialMode={isLayoutMode(layout) ? layout : "list"}
       initialScreen={ecran}
       // Menu latéral ouvert ou réduit : mémorisé par shadcn/ui dans le cookie « sidebar_state »

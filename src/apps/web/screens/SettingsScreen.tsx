@@ -14,7 +14,9 @@ import {
 } from "@smart-collab/ui";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@smart-collab/ui/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@smart-collab/ui/components/ui/toggle-group";
-import { CheckIcon } from "lucide-react";
+import { useOpenScreen } from "@smart-collab/ui";
+import { CheckIcon, ChevronRightIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
+import { useCan } from "@/lib/permissions";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
@@ -49,6 +51,13 @@ function Choice({ checked, onSelect, label, hint, children }: { checked: boolean
 export function SettingsScreen() {
   const t = useTranslations("settings");
   const { iconStyle, iconSize, wizardLayout, set } = useAppearance();
+  const ta = useTranslations("admin");
+  const can = useCan();
+  const openScreen = useOpenScreen();
+  const adminLinks = [
+    { key: "people", icon: <UsersIcon />, title: ta("peopleTitle"), hint: ta("settingsPeople"), needs: "core.users.view" },
+    { key: "roles", icon: <ShieldCheckIcon />, title: ta("rolesTitle"), hint: ta("settingsRoles"), needs: "core.roles.view" },
+  ].filter((l) => can(l.needs));
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-6">
@@ -56,6 +65,30 @@ export function SettingsScreen() {
         <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
         <p className="mt-1 text-muted-foreground">{t("subtitle")}</p>
       </header>
+
+      {adminLinks.length > 0 && (
+        <section aria-labelledby="set-admin" className="flex flex-col gap-3">
+          <h2 id="set-admin" className="font-semibold">{ta("settingsAdmin")}</h2>
+          <div className="grid gap-3 @xl:grid-cols-2">
+            {adminLinks.map((l) => (
+              <button
+                key={l.key}
+                type="button"
+                data-open={l.key}
+                onClick={() => openScreen(l.key)}
+                className="flex items-center gap-3 rounded-xl border bg-card p-4 text-left shadow-card outline-none transition hover:border-primary focus-visible:ring-2 focus-visible:ring-ring [&>svg:first-child]:size-5 [&>svg:first-child]:text-gold-strong"
+              >
+                {l.icon}
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold">{l.title}</span>
+                  <span className="block text-sm text-muted-foreground">{l.hint}</span>
+                </span>
+                <ChevronRightIcon className="size-4 text-muted-foreground" />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       <Card className="shadow-card">
         <CardHeader>

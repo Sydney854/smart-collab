@@ -14,3 +14,9 @@ export const ScreenContainerContext = createContext<ScreenContainer>("page");
 export function useScreenContainer() {
   return useContext(ScreenContainerContext);
 }
+
+/** Ouvrir un autre écran depuis un écran (ex. Paramètres → Collaborateurs), en page ou en fenêtre selon le mode */
+export const OpenScreenContext = createContext<(key: string) => void>(() => {});
+export function useOpenScreen() {
+  return useContext(OpenScreenContext);
+}

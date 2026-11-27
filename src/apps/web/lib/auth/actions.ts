@@ -58,10 +58,8 @@ export async function signIn(input: { email: string; password: string }, next: s
   // Trop d'échecs pour ce compte, ou depuis cette adresse réseau (tous comptes confondus, décision F4)
   const { ip } = await requestInfo();
   const { data: ipBlocked, error: ipError } = await admin.rpc("ip_blocked", { p_ip: ip });
-  if (ipError || ipBlocked || (await isLocked(admin, email))) {
-    await record(admin, email, "login_failed");
-    return { error: "unavailable" };
-  }
+  // Un essai refusé pendant un blocage n'est pas compté comme un nouvel échec (sinon le blocage se prolongerait sans fin)
+  if (ipError || ipBlocked || (await isLocked(admin, email))) return { error: "unavailable" };
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
@@ -170,7 +168,8 @@ export async function redeemRecoveryCode(code: string, next: string): Promise<Au
   const { data: userData } = await supabase.auth.getUser();
   const user = userData.user;
   if (!user?.email) return { redirect: "/connexion" };
-  if (await isLocked(admin, user.email)) {
+  const { data: ipBlocked } = await admin.rpc("ip_blocked", { p_ip: (await requestInfo()).ip });
+  if (ipBlocked || (await isLocked(admin, user.email))) {
     await supabase.auth.signOut();
     return { error: "unavailable" };
   }

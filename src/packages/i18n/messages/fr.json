@@ -27,7 +27,9 @@
     "components": "Composants (démo)",
     "notYet": "« {name} » arrive dans un prochain lot",
     "settings": "Paramètres",
-    "setup": "Assistant (démo)"
+    "setup": "Assistant (démo)",
+    "people": "Collaborateurs",
+    "roles": "Profils et droits"
   },
   "demo": {
     "title": "Composants Smart Collab",
@@ -329,7 +331,9 @@
       "apps": "Installer ou retirer des modules",
       "components": "Catalogue des composants (démo)",
       "settings": "Société, utilisateurs, apparence",
-      "setup": "Choix des modules à la première connexion"
+      "setup": "Choix des modules à la première connexion",
+      "people": "Comptes, rôles et invitations",
+      "roles": "Droits par rôle et données sensibles"
     },
     "plannedShort": "« {name} » arrive au lot {lot}"
   },
@@ -516,5 +520,57 @@
     "recoveryDownload": "Télécharger les codes",
     "recoveryNoted": "J'ai noté mes codes",
     "continue": "Continuer"
+  },
+  "admin": {
+    "peopleTitle": "Collaborateurs",
+    "peopleSubtitle": "Les personnes qui ont accès à l'entreprise, leurs rôles et les invitations en cours.",
+    "rolesTitle": "Profils et droits",
+    "rolesSubtitle": "Ce que chaque rôle peut faire. Les droits sont vérifiés par le serveur à chaque action.",
+    "tabRights": "Droits",
+    "tabSensitive": "Données sensibles",
+    "sensitiveHint": "Un champ masqué n'est jamais transmis aux personnes de ce rôle.",
+    "noSensitive": "Aucune donnée sensible pour les applications installées.",
+    "visible": "Visible",
+    "hidden": "Masqué",
+    "adminFixed": "L'administrateur a toujours tous les droits.",
+    "name": "Nom",
+    "email": "E-mail",
+    "roles": "Rôles",
+    "status": "Statut",
+    "active": "Actif",
+    "inactive": "Désactivé",
+    "you": "(vous)",
+    "invite": "Inviter une personne",
+    "inviteSend": "Créer l'invitation",
+    "inviteRole": "Rôle",
+    "inviteLanguage": "Langue",
+    "inviteValid": "Une invitation valable 7 jours sera créée pour {email}.",
+    "inviteLink": "Lien d'invitation à transmettre à la personne (l'envoi par e-mail arrive plus tard) :",
+    "copy": "Copier le lien",
+    "copied": "Lien copié",
+    "pending": "Invitations en cours",
+    "expires": "Expire le {date}",
+    "cancel": "Annuler l'invitation",
+    "cancelled": "Invitation annulée",
+    "editRoles": "Modifier les rôles",
+    "deactivate": "Désactiver",
+    "reactivate": "Réactiver",
+    "reason": "Motif",
+    "deactivateConfirm": "Désactiver {name} ? La personne ne pourra plus accéder à l'entreprise ; son historique est conservé.",
+    "saved": "Enregistré",
+    "signedOutOnly": "Disponible une fois connecté à une entreprise.",
+    "noAccess": "Vous n'avez pas accès à cet écran.",
+    "errors": {
+      "forbidden": "Action non autorisée.",
+      "invalid": "Saisie incorrecte.",
+      "exists": "Cette personne est déjà membre.",
+      "self": "Action impossible sur votre propre compte.",
+      "reason": "Motif obligatoire (3 caractères au moins).",
+      "failed": "L'enregistrement a échoué. Réessayez."
+    },
+    "settingsAdmin": "Administration",
+    "settingsPeople": "Collaborateurs, rôles et invitations",
+    "settingsRoles": "Droits de chaque rôle et données sensibles",
+    "save": "Enregistrer"
   }
 }

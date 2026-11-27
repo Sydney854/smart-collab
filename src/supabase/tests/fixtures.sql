@@ -5,7 +5,8 @@ insert into app.settings (key, value) values ('require_admin_mfa', 'false') on c
 insert into public.plans (id, name) values ('business', '{"fr":"Business","en":"Business"}');
 insert into public.apps (id, version, category, name, is_core, manifest) values
   ('core', '1.0.0', 'core', '{"fr":"Socle","en":"Core"}', true, '{}'),
-  ('pos', '1.0.0', 'sales', '{"fr":"Point de vente","en":"Point of sale"}', false, '{}');
+  ('pos', '1.0.0', 'sales', '{"fr":"Point de vente","en":"Point of sale"}', false, '{}')
+on conflict (id) do nothing;
 insert into public.app_dependencies values ('pos', 'core');
 insert into public.plan_apps values ('business', 'core'), ('business', 'pos');
 
@@ -39,7 +40,7 @@ begin
     insert into public.subscriptions (tenant_id, plan_id, starts_on, ends_on, amount) values (t, 'business', '2026-01-01', '2027-01-01', 1200000);
     insert into public.app_installations (tenant_id, app_id, status, installed_version) values (t, 'core', 'installed', '1.0.0');
     insert into public.roles (tenant_id, code, name) values (t, 'admin', '{"fr":"Administrateur","en":"Administrator"}') returning id into r;
-    insert into public.role_permissions (tenant_id, role_id, permission) values (t, r, 'core.settings.manage');
+    insert into public.role_permissions (tenant_id, role_id, permission) values (t, r, 'core.settings.manage'), (t, r, 'core.audit.view');
     insert into public.user_roles (tenant_id, user_id, role_id) values (t, u, r);
     insert into public.field_masks (tenant_id, role_id, entity, field) values (t, r, 'product', 'cost_price');
     insert into public.config_items (tenant_id, app_id, kind, code) values (t, 'core', 'theme', 'default') returning id into c;

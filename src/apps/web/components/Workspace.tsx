@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { signOut } from "@/lib/auth/actions";
+import { type Permissions, PermissionsContext } from "@/lib/permissions";
 import { toast } from "sonner";
 import { LAYOUT_COOKIE, writeCookie } from "@/lib/preferences";
 import { useScreens } from "@/screens/registry";
@@ -27,6 +28,20 @@ const initialsOf = (name: string) =>
  * Sans connexion (démonstration du lot 0 seulement) : entreprise et utilisatrice fictives.
  */
 export function Workspace({
+  initialMode,
+  initialScreen,
+  sidebarOpen,
+  account,
+  permissions,
+}: { initialMode: LayoutMode; initialScreen?: string; sidebarOpen: boolean; account: Account | null; permissions: Permissions }) {
+  return (
+    <PermissionsContext.Provider value={permissions}>
+      <WorkspaceInner initialMode={initialMode} initialScreen={initialScreen} sidebarOpen={sidebarOpen} account={account} />
+    </PermissionsContext.Provider>
+  );
+}
+
+function WorkspaceInner({
   initialMode,
   initialScreen,
   sidebarOpen,

@@ -45,7 +45,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "./ui/sidebar";
-import { ScreenContainerContext } from "./workspace/context";
+import { OpenScreenContext, ScreenContainerContext } from "./workspace/context";
 import { MinimizedBar } from "./workspace/MinimizedBar";
 import { ModeSwitch } from "./workspace/ModeSwitch";
 import { MosaicTiles } from "./workspace/MosaicTiles";
@@ -272,6 +272,7 @@ export function AppShell({
   // ----- Mode Mosaïque -----
   if (state.mode === "mosaic") {
     return (
+      <OpenScreenContext.Provider value={open}>
       <div className="flex h-dvh flex-col bg-background" data-layout="mosaic">
         <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">
           <div className="flex min-w-0 items-center gap-2 md:w-60">
@@ -319,12 +320,14 @@ export function AppShell({
           onClose={(key) => dispatch({ type: "close", key, fallback })}
         />
       </div>
+      </OpenScreenContext.Provider>
     );
   }
 
   // ----- Mode Liste -----
   const currentScreen = screen(state.current);
   return (
+    <OpenScreenContext.Provider value={open}>
     <SidebarProvider defaultOpen={defaultSidebarOpen} data-layout="list">
       <Sidebar collapsible="icon" aria-label={t("navigation")}>
         <SidebarHeader>
@@ -384,5 +387,6 @@ export function AppShell({
         </main>
       </SidebarInset>
     </SidebarProvider>
+    </OpenScreenContext.Provider>
   );
 }

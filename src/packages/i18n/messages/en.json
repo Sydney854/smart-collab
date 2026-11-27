@@ -27,7 +27,9 @@
     "components": "Components (demo)",
     "notYet": "“{name}” comes in a later lot",
     "settings": "Settings",
-    "setup": "Setup wizard (demo)"
+    "setup": "Setup wizard (demo)",
+    "people": "People",
+    "roles": "Roles and permissions"
   },
   "demo": {
     "title": "Smart Collab components",
@@ -329,7 +331,9 @@
       "apps": "Install or remove modules",
       "components": "Component catalogue (demo)",
       "settings": "Company, users, appearance",
-      "setup": "Choosing modules at first sign-in"
+      "setup": "Choosing modules at first sign-in",
+      "people": "Accounts, roles and invitations",
+      "roles": "Permissions per role and sensitive data"
     },
     "plannedShort": "“{name}” comes in lot {lot}"
   },
@@ -516,5 +520,57 @@
     "recoveryDownload": "Download the codes",
     "recoveryNoted": "I have saved my codes",
     "continue": "Continue"
+  },
+  "admin": {
+    "peopleTitle": "People",
+    "peopleSubtitle": "People with access to the company, their roles and pending invitations.",
+    "rolesTitle": "Roles and permissions",
+    "rolesSubtitle": "What each role can do. Permissions are checked by the server on every action.",
+    "tabRights": "Permissions",
+    "tabSensitive": "Sensitive data",
+    "sensitiveHint": "A hidden field is never sent to people with this role.",
+    "noSensitive": "No sensitive data for the installed apps.",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "adminFixed": "The administrator always has every permission.",
+    "name": "Name",
+    "email": "Email",
+    "roles": "Roles",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Deactivated",
+    "you": "(you)",
+    "invite": "Invite someone",
+    "inviteSend": "Create invitation",
+    "inviteRole": "Role",
+    "inviteLanguage": "Language",
+    "inviteValid": "An invitation valid for 7 days will be created for {email}.",
+    "inviteLink": "Invitation link to send to the person (email sending comes later):",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "pending": "Pending invitations",
+    "expires": "Expires on {date}",
+    "cancel": "Cancel invitation",
+    "cancelled": "Invitation cancelled",
+    "editRoles": "Edit roles",
+    "deactivate": "Deactivate",
+    "reactivate": "Reactivate",
+    "reason": "Reason",
+    "deactivateConfirm": "Deactivate {name}? They will lose access to the company; their history is kept.",
+    "saved": "Saved",
+    "signedOutOnly": "Available once signed in to a company.",
+    "noAccess": "You do not have access to this screen.",
+    "errors": {
+      "forbidden": "Action not allowed.",
+      "invalid": "Invalid input.",
+      "exists": "This person is already a member.",
+      "self": "Not possible on your own account.",
+      "reason": "A reason is required (at least 3 characters).",
+      "failed": "Saving failed. Please try again."
+    },
+    "settingsAdmin": "Administration",
+    "settingsPeople": "People, roles and invitations",
+    "settingsRoles": "Permissions of each role and sensitive data",
+    "save": "Save"
   }
 }

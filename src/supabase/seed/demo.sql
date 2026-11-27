@@ -39,7 +39,9 @@ begin
   select t, 'core', 'installed', '1.0.0' from unnest(array[t_retail, t_multi]) t
   on conflict do nothing;
 
-  -- Rôles préréglés minimum (complétés à l'étape 3 : rôles et droits)
+  -- Rôles préréglés du métier (étape 3), plus un rôle personnalisé « Comptable » pour le cabinet
+  perform app.install_role_presets(t_retail);
+  perform app.install_role_presets(t_multi);
   insert into public.roles (tenant_id, code, name, source_preset)
   select t, c.code, c.name::jsonb, 'demo' from unnest(array[t_retail, t_multi]) t,
     (values ('admin', '{"fr":"Administrateur","en":"Administrator"}'),
