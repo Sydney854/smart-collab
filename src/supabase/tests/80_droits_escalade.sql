@@ -7,7 +7,8 @@ update public.memberships set is_active = true where user_id = 'd4000000-0000-00
 insert into public.user_roles (tenant_id, user_id, role_id)
   select tenant_id, 'd4000000-0000-0000-0000-000000000004', id from public.roles where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'manager';
 insert into public.role_permissions (tenant_id, role_id, permission)
-  select tenant_id, id, 'core.users.manage' from public.roles where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'manager'
+  select tenant_id, id, p from public.roles, unnest(array['core.users.manage', 'core.users.invite']) p
+  where tenant_id = 'aaaaaaaa-0000-0000-0000-000000000001' and code = 'manager'
   on conflict do nothing;
 -- Un rôle personnalisé « puissant »
 insert into public.roles (tenant_id, code, name) values ('aaaaaaaa-0000-0000-0000-000000000001', 'superviseur', '{"fr":"Superviseur"}');
@@ -36,6 +37,9 @@ begin
   exception when insufficient_privilege then null; end;
   -- Gérer un caissier ordinaire : permis
   perform public.set_member_roles('c3000000-0000-0000-0000-000000000003', array[rc]);
+  -- S'inviter sous une autre adresse sur un rôle puissant : refusé
+  begin perform public.create_invitation('moi-bis@demo.test', 'Moi Bis', rs); assert false, 'Invitation sur un rôle puissant';
+  exception when insufficient_privilege then null; end;
 end $$;
 reset role;
 
