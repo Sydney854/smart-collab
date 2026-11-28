@@ -13,6 +13,7 @@ import {
   formatMoney,
   presetRange,
   useFormatDate,
+  useStorageKey,
 } from "@smart-collab/ui";
 import { addMonths, differenceInCalendarDays, endOfMonth, isValid, startOfMonth } from "date-fns";
 import { BanknoteIcon, FileWarningIcon, ShoppingCartIcon, WalletIcon } from "lucide-react";
@@ -25,9 +26,9 @@ import { DEMO_CURRENCY, type DemoSale, demoRecentSales, demoRevenue } from "@/li
 const PERIOD_KEY = "sc-dashboard-period";
 const DEFAULT_PRESET: RangePreset = "thisMonth";
 
-function readPeriod(): RangeValue {
+function readPeriod(key: string): RangeValue {
   try {
-    const v = JSON.parse(window.localStorage.getItem(PERIOD_KEY) ?? "null") as { preset?: string; from?: string; to?: string } | null;
+    const v = JSON.parse(window.localStorage.getItem(key) ?? "null") as { preset?: string; from?: string; to?: string } | null;
     // Un raccourci se recalcule chaque jour (« ce mois-ci » reste « ce mois-ci ») ; une période choisie reste fixe
     if (v?.preset && (RANGE_PRESETS as readonly string[]).includes(v.preset)) return { preset: v.preset as RangePreset, ...presetRange(v.preset as RangePreset) };
     if (v?.preset === "custom" && v.from && v.to) {
@@ -40,9 +41,9 @@ function readPeriod(): RangeValue {
   }
   return { preset: DEFAULT_PRESET, ...presetRange(DEFAULT_PRESET) };
 }
-function savePeriod(v: RangeValue) {
+function savePeriod(key: string, v: RangeValue) {
   try {
-    window.localStorage.setItem(PERIOD_KEY, JSON.stringify(v.preset === "custom" ? { preset: "custom", from: v.from.toISOString(), to: v.to.toISOString() } : { preset: v.preset }));
+    window.localStorage.setItem(key, JSON.stringify(v.preset === "custom" ? { preset: "custom", from: v.from.toISOString(), to: v.to.toISOString() } : { preset: v.preset }));
   } catch {
     // Rien à faire : la période vaut pour cette visite
   }
@@ -71,10 +72,11 @@ export function DashboardScreen() {
   const formatDate = useFormatDate();
   // Calendrier global : une seule période pour tout le tableau de bord (chiffres, graphique, dernières ventes)
   const [period, setPeriod] = useState<RangeValue>(() => ({ preset: DEFAULT_PRESET, ...presetRange(DEFAULT_PRESET) }));
-  useEffect(() => setPeriod(readPeriod()), []);
+  const periodKey = useStorageKey(PERIOD_KEY);
+  useEffect(() => setPeriod(readPeriod(periodKey)), [periodKey]);
   const changePeriod = (v: RangeValue) => {
     setPeriod(v);
-    savePeriod(v);
+    savePeriod(periodKey, v);
   };
 
   const idx = useMemo(() => monthsIn(period.from, period.to), [period]);

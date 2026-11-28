@@ -15,19 +15,36 @@ export type SearchScope = { key: string; label: string };
 export const HEADER_ICON_BUTTON = "size-8 rounded-lg border bg-card text-foreground shadow-none hover:bg-muted [&_svg]:size-4";
 
 const RECENT_KEY = "sc-recent-searches";
+
+/**
+ * Portée du stockage de l'appareil : personne + entreprise (identifiants techniques seulement).
+ * Sur un poste partagé, chacun garde ses recherches récentes, notifications lues et période.
+ */
+export const StorageScopeContext = createContext("demo");
+export function useStorageKey(base: string) {
+  return `${base}:${useContext(StorageScopeContext)}`;
+}
+/** Efface l'historique de recherche d'une personne (à la déconnexion) */
+export function clearRecentSearches(scope: string) {
+  try {
+    window.localStorage.removeItem(`${RECENT_KEY}:${scope}`);
+  } catch {
+    // Stockage indisponible : rien à effacer
+  }
+}
 const MAX_RECENT = 5;
 
-function readRecent(): string[] {
+function readRecent(key: string): string[] {
   try {
-    const v = JSON.parse(window.localStorage.getItem(RECENT_KEY) ?? "[]");
+    const v = JSON.parse(window.localStorage.getItem(key) ?? "[]");
     return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string").slice(0, MAX_RECENT) : [];
   } catch {
     return [];
   }
 }
-function saveRecent(list: string[]) {
+function saveRecent(key: string, list: string[]) {
   try {
-    window.localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, MAX_RECENT)));
+    window.localStorage.setItem(key, JSON.stringify(list.slice(0, MAX_RECENT)));
   } catch {
     // Stockage indisponible (navigation privée) : la recherche marche sans historique
   }
@@ -75,13 +92,14 @@ export function SearchDialog({
   const [scope, setScope] = useState<string | null>(null);
   const [recent, setRecent] = useState<string[]>([]);
   const [active, setActive] = useState(0);
+  const recentKey = useStorageKey(RECENT_KEY);
 
   useEffect(() => {
     if (open) {
       setQuery("");
       setScope(null);
       setActive(0);
-      setRecent(readRecent());
+      setRecent(readRecent(recentKey));
     }
   }, [open]);
 
@@ -90,8 +108,8 @@ export function SearchDialog({
   const runSearch = (q: string) => {
     const text = q.trim();
     if (!text) return;
-    const next = [text, ...readRecent().filter((r) => r !== text)];
-    saveRecent(next);
+    const next = [text, ...readRecent(recentKey).filter((r) => r !== text)];
+    saveRecent(recentKey, next);
     close();
     onSearch(text, scopeDef);
   };

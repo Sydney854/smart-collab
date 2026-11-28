@@ -1,6 +1,6 @@
 "use client";
 
-import { HEADER_ICON_BUTTON } from "@smart-collab/ui";
+import { HEADER_ICON_BUTTON, useStorageKey } from "@smart-collab/ui";
 import { Button } from "@smart-collab/ui/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@smart-collab/ui/components/ui/popover";
 import { Switch } from "@smart-collab/ui/components/ui/switch";
@@ -12,18 +12,18 @@ import { type NotificationItem, loadNotifications } from "@/lib/notifications/ac
 const READ_KEY = "sc-notifications-read";
 const FIRST = 5;
 
-function readIds(): string[] {
+function readIds(key: string): string[] {
   try {
-    const v = JSON.parse(window.localStorage.getItem(READ_KEY) ?? "[]");
+    const v = JSON.parse(window.localStorage.getItem(key) ?? "[]");
     return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
   } catch {
     return [];
   }
 }
-function saveIds(ids: string[]) {
+function saveIds(key: string, ids: string[]) {
   try {
     // On ne garde que les 200 derniers identifiants lus
-    window.localStorage.setItem(READ_KEY, JSON.stringify(ids.slice(-200)));
+    window.localStorage.setItem(key, JSON.stringify(ids.slice(-200)));
   } catch {
     // Stockage indisponible : tout reste « non lu » sur cet appareil
   }
@@ -50,22 +50,23 @@ export function NotificationsBell() {
   const [unreadOnly, setUnreadOnly] = useState(false);
   const [all, setAll] = useState(false);
   const [open, setOpen] = useState(false);
+  const readKey = useStorageKey(READ_KEY);
 
   const refresh = () =>
     loadNotifications()
       .then(setItems)
       .catch(() => setItems([]));
   useEffect(() => {
-    setRead(readIds());
+    setRead(readIds(readKey));
     void refresh();
-  }, []);
+  }, [readKey]);
 
   const unread = items.filter((n) => !read.includes(n.id));
   const shown = (unreadOnly ? unread : items).slice(0, all ? undefined : FIRST);
   const markRead = (ids: string[]) => {
     const next = [...new Set([...read, ...ids])];
     setRead(next);
-    saveIds(next);
+    saveIds(readKey, next);
   };
 
   const text = (n: NotificationItem) => {

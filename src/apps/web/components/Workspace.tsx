@@ -1,6 +1,6 @@
 "use client";
 
-import { AppShell, type LayoutMode } from "@smart-collab/ui";
+import { AppShell, type LayoutMode, StorageScopeContext, clearRecentSearches } from "@smart-collab/ui";
 import { PackageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import { useScreens } from "@/screens/registry";
 import { HeaderControls } from "./HeaderControls";
 
 /** Cadre de l'application de démonstration (entreprise et utilisatrice fictives). */
-export type Account = { name: string; email: string; company: string; domain: string; companies?: number };
+export type Account = { name: string; email: string; company: string; domain: string; companies?: number; scope?: string };
 
 const initialsOf = (name: string) =>
   name
@@ -45,7 +45,9 @@ export function Workspace({
   return (
     <PermissionsContext.Provider value={permissions}>
       <InstalledAppsContext.Provider value={installedApps}>
-        <WorkspaceInner initialMode={initialMode} initialScreen={initialScreen} sidebarOpen={sidebarOpen} account={account} />
+        <StorageScopeContext.Provider value={account?.scope ?? "demo"}>
+          <WorkspaceInner initialMode={initialMode} initialScreen={initialScreen} sidebarOpen={sidebarOpen} account={account} />
+        </StorageScopeContext.Provider>
       </InstalledAppsContext.Provider>
     </PermissionsContext.Provider>
   );
@@ -98,6 +100,8 @@ function WorkspaceInner({
       onScreenChange={syncUrl}
       userActions={{ onProfile: notYet(tShell("profile")), onSignOut: account
           ? async () => {
+              // Poste partagé : l'historique de recherche de la personne part avec elle
+              clearRecentSearches(account.scope ?? "demo");
               const result = await signOut();
               if (result.redirect) {
                 router.replace(result.redirect);

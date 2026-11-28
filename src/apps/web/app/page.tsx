@@ -20,7 +20,7 @@ async function currentAccount() {
     supabase.rpc("my_permissions"),
     supabase.from("app_installations").select("app_id").eq("tenant_id", claims.tenant_id).eq("status", "installed"),
     // Entreprises de la personne : « Changer d'entreprise » n'apparaît que s'il y en a plusieurs
-    supabase.from("memberships").select("tenant_id", { count: "exact", head: true }).eq("user_id", claims.sub),
+    supabase.from("memberships").select("tenant_id", { count: "exact", head: true }).eq("user_id", claims.sub).eq("is_active", true),
   ]);
   return {
     permissions: (perms as string[] | null) ?? [],
@@ -30,6 +30,8 @@ async function currentAccount() {
     company: company?.legal_name ?? "",
     domain: company?.business_domain ?? "",
     companies: companies ?? 1,
+    // Portée du stockage de l'appareil (identifiants techniques, pas de nom ni d'e-mail)
+    scope: `${claims.sub}:${claims.tenant_id}`,
   };
 }
 
