@@ -74,9 +74,9 @@ export function DateRangePicker({ value, onChange }: { value: RangeValue; onChan
           {label}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-auto max-w-[calc(100vw-1rem)] p-0" data-testid="range-panel">
+      <PopoverContent align="end" collisionPadding={8} className="w-auto max-w-[calc(100vw-1rem)] p-0" data-testid="range-panel">
         <div className="flex flex-col sm:flex-row">
-          <div role="radiogroup" aria-label={t("presets")} className="flex gap-1 overflow-x-auto border-b p-2 sm:w-44 sm:flex-col sm:border-r sm:border-b-0">
+          <div role="radiogroup" aria-label={t("presets")} className="flex flex-wrap gap-1 border-b p-2 sm:w-44 sm:flex-col sm:flex-nowrap sm:border-r sm:border-b-0">
             {[...RANGE_PRESETS, "custom" as const].map((p) => (
               <button
                 key={p}
@@ -102,6 +102,11 @@ export function DateRangePicker({ value, onChange }: { value: RangeValue; onChan
             locale={locale}
             numberOfMonths={isMobile ? 1 : 2}
             showOutsideDays={false}
+            // Nom du mois avec une majuscule (« Octobre 2026 »), comme sur la maquette
+            formatters={{ formatCaption: (d) => {
+              const s = formatDate(d, "LLLL yyyy");
+              return s.charAt(0).toUpperCase() + s.slice(1);
+            } }}
             month={month}
             onMonthChange={setMonth}
             selected={{ from: draft.from, to: draft.to } satisfies DateRange}

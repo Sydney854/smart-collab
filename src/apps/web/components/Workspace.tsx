@@ -98,7 +98,7 @@ function WorkspaceInner({
       headerRight={<HeaderControls />}
       onModeChange={(mode) => writeCookie(LAYOUT_COOKIE, mode)}
       onScreenChange={syncUrl}
-      userActions={{ onProfile: notYet(tShell("profile")), onSignOut: account
+      userActions={{ onSignOut: account
           ? async () => {
               // Poste partagé : l'historique de recherche de la personne part avec elle
               clearRecentSearches(account.scope ?? "demo");

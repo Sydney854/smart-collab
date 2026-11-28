@@ -136,7 +136,12 @@ export function NotificationsBell() {
                   <button type="button" className="min-w-0 flex-1 text-left outline-none focus-visible:underline" onClick={() => markRead([n.id])}>
                     <span className="flex items-center gap-2 text-sm font-semibold">
                       {title}
-                      {isUnread && <span className="size-1.5 rounded-full bg-red" aria-label={t("unread")} />}
+                      {isUnread && (
+                        <>
+                          <span className="size-1.5 rounded-full bg-red" aria-hidden />
+                          <span className="sr-only">{t("unread")}</span>
+                        </>
+                      )}
                     </span>
                     <span className="mt-0.5 block text-sm text-muted-foreground">{body}</span>
                   </button>

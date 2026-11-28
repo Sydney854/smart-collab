@@ -85,9 +85,12 @@ function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bott
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem onSelect={actions.onProfile}>
-          <UserIcon /> {t("profile")}
-        </DropdownMenuItem>
+        {/* « Mon profil » seulement quand l'écran Profil existe (pas de bouton « bientôt ») */}
+        {actions.onProfile && (
+          <DropdownMenuItem onSelect={actions.onProfile}>
+            <UserIcon /> {t("profile")}
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onSelect={actions.onSettings}>
           <SettingsIcon /> {t("settings")}
         </DropdownMenuItem>

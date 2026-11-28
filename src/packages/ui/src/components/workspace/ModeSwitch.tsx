@@ -12,7 +12,7 @@ import { type LayoutMode, isLayoutMode } from "./state";
 export function ModeSwitch({ mode, onChange }: { mode: LayoutMode; onChange: (mode: LayoutMode) => void }) {
   const t = useTranslations("ui.workspace");
   return (
-    <ToggleGroup type="single" size="sm" variant="outline" aria-label={t("mode")} value={mode} onValueChange={(v) => isLayoutMode(v) && onChange(v)}>
+    <ToggleGroup type="single" size="sm" variant="outline" spacing={0} aria-label={t("mode")} value={mode} onValueChange={(v) => isLayoutMode(v) && onChange(v)}>
       <ToggleGroupItem value="list" aria-label={t("list")} title={t("list")}>
         <ListIcon />
       </ToggleGroupItem>

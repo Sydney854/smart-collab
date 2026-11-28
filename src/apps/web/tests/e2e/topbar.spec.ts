@@ -93,10 +93,11 @@ test("notifications : panneau avec « Uniquement non lu », vide quand il n'y a 
   await expect(panel).toHaveCount(0);
 });
 
-test("profil : Voir le profil, Paramètres (ouvre l'écran), Couleur principale, Déconnexion", async ({ page }) => {
+test("profil : Paramètres (ouvre l'écran), Couleur principale, Déconnexion ; pas de « Mon profil » avant son écran", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "Menu utilisateur" }).click();
-  for (const n of ["Mon profil", "Paramètres", "Couleur principale", "Se déconnecter"]) await expect(page.getByRole("menuitem", { name: n })).toBeVisible();
+  for (const n of ["Paramètres", "Couleur principale", "Se déconnecter"]) await expect(page.getByRole("menuitem", { name: n })).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "Mon profil" })).toHaveCount(0);
   await page.getByRole("menuitem", { name: "Paramètres" }).click();
   await expect(page.locator('[data-screen="settings"]')).toBeVisible();
 });
