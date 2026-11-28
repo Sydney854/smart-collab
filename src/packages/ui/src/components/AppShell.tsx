@@ -97,10 +97,15 @@ function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bott
         {/* Couleur principale : déplacée de la barre du haut vers le profil (décision du 28/11/2026) */}
         <ColorsSubMenu />
       </DropdownMenuGroup>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem variant="destructive" onSelect={actions.onSignOut}>
-        <LogOutIcon /> {t("signOut")}
-      </DropdownMenuItem>
+      {/* Déconnexion seulement quand une personne est connectée */}
+      {actions.onSignOut && (
+        <>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="destructive" onSelect={actions.onSignOut}>
+            <LogOutIcon /> {t("signOut")}
+          </DropdownMenuItem>
+        </>
+      )}
     </DropdownMenuContent>
   );
 }

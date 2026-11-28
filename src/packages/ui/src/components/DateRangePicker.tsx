@@ -103,10 +103,14 @@ export function DateRangePicker({ value, onChange }: { value: RangeValue; onChan
             numberOfMonths={isMobile ? 1 : 2}
             showOutsideDays={false}
             // Nom du mois avec une majuscule (« Octobre 2026 »), comme sur la maquette
-            formatters={{ formatCaption: (d) => {
-              const s = formatDate(d, "LLLL yyyy");
-              return s.charAt(0).toUpperCase() + s.slice(1);
-            } }}
+            formatters={{
+              formatCaption: (d) => {
+                const s = formatDate(d, "LLLL yyyy");
+                return s.charAt(0).toUpperCase() + s.slice(1);
+              },
+              // Jours en une lettre majuscule (L M M J V S D), comme sur la maquette
+              formatWeekdayName: (d) => formatDate(d, "EEEEE").toUpperCase(),
+            }}
             month={month}
             onMonthChange={setMonth}
             selected={{ from: draft.from, to: draft.to } satisfies DateRange}

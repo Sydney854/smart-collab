@@ -96,7 +96,9 @@ test("notifications : panneau avec « Uniquement non lu », vide quand il n'y a 
 test("profil : Paramètres (ouvre l'écran), Couleur principale, Déconnexion ; pas de « Mon profil » avant son écran", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "Menu utilisateur" }).click();
-  for (const n of ["Paramètres", "Couleur principale", "Se déconnecter"]) await expect(page.getByRole("menuitem", { name: n })).toBeVisible();
+  for (const n of ["Paramètres", "Couleur principale"]) await expect(page.getByRole("menuitem", { name: n })).toBeVisible();
+  // Démonstration sans connexion : pas de « Se déconnecter » (bouton qui ne ferait rien)
+  await expect(page.getByRole("menuitem", { name: "Se déconnecter" })).toHaveCount(0);
   await expect(page.getByRole("menuitem", { name: "Mon profil" })).toHaveCount(0);
   await page.getByRole("menuitem", { name: "Paramètres" }).click();
   await expect(page.locator('[data-screen="settings"]')).toBeVisible();

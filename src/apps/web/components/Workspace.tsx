@@ -63,11 +63,7 @@ function WorkspaceInner({
   const tAuth = useTranslations("auth");
   const t = useTranslations("dashboard");
   const tHeader = useTranslations("header");
-  const tScreens = useTranslations("screens");
   const screens = useScreens();
-  // Connexion, profil, paramètres et recherche globale arrivent au lot 1 (13_PLAN_LOTS.md)
-  const notYet = (name: string) => () => toast.info(tScreens("plannedShort", { name, lot: 1 }));
-  const tShell = useTranslations("ui.shell");
   const tSearch = useTranslations("search");
 
   // L'adresse suit l'écran courant (/?ecran=…), sans recharger la page
@@ -108,7 +104,7 @@ function WorkspaceInner({
                 router.refresh();
               }
             }
-          : notYet(tShell("signOut")),
+          : undefined,
       }}
       // La recherche ouvre déjà écrans et actions ; la recherche dans les données arrive avec les modules
       onSearch={(q) => toast.info(tSearch("dataLater", { query: q }))}
