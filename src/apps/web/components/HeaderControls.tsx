@@ -1,7 +1,7 @@
 "use client";
 
 import { LOCALE_COOKIE, type Locale, isLocale } from "@smart-collab/i18n";
-import { ThemePicker, useScTheme } from "@smart-collab/ui";
+import { NetworkStatus, ThemePicker, useScTheme } from "@smart-collab/ui";
 import { Button } from "@smart-collab/ui/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@smart-collab/ui/components/ui/toggle-group";
 import { MoonIcon, SunIcon } from "lucide-react";
@@ -62,6 +62,8 @@ export function ThemeToggle() {
 export function HeaderControls() {
   return (
     <>
+      {/* État du réseau, sur la ligne des icônes de l'en-tête (décision du 28/11/2026) */}
+      <NetworkStatus className="size-9" />
       <LocaleSwitch />
       <ThemeToggle />
       <ThemePicker />

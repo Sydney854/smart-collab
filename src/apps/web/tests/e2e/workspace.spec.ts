@@ -48,12 +48,12 @@ test("le bouton de l'en-tête bascule en Mosaïque, et le choix est retenu", asy
   await page.getByRole("radio", { name: "Mode Mosaïque" }).click();
   await expect(page.locator("[data-layout=mosaic]")).toBeVisible();
   await expect(tile(page, "sales")).toBeVisible();
-  // L'écran affiché en Liste devient la fenêtre au premier plan
-  await expect(win(page, "dashboard")).toBeVisible();
+  // Les écrans ouverts en Liste se replient dans la barre du bas (décision du 28/11)
+  await expect(page.locator("[data-window]")).toHaveCount(0);
+  await expect(reduced(page, "dashboard")).toBeVisible();
   await page.reload();
   await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
   await expect(page.locator("[data-layout=mosaic]")).toBeVisible();
-  await win(page, "dashboard").getByRole("button", { name: /^Réduire/ }).click();
   await page.getByRole("radio", { name: "Mode Liste" }).click();
   await expect(page.locator("[data-layout=list]")).toBeAttached();
 });
@@ -294,6 +294,7 @@ test("le même écran s'affiche en page et en fenêtre", async ({ page, isMobile
   await open(page, "/?ecran=components");
   await expect(page.locator("[data-screen=components] #field-name")).toHaveValue("Riz parfumé 5 kg");
   await page.getByRole("radio", { name: "Mode Mosaïque" }).click();
+  await restore(page, "components");
   await expect(win(page, "components").locator("#field-name")).toHaveValue("Riz parfumé 5 kg");
   await expect(win(page, "components").getByTestId("section-list")).toBeVisible();
 });
@@ -329,8 +330,7 @@ test("Mosaïque à 390 px, en anglais et en sombre : fenêtre plein écran, sans
   expect(errors).toEqual([]);
 });
 
-test("état du réseau : icône seule (wifi en ligne, wifi barré hors ligne), plus de bandeau", async ({ page, context, isMobile }) => {
-  test.skip(isMobile, "Barre latérale vérifiée sur ordinateur");
+test("état du réseau : icône seule dans l'en-tête (wifi en ligne, wifi barré hors ligne), plus de bandeau", async ({ page, context }) => {
   await open(page);
   await expect(page.getByText("En ligne — tout est synchronisé")).toHaveCount(0);
   const status = page.locator("[data-network]").first();
@@ -340,4 +340,15 @@ test("état du réseau : icône seule (wifi en ligne, wifi barré hors ligne), p
   await expect(status).toHaveAttribute("data-network", "offline");
   await context.setOffline(false);
   await expect(status).toHaveAttribute("data-network", "online");
+});
+
+test("mode Liste : plus de barre d'onglets en haut, les écrans ouverts sont en bas (décision du 28/11)", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Vérifié sur ordinateur");
+  await open(page, "/?ecran=settings");
+  const bar = page.getByTestId("open-screens-bar");
+  await expect(bar).toBeVisible();
+  const box = (await bar.boundingBox())!;
+  const header = (await page.locator("header").first().boundingBox())!;
+  expect(box.y).toBeGreaterThan(header.y + 200);
+  await expect(tab(page, "settings")).toHaveAttribute("data-active", "true");
 });

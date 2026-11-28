@@ -18,7 +18,6 @@ import { toast } from "sonner";
 import { useAppearance } from "../appearance";
 import { useIsMobile } from "../hooks/use-mobile";
 import { ModuleIcon } from "./ModuleIcon";
-import { NetworkStatus } from "./NetworkStatus";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import {
@@ -251,6 +250,7 @@ export function AppShell({
   const tabs = state.open.map((o) => ({
     key: o.key,
     label: screen(o.key)?.label ?? o.key,
+    icon: screen(o.key)?.icon,
     active: o.key === state.current && !o.minimized,
     minimized: state.mode === "mosaic" && o.minimized,
   }));
@@ -286,7 +286,6 @@ export function AppShell({
         <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">
           <div className="flex min-w-0 items-center gap-2 md:w-60">
             <CompanyBadge company={company} onSidebar={false} />
-            <NetworkStatus />
           </div>
           {searchBox}
           {right}
@@ -345,8 +344,6 @@ export function AppShell({
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" className="pointer-events-none">
                 <CompanyBadge company={company} onSidebar />
-                {/* État du réseau : icône seule, masquée quand le menu est réduit en icônes */}
-                <NetworkStatus className="pointer-events-auto ml-auto group-data-[collapsible=icon]:hidden" />
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -380,12 +377,6 @@ export function AppShell({
           {searchBox}
           {right}
         </header>
-        <TabsBar
-          items={tabs}
-          closable={tabs.length > 1}
-          onSelect={(key) => dispatch({ type: "focus", key })}
-          onClose={(key) => dispatch({ type: "close", key, fallback })}
-        />
         {banner && <div className="px-4 pt-4 md:px-6">{banner}</div>}
         <main className="@container min-w-0 flex-1 p-4 md:p-6">
           {/* Tous les écrans ouverts restent montés (saisie conservée) ; seul l'onglet actif est visible */}
@@ -397,6 +388,13 @@ export function AppShell({
             ))}
           </ScreenContainerContext.Provider>
         </main>
+        {/* Écrans ouverts : en bas, dans le style de la barre de la Mosaïque (plus de barre d'onglets en haut) */}
+        <TabsBar
+          items={tabs}
+          closable={tabs.length > 1}
+          onSelect={(key) => dispatch({ type: "focus", key })}
+          onClose={(key) => dispatch({ type: "close", key, fallback })}
+        />
       </SidebarInset>
     </SidebarProvider>
     </OpenScreenContext.Provider>

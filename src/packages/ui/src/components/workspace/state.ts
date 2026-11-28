@@ -115,16 +115,9 @@ export function workspaceReducer(state: WorkspaceState, action: WorkspaceAction)
     case "setMode": {
       if (action.mode === state.mode) return state;
       if (action.mode === "mosaic") {
-        // L'écran affiché devient la fenêtre au premier plan ; les autres onglets sont réduits
-        const z = state.zTop + 1;
-        const open = state.open.map((o, i) => ({
-          ...o,
-          ...cascadeRect(i, action.desk),
-          maximized: false,
-          minimized: o.key !== state.current,
-          z: o.key === state.current ? z : o.z,
-        }));
-        return { mode: "mosaic", open, current: state.current, zTop: z };
+        // Tous les écrans ouverts se replient dans la barre du bas ; le bureau (tuiles) apparaît (décision du 28/11/2026)
+        const open = state.open.map((o, i) => ({ ...o, ...cascadeRect(i, action.desk), maximized: false, minimized: true }));
+        return { mode: "mosaic", open, current: null, zTop: state.zTop };
       }
       // Retour en Liste : les fenêtres redeviennent des onglets
       const open = state.open.map((o) => ({ ...o, minimized: false }));

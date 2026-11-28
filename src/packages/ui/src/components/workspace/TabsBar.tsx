@@ -2,12 +2,13 @@
 
 import { XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 
-export type TabItem = { key: string; label: string; active: boolean; minimized: boolean };
+export type TabItem = { key: string; label: string; active: boolean; minimized: boolean; icon?: ReactNode };
 
 /**
- * Barre d'onglets : écrans ouverts (mode Liste) ou fenêtres ouvertes (mode Mosaïque).
- * Une fenêtre réduite y reste, en italique ; un clic la fait revenir.
+ * Barre des écrans ouverts du mode Liste, en bas de l'écran, dans le style de la barre des fenêtres réduites
+ * de la Mosaïque (décision du 28/11/2026 : plus de barre d'onglets en haut). L'écran affiché est en or.
  */
 export function TabsBar({
   items,
@@ -23,26 +24,36 @@ export function TabsBar({
   const t = useTranslations("ui.shell");
   const tw = useTranslations("ui.window");
   return (
-    <nav aria-label={t("openTabs")} className="flex min-h-[41px] shrink-0 gap-1 overflow-x-auto border-b bg-card px-3 pt-2 md:px-4">
+    <nav
+      aria-label={t("openTabs")}
+      data-testid="open-screens-bar"
+      className="sticky bottom-0 z-10 flex h-11 shrink-0 items-center gap-2 overflow-x-auto border-t bg-card px-3 max-sm:h-14"
+    >
       {items.map((item) => (
         <div
           key={item.key}
           data-tab={item.key}
           data-active={item.active}
           data-minimized={item.minimized}
-          className="group flex shrink-0 items-center rounded-t-lg border border-b-0 border-transparent text-sm text-muted-foreground data-[active=true]:border-border data-[active=true]:bg-background data-[active=true]:font-medium data-[active=true]:text-foreground data-[minimized=true]:italic"
+          className="flex h-8 max-w-56 shrink-0 items-center rounded-lg border bg-background text-sm shadow-card hover:border-primary data-[active=true]:border-primary data-[active=true]:bg-primary/10 data-[active=true]:font-medium max-sm:h-11"
         >
           <button
             type="button"
-            className="px-3 py-1.5"
+            className="flex h-full min-w-0 items-center gap-2 rounded-l-lg pr-1 pl-2.5 outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-gold-strong"
             aria-current={item.active ? "page" : undefined}
             title={item.minimized ? tw("restore", { name: item.label }) : undefined}
             onClick={() => onSelect(item.key)}
           >
-            {item.label}
+            {item.icon}
+            <span className="truncate">{item.label}</span>
           </button>
           {closable && (
-            <button type="button" aria-label={t("closeTab", { name: item.label })} className="mr-1 rounded p-0.5 hover:bg-accent" onClick={() => onClose(item.key)}>
+            <button
+              type="button"
+              aria-label={t("closeTab", { name: item.label })}
+              className="grid h-full w-7 shrink-0 place-items-center rounded-r-lg text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring max-sm:w-11"
+              onClick={() => onClose(item.key)}
+            >
               <XIcon className="size-3.5" />
             </button>
           )}

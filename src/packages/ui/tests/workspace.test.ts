@@ -25,12 +25,14 @@ describe("cadre à 2 modes", () => {
     expect(s.current).toBe("b");
   });
 
-  it("passer en Mosaïque : l'écran affiché devient la fenêtre active, les autres sont réduits", () => {
+  it("passer en Mosaïque : tous les écrans ouverts se replient dans la barre du bas (décision du 28/11)", () => {
     let s = openAll(["a", "b", "c"], "list");
     s = workspaceReducer(s, { type: "focus", key: "b" });
     s = workspaceReducer(s, { type: "setMode", mode: "mosaic", desk, fallback: "a" });
     expect(s.mode).toBe("mosaic");
-    expect(s.open.filter((o) => !o.minimized).map((o) => o.key)).toEqual(["b"]);
+    expect(s.open.every((o) => o.minimized)).toBe(true);
+    expect(s.current).toBeNull();
+    s = workspaceReducer(s, { type: "focus", key: "b" });
     s = workspaceReducer(s, { type: "setMode", mode: "list", desk, fallback: "a" });
     expect(s.mode).toBe("list");
     expect(s.current).toBe("b");
