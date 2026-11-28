@@ -115,3 +115,48 @@ test("Mosaïque : Liste / Mosaïque en premier, puis l'entreprise et ses « ··
   await company.click();
   await expect(page.getByRole("menu")).toContainText("Commerce");
 });
+
+test("barre du haut à 390 px, en anglais et en sombre : panneaux sans erreur, sans débordement, sans texte français", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => (m.type() === "error" || m.type() === "warning") && errors.push(m.text()));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.context().addCookies(
+    [
+      ["sc-layout", "list"],
+      ["sc-theme", "dark"],
+      ["NEXT_LOCALE", "en"],
+    ].map(([name, value]) => ({ name, value, url: "http://localhost:3100" })),
+  );
+  await page.goto("/");
+  await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
+  const fits = async (what: string) => {
+    const scroll = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(scroll, what).toBeLessThanOrEqual(390);
+  };
+  const noFrench = async (what: string, loc: ReturnType<Page["locator"]>) => {
+    const text = await loc.innerText();
+    for (const fr of ["Recherche", "Actions rapides", "Notifications non", "Aucune", "Appliquer", "Annuler", "Paramètres", "Couleur"]) expect(text, `${what} : ${fr}`).not.toContain(fr);
+  };
+  await fits("barre");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(page.getByTestId("search-dialog")).toBeVisible();
+  await noFrench("recherche", page.getByTestId("search-dialog"));
+  await fits("recherche");
+  await page.keyboard.press("Escape");
+  await page.getByTestId("notifications-button").click();
+  await expect(page.getByTestId("notifications-panel")).toContainText("No notifications");
+  await noFrench("notifications", page.getByTestId("notifications-panel"));
+  await fits("notifications");
+  await page.keyboard.press("Escape");
+  await page.getByTestId("range-button").click();
+  await expect(page.getByTestId("range-panel")).toBeVisible();
+  await noFrench("calendrier", page.getByTestId("range-panel"));
+  const panel = (await page.getByTestId("range-panel").boundingBox())!;
+  expect(panel.x).toBeGreaterThanOrEqual(0);
+  expect(panel.x + panel.width).toBeLessThanOrEqual(390);
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "User menu" }).click();
+  await noFrench("profil", page.getByRole("menu"));
+  expect(errors).toEqual([]);
+});
