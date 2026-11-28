@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useAppearance } from "../appearance";
 import { useIsMobile } from "../hooks/use-mobile";
 import { ModuleIcon } from "./ModuleIcon";
+import { NetworkStatus } from "./NetworkStatus";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import {
@@ -285,6 +286,7 @@ export function AppShell({
         <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">
           <div className="flex min-w-0 items-center gap-2 md:w-60">
             <CompanyBadge company={company} onSidebar={false} />
+            <NetworkStatus />
           </div>
           {searchBox}
           {right}
@@ -343,6 +345,8 @@ export function AppShell({
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" className="pointer-events-none">
                 <CompanyBadge company={company} onSidebar />
+                {/* État du réseau : icône seule, masquée quand le menu est réduit en icônes */}
+                <NetworkStatus className="pointer-events-auto ml-auto group-data-[collapsible=icon]:hidden" />
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

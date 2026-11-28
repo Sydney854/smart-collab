@@ -328,3 +328,16 @@ test("Mosaïque à 390 px, en anglais et en sombre : fenêtre plein écran, sans
   expect(scroll).toBeLessThanOrEqual(width);
   expect(errors).toEqual([]);
 });
+
+test("état du réseau : icône seule (wifi en ligne, wifi barré hors ligne), plus de bandeau", async ({ page, context, isMobile }) => {
+  test.skip(isMobile, "Barre latérale vérifiée sur ordinateur");
+  await open(page);
+  await expect(page.getByText("En ligne — tout est synchronisé")).toHaveCount(0);
+  const status = page.locator("[data-network]").first();
+  await expect(status).toHaveAttribute("data-network", "online");
+  await expect(status).toHaveAttribute("aria-label", /En ligne/);
+  await context.setOffline(true);
+  await expect(status).toHaveAttribute("data-network", "offline");
+  await context.setOffline(false);
+  await expect(status).toHaveAttribute("data-network", "online");
+});

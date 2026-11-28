@@ -1,6 +1,6 @@
 "use client";
 
-import { AppShell, type LayoutMode, OfflineBanner } from "@smart-collab/ui";
+import { AppShell, type LayoutMode } from "@smart-collab/ui";
 import { PackageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -93,7 +93,6 @@ function WorkspaceInner({
           : { name: tHeader("demoUser"), role: tHeader("demoRole"), initials: "AK" }
       }
       headerRight={<HeaderControls />}
-      banner={<OfflineBanner />}
       onModeChange={(mode) => writeCookie(LAYOUT_COOKIE, mode)}
       onScreenChange={syncUrl}
       userActions={{ onProfile: notYet(tShell("profile")), onSettings: notYet(tShell("settings")), onSignOut: account
