@@ -15,7 +15,9 @@ import { ChevronsUpDownIcon, LogOutIcon, SearchIcon, SettingsIcon, UserIcon } fr
 import { useTranslations } from "next-intl";
 import { type ReactNode, useEffect, useReducer, useRef } from "react";
 import { toast } from "sonner";
+import { useAppearance } from "../appearance";
 import { useIsMobile } from "../hooks/use-mobile";
+import { ModuleIcon } from "./ModuleIcon";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import {
@@ -147,6 +149,8 @@ function CompanyBadge({ company, onSidebar }: { company: ShellCompany; onSidebar
 function AppNav({ screens, current, onOpen }: { screens: ScreenDef[]; current: string | null; onOpen: (key: string) => void }) {
   const t = useTranslations("ui.shell");
   const { isMobile, setOpenMobile } = useSidebar();
+  // Les modules gardent dans le menu leur icône illustrée, au style choisi dans Paramètres → Apparence (décision du 28/11/2026)
+  const { iconStyle } = useAppearance();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{t("apps")}</SidebarGroupLabel>
@@ -163,7 +167,11 @@ function AppNav({ screens, current, onOpen }: { screens: ScreenDef[]; current: s
                 if (isMobile) setOpenMobile(false);
               }}
             >
-              {s.icon}
+              {s.moduleIcon ? (
+                <ModuleIcon module={s.moduleIcon} iconStyle={iconStyle} data-nav-icon className="!size-5 shrink-0" />
+              ) : (
+                s.icon
+              )}
               <span>{s.label}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -33,7 +33,8 @@ Sur une branche `lot-00` (lire `04_PROMPTS_AGENTS/LOT_00_MAQUETTES_DESIGN.md` et
 ## Points en attente
 
 - **Lot 1 — état au 27/11/2026 (branche `lot-01`)** : étapes 1 (base), 2 (connexion), 3 et 3 bis (rôles, droits, profils) faites et contrôlées ; étape 4 (App Store réel, menu limité aux applications installées) construite et testée, **contrôles des agents à relancer** (limite d'utilisation atteinte le 27/11 à 9 h UTC ; l'agent qa de l'étape 3 bis aussi). Restent : étape 5 (assistant réel jusqu'à l'accueil), 6 (cadre général : recherche, notifications, « première fenêtre », fenêtres au clavier), 7 (audit, image Docker, démo de fin de lot), plus le traitement des événements en arrière-plan et les applications « ponts ».
-- **Réglage manuel Supabase toujours nécessaire** : Authentication → Hooks → « Customize Access Token (JWT) Claims » → Postgres → `public.custom_access_token_hook`.
+- Réglage Supabase du crochet de connexion **activé le 28/11** par la cheffe de projet (vérifié : entreprise et rôles dans le jeton, droits appliqués par la base).
+- Session de pilotage : mettre à jour l'exception « Icônes des modules » d'AGENTS.md et ICONES_MODULES.md (menu Liste, décision du 28/11).
 - **Outil d'e-mail** : Resend proposé, en attente de l'accord écrit de la cheffe de projet (décision F5).
 
 - **Lot 0 non clos (accord du 26/11 pour avancer quand même)** : validation des 89 fiches ; fiches manquantes du lot 1 (masques de champs, création de compte par invitation), de la caisse (modèle de ticket 80 mm / A4, ouverture / clôture de session, retour depuis un ticket) et des lots 2 à 7 ; **nettoyage du PowerPoint `05_UI_UX/DOSSIER_UI_UX_MODULES.pptx` (noms de sites réels du client fondateur) par la session de pilotage, sans le partager d'ici là** (l'ancienne version reste dans l'historique du dépôt privé).

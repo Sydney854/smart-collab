@@ -142,3 +142,12 @@ test("écrans de l'étape à 390 px, en anglais et en sombre : sans erreur, sans
   expect(recap.y).toBeGreaterThan(firstCard.y);
   expect(errors).toEqual([]);
 });
+
+test("mode Liste : le menu reprend les icônes illustrées, au style choisi dans Paramètres (décision du 28/11)", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Menu latéral vérifié sur ordinateur");
+  await open(page, "/", { "sc-icon-style": "duo" });
+  const sales = page.getByRole("button", { name: "Ventes", exact: true }).locator("svg[data-module=sales]");
+  await expect(sales).toHaveAttribute("data-icon-style", "duo");
+  await open(page, "/", { "sc-icon-style": "trait" });
+  await expect(page.getByRole("button", { name: "Tableau de bord", exact: true }).locator("svg[data-module=dashboard]")).toHaveAttribute("data-icon-style", "trait");
+});
