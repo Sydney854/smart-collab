@@ -90,10 +90,13 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
 
   if (!isMobile) {
     // Agrandir puis restaurer
+    // Agrandie : plus de barre de titre (affichage comme en Liste) ; on la remet en fenêtre par la barre du bas (décision du 28/11)
     await win(page, "sales").getByRole("button", { name: "Agrandir Ventes" }).click();
     await expect(win(page, "sales")).toHaveAttribute("data-maximized", "true");
-    await win(page, "sales").getByRole("button", { name: "Restaurer Ventes" }).click();
+    await expect(win(page, "sales").locator(".sc-window-handle")).toHaveCount(0);
+    await reduced(page, "sales").getByRole("button", { name: "Remettre « Ventes » en fenêtre" }).click();
     await expect(win(page, "sales")).toHaveAttribute("data-maximized", "false");
+    await expect(win(page, "sales").locator(".sc-window-handle")).toHaveCount(1);
   }
   await win(page, "sales").getByRole("button", { name: "Fermer Ventes" }).click();
   await expect(win(page, "sales")).toHaveCount(0);
@@ -345,10 +348,15 @@ test("état du réseau : icône seule dans l'en-tête (wifi en ligne, wifi barr�
 test("mode Liste : plus de barre d'onglets en haut, les écrans ouverts sont en bas (décision du 28/11)", async ({ page, isMobile }) => {
   test.skip(isMobile, "Vérifié sur ordinateur");
   await open(page, "/?ecran=settings");
+  // Un seul écran ouvert : pas de barre
+  await expect(page.getByTestId("open-screens-bar")).toHaveCount(0);
+  await page.getByRole("button", { name: "Ventes", exact: true }).click();
   const bar = page.getByTestId("open-screens-bar");
   await expect(bar).toBeVisible();
+  // L'écran affiché vient en premier
+  await expect(bar.locator("[data-tab]").first()).toHaveAttribute("data-tab", "sales");
   const box = (await bar.boundingBox())!;
   const header = (await page.locator("header").first().boundingBox())!;
   expect(box.y).toBeGreaterThan(header.y + 200);
-  await expect(tab(page, "settings")).toHaveAttribute("data-active", "true");
+  await expect(tab(page, "sales")).toHaveAttribute("data-active", "true");
 });

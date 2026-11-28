@@ -323,9 +323,14 @@ export function AppShell({
         </main>
         <MinimizedBar
           items={state.open
-            .filter((o) => o.minimized)
-            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon }))}
-          onRestore={(key) => dispatch({ type: "focus", key })}
+            .filter((o) => o.minimized || (o.maximized && !isMobile))
+            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon, maximized: !o.minimized && o.maximized }))}
+          onRestore={(key) => {
+            const o = state.open.find((x) => x.key === key);
+            // Fenêtre agrandie : elle redevient une fenêtre ; fenêtre réduite : elle revient au premier plan
+            if (o && !o.minimized && o.maximized) dispatch({ type: "toggleMaximize", key });
+            else dispatch({ type: "focus", key });
+          }}
           onClose={(key) => dispatch({ type: "close", key, fallback })}
         />
       </div>
@@ -389,12 +394,13 @@ export function AppShell({
           </ScreenContainerContext.Provider>
         </main>
         {/* Écrans ouverts : en bas, dans le style de la barre de la Mosaïque (plus de barre d'onglets en haut) */}
-        <TabsBar
-          items={tabs}
+        {/* Un seul écran ouvert : pas de barre ; l'écran affiché vient en premier (décisions du 28/11/2026) */}
+        {tabs.length > 1 && <TabsBar
+          items={[...tabs].sort((a, b) => Number(b.active) - Number(a.active))}
           closable={tabs.length > 1}
           onSelect={(key) => dispatch({ type: "focus", key })}
           onClose={(key) => dispatch({ type: "close", key, fallback })}
-        />
+        />}
       </SidebarInset>
     </SidebarProvider>
     </OpenScreenContext.Provider>

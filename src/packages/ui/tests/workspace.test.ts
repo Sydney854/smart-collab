@@ -35,7 +35,7 @@ describe("cadre à 2 modes", () => {
     s = workspaceReducer(s, { type: "focus", key: "b" });
     s = workspaceReducer(s, { type: "setMode", mode: "list", desk, fallback: "a" });
     expect(s.mode).toBe("list");
-    expect(s.current).toBe("b");
+    expect(s.current).toBe("a"); // retour en Liste : le Tableau de bord (écran par défaut) s'affiche
     expect(s.open).toHaveLength(3);
   });
 

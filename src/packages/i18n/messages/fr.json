@@ -295,7 +295,8 @@
       "minimize": "Réduire {name}",
       "maximize": "Agrandir {name}",
       "restore": "Restaurer {name}",
-      "close": "Fermer {name}"
+      "close": "Fermer {name}",
+      "backToWindow": "Remettre « {name} » en fenêtre"
     }
   },
   "dashboard": {

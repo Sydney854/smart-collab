@@ -137,6 +137,9 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
     };
   }
 
+  // Agrandie (sur ordinateur) : plus de barre de titre, affichage comme en mode Liste ; on la remet en fenêtre
+  // par son bouton dans la barre du bas (décision du 28/11/2026)
+  const bare = win.maximized && !fullScreen;
   const frame = (
     <section
       role="dialog"
@@ -145,10 +148,10 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
       data-window={win.key}
       data-active={active}
       data-maximized={win.maximized}
-      className="flex size-full flex-col overflow-hidden rounded-xl border bg-background shadow-lg data-[active=true]:ring-2 data-[active=true]:ring-primary/40 data-[maximized=true]:rounded-none"
+      className="flex size-full flex-col overflow-hidden rounded-xl border bg-background shadow-lg data-[active=true]:ring-2 data-[active=true]:ring-primary/40 data-[maximized=true]:rounded-none data-[maximized=true]:border-0 data-[maximized=true]:shadow-none data-[maximized=true]:ring-0"
       onPointerDownCapture={onFocus}
     >
-      <TitleBar
+      {!bare && <TitleBar
         title={title}
         icon={icon}
         active={active}
@@ -158,8 +161,8 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
         onToggleMaximize={onToggleMaximize}
         onClose={onClose}
         onDragStart={startDrag}
-      />
-      <div className="@container min-h-0 flex-1 overflow-auto p-4">
+      />}
+      <div className={`@container min-h-0 flex-1 overflow-auto ${bare ? "p-4 md:p-6" : "p-4"}`}>
         <ScreenContainerContext.Provider value="window">{children}</ScreenContainerContext.Provider>
       </div>
     </section>

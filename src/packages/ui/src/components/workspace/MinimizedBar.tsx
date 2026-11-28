@@ -4,7 +4,7 @@ import { XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-export type MinimizedItem = { key: string; label: string; icon: ReactNode };
+export type MinimizedItem = { key: string; label: string; icon: ReactNode; maximized?: boolean };
 
 /**
  * Barre des fenêtres réduites du mode Mosaïque, en bas à gauche du bureau (décision du 26/11/2026) :
@@ -29,12 +29,13 @@ export function MinimizedBar({
         <span
           key={item.key}
           data-minimized-window={item.key}
-          className="flex h-8 max-w-56 shrink-0 max-sm:h-11 items-center rounded-lg border bg-background text-sm shadow-card hover:border-primary"
+          data-maximized={item.maximized ? "true" : undefined}
+          className="flex h-8 max-w-56 shrink-0 max-sm:h-11 items-center rounded-lg border bg-background text-sm shadow-card hover:border-primary data-[maximized=true]:border-primary data-[maximized=true]:bg-primary/10 data-[maximized=true]:font-medium"
         >
           <button
             type="button"
-            title={tw("restore", { name: item.label })}
-            aria-label={tw("restore", { name: item.label })}
+            title={item.maximized ? tw("backToWindow", { name: item.label }) : tw("restore", { name: item.label })}
+            aria-label={item.maximized ? tw("backToWindow", { name: item.label }) : tw("restore", { name: item.label })}
             onClick={() => onRestore(item.key)}
             className="flex h-full min-w-0 items-center gap-2 rounded-l-lg pr-1 pl-2.5 outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-gold-strong"
           >

@@ -119,10 +119,14 @@ export function workspaceReducer(state: WorkspaceState, action: WorkspaceAction)
         const open = state.open.map((o, i) => ({ ...o, ...cascadeRect(i, action.desk), maximized: false, minimized: true }));
         return { mode: "mosaic", open, current: null, zTop: state.zTop };
       }
-      // Retour en Liste : les fenêtres redeviennent des onglets
-      const open = state.open.map((o) => ({ ...o, minimized: false }));
+      // Retour en Liste : les fenêtres redeviennent des écrans ouverts ; le Tableau de bord s'affiche (décision du 28/11/2026)
+      const open = state.open.map((o) => ({ ...o, minimized: false, maximized: false }));
       if (open.length === 0) return initialWorkspace("list", action.fallback, action.desk);
-      return { ...state, mode: "list", open, current: state.current ?? open[open.length - 1].key };
+      if (!open.some((o) => o.key === action.fallback) && open.length < MAX_OPEN) {
+        open.unshift({ ...open[0], key: action.fallback, minimized: false, maximized: false });
+      }
+      const current = open.some((o) => o.key === action.fallback) ? action.fallback : (state.current ?? open[open.length - 1].key);
+      return { ...state, mode: "list", open, current };
     }
   }
 }
