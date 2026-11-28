@@ -23,6 +23,7 @@ export type WorkspaceAction =
   | { type: "close"; key: string; fallback: string }
   | { type: "focus"; key: string }
   | { type: "minimize"; key: string }
+  | { type: "minimizeAll" }
   | { type: "toggleMaximize"; key: string }
   | { type: "place"; key: string; rect: Partial<Rect> }
   | { type: "setMode"; mode: LayoutMode; desk: { w: number; h: number }; fallback: string };
@@ -108,6 +109,9 @@ export function workspaceReducer(state: WorkspaceState, action: WorkspaceAction)
       const open = state.open.map((o) => (o.key === action.key ? { ...o, minimized: true } : o));
       return { ...state, open, current: topWindow(open) };
     }
+    case "minimizeAll":
+      // Retour à l'écran d'accueil (bureau et tuiles) : toutes les fenêtres se replient, chacune garde son format
+      return { ...state, open: state.open.map((o) => ({ ...o, minimized: true })), current: null };
     case "toggleMaximize":
       return { ...state, open: state.open.map((o) => (o.key === action.key ? { ...o, maximized: !o.maximized } : o)) };
     case "place":

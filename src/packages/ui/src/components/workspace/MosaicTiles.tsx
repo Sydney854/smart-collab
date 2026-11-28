@@ -15,10 +15,13 @@ export function MosaicTiles({ screens, openKeys, onOpen }: { screens: ScreenDef[
   const t = useTranslations("ui.workspace");
   const { iconStyle, iconSize } = useAppearance();
   return (
-    <div className="sc-icon-sized" style={iconSizeVars(iconSize)} data-icon-size={iconSize}>
+    <div className="sc-icon-sized pt-2 sm:pt-8 md:pt-14" style={iconSizeVars(iconSize)} data-icon-size={iconSize}>
       <h1 className="sr-only">{t("tilesTitle")}</h1>
+      {/* Icônes centrées comme un écran d'accueil (décision du 28/11/2026) : colonnes de largeur fixe,
+          6 au plus par ligne, le bloc entier centré horizontalement */}
       <ul
-        className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-[repeat(auto-fill,minmax(calc(var(--sc-icon-box)+80px),1fr))]"
+        data-testid="mosaic-grid"
+        className="mx-auto grid grid-cols-2 justify-center gap-x-3 gap-y-5 sm:max-w-[calc(6*(var(--sc-icon-box)+88px)+5*1.5rem)] sm:grid-cols-[repeat(auto-fit,calc(var(--sc-icon-box)+88px))] sm:gap-x-6 sm:gap-y-7"
         aria-label={t("tilesTitle")}
       >
         {/* Seuls les modules ont une tuile (icône illustrée) ; les pages de démonstration (Composants, Assistant) n'en ont pas (décisions du 26/11/2026) */}

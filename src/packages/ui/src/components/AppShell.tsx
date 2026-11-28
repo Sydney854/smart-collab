@@ -11,7 +11,17 @@
  * Le menu ne montre que les applications installées (EF-APP-04).
  */
 
-import { ChevronsUpDownIcon, LogOutIcon, SearchIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ChevronsUpDownIcon,
+  LogOutIcon,
+  MinusIcon,
+  PictureInPicture2Icon,
+  SearchIcon,
+  SettingsIcon,
+  UserIcon,
+  XIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useEffect, useReducer, useRef } from "react";
 import { toast } from "sonner";
@@ -247,10 +257,16 @@ export function AppShell({
     onModeChange?.(mode);
   }
 
+  const { iconStyle } = useAppearance();
+  // Même icône partout pour un écran : tuile, menu, barre, fenêtre (icône illustrée du module au style choisi)
+  const iconOf = (key: string) => {
+    const s = screen(key);
+    return s?.moduleIcon ? <ModuleIcon module={s.moduleIcon} iconStyle={iconStyle} className="!size-4 shrink-0" /> : s?.icon;
+  };
   const tabs = state.open.map((o) => ({
     key: o.key,
     label: screen(o.key)?.label ?? o.key,
-    icon: screen(o.key)?.icon,
+    icon: iconOf(o.key),
     active: o.key === state.current && !o.minimized,
     minimized: state.mode === "mosaic" && o.minimized,
   }));
@@ -265,16 +281,25 @@ export function AppShell({
           onSelect={(key) => dispatch({ type: "focus", key })}
           onClose={(key) => dispatch({ type: "close", key, fallback })}
         />;
+  const twin = useTranslations("ui.window");
+  // Fenêtre agrandie au premier plan (ordinateur) : sa barre d'outils s'affiche sous le profil
+  const topOpen = state.mode === "mosaic" && !isMobile ? state.open.find((o) => o.key === state.current && !o.minimized && o.maximized) : undefined;
+  const maximizedTop = topOpen?.key ?? null;
+  const maximizedLabel = topOpen ? (screen(topOpen.key)?.label ?? topOpen.key) : "";
   const minimizedBar = (
     <MinimizedBar
           position={barPosition}
-          items={state.open
-            .filter((o) => o.minimized || (o.maximized && !isMobile))
-            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon, maximized: !o.minimized && o.maximized }))}
+          items={state.open.map((o) => ({
+            key: o.key,
+            label: screen(o.key)?.label ?? o.key,
+            icon: iconOf(o.key),
+            maximized: o.maximized,
+            state: o.minimized ? ("minimized" as const) : o.key === state.current ? ("front" as const) : ("open" as const),
+          }))}
           onRestore={(key) => {
-            const o = state.open.find((x) => x.key === key);
-            // Fenêtre agrandie : elle redevient une fenêtre ; fenêtre réduite : elle revient au premier plan
-            if (o && !o.minimized && o.maximized) dispatch({ type: "toggleMaximize", key });
+            // Comme une barre des tâches : fenêtre au premier plan → elle se replie ; sinon elle revient au premier plan
+            // dans son dernier format, agrandie ou en fenêtre (décision du 28/11/2026)
+            if (key === state.current) dispatch({ type: "minimize", key });
             else dispatch({ type: "focus", key });
           }}
           onClose={(key) => dispatch({ type: "close", key, fallback })}
@@ -331,7 +356,7 @@ export function AppShell({
                 key={o.key}
                 win={o}
                 title={s.label}
-                icon={s.icon}
+                icon={iconOf(o.key)}
                 active={o.key === state.current}
                 fullScreen={isMobile}
                 // Ne rien renvoyer : pour react-rnd, « false » annulerait le déplacement
@@ -347,6 +372,32 @@ export function AppShell({
               </ScreenWindow>
             );
           })}
+          {/* Fenêtre agrandie : petite barre d'outils sous le profil (accueil, replier, fenêtre surgissante, fermer) */}
+          {maximizedTop && (
+            <div
+              role="toolbar"
+              aria-label={twin("maximizedTools")}
+              data-testid="maximized-tools"
+              className="absolute top-2 right-3 z-[9999] flex flex-col gap-1.5 rounded-full border bg-card/90 p-1 shadow-card backdrop-blur"
+            >
+              <button type="button" title={twin("home")} aria-label={twin("home")} onClick={() => dispatch({ type: "minimizeAll" })}
+                className="grid size-8 place-items-center rounded-full bg-primary/15 text-gold-strong outline-none hover:bg-primary/25 focus-visible:ring-2 focus-visible:ring-ring">
+                <ArrowLeftIcon className="size-4" />
+              </button>
+              <button type="button" title={twin("minimize", { name: maximizedLabel })} aria-label={twin("minimize", { name: maximizedLabel })} onClick={() => dispatch({ type: "minimize", key: maximizedTop })}
+                className="grid size-8 place-items-center rounded-full bg-amber-l text-amber outline-none hover:brightness-95 focus-visible:ring-2 focus-visible:ring-ring">
+                <MinusIcon className="size-4" />
+              </button>
+              <button type="button" title={twin("float", { name: maximizedLabel })} aria-label={twin("float", { name: maximizedLabel })} onClick={() => dispatch({ type: "toggleMaximize", key: maximizedTop })}
+                className="grid size-8 place-items-center rounded-full bg-blue-l text-blue outline-none hover:brightness-95 focus-visible:ring-2 focus-visible:ring-ring">
+                <PictureInPicture2Icon className="size-4" />
+              </button>
+              <button type="button" title={twin("close", { name: maximizedLabel })} aria-label={twin("close", { name: maximizedLabel })} onClick={() => dispatch({ type: "close", key: maximizedTop, fallback })}
+                className="grid size-8 place-items-center rounded-full bg-red-l text-red outline-none hover:brightness-95 focus-visible:ring-2 focus-visible:ring-ring">
+                <XIcon className="size-4" />
+              </button>
+            </div>
+          )}
         </main>
         {barPosition === "bottom" && minimizedBar}
       </div>

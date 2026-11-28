@@ -296,7 +296,10 @@
       "maximize": "Maximise {name}",
       "restore": "Restore {name}",
       "close": "Close {name}",
-      "backToWindow": "Put “{name}” back in a window"
+      "backToWindow": "Put “{name}” back in a window",
+      "maximizedTools": "Maximised window tools",
+      "home": "Back to the home screen",
+      "float": "Put “{name}” back in a window"
     }
   },
   "dashboard": {

@@ -162,7 +162,7 @@ export function ScreenWindow({ win, title, icon, active, fullScreen, onFocus, on
         onClose={onClose}
         onDragStart={startDrag}
       />}
-      <div className={`@container min-h-0 flex-1 overflow-auto ${bare ? "p-4 md:p-6" : "p-4"}`}>
+      <div className={`@container min-h-0 flex-1 overflow-auto ${bare ? "p-4 md:p-6 md:pr-16" : "p-4"}`}>
         <ScreenContainerContext.Provider value="window">{children}</ScreenContainerContext.Provider>
       </div>
     </section>

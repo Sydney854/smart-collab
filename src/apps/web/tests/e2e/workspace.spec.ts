@@ -67,36 +67,52 @@ test("Mosaïque : une tuile ouvre une fenêtre qu'on réduit, restaure, agrandit
   // Numéro de lot tiré de 13_PLAN_LOTS.md (Ventes : devis, factures, avoirs = lot 5)
   await expect(w).toContainText(/Cet écran sera construit au lot \d+/);
   await expect(w).toContainText("lot 5");
-  // Pas de barre d'onglets en Mosaïque ; pas de barre du bas tant qu'aucune fenêtre n'est réduite
+  // Pas de barre d'onglets en Mosaïque ; la barre du bas montre chaque fenêtre ouverte, comme une barre des tâches
   await expect(page.locator("[data-tab]")).toHaveCount(0);
-  await expect(page.getByTestId("minimized-bar")).toHaveCount(0);
+  await expect(reduced(page, "sales")).toHaveAttribute("data-state", "front");
 
-  // Réduire (vidéo du 26/11) : la fenêtre disparaît et un petit bouton apparaît en bas à gauche
+  // Réduire : la fenêtre disparaît, son bouton reste en bas à gauche
   await w.getByRole("button", { name: "Réduire Ventes" }).click();
   await expect(w).toHaveCount(0);
-  await expect(tab(page, "sales")).toHaveCount(0);
-  await expect(reduced(page, "sales")).toBeVisible();
+  await expect(reduced(page, "sales")).toHaveAttribute("data-state", "minimized");
   await expect(reduced(page, "sales")).toContainText("Ventes");
   const bar = (await page.getByTestId("minimized-bar").boundingBox())!;
   const vp = page.viewportSize()!;
   expect(bar.y + bar.height).toBeGreaterThan(vp.height - 4);
   const btn = (await reduced(page, "sales").boundingBox())!;
   expect(btn.x).toBeLessThan(40);
-  // Restaurer par ce bouton
+  // Clic sur le bouton : la fenêtre revient ; nouveau clic (fenêtre au premier plan) : elle se replie (décision du 28/11)
   await restore(page, "sales");
   await expect(win(page, "sales")).toBeVisible();
-  await expect(reduced(page, "sales")).toHaveCount(0);
-  await expect(page.getByTestId("minimized-bar")).toHaveCount(0);
+  // Sur téléphone, la fenêtre occupe tout l'écran : on la replie par son propre bouton
+  if (isMobile) await win(page, "sales").getByRole("button", { name: "Réduire Ventes" }).click();
+  else await reduced(page, "sales").getByRole("button", { name: "Réduire Ventes" }).click();
+  await expect(win(page, "sales")).toHaveCount(0);
+  await restore(page, "sales");
+  await expect(win(page, "sales")).toBeVisible();
 
   if (!isMobile) {
-    // Agrandir puis restaurer
-    // Agrandie : plus de barre de titre (affichage comme en Liste) ; on la remet en fenêtre par la barre du bas (décision du 28/11)
+    // Agrandie : plus de barre de titre ; barre d'outils colorée sous le profil (décision du 28/11)
     await win(page, "sales").getByRole("button", { name: "Agrandir Ventes" }).click();
     await expect(win(page, "sales")).toHaveAttribute("data-maximized", "true");
     await expect(win(page, "sales").locator(".sc-window-handle")).toHaveCount(0);
-    await reduced(page, "sales").getByRole("button", { name: "Remettre « Ventes » en fenêtre" }).click();
+    const tools = page.getByTestId("maximized-tools");
+    await expect(tools).toBeVisible();
+    // Repliée puis rouverte : elle revient agrandie (son dernier format)
+    await tools.getByRole("button", { name: "Réduire Ventes" }).click();
+    await expect(win(page, "sales")).toHaveCount(0);
+    await restore(page, "sales");
+    await expect(win(page, "sales")).toHaveAttribute("data-maximized", "true");
+    // Retour à l'écran d'accueil : toutes les fenêtres se replient
+    await page.getByTestId("maximized-tools").getByRole("button", { name: "Retour à l'écran d'accueil" }).click();
+    await expect(win(page, "sales")).toHaveCount(0);
+    await expect(tile(page, "sales")).toBeVisible();
+    await restore(page, "sales");
+    // Fenêtre surgissante
+    await page.getByTestId("maximized-tools").getByRole("button", { name: "Remettre « Ventes » en fenêtre" }).click();
     await expect(win(page, "sales")).toHaveAttribute("data-maximized", "false");
     await expect(win(page, "sales").locator(".sc-window-handle")).toHaveCount(1);
+    await expect(page.getByTestId("maximized-tools")).toHaveCount(0);
   }
   await win(page, "sales").getByRole("button", { name: "Fermer Ventes" }).click();
   await expect(win(page, "sales")).toHaveCount(0);

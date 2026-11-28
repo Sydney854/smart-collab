@@ -296,7 +296,10 @@
       "maximize": "Agrandir {name}",
       "restore": "Restaurer {name}",
       "close": "Fermer {name}",
-      "backToWindow": "Remettre « {name} » en fenêtre"
+      "backToWindow": "Remettre « {name} » en fenêtre",
+      "maximizedTools": "Outils de la fenêtre agrandie",
+      "home": "Retour à l'écran d'accueil",
+      "float": "Remettre « {name} » en fenêtre"
     }
   },
   "dashboard": {
