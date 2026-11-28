@@ -14,7 +14,8 @@
     "settings": "Settings",
     "signOut": "Sign out",
     "demoUser": "Awa Koné",
-    "demoRole": "Administrator (demo)"
+    "demoRole": "Administrator (demo)",
+    "languageCurrent": "Language: {language}"
   },
   "apps": {
     "dashboard": "Dashboard",
@@ -158,7 +159,9 @@
       "settings": "Settings",
       "signOut": "Sign out",
       "searchName": "Global search",
-      "menuEdge": "Menu edge: click to show or collapse"
+      "menuEdge": "Menu edge: click to show or collapse",
+      "companyMenu": "Company: {name}",
+      "switchCompany": "Switch company"
     },
     "period": {
       "today": "Today",
@@ -300,6 +303,37 @@
       "maximizedTools": "Maximised window tools",
       "home": "Back to the home screen",
       "float": "Put “{name}” back in a window"
+    },
+    "search": {
+      "open": "Search",
+      "openHint": "Search (Ctrl + K)",
+      "title": "Search",
+      "description": "Find a screen or an action, or limit the search to a module.",
+      "placeholder": "Search keywords",
+      "scope": "I'm looking for",
+      "quickActions": "Quick actions",
+      "recent": "Recent searches",
+      "screens": "Screens",
+      "everywhere": "Search everywhere",
+      "searchIn": "Search “{query}” in {scope}",
+      "searchAll": "Search “{query}” in Smart Collab",
+      "results": "Results",
+      "enter": "Enter",
+      "hint": "Type a word to find a screen or an action."
+    },
+    "range": {
+      "open": "Period: {period}",
+      "presets": "Period shortcuts",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "Last 7 days",
+      "last30": "Last 30 days",
+      "thisMonth": "This month",
+      "lastMonth": "Last month",
+      "thisYear": "This year",
+      "custom": "Custom",
+      "cancel": "Cancel",
+      "apply": "Apply"
     }
   },
   "dashboard": {
@@ -321,7 +355,8 @@
     "amount": "Amount",
     "status": "Status",
     "openSale": "Sale {name}",
-    "exportName": "sales"
+    "exportName": "sales",
+    "kpiOrders": "Sales in the period"
   },
   "screens": {
     "planned": "This screen will be built in lot {lot}. It is used here to try the List and Mosaic modes.",
@@ -630,5 +665,45 @@
     "inactiveProfile": "deactivated",
     "renameNamed": "Rename {name}",
     "noPeople": "Nobody matches this filter."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "open": "Notifications",
+    "openUnread": "Notifications: {count} unread",
+    "close": "Close notifications",
+    "unreadOnly": "Unread only",
+    "unread": "Unread",
+    "empty": "No notifications",
+    "noUnread": "No unread notifications",
+    "markAll": "Mark all as read",
+    "showAll": "Show all notifications",
+    "appInstalled": {
+      "title": "App installed",
+      "body": "“{app}” was installed."
+    },
+    "appUninstalled": {
+      "title": "App uninstalled",
+      "body": "“{app}” was uninstalled; its data is kept."
+    },
+    "invitationAccepted": {
+      "title": "Invitation accepted",
+      "body": "{person} joined the company."
+    },
+    "trialEnds": {
+      "title": "Trial period",
+      "body": "{days, plural, =0 {Your trial ends today.} one {Your trial ends in # day.} other {Your trial ends in # days.}}"
+    }
+  },
+  "search": {
+    "dataLater": "Searching “{query}”: searching data (sales, stock, customers…) will come with the modules. For now, search opens screens and actions.",
+    "actions": {
+      "settings": "Settings",
+      "install": "Install an app",
+      "installKeywords": "app store module",
+      "invite": "Invite someone",
+      "inviteKeywords": "team member user",
+      "role": "Create a role",
+      "roleKeywords": "profile rights permissions"
+    }
   }
 }

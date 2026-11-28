@@ -30,3 +30,6 @@ export type { ScreenDef } from "./components/workspace/types";
 export * from "./components/ModuleIcon";
 export * from "./icon-settings";
 export * from "./appearance";
+// Barre du haut : recherche globale et calendrier global (maquette validée le 28/11/2026)
+export * from "./components/SearchDialog";
+export * from "./components/DateRangePicker";

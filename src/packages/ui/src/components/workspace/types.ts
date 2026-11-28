@@ -13,5 +13,7 @@ export type ScreenDef = {
   description?: string;
   /** Page de démonstration : ni dans le menu ni en tuile ; ouverte seulement par son adresse (?ecran=…), depuis la page de maquettes (décision du 26/11/2026) */
   hidden?: boolean;
+  /** Application (module installable) : ces écrans servent de filtres « Je recherche » dans la recherche */
+  app?: string;
   render: () => ReactNode;
 };

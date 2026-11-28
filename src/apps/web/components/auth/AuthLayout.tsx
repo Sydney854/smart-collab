@@ -3,7 +3,7 @@
 import { PackageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
-import { LocaleSwitch } from "@/components/HeaderControls";
+import { LocaleToggle } from "@/components/HeaderControls";
 
 /**
  * Disposition commune des écrans publics (fiche core.login) : panneau bleu marine à gauche (≥ 1 024 px),
@@ -30,7 +30,7 @@ export function AuthLayout({ title, subtitle, company, children }: { title: stri
       </aside>
       <main className="flex flex-col px-4 py-6 sm:px-10">
         <div className="flex justify-end">
-          <LocaleSwitch />
+          <LocaleToggle />
         </div>
         <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 py-8">
           <div className="flex items-center gap-2">

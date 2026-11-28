@@ -82,6 +82,19 @@ Principaux textes de l'écran (fichiers de traduction `packages/i18n`).
 | En ligne — tout est synchronisé | Online — everything is synced |
 | Fenêtres réduites | Minimised windows |
 
+## Barre du haut (maquette validée le 28/11/2026)
+
+Maquettes : [tailles et ordre](../references/barre-du-haut/tailles-et-ordre.png) (taille **B** retenue), [calendrier](../references/barre-du-haut/calendrier.png), [notifications](../references/barre-du-haut/notifications.png), [profil](../references/barre-du-haut/profil.png), [recherche](../references/barre-du-haut/recherche.png). Données fictives uniquement.
+
+- Carte blanche arrondie, en mode Liste comme en Mosaïque.
+- À gauche — Liste : bouton du menu latéral, puis Liste / Mosaïque. Mosaïque : Liste / Mosaïque, puis l'entreprise et « ··· » (détail ; « Changer d'entreprise » seulement si la personne en a plusieurs). Plus de fil « entreprise › écran ».
+- À droite, dans cet ordre : réseau, recherche, langue (menu Français / English), nuit / jour, cloche ; trait ; profil (avatar).
+- Taille B : boutons de 32 px, dessin de 16 px, avatar de 34 px.
+- Profil : nom et e-mail, Mon profil, Paramètres (ouvre l'écran), Couleur principale (déplacée de la barre), Se déconnecter (rouge). Ni messagerie, ni tickets, ni écran de verrouillage.
+- Notifications : seulement des faits réels (application installée / désinstallée, invitation acceptée, fin d'essai) ; « Uniquement non lu », « Marquer tout comme lu », « Afficher toutes les notifications » ; sinon « Aucune notification ».
+- Recherche (loupe ou Ctrl + K) : fenêtre centrée ; « Je recherche » = modules installés ; actions rapides selon les droits ; recherches récentes retenues sur l'appareil ; flèches + Entrée. La recherche dans les données arrive avec les modules.
+- Tableau de bord : calendrier global à droite du titre (raccourcis, deux mois, Annuler / Appliquer), période retenue ; pas de bouton Exporter.
+
 ## À trancher par la cheffe de projet
 
 - Changement de société dans l'en-tête : **pas au lot 1** (décision du 26/11/2026). Reste à trancher avant la base du lot 1 : une même personne peut-elle appartenir à plusieurs entreprises ?

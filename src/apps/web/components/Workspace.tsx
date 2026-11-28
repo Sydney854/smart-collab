@@ -13,7 +13,7 @@ import { useScreens } from "@/screens/registry";
 import { HeaderControls } from "./HeaderControls";
 
 /** Cadre de l'application de démonstration (entreprise et utilisatrice fictives). */
-export type Account = { name: string; email: string; company: string; domain: string };
+export type Account = { name: string; email: string; company: string; domain: string; companies?: number };
 
 const initialsOf = (name: string) =>
   name
@@ -66,6 +66,7 @@ function WorkspaceInner({
   // Connexion, profil, paramètres et recherche globale arrivent au lot 1 (13_PLAN_LOTS.md)
   const notYet = (name: string) => () => toast.info(tScreens("plannedShort", { name, lot: 1 }));
   const tShell = useTranslations("ui.shell");
+  const tSearch = useTranslations("search");
 
   // L'adresse suit l'écran courant (/?ecran=…), sans recharger la page
   const syncUrl = useCallback((key: string | null) => {
@@ -95,7 +96,7 @@ function WorkspaceInner({
       headerRight={<HeaderControls />}
       onModeChange={(mode) => writeCookie(LAYOUT_COOKIE, mode)}
       onScreenChange={syncUrl}
-      userActions={{ onProfile: notYet(tShell("profile")), onSettings: notYet(tShell("settings")), onSignOut: account
+      userActions={{ onProfile: notYet(tShell("profile")), onSignOut: account
           ? async () => {
               const result = await signOut();
               if (result.redirect) {
@@ -105,7 +106,15 @@ function WorkspaceInner({
             }
           : notYet(tShell("signOut")),
       }}
-      onSearch={() => notYet(tShell("searchName"))()}
+      // La recherche ouvre déjà écrans et actions ; la recherche dans les données arrive avec les modules
+      onSearch={(q) => toast.info(tSearch("dataLater", { query: q }))}
+      searchActions={[
+        { key: "settings", screen: "settings", label: tSearch("actions.settings") },
+        { key: "install", screen: "apps", label: tSearch("actions.install"), keywords: tSearch("actions.installKeywords") },
+        { key: "invite", screen: "people", label: tSearch("actions.invite"), keywords: tSearch("actions.inviteKeywords") },
+        { key: "role", screen: "roles", label: tSearch("actions.role"), keywords: tSearch("actions.roleKeywords") },
+      ]}
+      onSwitchCompany={account && (account.companies ?? 1) > 1 ? () => router.push("/connexion/entreprise") : undefined}
     />
   );
 }

@@ -13,23 +13,26 @@
 
 import {
   ArrowLeftIcon,
-  ChevronsUpDownIcon,
+  CheckIcon,
   LogOutIcon,
   MinusIcon,
+  MoreHorizontalIcon,
+  PaletteIcon,
   PictureInPicture2Icon,
-  SearchIcon,
   SettingsIcon,
   UserIcon,
   XIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { type ReactNode, useEffect, useReducer, useRef } from "react";
+import { type ReactNode, useEffect, useReducer, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useAppearance } from "../appearance";
+import { useScTheme } from "../context";
+import { ACCENT_PRESETS, type AccentPreset } from "../tokens";
 import { useIsMobile } from "../hooks/use-mobile";
 import { ModuleIcon } from "./ModuleIcon";
+import { type SearchAction, SearchDialog, type SearchScope, ShellSearchContext } from "./SearchDialog";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,14 +40,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -71,36 +75,6 @@ export type ShellUser = { name: string; role: string; initials: string };
 export type UserActions = { onProfile?: () => void; onSettings?: () => void; onSignOut?: () => void };
 export type ShellCompany = { name: string; detail: string; logo: ReactNode };
 
-function UserMenu({ user, actions }: { user: ShellUser; actions: UserActions }) {
-  const t = useTranslations("ui.shell");
-  const { isMobile } = useSidebar();
-  return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              aria-label={t("userMenu")}
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <Avatar className="size-8 rounded-lg">
-                <AvatarFallback className="rounded-lg bg-sidebar-primary font-semibold text-sidebar-primary-foreground">{user.initials}</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium text-sidebar-accent-foreground">{user.name}</span>
-                <span className="truncate text-xs">{user.role}</span>
-              </div>
-              <ChevronsUpDownIcon className="ml-auto size-4" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <UserMenuContent user={user} side={isMobile ? "bottom" : "right"} actions={actions} />
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
-  );
-}
-
 function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bottom" | "right"; actions: UserActions }) {
   const t = useTranslations("ui.shell");
   return (
@@ -117,6 +91,8 @@ function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bott
         <DropdownMenuItem onSelect={actions.onSettings}>
           <SettingsIcon /> {t("settings")}
         </DropdownMenuItem>
+        {/* Couleur principale : déplacée de la barre du haut vers le profil (décision du 28/11/2026) */}
+        <ColorsSubMenu />
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem variant="destructive" onSelect={actions.onSignOut}>
@@ -126,19 +102,82 @@ function UserMenuContent({ user, side, actions }: { user: ShellUser; side: "bott
   );
 }
 
-/** Menu utilisateur compact de l'en-tête (mode Mosaïque, sans menu latéral). */
+function ColorsSubMenu() {
+  const tt = useTranslations("ui.theme");
+  const { accent, setAccent } = useScTheme();
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <PaletteIcon className="size-4 text-muted-foreground" /> {tt("color")}
+      </DropdownMenuSubTrigger>
+      <DropdownMenuSubContent className="p-2">
+        <div className="flex gap-2" role="radiogroup" aria-label={tt("color")}>
+          {(Object.keys(ACCENT_PRESETS) as AccentPreset[]).map((key) => (
+            <button
+              key={key}
+              type="button"
+              role="radio"
+              aria-checked={accent === key}
+              aria-label={tt(`accents.${key}`)}
+              title={tt(`accents.${key}`)}
+              onClick={() => setAccent(key)}
+              style={{ background: ACCENT_PRESETS[key].accent, color: ACCENT_PRESETS[key].on }}
+              className="flex size-7 items-center justify-center rounded-full ring-offset-2 ring-offset-popover outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            >
+              {accent === key && <CheckIcon className="size-4" aria-hidden />}
+            </button>
+          ))}
+        </div>
+      </DropdownMenuSubContent>
+    </DropdownMenuSub>
+  );
+}
+
+/** Profil, à droite de la barre du haut, dans les deux modes (maquette validée le 28/11/2026) */
 function HeaderUserMenu({ user, actions }: { user: ShellUser; actions: UserActions }) {
   const t = useTranslations("ui.shell");
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button type="button" aria-label={t("userMenu")} className="rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          <Avatar className="size-8 rounded-lg">
-            <AvatarFallback className="rounded-lg bg-primary font-semibold text-primary-foreground">{user.initials}</AvatarFallback>
+        <button type="button" aria-label={t("userMenu")} title={user.name} className="shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:ring-2 data-[state=open]:ring-foreground">
+          <Avatar className="size-[34px]">
+            <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">{user.initials}</AvatarFallback>
           </Avatar>
         </button>
       </DropdownMenuTrigger>
       <UserMenuContent user={user} side="bottom" actions={actions} />
+    </DropdownMenu>
+  );
+}
+
+/** Entreprise en mode Mosaïque (pas de menu latéral) : « ··· » pour voir le détail ou en changer */
+function CompanyMenu({ company, onSwitch }: { company: ShellCompany; onSwitch?: () => void }) {
+  const t = useTranslations("ui.shell");
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={t("companyMenu", { name: company.name })}
+          className="flex min-w-0 items-center gap-2 rounded-lg border bg-card p-0.5 text-sm font-medium outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring sm:py-1 sm:pr-2 sm:pl-1"
+        >
+          <span className="grid size-6 shrink-0 place-items-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground [&_svg]:size-3.5">{company.logo}</span>
+          <span className="hidden truncate sm:inline">{company.name}</span>
+          <MoreHorizontalIcon className="hidden size-4 shrink-0 text-muted-foreground sm:block" aria-hidden />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="min-w-56">
+        <DropdownMenuLabel className="font-normal">
+          <span className="block font-medium text-foreground">{company.name}</span>
+          <span className="block text-xs text-muted-foreground">{company.detail}</span>
+        </DropdownMenuLabel>
+        {onSwitch && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={onSwitch}>{t("switchCompany")}</DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 }
@@ -197,7 +236,7 @@ export function AppShell({
   initialScreen,
   company,
   user,
-  section,
+  // section : ancien fil d'Ariane, remplacé par la barre du haut (28/11/2026)
   headerRight,
   banner,
   defaultSidebarOpen = true,
@@ -205,6 +244,8 @@ export function AppShell({
   onScreenChange,
   userActions = {},
   onSearch,
+  searchActions = [],
+  onSwitchCompany,
 }: {
   /** Écrans des applications installées (EF-APP-04) */
   screens: ScreenDef[];
@@ -224,8 +265,12 @@ export function AppShell({
   /** Appelé quand l'écran courant change (ex. pour mettre à jour l'adresse) */
   onScreenChange?: (key: string | null) => void;
   userActions?: UserActions;
-  /** Recherche globale (EF-APP-04) : appelée à la validation du champ */
-  onSearch?: (query: string) => void;
+  /** Recherche globale : appelée quand on lance une recherche (limitée ou non à un module) */
+  onSearch?: (query: string, scope: SearchScope | null) => void;
+  /** Actions rapides de la recherche (ex. inviter une personne) */
+  searchActions?: SearchAction[];
+  /** Changer d'entreprise (personne rattachée à plusieurs entreprises) */
+  onSwitchCompany?: () => void;
 }) {
   const t = useTranslations("ui.shell");
   const tw = useTranslations("ui.workspace");
@@ -306,26 +351,53 @@ export function AppShell({
         />
   );
 
-  const searchBox = (
-    <form
-      role="search"
-      className="relative ml-2 hidden max-w-72 flex-1 lg:block"
-      onSubmit={(e) => {
+  // Recherche globale (maquette validée le 28/11/2026) : loupe de l'en-tête ou Ctrl + K
+  const [searchOpen, setSearchOpen] = useState(false);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
-        if (q) onSearch?.(q);
-      }}
-    >
-      <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-      <Input type="search" name="q" placeholder={t("search")} aria-label={t("search")} className="pl-8" />
-    </form>
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+  const visibleScreens = screens.filter((s) => !s.hidden);
+  const searchDialog = (
+    <SearchDialog
+      open={searchOpen}
+      onOpenChange={setSearchOpen}
+      // « Je recherche » : seulement les modules installés (les écrans affichés dans le menu)
+      scopes={visibleScreens.filter((s) => s.app).map((s) => ({ key: s.key, label: s.label }))}
+      screens={screens.map((s) => ({ key: `screen:${s.key}`, label: s.label, keywords: s.description, icon: iconOf(s.key), run: () => open(s.key) }))}
+      // Actions rapides : seulement celles dont l'écran est permis à la personne (droits lus côté serveur)
+      actions={searchActions
+        .filter((a) => !a.screen || screen(a.screen))
+        .map((a) => (a.screen ? { ...a, icon: a.icon ?? iconOf(a.screen), run: () => open(a.screen as string) } : a))}
+      onSearch={(q, scope) => onSearch?.(q, scope)}
+    />
   );
+  // Paramètres du menu du profil : ouvre l'écran Paramètres s'il est disponible
+  const actions: UserActions = {
+    ...userActions,
+    onSettings: userActions.onSettings ?? (screen("settings") ? () => open("settings") : undefined),
+  };
 
+  // Barre du haut en carte arrondie : à droite réseau, recherche, langue, nuit / jour, cloche (headerRight), puis le profil
   const right = (
-    <div className="ml-auto flex min-w-0 items-center gap-1">
-      <ModeSwitch mode={state.mode} onChange={setMode} />
+    <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-2">
       {headerRight}
-      {state.mode === "mosaic" && <HeaderUserMenu user={user} actions={userActions} />}
+      <Separator orientation="vertical" className="mx-0.5 data-vertical:h-6 data-vertical:self-auto" />
+      <HeaderUserMenu user={user} actions={actions} />
+    </div>
+  );
+  const topBar = (left: ReactNode) => (
+    <div className="shrink-0 px-2 pt-2 sm:px-3 sm:pt-3 md:px-4">
+      <header className="flex h-14 items-center gap-1 rounded-xl border bg-card px-2 shadow-card sm:gap-2 md:px-3" data-testid="top-bar">
+        {left}
+        {right}
+      </header>
     </div>
   );
 
@@ -333,14 +405,15 @@ export function AppShell({
   if (state.mode === "mosaic") {
     return (
       <OpenScreenContext.Provider value={open}>
+      <ShellSearchContext.Provider value={() => setSearchOpen(true)}>
       <div className="flex h-dvh flex-col bg-background" data-layout="mosaic">
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">
-          <div className="flex min-w-0 items-center gap-2 md:w-60">
-            <CompanyBadge company={company} onSidebar={false} />
-          </div>
-          {searchBox}
-          {right}
-        </header>
+        {topBar(
+          <>
+            <ModeSwitch mode={state.mode} onChange={setMode} />
+            <Separator orientation="vertical" className="mx-0.5 data-vertical:h-6 data-vertical:self-auto" />
+            <CompanyMenu company={company} onSwitch={onSwitchCompany} />
+          </>,
+        )}
         {/* Pas de barre d'onglets en Mosaïque (décision du 26/11/2026) : les fenêtres réduites vont dans la barre du bas */}
         {banner && <div className="shrink-0 px-4 pt-4 md:px-6">{banner}</div>}
         {barPosition === "top" && minimizedBar}
@@ -401,14 +474,16 @@ export function AppShell({
         </main>
         {barPosition === "bottom" && minimizedBar}
       </div>
+      {searchDialog}
+      </ShellSearchContext.Provider>
       </OpenScreenContext.Provider>
     );
   }
 
   // ----- Mode Liste -----
-  const currentScreen = screen(state.current);
   return (
     <OpenScreenContext.Provider value={open}>
+    <ShellSearchContext.Provider value={() => setSearchOpen(true)}>
     <SidebarProvider defaultOpen={defaultSidebarOpen} data-layout="list">
       <Sidebar collapsible="icon" aria-label={t("navigation")}>
         <SidebarHeader>
@@ -423,32 +498,19 @@ export function AppShell({
         <SidebarContent>
           <AppNav screens={screens} current={state.current} onOpen={open} />
         </SidebarContent>
-        <SidebarFooter>
-          <UserMenu user={user} actions={userActions} />
-        </SidebarFooter>
         {/* Libellé traduit (le composant shadcn d'origine dit « Toggle Sidebar ») */}
         <SidebarRail aria-label={t("menuEdge")} title={t("menuEdge")} />
       </Sidebar>
       <SidebarInset className="min-w-0">
-        <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-card px-3 md:px-4">
-          <SidebarTrigger aria-label={t("toggleMenu")} />
-          <Separator orientation="vertical" className="mx-1 data-vertical:h-4 data-vertical:self-auto" />
-          <Breadcrumb className="hidden min-w-0 sm:block">
-            <BreadcrumbList>
-              {section && (
-                <>
-                  <BreadcrumbItem className="hidden md:block">{section}</BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                </>
-              )}
-              <BreadcrumbItem>
-                <BreadcrumbPage>{currentScreen?.label}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-          {searchBox}
-          {right}
-        </header>
+        <div className="sticky top-0 z-10 bg-background">
+          {topBar(
+            <>
+              <SidebarTrigger aria-label={t("toggleMenu")} className="size-8" />
+              <Separator orientation="vertical" className="mx-0.5 data-vertical:h-6 data-vertical:self-auto" />
+              <ModeSwitch mode={state.mode} onChange={setMode} />
+            </>,
+          )}
+        </div>
         {barPosition === "top" && openScreensBar}
         {banner && <div className="px-4 pt-4 md:px-6">{banner}</div>}
         <main className="@container min-w-0 flex-1 p-4 md:p-6">
@@ -465,6 +527,8 @@ export function AppShell({
         {barPosition === "bottom" && openScreensBar}
       </SidebarInset>
     </SidebarProvider>
+    {searchDialog}
+    </ShellSearchContext.Provider>
     </OpenScreenContext.Provider>
   );
 }

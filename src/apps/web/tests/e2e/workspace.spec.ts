@@ -398,7 +398,8 @@ test("Paramètres → Apparence : la barre des écrans ouverts passe en haut ou 
 
 test("la palette ne propose que les couleurs ; le clair / sombre a son bouton", async ({ page }) => {
   await open(page);
-  await page.getByRole("button", { name: "Thème et couleurs" }).click();
+  await page.getByRole("button", { name: "Menu utilisateur" }).click();
+  await page.getByRole("menuitem", { name: "Couleur principale" }).click();
   await expect(page.getByRole("radio", { name: "Sombre" })).toHaveCount(0);
   await expect(page.getByRole("radio", { name: "Clair" })).toHaveCount(0);
   await expect(page.getByRole("radio", { name: "Or" })).toBeVisible();

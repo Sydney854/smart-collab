@@ -44,7 +44,9 @@ test("thème clair puis sombre, mémorisé après rechargement", async ({ page }
 
 test("bascule français / anglais, mémorisée après rechargement", async ({ page }) => {
   await open(page);
-  await page.getByRole("radio", { name: "English" }).click();
+  // Langue : un bouton, puis un petit menu (maquette validée le 28/11/2026)
+  await page.getByRole("button", { name: "Langue : Français" }).click();
+  await page.getByRole("menuitemradio", { name: "English" }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Dashboard" })).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await page.reload();
@@ -55,7 +57,9 @@ test("le sélecteur de couleur change la couleur principale", async ({ page }) =
   await open(page);
   const primary = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--sc-accent").trim());
   const before = await primary();
-  await page.getByRole("button", { name: "Thème et couleurs" }).click();
+  // Couleur principale : dans le menu du profil (décision du 28/11/2026)
+  await page.getByRole("button", { name: "Menu utilisateur" }).click();
+  await page.getByRole("menuitem", { name: "Couleur principale" }).click();
   await page.getByRole("radio", { name: "Bleu" }).click();
   await expect.poll(primary).not.toBe(before);
   await page.reload();

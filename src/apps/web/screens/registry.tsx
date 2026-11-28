@@ -35,7 +35,7 @@ const PLANNED = { sales: 5, stock: 2, purchases: 4, pos: 3, finance: 7 } as cons
  * affiché par le cadre en page (mode Liste) ou en fenêtre (mode Mosaïque).
  * `icon` : Lucide (menu, onglets, fenêtres) ; `moduleIcon` : icône illustrée des tuiles.
  */
-type GatedScreen = ScreenDef & { needs?: string; app?: string };
+type GatedScreen = ScreenDef & { needs?: string };
 
 export function useScreens(): ScreenDef[] {
   const t = useTranslations("apps");
@@ -62,6 +62,6 @@ export function useScreens(): ScreenDef[] {
     return list
       // Un écran sans le droit nécessaire n'existe pas pour la personne : ni menu, ni tuile, ni ouverture par l'adresse
       .filter((s) => (!s.needs || can(s.needs)) && (!s.app || installed(s.app)))
-      .map(({ needs: _needs, app: _app, ...s }) => s as ScreenDef);
+      .map(({ needs: _needs, ...s }) => s as ScreenDef);
   }, [t, d, can, installed]);
 }

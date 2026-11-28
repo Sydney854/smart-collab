@@ -14,7 +14,8 @@
     "settings": "Paramètres",
     "signOut": "Se déconnecter",
     "demoUser": "Awa Koné",
-    "demoRole": "Administratrice (démo)"
+    "demoRole": "Administratrice (démo)",
+    "languageCurrent": "Langue : {language}"
   },
   "apps": {
     "dashboard": "Tableau de bord",
@@ -158,7 +159,9 @@
       "settings": "Paramètres",
       "signOut": "Se déconnecter",
       "searchName": "Recherche globale",
-      "menuEdge": "Bord du menu : cliquer pour l'afficher ou le réduire"
+      "menuEdge": "Bord du menu : cliquer pour l'afficher ou le réduire",
+      "companyMenu": "Entreprise : {name}",
+      "switchCompany": "Changer d'entreprise"
     },
     "period": {
       "today": "Aujourd'hui",
@@ -300,6 +303,37 @@
       "maximizedTools": "Outils de la fenêtre agrandie",
       "home": "Retour à l'écran d'accueil",
       "float": "Remettre « {name} » en fenêtre"
+    },
+    "search": {
+      "open": "Rechercher",
+      "openHint": "Rechercher (Ctrl + K)",
+      "title": "Recherche",
+      "description": "Cherchez un écran ou une action, ou limitez la recherche à un module.",
+      "placeholder": "Mots clés de recherche",
+      "scope": "Je recherche",
+      "quickActions": "Actions rapides",
+      "recent": "Recherches récentes",
+      "screens": "Écrans",
+      "everywhere": "Rechercher partout",
+      "searchIn": "Rechercher « {query} » dans {scope}",
+      "searchAll": "Rechercher « {query} » dans Smart Collab",
+      "results": "Résultats",
+      "enter": "Entrée",
+      "hint": "Tapez un mot pour trouver un écran ou une action."
+    },
+    "range": {
+      "open": "Période : {period}",
+      "presets": "Raccourcis de période",
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "last7": "7 derniers jours",
+      "last30": "30 derniers jours",
+      "thisMonth": "Ce mois-ci",
+      "lastMonth": "Mois dernier",
+      "thisYear": "Cette année",
+      "custom": "Personnalisée",
+      "cancel": "Annuler",
+      "apply": "Appliquer"
     }
   },
   "dashboard": {
@@ -321,7 +355,8 @@
     "amount": "Montant",
     "status": "Statut",
     "openSale": "Vente {name}",
-    "exportName": "ventes"
+    "exportName": "ventes",
+    "kpiOrders": "Ventes de la période"
   },
   "screens": {
     "planned": "Cet écran sera construit au lot {lot}. Il sert ici à essayer les modes Liste et Mosaïque.",
@@ -630,5 +665,45 @@
     "inactiveProfile": "désactivé",
     "renameNamed": "Renommer {name}",
     "noPeople": "Personne ne correspond à ce filtre."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "open": "Notifications",
+    "openUnread": "Notifications : {count, plural, one {# non lue} other {# non lues}}",
+    "close": "Fermer les notifications",
+    "unreadOnly": "Uniquement non lu",
+    "unread": "Non lue",
+    "empty": "Aucune notification",
+    "noUnread": "Aucune notification non lue",
+    "markAll": "Marquer tout comme lu",
+    "showAll": "Afficher toutes les notifications",
+    "appInstalled": {
+      "title": "Application installée",
+      "body": "« {app} » a été installée."
+    },
+    "appUninstalled": {
+      "title": "Application désinstallée",
+      "body": "« {app} » a été désinstallée ; ses données sont conservées."
+    },
+    "invitationAccepted": {
+      "title": "Invitation acceptée",
+      "body": "{person} a rejoint l'entreprise."
+    },
+    "trialEnds": {
+      "title": "Période d'essai",
+      "body": "{days, plural, =0 {Votre essai se termine aujourd'hui.} one {Votre essai se termine dans # jour.} other {Votre essai se termine dans # jours.}}"
+    }
+  },
+  "search": {
+    "dataLater": "Recherche de « {query} » : la recherche dans les données (ventes, stock, clients…) arrivera avec les modules. Pour l'instant, elle ouvre les écrans et les actions.",
+    "actions": {
+      "settings": "Paramètres",
+      "install": "Installer une application",
+      "installKeywords": "app store module",
+      "invite": "Inviter une personne",
+      "inviteKeywords": "collaborateur utilisateur équipe",
+      "role": "Créer un rôle",
+      "roleKeywords": "profil droits permissions"
+    }
   }
 }
