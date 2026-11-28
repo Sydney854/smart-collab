@@ -29,18 +29,13 @@ test("la page tient dans la largeur de l'écran (aucun défilement horizontal)",
   expect(scroll).toBeLessThanOrEqual(width);
 });
 
-test("thème clair puis sombre, mémorisé après rechargement", async ({ page, isMobile }) => {
+test("thème clair puis sombre, mémorisé après rechargement", async ({ page }) => {
   await open(page);
   const html = page.locator("html");
   await expect(html).toHaveAttribute("data-theme", "light");
   const lightBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  if (isMobile) {
-    // Sur téléphone, le choix clair / sombre se fait dans la palette
-    await page.getByRole("button", { name: "Thème et couleurs" }).click();
-    await page.getByRole("radio", { name: "Sombre" }).click();
-  } else {
-    await page.getByRole("button", { name: "Passer en thème sombre" }).click();
-  }
+  // Le clair / sombre a son seul bouton, sur ordinateur comme sur téléphone (la palette ne propose que les couleurs)
+  await page.getByRole("button", { name: "Passer en thème sombre" }).click();
   await expect(html).toHaveAttribute("data-theme", "dark");
   expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).not.toBe(lightBg);
   await page.reload();

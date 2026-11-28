@@ -429,7 +429,13 @@
       "1": "Tuiles horizontales, coche verte sur l'icône, icône grisée si non choisie.",
       "2": "Cartes carrées, case dorée, panneau « Votre sélection »."
     },
-    "otherSettings": "Les autres paramètres (société, utilisateurs, droits, sécurité) arrivent au lot 1."
+    "otherSettings": "Les autres paramètres (société, utilisateurs, droits, sécurité) arrivent au lot 1.",
+    "barPosition": "Barre des écrans ouverts",
+    "barPositionHint": "Où s'affichent les écrans ouverts et les fenêtres réduites, en mode Liste comme en Mosaïque.",
+    "barPositions": {
+      "bottom": "En bas",
+      "top": "En haut"
+    }
   },
   "store": {
     "title": "Applications",

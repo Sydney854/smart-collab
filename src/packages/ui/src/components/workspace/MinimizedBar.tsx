@@ -15,7 +15,9 @@ export function MinimizedBar({
   items,
   onRestore,
   onClose,
+  position = "bottom",
 }: {
+  position?: "top" | "bottom";
   items: MinimizedItem[];
   onRestore: (key: string) => void;
   onClose: (key: string) => void;
@@ -24,7 +26,8 @@ export function MinimizedBar({
   const tw = useTranslations("ui.window");
   if (items.length === 0) return null;
   return (
-    <nav aria-label={t("minimizedBar")} className="flex h-11 shrink-0 items-center max-sm:h-14 gap-2 overflow-x-auto border-t bg-card px-3" data-testid="minimized-bar">
+    <nav aria-label={t("minimizedBar")} className={`flex h-11 shrink-0 items-center max-sm:h-14 gap-2 overflow-x-auto ${position === "top" ? "border-b" : "border-t"} bg-card px-3`} data-position={position}
+      data-testid="minimized-bar">
       {items.map((item) => (
         <span
           key={item.key}

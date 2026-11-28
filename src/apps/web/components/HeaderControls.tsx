@@ -46,11 +46,10 @@ export function ThemeToggle() {
   const { mode, setMode } = useScTheme();
   const dark = mode === "dark";
   return (
-    // Masqué sur téléphone, faute de place : la palette propose aussi le choix clair / sombre
+    // Seul endroit du choix clair / sombre (la palette ne propose plus que les couleurs, décision du 28/11/2026)
     <Button
       variant="ghost"
       size="icon"
-      className="hidden sm:inline-flex"
       aria-label={dark ? t("switchToLight") : t("switchToDark")}
       onClick={() => setMode(dark ? "light" : "dark")}
     >

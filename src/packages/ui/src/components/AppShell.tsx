@@ -255,6 +255,32 @@ export function AppShell({
     minimized: state.mode === "mosaic" && o.minimized,
   }));
 
+  // Barre des écrans ouverts : en haut ou en bas selon Paramètres → Apparence (décision du 28/11/2026)
+  const { barPosition } = useAppearance();
+  // Mode Liste : un seul écran ouvert → pas de barre ; l'écran affiché vient en premier
+  const openScreensBar = tabs.length > 1 && <TabsBar
+          position={barPosition}
+          items={[...tabs].sort((a, b) => Number(b.active) - Number(a.active))}
+          closable={tabs.length > 1}
+          onSelect={(key) => dispatch({ type: "focus", key })}
+          onClose={(key) => dispatch({ type: "close", key, fallback })}
+        />;
+  const minimizedBar = (
+    <MinimizedBar
+          position={barPosition}
+          items={state.open
+            .filter((o) => o.minimized || (o.maximized && !isMobile))
+            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon, maximized: !o.minimized && o.maximized }))}
+          onRestore={(key) => {
+            const o = state.open.find((x) => x.key === key);
+            // Fenêtre agrandie : elle redevient une fenêtre ; fenêtre réduite : elle revient au premier plan
+            if (o && !o.minimized && o.maximized) dispatch({ type: "toggleMaximize", key });
+            else dispatch({ type: "focus", key });
+          }}
+          onClose={(key) => dispatch({ type: "close", key, fallback })}
+        />
+  );
+
   const searchBox = (
     <form
       role="search"
@@ -292,6 +318,7 @@ export function AppShell({
         </header>
         {/* Pas de barre d'onglets en Mosaïque (décision du 26/11/2026) : les fenêtres réduites vont dans la barre du bas */}
         {banner && <div className="shrink-0 px-4 pt-4 md:px-6">{banner}</div>}
+        {barPosition === "top" && minimizedBar}
         <main ref={desktopRef} className="relative min-h-0 flex-1 overflow-hidden" aria-label={tw("desktop")}>
           <div className="absolute inset-0 overflow-auto p-4 md:p-6">
             <MosaicTiles screens={screens} openKeys={state.open.map((o) => o.key)} onOpen={open} />
@@ -321,18 +348,7 @@ export function AppShell({
             );
           })}
         </main>
-        <MinimizedBar
-          items={state.open
-            .filter((o) => o.minimized || (o.maximized && !isMobile))
-            .map((o) => ({ key: o.key, label: screen(o.key)?.label ?? o.key, icon: screen(o.key)?.icon, maximized: !o.minimized && o.maximized }))}
-          onRestore={(key) => {
-            const o = state.open.find((x) => x.key === key);
-            // Fenêtre agrandie : elle redevient une fenêtre ; fenêtre réduite : elle revient au premier plan
-            if (o && !o.minimized && o.maximized) dispatch({ type: "toggleMaximize", key });
-            else dispatch({ type: "focus", key });
-          }}
-          onClose={(key) => dispatch({ type: "close", key, fallback })}
-        />
+        {barPosition === "bottom" && minimizedBar}
       </div>
       </OpenScreenContext.Provider>
     );
@@ -382,6 +398,7 @@ export function AppShell({
           {searchBox}
           {right}
         </header>
+        {barPosition === "top" && openScreensBar}
         {banner && <div className="px-4 pt-4 md:px-6">{banner}</div>}
         <main className="@container min-w-0 flex-1 p-4 md:p-6">
           {/* Tous les écrans ouverts restent montés (saisie conservée) ; seul l'onglet actif est visible */}
@@ -394,13 +411,7 @@ export function AppShell({
           </ScreenContainerContext.Provider>
         </main>
         {/* Écrans ouverts : en bas, dans le style de la barre de la Mosaïque (plus de barre d'onglets en haut) */}
-        {/* Un seul écran ouvert : pas de barre ; l'écran affiché vient en premier (décisions du 28/11/2026) */}
-        {tabs.length > 1 && <TabsBar
-          items={[...tabs].sort((a, b) => Number(b.active) - Number(a.active))}
-          closable={tabs.length > 1}
-          onSelect={(key) => dispatch({ type: "focus", key })}
-          onClose={(key) => dispatch({ type: "close", key, fallback })}
-        />}
+        {barPosition === "bottom" && openScreensBar}
       </SidebarInset>
     </SidebarProvider>
     </OpenScreenContext.Provider>

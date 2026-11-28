@@ -15,7 +15,9 @@ export function TabsBar({
   closable,
   onSelect,
   onClose,
+  position = "bottom",
 }: {
+  position?: "top" | "bottom";
   items: TabItem[];
   closable: boolean;
   onSelect: (key: string) => void;
@@ -26,8 +28,9 @@ export function TabsBar({
   return (
     <nav
       aria-label={t("openTabs")}
+      data-position={position}
       data-testid="open-screens-bar"
-      className="sticky bottom-0 z-10 flex h-11 shrink-0 items-center gap-2 overflow-x-auto border-t bg-card px-3 max-sm:h-14"
+      className={`${position === "top" ? "sticky top-14" : "sticky bottom-0"} z-10 flex h-11 shrink-0 items-center gap-2 overflow-x-auto ${position === "top" ? "border-b" : "border-t"} bg-card px-3 max-sm:h-14`}
     >
       {items.map((item) => (
         <div

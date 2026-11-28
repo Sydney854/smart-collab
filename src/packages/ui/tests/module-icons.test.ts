@@ -44,7 +44,7 @@ describe("icônes illustrées des modules", () => {
       expect(isIconSize(bad), bad).toBe(false);
       expect(isWizardLayout(bad), bad).toBe(false);
     }
-    expect(readAppearance(() => "toString")).toEqual({ iconStyle: "multi", iconSize: "l", wizardLayout: "1" });
+    expect(readAppearance(() => "toString")).toEqual({ iconStyle: "multi", iconSize: "l", wizardLayout: "1", barPosition: "bottom" });
     expect(ICON_SIZES.l).toEqual([72, 52]);
   });
 });

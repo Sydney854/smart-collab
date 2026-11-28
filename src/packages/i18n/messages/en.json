@@ -429,7 +429,13 @@
       "1": "Horizontal tiles, green tick on the icon, greyed icon when not chosen.",
       "2": "Square cards, gold check, “Your selection” panel."
     },
-    "otherSettings": "Other settings (company, users, permissions, security) come in lot 1."
+    "otherSettings": "Other settings (company, users, permissions, security) come in lot 1.",
+    "barPosition": "Open screens bar",
+    "barPositionHint": "Where open screens and minimised windows are shown, in List and Mosaic modes.",
+    "barPositions": {
+      "bottom": "Bottom",
+      "top": "Top"
+    }
   },
   "store": {
     "title": "Apps",

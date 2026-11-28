@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  BAR_POSITIONS,
+  type BarPosition,
   ICON_SIZES,
   ICON_STYLES,
   type IconSize,
@@ -50,7 +52,7 @@ function Choice({ checked, onSelect, label, hint, children }: { checked: boolean
  */
 export function SettingsScreen() {
   const t = useTranslations("settings");
-  const { iconStyle, iconSize, wizardLayout, set } = useAppearance();
+  const { iconStyle, iconSize, wizardLayout, barPosition, set } = useAppearance();
   const ta = useTranslations("admin");
   const can = useCan();
   const openScreen = useOpenScreen();
@@ -135,6 +137,16 @@ export function SettingsScreen() {
                 <span key={k} className="grid size-[calc(var(--sc-icon-box)+40px)] place-items-center rounded-[24%] border bg-card shadow-card">
                   <ModuleIcon module={k} iconStyle={iconStyle} className="size-[var(--sc-icon-box)]" />
                 </span>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="set-bar" data-testid="setting-bar">
+            <h2 id="set-bar" className="font-semibold">{t("barPosition")}</h2>
+            <p className="mb-3 text-sm text-muted-foreground">{t("barPositionHint")}</p>
+            <div role="radiogroup" aria-labelledby="set-bar" className="grid grid-cols-2 gap-3 @xl:max-w-md">
+              {BAR_POSITIONS.map((p: BarPosition) => (
+                <Choice key={p} checked={barPosition === p} onSelect={() => set("barPosition", p)} label={t(`barPositions.${p}`)} />
               ))}
             </div>
           </section>

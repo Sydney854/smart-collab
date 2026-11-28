@@ -360,3 +360,30 @@ test("mode Liste : plus de barre d'onglets en haut, les écrans ouverts sont en 
   expect(box.y).toBeGreaterThan(header.y + 200);
   await expect(tab(page, "sales")).toHaveAttribute("data-active", "true");
 });
+
+test("Paramètres → Apparence : la barre des écrans ouverts passe en haut ou en bas (décision du 28/11)", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Vérifié sur ordinateur");
+  await open(page, "/?ecran=settings");
+  await page.getByTestId("setting-bar").getByRole("radio", { name: "En haut" }).click();
+  await page.getByRole("button", { name: "Ventes", exact: true }).click();
+  const bar = page.getByTestId("open-screens-bar");
+  await expect(bar).toHaveAttribute("data-position", "top");
+  const header = (await page.locator("header").first().boundingBox())!;
+  expect((await bar.boundingBox())!.y).toBeLessThan(header.y + header.height + 10);
+  // Le choix vaut aussi pour la Mosaïque, et il est retenu
+  await page.getByRole("radio", { name: "Mode Mosaïque" }).click();
+  await expect(page.getByTestId("minimized-bar")).toHaveAttribute("data-position", "top");
+  await page.reload();
+  await page.locator("html[data-ready=true]").waitFor({ state: "attached" });
+  await tile(page, "stock").click();
+  await win(page, "stock").getByRole("button", { name: /^Réduire/ }).click();
+  await expect(page.getByTestId("minimized-bar")).toHaveAttribute("data-position", "top");
+});
+
+test("la palette ne propose que les couleurs ; le clair / sombre a son bouton", async ({ page }) => {
+  await open(page);
+  await page.getByRole("button", { name: "Thème et couleurs" }).click();
+  await expect(page.getByRole("radio", { name: "Sombre" })).toHaveCount(0);
+  await expect(page.getByRole("radio", { name: "Clair" })).toHaveCount(0);
+  await expect(page.getByRole("radio", { name: "Or" })).toBeVisible();
+});
