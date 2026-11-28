@@ -160,3 +160,27 @@ test("barre du haut à 390 px, en anglais et en sombre : panneaux sans erreur, s
   await noFrench("profil", page.getByRole("menu"));
   expect(errors).toEqual([]);
 });
+
+test("calendrier, onglet Mois : année, 1 clic = un mois, 2 clics = plusieurs mois, mois à venir grisés, onglet retenu", async ({ page }) => {
+  await open(page);
+  await page.getByTestId("range-button").click();
+  const panel = page.getByTestId("range-panel");
+  await expect(panel.getByRole("tab", { name: "Jours" })).toHaveAttribute("aria-selected", "true");
+  await panel.getByRole("tab", { name: "Mois" }).click();
+  const grid = panel.getByTestId("month-grid");
+  await grid.getByRole("combobox", { name: "Année" }).selectOption("2025");
+  await grid.getByRole("button", { name: "mai 2025" }).click();
+  await expect(panel.getByTestId("range-draft")).toHaveText("01/05/2025 – 31/05/2025");
+  await grid.getByRole("button", { name: "février 2025" }).click();
+  await expect(panel.getByTestId("range-draft")).toHaveText("01/02/2025 – 31/05/2025");
+  await expect(grid.getByRole("button", { name: "mars 2025" })).toHaveAttribute("data-inside", "true");
+  // Mois à venir : grisés
+  const nextYear = String(new Date().getFullYear());
+  await grid.getByRole("combobox", { name: "Année" }).selectOption(nextYear);
+  const month = new Date().getMonth();
+  if (month < 11) await expect(grid.getByRole("button").nth(month + 1 + 2)).toBeDisabled();
+  await panel.getByRole("button", { name: "Annuler" }).click();
+  // L'onglet choisi est retenu
+  await page.getByTestId("range-button").click();
+  await expect(page.getByTestId("range-panel").getByRole("tab", { name: "Mois" })).toHaveAttribute("aria-selected", "true");
+});

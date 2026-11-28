@@ -333,7 +333,13 @@
       "thisYear": "Cette année",
       "custom": "Personnalisée",
       "cancel": "Annuler",
-      "apply": "Appliquer"
+      "apply": "Appliquer",
+      "view": "Affichage du calendrier",
+      "days": "Jours",
+      "months": "Mois",
+      "year": "Année",
+      "prevYear": "Année précédente",
+      "nextYear": "Année suivante"
     }
   },
   "dashboard": {

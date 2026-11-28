@@ -95,7 +95,7 @@ Maquettes : [tailles et ordre](../references/barre-du-haut/tailles-et-ordre.png)
 - Profil : nom et e-mail, Mon profil (affiché seulement quand l'écran Profil existera), Paramètres (ouvre l'écran), Couleur principale (déplacée de la barre), Se déconnecter (rouge). Ni messagerie, ni tickets, ni écran de verrouillage.
 - Notifications : seulement des faits réels (application installée / désinstallée, invitation acceptée, fin d'essai) ; « Uniquement non lu », « Marquer tout comme lu », « Afficher toutes les notifications » ; sinon « Aucune notification ».
 - Recherche (loupe ou Ctrl + K) : fenêtre centrée ; « Je recherche » = modules installés ; actions rapides selon les droits ; recherches récentes retenues sur l'appareil ; flèches + Entrée. La recherche dans les données arrive avec les modules.
-- Tableau de bord : calendrier global à droite du titre (raccourcis, deux mois, Annuler / Appliquer), période retenue ; pas de bouton Exporter en tête de page. Le graphique montre au moins 3 mois (une courbe a besoin de 3 points) : pour une période courte, les 2 mois précédents s'ajoutent.
+- Tableau de bord : calendrier global à droite du titre (raccourcis, deux mois, Annuler / Appliquer), période retenue ; pas de bouton Exporter en tête de page. Onglet « Mois » ([maquette](../references/barre-du-haut/calendrier-mois.png)) : année, 12 mois, 1 clic = un mois, 2 clics = plusieurs mois, mois à venir grisés. Le graphique montre au moins 3 mois (une courbe a besoin de 3 points) : pour une période courte, les 2 mois précédents s'ajoutent.
 
 ## À trancher par la cheffe de projet
 
